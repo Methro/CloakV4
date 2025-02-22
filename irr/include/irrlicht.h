@@ -28,115 +28,12 @@
 
 #pragma once
 
-<<<<<<< HEAD
-#include "aabbox3d.h"
-#include "CMeshBuffer.h"
-#include "coreutil.h"
-#include "dimension2d.h"
-#include "ECullingTypes.h"
-#include "EDebugSceneTypes.h"
-#include "EDriverFeatures.h"
-#include "EDriverTypes.h"
-#include "EGUIAlignment.h"
-#include "EGUIElementTypes.h"
-#include "EHardwareBufferFlags.h"
-#include "EMaterialProps.h"
-#include "EMaterialTypes.h"
-#include "ESceneNodeTypes.h"
-#include "fast_atof.h"
-#include "IAnimatedMesh.h"
-#include "IAnimatedMeshSceneNode.h"
-#include "IAttributes.h"
-#include "IBillboardSceneNode.h"
-#include "IBoneSceneNode.h"
-#include "ICameraSceneNode.h"
-#include "IContextManager.h"
-#include "ICursorControl.h"
-#include "IDummyTransformationSceneNode.h"
-#include "IEventReceiver.h"
-#include "IFileList.h"
-#include "IFileSystem.h"
-#include "IGPUProgrammingServices.h"
-#include "IGUIButton.h"
-#include "IGUICheckBox.h"
-#include "IGUIComboBox.h"
-#include "IGUIEditBox.h"
-#include "IGUIElement.h"
-#include "IGUIEnvironment.h"
-#include "IGUIFileOpenDialog.h"
-#include "IGUIFont.h"
-#include "IGUIFontBitmap.h"
-#include "IGUIImage.h"
-#include "IGUIListBox.h"
-#include "IGUIScrollBar.h"
-#include "IGUISkin.h"
-#include "IGUISpriteBank.h"
-#include "IGUIStaticText.h"
-#include "IGUITabControl.h"
-#include "IGUIToolbar.h"
-#include "IImage.h"
-#include "IImageLoader.h"
-#include "IImageWriter.h"
-#include "IIndexBuffer.h"
-#include "ILogger.h"
-#include "IMaterialRenderer.h"
-#include "IMaterialRendererServices.h"
-#include "IMesh.h"
-#include "IMeshBuffer.h"
-#include "IMeshCache.h"
-#include "IMeshLoader.h"
-#include "IMeshManipulator.h"
-#include "IMeshSceneNode.h"
-#include "IOSOperator.h"
-#include "IReadFile.h"
-#include "IReferenceCounted.h"
-#include "irrArray.h"
-#include "IRenderTarget.h"
-#include "IrrlichtDevice.h"
-#include "irrMath.h"
-#include "irrString.h"
-#include "irrTypes.h"
-#include "path.h"
-#include "ISceneCollisionManager.h"
-#include "ISceneManager.h"
-#include "ISceneNode.h"
-#include "IShaderConstantSetCallBack.h"
-#include "ISkinnedMesh.h"
-#include "ITexture.h"
-#include "ITimer.h"
-#include "IVertexBuffer.h"
-#include "IVideoDriver.h"
-#include "IWriteFile.h"
-#include "Keycodes.h"
-#include "line2d.h"
-#include "line3d.h"
-#include "matrix4.h"
-#include "plane3d.h"
-#include "position2d.h"
-#include "quaternion.h"
-#include "rect.h"
-#include "S3DVertex.h"
-#include "SAnimatedMesh.h"
-#include "SceneParameters.h"
-#include "SColor.h"
-#include "SExposedVideoData.h"
-#include "SIrrCreationParameters.h"
-#include "SMaterial.h"
-#include "SMesh.h"
-#include "SMeshBuffer.h"
-#include "SSkinMeshBuffer.h"
-#include "SVertexIndex.h"
-#include "SViewFrustum.h"
-#include "vector2d.h"
-#include "vector3d.h"
-=======
 #include "IrrlichtDevice.h"
 #include "dimension2d.h"
 #include "EDriverTypes.h"
 #include "IEventReceiver.h"
 #include "irrTypes.h"
 #include "SIrrCreationParameters.h"
->>>>>>> 5.10.0
 #include "IrrCompileConfig.h" // for IRRLICHT_API and IRRCALLCONV
 
 /*! \mainpage Irrlicht Engine 1.9 API documentation
@@ -175,11 +72,8 @@
  *
  * \code
  * #include <irrlicht.h>
-<<<<<<< HEAD
-=======
  * // include a bunch of other stuff...
  *
->>>>>>> 5.10.0
  * using namespace irr;
  *
  * int main()
@@ -255,11 +149,6 @@
  * a look into the examples directory of the SDK.
  */
 
-<<<<<<< HEAD
-#include "SIrrCreationParameters.h"
-
-=======
->>>>>>> 5.10.0
 //! Everything in the Irrlicht Engine can be found in this namespace.
 namespace irr
 {
@@ -331,9 +220,5 @@ namespace video
 }
 
 /*! \file irrlicht.h
-<<<<<<< HEAD
-	\brief Main header file of the irrlicht, the only file needed to include.
-=======
 	\brief Main header file of the irrlicht, needed to create a device.
->>>>>>> 5.10.0
 */

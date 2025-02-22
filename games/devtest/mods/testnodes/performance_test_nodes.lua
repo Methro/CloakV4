@@ -1,16 +1,9 @@
 -- Performance test mesh nodes
 
-<<<<<<< HEAD
-local S = minetest.get_translator("testnodes")
-
--- Complex mesh
-minetest.register_node("testnodes:performance_mesh_clip", {
-=======
 local S = core.get_translator("testnodes")
 
 -- Complex mesh
 core.register_node("testnodes:performance_mesh_clip", {
->>>>>>> 5.10.0
 	description = S("Performance Test Node") .. "\n" .. S("Marble with 'clip' transparency"),
 	drawtype = "mesh",
 	mesh = "testnodes_marble_glass.obj",
@@ -22,11 +15,7 @@ core.register_node("testnodes:performance_mesh_clip", {
 })
 
 -- Complex mesh, alpha blending
-<<<<<<< HEAD
-minetest.register_node("testnodes:performance_mesh_blend", {
-=======
 core.register_node("testnodes:performance_mesh_blend", {
->>>>>>> 5.10.0
 	description = S("Performance Test Node") .. "\n" .. S("Marble with 'blend' transparency"),
 	drawtype = "mesh",
 	mesh = "testnodes_marble_glass.obj",
@@ -38,11 +27,7 @@ core.register_node("testnodes:performance_mesh_blend", {
 })
 
 -- Overlay
-<<<<<<< HEAD
-minetest.register_node("testnodes:performance_overlay_clip", {
-=======
 core.register_node("testnodes:performance_overlay_clip", {
->>>>>>> 5.10.0
 	description = S("Performance Test Node") .. "\n" .. S("Marble with overlay with 'clip' transparency") .. "\n" .. S("Palette for demonstration"),
 	drawtype = "mesh",
 	mesh = "testnodes_marble_metal.obj",
@@ -58,11 +43,7 @@ core.register_node("testnodes:performance_overlay_clip", {
 })
 
 -- Overlay
-<<<<<<< HEAD
-minetest.register_node("testnodes:performance_overlay_blend", {
-=======
 core.register_node("testnodes:performance_overlay_blend", {
->>>>>>> 5.10.0
 	description = S("Performance Test Node") .. "\n" .. S("Marble with overlay with 'blend' transparency") .. "\n" .. S("Palette for demonstration"),
 	drawtype = "mesh",
 	mesh = "testnodes_marble_metal.obj",

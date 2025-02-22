@@ -155,11 +155,7 @@ public:
 	}
 
 	//! Assignment operator
-<<<<<<< HEAD
-	const array<T> &operator=(const array<T> &other)
-=======
 	array<T> &operator=(const array<T> &other)
->>>>>>> 5.10.0
 	{
 		if (this == &other)
 			return *this;

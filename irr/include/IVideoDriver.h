@@ -6,10 +6,7 @@
 
 #include "rect.h"
 #include "SColor.h"
-<<<<<<< HEAD
-=======
 #include "IImage.h"
->>>>>>> 5.10.0
 #include "ITexture.h"
 #include "irrArray.h"
 #include "matrix4.h"
@@ -35,11 +32,8 @@ class IWriteFile;
 namespace scene
 {
 class IMeshBuffer;
-<<<<<<< HEAD
-=======
 class IVertexBuffer;
 class IIndexBuffer;
->>>>>>> 5.10.0
 class IMesh;
 class IMeshManipulator;
 class ISceneNode;
@@ -61,11 +55,8 @@ const c8 *const FogTypeNames[] = {
 	};
 
 struct SFrameStats {
-<<<<<<< HEAD
-=======
 	//! Number of draw calls
 	u32 Drawcalls = 0;
->>>>>>> 5.10.0
 	//! Count of primitives drawn
 	u32 PrimitivesDrawn = 0;
 	//! Number of hardware buffers uploaded (new or updated)
@@ -313,14 +304,10 @@ public:
 	virtual void removeAllTextures() = 0;
 
 	//! Remove hardware buffer
-<<<<<<< HEAD
-	virtual void removeHardwareBuffer(const scene::IMeshBuffer *mb) = 0;
-=======
 	virtual void removeHardwareBuffer(const scene::IVertexBuffer *vb) = 0;
 
 	//! Remove hardware buffer
 	virtual void removeHardwareBuffer(const scene::IIndexBuffer *ib) = 0;
->>>>>>> 5.10.0
 
 	//! Remove all hardware buffers
 	virtual void removeAllHardwareBuffers() = 0;
@@ -641,15 +628,7 @@ public:
 	\param box The axis aligned box to draw
 	\param color Color to use while drawing the box. */
 	virtual void draw3DBox(const core::aabbox3d<f32> &box,
-<<<<<<< HEAD
-			SColor color = SColor(255, 255, 255, 255),
-			int drawType = 0,
-			int edgeAlpha = -1,
-			int faceAlpha = -1,
-			u8 diffNeighbors = 63) = 0;
-=======
 			SColor color = SColor(255, 255, 255, 255)) = 0;
->>>>>>> 5.10.0
 
 	//! Draws a 2d image without any special effects
 	/** \param texture Pointer to texture to use.
@@ -728,12 +707,6 @@ public:
 	virtual void draw2DRectangle(SColor color, const core::rect<s32> &pos,
 			const core::rect<s32> *clip = 0) = 0;
 
-<<<<<<< HEAD
-	//! Draw a 2d rectangle outline
-	virtual void draw2DRectangleOutline(const core::recti& pos, SColor color=SColor(255,255,255,255), const u32 width = 1) = 0;
-
-=======
->>>>>>> 5.10.0
 	//! Draws a 2d rectangle with a gradient.
 	/** \param colorLeftUp Color of the upper left corner to draw.
 	The alpha component will not be ignored and specifies how
@@ -773,8 +746,6 @@ public:
 	/** \param mb Buffer to draw */
 	virtual void drawMeshBuffer(const scene::IMeshBuffer *mb) = 0;
 
-<<<<<<< HEAD
-=======
 	/**
 	 * Draws a mesh from individual vertex and index buffers.
 	 * @param vb vertices to use
@@ -786,7 +757,6 @@ public:
 		const scene::IIndexBuffer *ib, u32 primCount,
 		scene::E_PRIMITIVE_TYPE pType = scene::EPT_TRIANGLES) = 0;
 
->>>>>>> 5.10.0
 	//! Draws normals of a mesh buffer
 	/** \param mb Buffer to draw the normals of
 	\param length length scale factor of the normals

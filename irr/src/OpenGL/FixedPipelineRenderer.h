@@ -26,10 +26,6 @@ protected:
 
 	s32 WVPMatrixID;
 	s32 WVMatrixID;
-<<<<<<< HEAD
-	s32 NMatrixID;
-=======
->>>>>>> 5.10.0
 
 	s32 FogEnableID;
 	s32 FogTypeID;
@@ -40,27 +36,8 @@ protected:
 
 	s32 ThicknessID;
 
-<<<<<<< HEAD
-	bool LightEnable;
-	SColorf GlobalAmbient;
-	SColorf MaterialAmbient;
-	SColorf MaterialDiffuse;
-	SColorf MaterialEmissive;
-	SColorf MaterialSpecular;
-	f32 MaterialShininess;
-
-	s32 FogEnable;
-	s32 FogType;
-	SColorf FogColor;
-	f32 FogStart;
-	f32 FogEnd;
-	f32 FogDensity;
-
-	f32 Thickness;
-=======
 	f32 Thickness;
 	bool FogEnable;
->>>>>>> 5.10.0
 };
 
 class COpenGL3MaterialSolidCB : public COpenGL3MaterialBaseCB

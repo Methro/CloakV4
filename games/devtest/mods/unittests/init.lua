@@ -187,20 +187,13 @@ dofile(modpath .. "/raycast.lua")
 dofile(modpath .. "/inventory.lua")
 dofile(modpath .. "/load_time.lua")
 dofile(modpath .. "/on_shutdown.lua")
-<<<<<<< HEAD
-=======
 dofile(modpath .. "/color.lua")
->>>>>>> 5.10.0
 
 --------------
 
 local function send_results(name, ok)
 	core.chat_send_player(name,
-<<<<<<< HEAD
-		minetest.colorize(ok and "green" or "red",
-=======
 		core.colorize(ok and "green" or "red",
->>>>>>> 5.10.0
 			(ok and "All devtest unit tests passed." or
 				"There were devtest unit test failures.") ..
 				" Check the console for detailed output."))
@@ -213,11 +206,7 @@ if core.settings:get_bool("devtest_unittests_autostart", false) then
 		-- to write status information to the filesystem
 		local old_on_finished = unittests.on_finished
 		unittests.on_finished = function(ok)
-<<<<<<< HEAD
-			for _, player in ipairs(minetest.get_connected_players()) do
-=======
 			for _, player in ipairs(core.get_connected_players()) do
->>>>>>> 5.10.0
 				send_results(player:get_player_name(), ok)
 			end
 			test_results = ok
@@ -225,11 +214,7 @@ if core.settings:get_bool("devtest_unittests_autostart", false) then
 		end
 		coroutine.wrap(unittests.run_all)()
 	end)
-<<<<<<< HEAD
-	minetest.register_on_joinplayer(function(player)
-=======
 	core.register_on_joinplayer(function(player)
->>>>>>> 5.10.0
 		if test_results == nil then
 			return -- tests haven't completed yet
 		end

@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-local function show_fullscreen_fs(name)
-	local window = minetest.get_player_window_information(name)
-	if not window then
-		return false, "Unable to get window info"
-	end
-
-	print(dump(window))
-
-	local size = { x = window.max_formspec_size.x * 1.1, y = window.max_formspec_size.y * 1.1 }
-=======
 local function window_info_equal(a, b)
 	return
 		-- size
@@ -29,18 +18,13 @@ local function show_fullscreen_fs(name, window)
 	print(dump(window))
 
 	local size = window.max_formspec_size
->>>>>>> 5.10.0
 	local touch_text = window.touch_controls and "Touch controls enabled" or
 			"Touch controls disabled"
 	local fs = {
 		"formspec_version[4]",
 		("size[%f,%f]"):format(size.x, size.y),
-<<<<<<< HEAD
-		"padding[-0.01,-0.01]",
-=======
 		"padding[0,0]",
 		"bgcolor[;true]",
->>>>>>> 5.10.0
 		("button[%f,%f;1,1;%s;%s]"):format(0, 0, "tl", "TL"),
 		("button[%f,%f;1,1;%s;%s]"):format(size.x - 1, 0, "tr", "TR"),
 		("button[%f,%f;1,1;%s;%s]"):format(size.x - 1, size.y - 1, "br", "BR"),
@@ -50,16 +34,6 @@ local function show_fullscreen_fs(name, window)
 		("label[%f,%f;%s]"):format(size.x / 2, size.y / 2 + 1, touch_text),
 	}
 
-<<<<<<< HEAD
-	minetest.show_formspec(name, "testfullscreenfs:fs", table.concat(fs))
-	return true, ("Calculated size of %f, %f"):format(size.x, size.y)
-end
-
-
-minetest.register_chatcommand("testfullscreenfs", {
-	func = show_fullscreen_fs,
-})
-=======
 	core.show_formspec(name, "testfullscreenfs:fs", table.concat(fs))
 	core.chat_send_player(name, ("Calculated size of %f, %f"):format(size.x, size.y))
 	last_window_info[name] = window
@@ -95,4 +69,3 @@ end)
 core.register_on_leaveplayer(function(player)
 	last_window_info[player:get_player_name()] = nil
 end)
->>>>>>> 5.10.0

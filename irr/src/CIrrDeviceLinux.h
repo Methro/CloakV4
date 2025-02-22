@@ -66,12 +66,9 @@ public:
 	//! returns last state from maximizeWindow() and restoreWindow()
 	bool isWindowMaximized() const override;
 
-<<<<<<< HEAD
-=======
 	//! Checks if the Irrlicht device supports touch events.
 	bool supportsTouchEvents() const override;
 
->>>>>>> 5.10.0
 	//! returns color format of the window.
 	video::ECOLOR_FORMAT getColorFormat() const override;
 

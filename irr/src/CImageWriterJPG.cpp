@@ -6,24 +6,12 @@
 
 #include "CColorConverter.h"
 #include "IWriteFile.h"
-<<<<<<< HEAD
-#include "CImage.h"
-#include "irrString.h"
-#include "os.h"
-
-#include <cstdio> // required for jpeglib.h
-extern "C" {
-#include <jpeglib.h>
-#include <jerror.h>
-}
-=======
 #include "coreutil.h"
 #include "os.h"
 
 #include <cstdio> // IWYU pragma: keep (required for jpeglib.h)
 #include <jpeglib.h>
 #include <jerror.h>
->>>>>>> 5.10.0
 
 namespace irr
 {

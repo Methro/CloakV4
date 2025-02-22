@@ -111,17 +111,9 @@ CSkinnedMesh::~CSkinnedMesh()
 	}
 }
 
-<<<<<<< HEAD
-//! returns the amount of frames in milliseconds.
-//! If the amount is 1, it is a static (=non animated) mesh.
-u32 CSkinnedMesh::getFrameCount() const
-{
-	return core::floor32(EndFrame + 1.f);
-=======
 f32 CSkinnedMesh::getMaxFrameNumber() const
 {
 	return EndFrame;
->>>>>>> 5.10.0
 }
 
 //! Gets the default animation speed of the animated mesh.
@@ -139,23 +131,14 @@ void CSkinnedMesh::setAnimationSpeed(f32 fps)
 	FramesPerSecond = fps;
 }
 
-<<<<<<< HEAD
-//! returns the animated mesh based on a detail level. 0 is the lowest, 255 the highest detail. Note, that some Meshes will ignore the detail level.
-IMesh *CSkinnedMesh::getMesh(s32 frame, s32 detailLevel, s32 startFrameLoop, s32 endFrameLoop)
-=======
 //! returns the animated mesh based
 IMesh *CSkinnedMesh::getMesh(f32 frame)
->>>>>>> 5.10.0
 {
 	// animate(frame,startFrameLoop, endFrameLoop);
 	if (frame == -1)
 		return this;
 
-<<<<<<< HEAD
-	animateMesh((f32)frame, 1.0f);
-=======
 	animateMesh(frame, 1.0f);
->>>>>>> 5.10.0
 	skinMesh();
 	return this;
 }
@@ -237,10 +220,7 @@ void CSkinnedMesh::buildAllLocalAnimatedMatrices()
 
 			// IRR_TEST_BROKEN_QUATERNION_USE: TODO - switched to getMatrix_transposed instead of getMatrix for downward compatibility.
 			//								   Not tested so far if this was correct or wrong before quaternion fix!
-<<<<<<< HEAD
-=======
 			// Note that using getMatrix_transposed inverts the rotation.
->>>>>>> 5.10.0
 			joint->Animatedrotation.getMatrix_transposed(joint->LocalAnimatedMatrix);
 
 			// --- joint->LocalAnimatedMatrix *= joint->Animatedrotation.getMatrix() ---
@@ -515,13 +495,8 @@ void CSkinnedMesh::skinJoint(SJoint *joint, SJoint *parentJoint)
 {
 	if (joint->Weights.size()) {
 		// Find this joints pull on vertices...
-<<<<<<< HEAD
-		core::matrix4 jointVertexPull(core::matrix4::EM4CONST_NOTHING);
-		jointVertexPull.setbyproduct(joint->GlobalAnimatedMatrix, joint->GlobalInversedMatrix);
-=======
 		// Note: It is assumed that the global inversed matrix has been calculated at this point.
 		core::matrix4 jointVertexPull = joint->GlobalAnimatedMatrix * joint->GlobalInversedMatrix.value();
->>>>>>> 5.10.0
 
 		core::vector3df thisVertexMove, thisNormalMove;
 
@@ -534,15 +509,10 @@ void CSkinnedMesh::skinJoint(SJoint *joint, SJoint *parentJoint)
 			// Pull this vertex...
 			jointVertexPull.transformVect(thisVertexMove, weight.StaticPos);
 
-<<<<<<< HEAD
-			if (AnimateNormals)
-				jointVertexPull.rotateVect(thisNormalMove, weight.StaticNormal);
-=======
 			if (AnimateNormals) {
 				thisNormalMove = jointVertexPull.rotateAndScaleVect(weight.StaticNormal);
 				thisNormalMove.normalize(); // must renormalize after potentially scaling
 			}
->>>>>>> 5.10.0
 
 			if (!(*(weight.Moved))) {
 				*(weight.Moved) = true;
@@ -795,15 +765,9 @@ void CSkinnedMesh::calculateGlobalMatrices(SJoint *joint, SJoint *parentJoint)
 	joint->LocalAnimatedMatrix = joint->LocalMatrix;
 	joint->GlobalAnimatedMatrix = joint->GlobalMatrix;
 
-<<<<<<< HEAD
-	if (joint->GlobalInversedMatrix.isIdentity()) { // might be pre calculated
-		joint->GlobalInversedMatrix = joint->GlobalMatrix;
-		joint->GlobalInversedMatrix.makeInverse(); // slow
-=======
 	if (!joint->GlobalInversedMatrix.has_value()) { // might be pre calculated
 		joint->GlobalInversedMatrix = joint->GlobalMatrix;
 		joint->GlobalInversedMatrix->makeInverse(); // slow
->>>>>>> 5.10.0
 	}
 
 	for (u32 j = 0; j < joint->Children.size(); ++j)

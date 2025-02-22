@@ -7,12 +7,6 @@
 #include "IReferenceCounted.h"
 #include "EAttributes.h"
 
-<<<<<<< HEAD
-// not needed here but I can't be bothered to clean the transitive includes up.
-#include "quaternion.h"
-
-=======
->>>>>>> 5.10.0
 namespace irr
 {
 namespace video

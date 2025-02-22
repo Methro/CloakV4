@@ -5,18 +5,10 @@
 #pragma once
 
 #include "IReferenceCounted.h"
-<<<<<<< HEAD
-#include "IImage.h"
-#include "dimension2d.h"
-#include "EDriverTypes.h"
-#include "path.h"
-#include "matrix4.h"
-=======
 #include "SColor.h"
 #include "dimension2d.h"
 #include "EDriverTypes.h"
 #include "path.h"
->>>>>>> 5.10.0
 
 namespace irr
 {

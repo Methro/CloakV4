@@ -16,13 +16,6 @@ brew install cmake freetype gettext gmp hiredis jpeg-turbo jsoncpp leveldb libog
 Download source (this is the URL to the latest of source repository, which might not work at all times) using Git:
 
 ```bash
-<<<<<<< HEAD
-git clone --depth 1 https://github.com/teamacedia/cloakv4.git
-cd cloakv4
-```
-
-## Build
-=======
 git clone --depth 1 https://github.com/minetest/minetest.git luanti
 cd luanti
 ```
@@ -30,7 +23,6 @@ cd luanti
 ## Building for personal usage
 
 ### Build
->>>>>>> 5.10.0
 
 ```bash
 mkdir build
@@ -44,17 +36,6 @@ cmake .. \
 make -j$(sysctl -n hw.logicalcpu)
 make install
 
-<<<<<<< HEAD
-# M1 Macs w/ MacOS >= BigSur
-codesign --force --deep -s - macos/minetest.app
-```
-
-## Run
-
-```
-open ./build/macos/minetest.app
-```
-=======
 # Apple Silicon (M1/M2) Macs w/ MacOS >= BigSur signature for local run
 codesign --force --deep -s - --entitlements ../misc/macos/entitlements/debug.entitlements macos/luanti.app
 ```
@@ -117,4 +98,3 @@ If you are using LuaJIT with `MAP_JIT` support add `-DXCODE_CODE_SIGN_ENTITLEMEN
 * Run Build command
 * Open application archive in finder, go into it, copy application and test it.
 
->>>>>>> 5.10.0

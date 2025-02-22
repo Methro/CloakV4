@@ -4,11 +4,7 @@
 cat ../lua_api.md | csplit -sz -f docs/section - '/^=/-1' '{*}'
 
 cat > mkdocs.yml << EOF
-<<<<<<< HEAD
-site_name: Minetest API Documentation
-=======
 site_name: Luanti API Documentation
->>>>>>> 5.10.0
 theme:
     name: readthedocs
     highlightjs: False

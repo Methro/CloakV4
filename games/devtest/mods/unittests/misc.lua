@@ -73,13 +73,8 @@ end
 unittests.register("test_v3f_metatable", test_v3f_metatable, {player=true})
 
 local function test_v3s16_metatable(player, pos)
-<<<<<<< HEAD
-	local node = minetest.get_node(pos)
-	local found_pos = minetest.find_node_near(pos, 0, node.name, true)
-=======
 	local node = core.get_node(pos)
 	local found_pos = core.find_node_near(pos, 0, node.name, true)
->>>>>>> 5.10.0
 	assert(vector.check(found_pos))
 end
 unittests.register("test_v3s16_metatable", test_v3s16_metatable, {map=true})
@@ -158,10 +153,6 @@ local function test_urlencode()
 end
 unittests.register("test_urlencode", test_urlencode)
 
-<<<<<<< HEAD
-local function test_game_info()
-	local info = minetest.get_game_info()
-=======
 local function test_parse_json()
 	local raw = "{\"how\\u0000weird\":\n\"yes\\u0000really\",\"n\":-1234567891011,\"z\":null}"
 	do
@@ -200,7 +191,6 @@ unittests.register("test_write_json", test_write_json)
 
 local function test_game_info()
 	local info = core.get_game_info()
->>>>>>> 5.10.0
 	local game_conf = Settings(info.path .. "/game.conf")
 	assert(info.id == "devtest")
 	assert(info.title == game_conf:get("title"))
@@ -209,43 +199,27 @@ unittests.register("test_game_info", test_game_info)
 
 local function test_mapgen_edges(cb)
 	-- Test that the map can extend to the expected edges and no further.
-<<<<<<< HEAD
-	local min_edge, max_edge = minetest.get_mapgen_edges()
-=======
 	local min_edge, max_edge = core.get_mapgen_edges()
->>>>>>> 5.10.0
 	local min_finished = {}
 	local max_finished = {}
 	local function finish()
 		if #min_finished ~= 1 then
 			return cb("Expected 1 block to emerge around mapgen minimum edge")
 		end
-<<<<<<< HEAD
-		if min_finished[1] ~= (min_edge / minetest.MAP_BLOCKSIZE):floor() then
-=======
 		if min_finished[1] ~= (min_edge / core.MAP_BLOCKSIZE):floor() then
->>>>>>> 5.10.0
 			return cb("Expected block within minimum edge to emerge")
 		end
 		if #max_finished ~= 1 then
 			return cb("Expected 1 block to emerge around mapgen maximum edge")
 		end
-<<<<<<< HEAD
-		if max_finished[1] ~= (max_edge / minetest.MAP_BLOCKSIZE):floor() then
-=======
 		if max_finished[1] ~= (max_edge / core.MAP_BLOCKSIZE):floor() then
->>>>>>> 5.10.0
 			return cb("Expected block within maximum edge to emerge")
 		end
 		return cb()
 	end
 	local emerges_left = 2
 	local function emerge_block(blockpos, action, blocks_left, finished)
-<<<<<<< HEAD
-		if action ~= minetest.EMERGE_CANCELLED then
-=======
 		if action ~= core.EMERGE_CANCELLED then
->>>>>>> 5.10.0
 			table.insert(finished, blockpos)
 		end
 		if blocks_left == 0 then
@@ -255,37 +229,19 @@ local function test_mapgen_edges(cb)
 			end
 		end
 	end
-<<<<<<< HEAD
-	minetest.emerge_area(min_edge:subtract(1), min_edge, emerge_block, min_finished)
-	minetest.emerge_area(max_edge, max_edge:add(1), emerge_block, max_finished)
-=======
 	core.emerge_area(min_edge:subtract(1), min_edge, emerge_block, min_finished)
 	core.emerge_area(max_edge, max_edge:add(1), emerge_block, max_finished)
->>>>>>> 5.10.0
 end
 unittests.register("test_mapgen_edges", test_mapgen_edges, {map=true, async=true})
 
 local finish_test_on_mapblocks_changed
-<<<<<<< HEAD
-minetest.register_on_mapblocks_changed(function(modified_blocks, modified_block_count)
-=======
 core.register_on_mapblocks_changed(function(modified_blocks, modified_block_count)
->>>>>>> 5.10.0
 	if finish_test_on_mapblocks_changed then
 		finish_test_on_mapblocks_changed(modified_blocks, modified_block_count)
 		finish_test_on_mapblocks_changed = nil
 	end
 end)
 local function test_on_mapblocks_changed(cb, player, pos)
-<<<<<<< HEAD
-	local bp1 = (pos / minetest.MAP_BLOCKSIZE):floor()
-	local bp2 = bp1:add(1)
-	for _, bp in ipairs({bp1, bp2}) do
-		-- Make a modification in the block.
-		local p = bp * minetest.MAP_BLOCKSIZE
-		minetest.load_area(p)
-		local meta = minetest.get_meta(p)
-=======
 	local bp1 = (pos / core.MAP_BLOCKSIZE):floor()
 	local bp2 = bp1:add(1)
 	for _, bp in ipairs({bp1, bp2}) do
@@ -293,20 +249,14 @@ local function test_on_mapblocks_changed(cb, player, pos)
 		local p = bp * core.MAP_BLOCKSIZE
 		core.load_area(p)
 		local meta = core.get_meta(p)
->>>>>>> 5.10.0
 		meta:set_int("test_on_mapblocks_changed", meta:get_int("test_on_mapblocks_changed") + 1)
 	end
 	finish_test_on_mapblocks_changed = function(modified_blocks, modified_block_count)
 		if modified_block_count < 2 then
 			return cb("Expected at least two mapblocks to be recorded as modified")
 		end
-<<<<<<< HEAD
-		if not modified_blocks[minetest.hash_node_position(bp1)] or
-				not modified_blocks[minetest.hash_node_position(bp2)] then
-=======
 		if not modified_blocks[core.hash_node_position(bp1)] or
 				not modified_blocks[core.hash_node_position(bp2)] then
->>>>>>> 5.10.0
 			return cb("The expected mapblocks were not recorded as modified")
 		end
 		cb()
@@ -340,8 +290,6 @@ local function test_gennotify_api()
 	assert(#custom == 0, "custom ids not empty")
 end
 unittests.register("test_gennotify_api", test_gennotify_api)
-<<<<<<< HEAD
-=======
 
 -- <=> inside_mapgen_env.lua
 local function test_mapgen_env(cb)
@@ -382,4 +330,3 @@ local function test_ipc_poll(cb)
 	print("delta: " .. (core.get_us_time() - t0) .. "us")
 end
 unittests.register("test_ipc_poll", test_ipc_poll)
->>>>>>> 5.10.0

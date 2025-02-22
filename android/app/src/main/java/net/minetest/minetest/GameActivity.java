@@ -52,11 +52,7 @@ import java.util.Objects;
 public class GameActivity extends SDLActivity {
 	@Override
 	protected String getMainSharedObject() {
-<<<<<<< HEAD
-		return getContext().getApplicationInfo().nativeLibraryDir + "/libminetest.so";
-=======
 		return getContext().getApplicationInfo().nativeLibraryDir + "/libluanti.so";
->>>>>>> 5.10.0
 	}
 
 	@Override
@@ -67,11 +63,7 @@ public class GameActivity extends SDLActivity {
 	@Override
 	protected String[] getLibraries() {
 		return new String[] {
-<<<<<<< HEAD
-			"minetest"
-=======
 			"luanti"
->>>>>>> 5.10.0
 		};
 	}
 

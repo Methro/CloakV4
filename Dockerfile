@@ -32,24 +32,6 @@ RUN git clone --recursive https://github.com/jupp0r/prometheus-cpp && \
 
 FROM dev as builder
 
-<<<<<<< HEAD
-COPY .git /usr/src/minetest/.git
-COPY CMakeLists.txt /usr/src/minetest/CMakeLists.txt
-COPY README.md /usr/src/minetest/README.md
-COPY minetest.conf.example /usr/src/minetest/minetest.conf.example
-COPY builtin /usr/src/minetest/builtin
-COPY cmake /usr/src/minetest/cmake
-COPY doc /usr/src/minetest/doc
-COPY fonts /usr/src/minetest/fonts
-COPY lib /usr/src/minetest/lib
-COPY misc /usr/src/minetest/misc
-COPY po /usr/src/minetest/po
-COPY src /usr/src/minetest/src
-COPY irr /usr/src/minetest/irr
-COPY textures /usr/src/minetest/textures
-
-WORKDIR /usr/src/minetest
-=======
 COPY .git /usr/src/luanti/.git
 COPY CMakeLists.txt /usr/src/luanti/CMakeLists.txt
 COPY README.md /usr/src/luanti/README.md
@@ -66,7 +48,6 @@ COPY irr /usr/src/luanti/irr
 COPY textures /usr/src/luanti/textures
 
 WORKDIR /usr/src/luanti
->>>>>>> 5.10.0
 RUN cmake -B build \
 		-DCMAKE_INSTALL_PREFIX=/usr/local \
 		-DCMAKE_BUILD_TYPE=Release \
@@ -87,15 +68,9 @@ RUN apk add --no-cache curl gmp libstdc++ libgcc libpq jsoncpp zstd-libs \
 
 WORKDIR /var/lib/minetest
 
-<<<<<<< HEAD
-COPY --from=builder /usr/local/share/minetest /usr/local/share/minetest
-COPY --from=builder /usr/local/bin/minetestserver /usr/local/bin/minetestserver
-COPY --from=builder /usr/local/share/doc/minetest/minetest.conf.example /etc/minetest/minetest.conf
-=======
 COPY --from=builder /usr/local/share/luanti /usr/local/share/luanti
 COPY --from=builder /usr/local/bin/luantiserver /usr/local/bin/luantiserver
 COPY --from=builder /usr/local/share/doc/luanti/minetest.conf.example /etc/minetest/minetest.conf
->>>>>>> 5.10.0
 COPY --from=builder /usr/local/lib/libspatialindex* /usr/local/lib/
 COPY --from=builder /usr/local/lib/libluajit* /usr/local/lib/
 USER minetest:minetest
@@ -103,9 +78,5 @@ USER minetest:minetest
 EXPOSE 30000/udp 30000/tcp
 VOLUME /var/lib/minetest/ /etc/minetest/
 
-<<<<<<< HEAD
-ENTRYPOINT ["/usr/local/bin/minetestserver"]
-=======
 ENTRYPOINT ["/usr/local/bin/luantiserver"]
->>>>>>> 5.10.0
 CMD ["--config", "/etc/minetest/minetest.conf"]

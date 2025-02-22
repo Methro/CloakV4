@@ -42,11 +42,7 @@ class IReferenceCounted
 public:
 	//! Constructor.
 	IReferenceCounted() :
-<<<<<<< HEAD
-			DebugName(0), ReferenceCounter(1)
-=======
 			ReferenceCounter(1)
->>>>>>> 5.10.0
 	{
 	}
 
@@ -55,13 +51,10 @@ public:
 	{
 	}
 
-<<<<<<< HEAD
-=======
 	// Reference counted objects can be neither copied nor moved.
 	IReferenceCounted(const IReferenceCounted &) = delete;
 	IReferenceCounted &operator=(const IReferenceCounted &) = delete;
 
->>>>>>> 5.10.0
 	//! Grabs the object. Increments the reference counter by one.
 	/** Someone who calls grab() to an object, should later also
 	call drop() to it. If an object never gets as much drop() as
@@ -143,10 +136,7 @@ public:
 		return ReferenceCounter;
 	}
 
-<<<<<<< HEAD
-=======
 #ifdef _DEBUG
->>>>>>> 5.10.0
 	//! Returns the debug name of the object.
 	/** The Debugname may only be set and changed by the object
 	itself. This method should only be used in Debug mode.
@@ -168,14 +158,10 @@ protected:
 
 private:
 	//! The debug name.
-<<<<<<< HEAD
-	const c8 *DebugName;
-=======
 	const c8 *DebugName = nullptr;
 #endif
 
 private:
->>>>>>> 5.10.0
 
 	//! The reference counter. Mutable to do reference counting on const objects.
 	mutable s32 ReferenceCounter;

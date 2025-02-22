@@ -116,10 +116,6 @@ end
 unittests.register("test_item_metadata", test_item_metadata)
 
 local function test_node_metadata(player, pos)
-<<<<<<< HEAD
-	test_metadata(minetest.get_meta(pos))
-=======
 	test_metadata(core.get_meta(pos))
->>>>>>> 5.10.0
 end
 unittests.register("test_node_metadata", test_node_metadata, {map=true})

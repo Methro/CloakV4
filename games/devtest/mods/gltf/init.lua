@@ -1,9 +1,5 @@
 local function register_entity(name, textures, backface_culling)
-<<<<<<< HEAD
-	minetest.register_entity("gltf:" .. name, {
-=======
 	core.register_entity("gltf:" .. name, {
->>>>>>> 5.10.0
 		initial_properties = {
 			visual = "mesh",
 			mesh = "gltf_" .. name .. ".gltf",
@@ -22,17 +18,6 @@ do
 	register_entity("blender_cube", cube_textures)
 	register_entity("blender_cube_scaled", cube_textures)
 	register_entity("blender_cube_matrix_transform", cube_textures)
-<<<<<<< HEAD
-end
-register_entity("snow_man", {"gltf_snow_man.png"})
-register_entity("spider", {"gltf_spider.png"})
--- Note: Model has an animation, but we can use it as a static test nevertheless
--- The claws rendering incorrectly from one side is expected behavior:
--- They use an unsupported double-sided material.
-register_entity("frog", {"gltf_frog.png"}, false)
-
-minetest.register_node("gltf:frog", {
-=======
 	core.register_entity("gltf:blender_cube_glb", {
 		initial_properties = {
 			visual = "mesh",
@@ -86,18 +71,13 @@ core.register_entity("gltf:frog", {
 
 
 core.register_node("gltf:frog", {
->>>>>>> 5.10.0
 	description = "glTF frog, but it's a node",
 	tiles = {{name = "gltf_frog.png", backface_culling = false}},
 	drawtype = "mesh",
 	mesh = "gltf_frog.gltf",
 })
 
-<<<<<<< HEAD
-minetest.register_chatcommand("show_model", {
-=======
 core.register_chatcommand("show_model", {
->>>>>>> 5.10.0
 	params = "<model> [textures]",
 	description = "Show a model (defaults to gltf models, for example '/show_model frog').",
 	func = function(name, param)
@@ -106,11 +86,7 @@ core.register_chatcommand("show_model", {
 			model = "gltf_" .. param .. ".gltf"
 			textures = "gltf_" .. param .. ".png"
 		end
-<<<<<<< HEAD
-		minetest.show_formspec(name, "gltf:model", table.concat{
-=======
 		core.show_formspec(name, "gltf:model", table.concat{
->>>>>>> 5.10.0
 			"formspec_version[7]",
 			"size[10,10]",
 			"model[0,0;10,10;model;", model, ";", textures, ";0,0;true;true;0,0;0]",

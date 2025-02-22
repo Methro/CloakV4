@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-local F = minetest.formspec_escape
-local S = minetest.get_translator("chest_of_everything")
-=======
 local F = core.formspec_escape
 local S = core.get_translator("chest_of_everything")
->>>>>>> 5.10.0
 
 local detached_inventories = {}
 
@@ -27,11 +22,7 @@ local all_items_list -- cached list of all items
 -- Create detached inventories
 local function add_detached_inventories(player)
 	local name = player:get_player_name()
-<<<<<<< HEAD
-	local inv_items = minetest.create_detached_inventory("chest_of_everything_items_"..name, {
-=======
 	local inv_items = core.create_detached_inventory("chest_of_everything_items_"..name, {
->>>>>>> 5.10.0
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
 			return 0
 		end,
@@ -42,11 +33,7 @@ local function add_detached_inventories(player)
 			return -1
 		end,
 	}, name)
-<<<<<<< HEAD
-	local inv_trash = minetest.create_detached_inventory("chest_of_everything_trash_"..name, {
-=======
 	local inv_trash = core.create_detached_inventory("chest_of_everything_trash_"..name, {
->>>>>>> 5.10.0
 		allow_take = function(inv, listname, index, stack, player)
 			return 0
 		end,
@@ -71,16 +58,6 @@ local sort_items_by_type = function(item1, item2)
 	* Other items
 	* Items from the 'broken' mod
 	* Dummy items ]]
-<<<<<<< HEAD
-	local def1 = minetest.registered_items[item1]
-	local def2 = minetest.registered_items[item2]
-	local tool1 = def1.type == "tool"
-	local tool2 = def2.type == "tool"
-	local testtool1 = minetest.get_item_group(item1, "testtool") == 1
-	local testtool2 = minetest.get_item_group(item2, "testtool") == 1
-	local dummy1 = minetest.get_item_group(item1, "dummy") == 1
-	local dummy2 = minetest.get_item_group(item2, "dummy") == 1
-=======
 	local def1 = core.registered_items[item1]
 	local def2 = core.registered_items[item2]
 	local tool1 = def1.type == "tool"
@@ -89,7 +66,6 @@ local sort_items_by_type = function(item1, item2)
 	local testtool2 = core.get_item_group(item2, "testtool") == 1
 	local dummy1 = core.get_item_group(item1, "dummy") == 1
 	local dummy2 = core.get_item_group(item2, "dummy") == 1
->>>>>>> 5.10.0
 	local broken1 = def1.mod_origin == "broken"
 	local broken2 = def2.mod_origin == "broken"
 	local craftitem1 = def1.type == "craft"
@@ -137,11 +113,7 @@ local collect_items = function(filter, lang_code)
 		filter = string.trim(filter)
 		filter = string.lower(filter) -- to make sure the search is case-insensitive
 	end
-<<<<<<< HEAD
-	for itemstring, def in pairs(minetest.registered_items) do
-=======
 	for itemstring, def in pairs(core.registered_items) do
->>>>>>> 5.10.0
 		if itemstring ~= "" and itemstring ~= "unknown" and itemstring ~= "ignore" then
 			if filter and lang_code then
 				local desc = ItemStack(itemstring):get_description()
@@ -152,11 +124,7 @@ local collect_items = function(filter, lang_code)
 					matches = string.match(ldesc, filter) ~= nil
 					-- Second, try to match translated description
 					if not matches then
-<<<<<<< HEAD
-						local tdesc = minetest.get_translated_string(lang_code, desc)
-=======
 						local tdesc = core.get_translated_string(lang_code, desc)
->>>>>>> 5.10.0
 						if tdesc ~= "" then
 							tdesc = string.lower(tdesc)
 							matches = string.match(tdesc, filter) ~= nil
@@ -166,11 +134,7 @@ local collect_items = function(filter, lang_code)
 					if not matches then
 						local sdesc = ItemStack(itemstring):get_short_description()
 						if sdesc ~= "" then
-<<<<<<< HEAD
-							sdesc = minetest.get_translated_string(lang_code, sdesc)
-=======
 							sdesc = core.get_translated_string(lang_code, sdesc)
->>>>>>> 5.10.0
 							sdesc = string.lower(sdesc)
 							matches = string.match(sdesc, filter) ~= nil
 						end
@@ -208,11 +172,7 @@ local function update_inventory(name)
 	if search == "" then
 		items = all_items_list
 	else
-<<<<<<< HEAD
-		local lang_code = minetest.get_player_information(name).lang_code
-=======
 		local lang_code = core.get_player_information(name).lang_code
->>>>>>> 5.10.0
 		items = collect_items(search, lang_code)
 	end
 	local max_page = math.ceil(#items / SLOTS)
@@ -237,11 +197,7 @@ local function get_formspec(page, name)
 	if not name then
 		return ""
 	end
-<<<<<<< HEAD
-	local player = minetest.get_player_by_name(name)
-=======
 	local player = core.get_player_by_name(name)
->>>>>>> 5.10.0
 	local playerinvsize = player:get_inventory():get_size("main")
 	local hotbarsize = player:hud_get_hotbar_itemcount()
 	local pinv_w, pinv_h, pinv_x
@@ -294,19 +250,11 @@ end
 local show_formspec = function(name)
 	local page = current_pages[name]
 	local form = get_formspec(page, name)
-<<<<<<< HEAD
-	minetest.show_formspec(name, "chest_of_everything:getitem", form)
-	return true
-end
-
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-=======
 	core.show_formspec(name, "chest_of_everything:getitem", form)
 	return true
 end
 
 core.register_on_player_receive_fields(function(player, formname, fields)
->>>>>>> 5.10.0
 	if formname ~= "chest_of_everything:getitem" then
 		return
 	end
@@ -348,11 +296,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-<<<<<<< HEAD
-minetest.register_tool("chest_of_everything:bag", {
-=======
 core.register_tool("chest_of_everything:bag", {
->>>>>>> 5.10.0
 	description = S("Bag of Everything") .. "\n" ..
 		S("Grants access to all items"),
 	inventory_image = "chest_of_everything_bag.png",
@@ -366,11 +310,7 @@ core.register_tool("chest_of_everything:bag", {
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_node("chest_of_everything:chest", {
-=======
 core.register_node("chest_of_everything:chest", {
->>>>>>> 5.10.0
 	description = S("Chest of Everything") .. "\n" ..
 		S("Grants access to all items"),
 	tiles ={"chest_of_everything_chest.png^[sheet:2x2:0,0", "chest_of_everything_chest.png^[sheet:2x2:0,0",
@@ -380,11 +320,7 @@ core.register_node("chest_of_everything:chest", {
 	groups = { dig_immediate=2, choppy=3 },
 	is_ground_content = false,
 	on_construct = function(pos)
-<<<<<<< HEAD
-		local meta = minetest.get_meta(pos)
-=======
 		local meta = core.get_meta(pos)
->>>>>>> 5.10.0
 		meta:set_string("infotext", S("Chest of Everything"))
 	end,
 	on_rightclick = function(pos, node, clicker)
@@ -396,19 +332,11 @@ core.register_node("chest_of_everything:chest", {
 })
 
 
-<<<<<<< HEAD
-minetest.register_on_mods_loaded(function()
-	all_items_list = collect_items()
-end)
-
-minetest.register_on_joinplayer(function(player)
-=======
 core.register_on_mods_loaded(function()
 	all_items_list = collect_items()
 end)
 
 core.register_on_joinplayer(function(player)
->>>>>>> 5.10.0
 	local name = player:get_player_name()
 	current_searches[name] = ""
 	current_pages[name] = 1
@@ -417,11 +345,7 @@ core.register_on_joinplayer(function(player)
 	update_inventory(name)
 end)
 
-<<<<<<< HEAD
-minetest.register_on_leaveplayer(function(player)
-=======
 core.register_on_leaveplayer(function(player)
->>>>>>> 5.10.0
 	local name = player:get_player_name()
 	current_pages[name] = nil
 	current_max_pages[name] = nil

@@ -3,21 +3,6 @@
 
 #include "CGLTFMeshFileLoader.h"
 
-<<<<<<< HEAD
-#include "coreutil.h"
-#include "CSkinnedMesh.h"
-#include "ISkinnedMesh.h"
-#include "irrTypes.h"
-#include "IReadFile.h"
-#include "matrix4.h"
-#include "path.h"
-#include "quaternion.h"
-#include "vector3d.h"
-#include "os.h"
-
-#include "tiniergltf.hpp"
-
-=======
 #include "SMaterialLayer.h"
 #include "coreutil.h"
 #include "CSkinnedMesh.h"
@@ -32,7 +17,6 @@
 #include "vector3d.h"
 #include "os.h"
 
->>>>>>> 5.10.0
 #include <array>
 #include <cstddef>
 #include <cstring>
@@ -40,10 +24,7 @@
 #include <memory>
 #include <optional>
 #include <stdexcept>
-<<<<<<< HEAD
-=======
 #include <tuple>
->>>>>>> 5.10.0
 #include <utility>
 #include <variant>
 #include <vector>
@@ -72,8 +53,6 @@ core::vector3df convertHandedness(const core::vector3df &p)
 	return core::vector3df(p.X, p.Y, -p.Z);
 }
 
-<<<<<<< HEAD
-=======
 template <>
 core::quaternion convertHandedness(const core::quaternion &q)
 {
@@ -96,7 +75,6 @@ core::matrix4 convertHandedness(const core::matrix4 &mat)
 	return invertZ * mat * invertZ;
 }
 
->>>>>>> 5.10.0
 namespace scene {
 
 using SelfType = CGLTFMeshFileLoader;
@@ -242,11 +220,8 @@ ACCESSOR_PRIMITIVE(u16, UNSIGNED_SHORT)
 ACCESSOR_PRIMITIVE(u32, UNSIGNED_INT)
 
 ACCESSOR_TYPES(core::vector3df, VEC3, FLOAT)
-<<<<<<< HEAD
-=======
 ACCESSOR_TYPES(core::quaternion, VEC4, FLOAT)
 ACCESSOR_TYPES(core::matrix4, MAT4, FLOAT)
->>>>>>> 5.10.0
 
 template <class T>
 T SelfType::Accessor<T>::get(std::size_t i) const
@@ -354,21 +329,11 @@ std::array<f32, N> SelfType::getNormalizedValues(
 	return values;
 }
 
-<<<<<<< HEAD
-/**
- * The most basic portion of the code base. This tells irllicht if this file has a .gltf extension.
-*/
-bool SelfType::isALoadableFileExtension(
-		const io::path& filename) const
-{
-	return core::hasFileExtension(filename, "gltf");
-=======
 bool SelfType::isALoadableFileExtension(
 		const io::path& filename) const
 {
 	return core::hasFileExtension(filename, "gltf") ||
 			core::hasFileExtension(filename, "glb");
->>>>>>> 5.10.0
 }
 
 /**
@@ -376,37 +341,6 @@ bool SelfType::isALoadableFileExtension(
 */
 IAnimatedMesh* SelfType::createMesh(io::IReadFile* file)
 {
-<<<<<<< HEAD
-	if (file->getSize() <= 0) {
-		return nullptr;
-	}
-	std::optional<tiniergltf::GlTF> model = tryParseGLTF(file);
-	if (!model.has_value()) {
-		return nullptr;
-	}
-
-	if (!(model->buffers.has_value()
-			&& model->bufferViews.has_value()
-			&& model->accessors.has_value()
-			&& model->meshes.has_value()
-			&& model->nodes.has_value())) {
-		os::Printer::log("glTF loader", "missing required fields", ELL_ERROR);
-		return nullptr;
-	}
-
-	auto *mesh = new CSkinnedMesh();
-	MeshExtractor parser(std::move(model.value()), mesh);
-	try {
-		parser.loadNodes();
-	} catch (std::runtime_error &e) {
-		os::Printer::log("glTF loader", e.what(), ELL_ERROR);
-		mesh->drop();
-		return nullptr;
-	}
-	if (model->images.has_value())
-		os::Printer::log("glTF loader", "embedded images are not supported", ELL_WARNING);
-	return mesh;
-=======
 	const char *filename = file->getFileName().c_str();
 	try {
 		tiniergltf::GlTF model = parseGLTF(file);
@@ -425,7 +359,6 @@ IAnimatedMesh* SelfType::createMesh(io::IReadFile* file)
 		os::Printer::log("error parsing gltf", e.what(), ELL_ERROR);
 	}
 	return nullptr;
->>>>>>> 5.10.0
 }
 
 static void transformVertices(std::vector<video::S3DVertex> &vertices, const core::matrix4 &transform)
@@ -434,12 +367,7 @@ static void transformVertices(std::vector<video::S3DVertex> &vertices, const cor
 		// Apply scaling, rotation and rotation (in that order) to the position.
 		transform.transformVect(vertex.Pos);
 		// For the normal, we do not want to apply the translation.
-<<<<<<< HEAD
-		// TODO note that this also applies scaling; the Irrlicht method is misnamed.
-		transform.rotateVect(vertex.Normal);
-=======
 		vertex.Normal = transform.rotateAndScaleVect(vertex.Normal);
->>>>>>> 5.10.0
 		// Renormalize (length might have been affected by scaling).
 		vertex.Normal.normalize();
 	}
@@ -465,50 +393,6 @@ static std::vector<u16> generateIndices(const std::size_t nVerts)
 	return indices;
 }
 
-<<<<<<< HEAD
-/**
- * Load up the rawest form of the model. The vertex positions and indices.
- * Documentation: https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#meshes
- * If material is undefined, then a default material MUST be used.
-*/
-void SelfType::MeshExtractor::loadMesh(
-		const std::size_t meshIdx,
-		ISkinnedMesh::SJoint *parent) const
-{
-	for (std::size_t pi = 0; pi < getPrimitiveCount(meshIdx); ++pi) {
-		const auto &primitive = m_gltf_model.meshes->at(meshIdx).primitives.at(pi);
-		auto vertices = getVertices(primitive);
-		if (!vertices.has_value())
-			continue; // "When positions are not specified, client implementations SHOULD skip primitive’s rendering"
-
-		// Excludes the max value for consistency.
-		if (vertices->size() >= std::numeric_limits<u16>::max())
-			throw std::runtime_error("too many vertices");
-
-		// Apply the global transform along the parent chain.
-		transformVertices(*vertices, parent->GlobalMatrix);
-
-		auto maybeIndices = getIndices(primitive);
-		std::vector<u16> indices;
-		if (maybeIndices.has_value()) {
-			indices = std::move(*maybeIndices);
-			checkIndices(indices, vertices->size());
-		} else {
-			// Non-indexed geometry
-			indices = generateIndices(vertices->size());
-		}
-
-		m_irr_model->addMeshBuffer(
-				new SSkinMeshBuffer(std::move(*vertices), std::move(indices)));
-
-		if (primitive.material.has_value()) {
-			const auto &material = m_gltf_model.materials->at(*primitive.material);
-			if (material.pbrMetallicRoughness.has_value()) {
-				const auto &texture = material.pbrMetallicRoughness->baseColorTexture;
-				if (texture.has_value()) {
-					const auto meshbufNr = m_irr_model->getMeshBufferCount() - 1;
-					m_irr_model->setTextureSlot(meshbufNr, static_cast<u32>(texture->index));
-=======
 using Wrap = tiniergltf::Sampler::Wrap;
 static video::E_TEXTURE_CLAMP convertTextureWrap(const Wrap wrap) {
 	switch (wrap) {
@@ -568,13 +452,10 @@ void SelfType::MeshExtractor::addPrimitive(
 					auto &layer = meshbuf->getMaterial().TextureLayers[0];
 					layer.TextureWrapU = convertTextureWrap(sampler.wrapS);
 					layer.TextureWrapV = convertTextureWrap(sampler.wrapT);
->>>>>>> 5.10.0
 				}
 			}
 		}
 	}
-<<<<<<< HEAD
-=======
 
 	if (!skinIdx.has_value()) {
 		// No skin => all vertices belong entirely to their parent
@@ -654,7 +535,6 @@ void SelfType::MeshExtractor::deferAddMesh(
 			addPrimitive(primitive, skinIdx, parent);
 		}
 	});
->>>>>>> 5.10.0
 }
 
 // Base transformation between left & right handed coordinate systems.
@@ -667,19 +547,6 @@ static const core::matrix4 leftToRight = core::matrix4(
 );
 static const core::matrix4 rightToLeft = leftToRight;
 
-<<<<<<< HEAD
-static core::matrix4 loadTransform(const tiniergltf::Node::Matrix &m)
-{
-	// Note: Under the hood, this casts these doubles to floats.
-	return core::matrix4(
-			m[0], m[1], m[2], m[3],
-			m[4], m[5], m[6], m[7],
-			m[8], m[9], m[10], m[11],
-			m[12], m[13], m[14], m[15]);
-}
-
-static core::matrix4 loadTransform(const tiniergltf::Node::TRS &trs)
-=======
 static core::matrix4 loadTransform(const tiniergltf::Node::Matrix &m, CSkinnedMesh::SJoint *joint)
 {
 	// Note: Under the hood, this casts these doubles to floats.
@@ -710,27 +577,11 @@ static core::matrix4 loadTransform(const tiniergltf::Node::Matrix &m, CSkinnedMe
 }
 
 static core::matrix4 loadTransform(const tiniergltf::Node::TRS &trs, CSkinnedMesh::SJoint *joint)
->>>>>>> 5.10.0
 {
 	const auto &trans = trs.translation;
 	const auto &rot = trs.rotation;
 	const auto &scale = trs.scale;
 	core::matrix4 transMat;
-<<<<<<< HEAD
-	transMat.setTranslation(core::vector3df(trans[0], trans[1], trans[2]));
-	core::matrix4 rotMat = core::quaternion(rot[0], rot[1], rot[2], rot[3]).getMatrix();
-	core::matrix4 scaleMat;
-	scaleMat.setScale(core::vector3df(scale[0], scale[1], scale[2]));
-	return transMat * rotMat * scaleMat;
-}
-
-static core::matrix4 loadTransform(std::optional<std::variant<tiniergltf::Node::Matrix, tiniergltf::Node::TRS>> transform) {
-	if (!transform.has_value()) {
-		return core::matrix4();
-	}
-	core::matrix4 mat = std::visit([](const auto &t) { return loadTransform(t); }, *transform);
-	return rightToLeft * mat * leftToRight;
-=======
 	joint->Animatedposition = convertHandedness(core::vector3df(trans[0], trans[1], trans[2]));
 	transMat.setTranslation(joint->Animatedposition);
 	core::matrix4 rotMat;
@@ -748,37 +599,23 @@ static core::matrix4 loadTransform(std::optional<std::variant<tiniergltf::Node::
 		return core::matrix4();
 	}
 	return std::visit([joint](const auto &t) { return loadTransform(t, joint); }, *transform);
->>>>>>> 5.10.0
 }
 
 void SelfType::MeshExtractor::loadNode(
 		const std::size_t nodeIdx,
-<<<<<<< HEAD
-		ISkinnedMesh::SJoint *parent) const
-{
-	const auto &node = m_gltf_model.nodes->at(nodeIdx);
-	auto *joint = m_irr_model->addJoint(parent);
-	const core::matrix4 transform = loadTransform(node.transform);
-=======
 		CSkinnedMesh::SJoint *parent)
 {
 	const auto &node = m_gltf_model.nodes->at(nodeIdx);
 	auto *joint = m_irr_model->addJoint(parent);
 	const core::matrix4 transform = loadTransform(node.transform, joint);
->>>>>>> 5.10.0
 	joint->LocalMatrix = transform;
 	joint->GlobalMatrix = parent ? parent->GlobalMatrix * joint->LocalMatrix : joint->LocalMatrix;
 	if (node.name.has_value()) {
 		joint->Name = node.name->c_str();
 	}
-<<<<<<< HEAD
-	if (node.mesh.has_value()) {
-		loadMesh(*node.mesh, joint);
-=======
 	m_loaded_nodes[nodeIdx] = joint;
 	if (node.mesh.has_value()) {
 		deferAddMesh(*node.mesh, node.skin, joint);
->>>>>>> 5.10.0
 	}
 	if (node.children.has_value()) {
 		for (const auto &child : *node.children) {
@@ -787,15 +624,10 @@ void SelfType::MeshExtractor::loadNode(
 	}
 }
 
-<<<<<<< HEAD
-void SelfType::MeshExtractor::loadNodes() const
-{
-=======
 void SelfType::MeshExtractor::loadNodes()
 {
 	m_loaded_nodes = std::vector<CSkinnedMesh::SJoint *>(m_gltf_model.nodes->size());
 
->>>>>>> 5.10.0
 	std::vector<bool> isChild(m_gltf_model.nodes->size());
 	for (const auto &node : *m_gltf_model.nodes) {
 		if (!node.children.has_value())
@@ -813,8 +645,6 @@ void SelfType::MeshExtractor::loadNodes()
 	}
 }
 
-<<<<<<< HEAD
-=======
 void SelfType::MeshExtractor::loadSkins()
 {
 	if (!m_gltf_model.skins.has_value())
@@ -921,7 +751,6 @@ void SelfType::MeshExtractor::load()
 	m_irr_model->finalize();
 }
 
->>>>>>> 5.10.0
 /**
  * Extracts GLTF mesh indices.
  */
@@ -1061,13 +890,6 @@ void SelfType::MeshExtractor::copyTCoords(
 		const std::size_t accessorIdx,
 		std::vector<video::S3DVertex>& vertices) const
 {
-<<<<<<< HEAD
-	const auto accessor = createNormalizedValuesAccessor<2>(m_gltf_model, accessorIdx);
-	const auto count = std::visit([](auto &&a) { return a.getCount(); }, accessor);
-	for (std::size_t i = 0; i < count; ++i) {
-		const auto vals = getNormalizedValues(accessor, i);
-		vertices[i].TCoords = core::vector2df(vals[0], vals[1]);
-=======
 	const auto componentType = m_gltf_model.accessors->at(accessorIdx).componentType;
 	if (componentType == tiniergltf::Accessor::ComponentType::FLOAT) {
 		// If floats are used, they need not be normalized: Wrapping may take effect.
@@ -1081,40 +903,12 @@ void SelfType::MeshExtractor::copyTCoords(
 		for (std::size_t i = 0; i < count; ++i) {
 			vertices[i].TCoords = core::vector2d<f32>(getNormalizedValues(accessor, i));
 		}
->>>>>>> 5.10.0
 	}
 }
 
 /**
  * This is where the actual model's GLTF file is loaded and parsed by tiniergltf.
 */
-<<<<<<< HEAD
-std::optional<tiniergltf::GlTF> SelfType::tryParseGLTF(io::IReadFile* file)
-{
-	auto size = file->getSize();
-	if (size < 0) // this can happen if `ftell` fails
-		return std::nullopt;
-	std::unique_ptr<char[]> buf(new char[size + 1]);
-	if (file->read(buf.get(), size) != static_cast<std::size_t>(size))
-		return std::nullopt;
-	// We probably don't need this, but add it just to be sure.
-	buf[size] = '\0';
-	Json::CharReaderBuilder builder;
-	const std::unique_ptr<Json::CharReader> reader(builder.newCharReader());
-	Json::Value json;
-	JSONCPP_STRING err;
-	if (!reader->parse(buf.get(), buf.get() + size, &json, &err)) {
-		return std::nullopt;
-	}
-	try {
-		return tiniergltf::GlTF(json);
-	} catch (const std::runtime_error &e) {
-		os::Printer::log("glTF loader", e.what(), ELL_ERROR);
-		return std::nullopt;
-	} catch (const std::out_of_range &e) {
-		os::Printer::log("glTF loader", e.what(), ELL_ERROR);
-		return std::nullopt;
-=======
 tiniergltf::GlTF SelfType::parseGLTF(io::IReadFile* file)
 {
 	const bool isGlb = core::hasFileExtension(file->getFileName(), "glb");
@@ -1138,14 +932,9 @@ tiniergltf::GlTF SelfType::parseGLTF(io::IReadFile* file)
 		throw std::runtime_error(e.what());
 	} catch (const std::bad_optional_access &e) {
 		throw std::runtime_error(e.what());
->>>>>>> 5.10.0
 	}
 }
 
 } // namespace scene
 
 } // namespace irr
-<<<<<<< HEAD
-
-=======
->>>>>>> 5.10.0

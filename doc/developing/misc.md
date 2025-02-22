@@ -1,18 +1,10 @@
 # Miscellaneous
 
-<<<<<<< HEAD
-## Profiling Minetest on Linux
-
-We will be using a tool called "perf", which you can get by installing `perf` or `linux-perf` or `linux-tools-common`.
-
-To get usable results you need to build Minetest with debug symbols
-=======
 ## Profiling Luanti on Linux with perf
 
 We will be using a tool called "perf", which you can get by installing `perf` or `linux-perf` or `linux-tools-common`.
 
 To get usable results you need to build Luanti with debug symbols
->>>>>>> 5.10.0
 (`-DCMAKE_BUILD_TYPE=RelWithDebInfo` or `-DCMAKE_BUILD_TYPE=Debug`).
 
 Run the client (or server) like this and do whatever you wanted to test:
@@ -44,8 +36,6 @@ Give both files to the developer and also provide:
 * commit the source was built from and/or modified source code (if applicable)
 
 Hotspot will resolve symbols correctly when pointing the sysroot option at the collected libs.
-<<<<<<< HEAD
-=======
 
 
 ## Profiling with Tracy
@@ -97,4 +87,3 @@ See Tracy's official documentation for more information.
 
 Note: The whole Tracy Lua API is accessible to all mods. And we don't check if it
 is or becomes insecure. Run untrusted mods at your own risk.
->>>>>>> 5.10.0

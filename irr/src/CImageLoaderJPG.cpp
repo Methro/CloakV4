@@ -6,15 +6,10 @@
 
 #include "IReadFile.h"
 #include "CImage.h"
-<<<<<<< HEAD
-#include "os.h"
-#include "irrString.h"
-=======
 #include "coreutil.h"
 #include "os.h"
 #include "irrString.h"
 #include <csetjmp>
->>>>>>> 5.10.0
 
 namespace irr
 {

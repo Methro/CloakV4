@@ -5,12 +5,7 @@
 #pragma once
 
 #include "IReferenceCounted.h"
-<<<<<<< HEAD
-#include "irrString.h"
-#include "coreutil.h"
-=======
 #include "path.h"
->>>>>>> 5.10.0
 
 namespace irr
 {

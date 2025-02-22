@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/// Json-cpp amalgamated header (http://jsoncpp.sourceforge.net/).
-=======
 /// Json-cpp amalgamated header (https://github.com/open-source-parsers/jsoncpp/).
->>>>>>> 5.10.0
 /// It is intended to be used with #include "json/json.h"
 
 // //////////////////////////////////////////////////////////////////////
@@ -97,32 +93,18 @@ license you like.
 // 3. /CMakeLists.txt
 // IMPORTANT: also update the SOVERSION!!
 
-<<<<<<< HEAD
-#define JSONCPP_VERSION_STRING "1.9.5"
-#define JSONCPP_VERSION_MAJOR 1
-#define JSONCPP_VERSION_MINOR 9
-#define JSONCPP_VERSION_PATCH 5
-=======
 #define JSONCPP_VERSION_STRING "1.9.7"
 #define JSONCPP_VERSION_MAJOR 1
 #define JSONCPP_VERSION_MINOR 9
 #define JSONCPP_VERSION_PATCH 7
->>>>>>> 5.10.0
 #define JSONCPP_VERSION_QUALIFIER
 #define JSONCPP_VERSION_HEXA                                                   \
   ((JSONCPP_VERSION_MAJOR << 24) | (JSONCPP_VERSION_MINOR << 16) |             \
    (JSONCPP_VERSION_PATCH << 8))
 
-<<<<<<< HEAD
-#ifdef JSONCPP_USING_SECURE_MEMORY
-#undef JSONCPP_USING_SECURE_MEMORY
-#endif
-#define JSONCPP_USING_SECURE_MEMORY 0
-=======
 #if !defined(JSONCPP_USE_SECURE_MEMORY)
 #define JSONCPP_USE_SECURE_MEMORY 0
 #endif
->>>>>>> 5.10.0
 // If non-zero, the library zeroes any memory that it has allocated before
 // it frees its memory.
 
@@ -149,19 +131,12 @@ license you like.
 #ifndef JSON_ALLOCATOR_H_INCLUDED
 #define JSON_ALLOCATOR_H_INCLUDED
 
-<<<<<<< HEAD
-#include <cstring>
-#include <memory>
-
-#pragma pack(push, 8)
-=======
 #include <algorithm>
 #include <cstring>
 #include <memory>
 
 #pragma pack(push)
 #pragma pack()
->>>>>>> 5.10.0
 
 namespace Json {
 template <typename T> class SecureAllocator {
@@ -189,10 +164,6 @@ public:
    * The memory block is filled with zeroes before being released.
    */
   void deallocate(pointer p, size_type n) {
-<<<<<<< HEAD
-    // memset_s is used because memset may be optimized away by the compiler
-    memset_s(p, n * sizeof(T), 0, n * sizeof(T));
-=======
     // These constructs will not be removed by the compiler during optimization,
     // unlike memset.
 #if defined(HAVE_MEMSET_S)
@@ -203,7 +174,6 @@ public:
     std::fill_n(reinterpret_cast<volatile unsigned char*>(p), n, 0);
 #endif
 
->>>>>>> 5.10.0
     // free using "global operator delete"
     ::operator delete(p);
   }
@@ -233,13 +203,9 @@ public:
   // Boilerplate
   SecureAllocator() {}
   template <typename U> SecureAllocator(const SecureAllocator<U>&) {}
-<<<<<<< HEAD
-  template <typename U> struct rebind { using other = SecureAllocator<U>; };
-=======
   template <typename U> struct rebind {
     using other = SecureAllocator<U>;
   };
->>>>>>> 5.10.0
 };
 
 template <typename T, typename U>
@@ -400,11 +366,7 @@ using LargestUInt = UInt64;
 
 template <typename T>
 using Allocator =
-<<<<<<< HEAD
-    typename std::conditional<JSONCPP_USING_SECURE_MEMORY, SecureAllocator<T>,
-=======
     typename std::conditional<JSONCPP_USE_SECURE_MEMORY, SecureAllocator<T>,
->>>>>>> 5.10.0
                               std::allocator<T>>::type;
 using String = std::basic_string<char, std::char_traits<char>, Allocator<char>>;
 using IStringStream =
@@ -508,12 +470,8 @@ class ValueConstIterator;
 #include "forwards.h"
 #endif // if !defined(JSON_IS_AMALGAMATION)
 
-<<<<<<< HEAD
-#pragma pack(push, 8)
-=======
 #pragma pack(push)
 #pragma pack()
->>>>>>> 5.10.0
 
 namespace Json {
 
@@ -581,13 +539,8 @@ public:
 // recognized in your jurisdiction.
 // See file LICENSE for detail or copy at http://jsoncpp.sourceforge.net/LICENSE
 
-<<<<<<< HEAD
-#ifndef JSON_H_INCLUDED
-#define JSON_H_INCLUDED
-=======
 #ifndef JSON_VALUE_H_INCLUDED
 #define JSON_VALUE_H_INCLUDED
->>>>>>> 5.10.0
 
 #if !defined(JSON_IS_AMALGAMATION)
 #include "forwards.h"
@@ -636,12 +589,8 @@ public:
 #pragma warning(disable : 4251 4275)
 #endif // if defined(JSONCPP_DISABLE_DLL_INTERFACE_WARNING)
 
-<<<<<<< HEAD
-#pragma pack(push, 8)
-=======
 #pragma pack(push)
 #pragma pack()
->>>>>>> 5.10.0
 
 /** \brief JSON (JavaScript Object Notation).
  */
@@ -962,11 +911,7 @@ public:
   int compare(const Value& other) const;
 
   const char* asCString() const; ///< Embedded zeroes could cause you trouble!
-<<<<<<< HEAD
-#if JSONCPP_USING_SECURE_MEMORY
-=======
 #if JSONCPP_USE_SECURE_MEMORY
->>>>>>> 5.10.0
   unsigned getCStringLength() const; // Allows you to understand the length of
                                      // the CString
 #endif
@@ -1028,11 +973,7 @@ public:
   /// \post type() is arrayValue
   void resize(ArrayIndex newSize);
 
-<<<<<<< HEAD
-  //@{
-=======
   ///@{
->>>>>>> 5.10.0
   /// Access an array element (zero based index). If the array contains less
   /// than index element, then null value are inserted in the array so that
   /// its size is index+1.
@@ -1040,25 +981,15 @@ public:
   /// this from the operator[] which takes a string.)
   Value& operator[](ArrayIndex index);
   Value& operator[](int index);
-<<<<<<< HEAD
-  //@}
-
-  //@{
-=======
   ///@}
 
   ///@{
->>>>>>> 5.10.0
   /// Access an array element (zero based index).
   /// (You may need to say 'value[0u]' to get your compiler to distinguish
   /// this from the operator[] which takes a string.)
   const Value& operator[](ArrayIndex index) const;
   const Value& operator[](int index) const;
-<<<<<<< HEAD
-  //@}
-=======
   ///@}
->>>>>>> 5.10.0
 
   /// If the array contains at least index+1 elements, returns the element
   /// value, otherwise returns defaultValue.
@@ -1118,12 +1049,9 @@ public:
   /// and operator[]const
   /// \note As stated elsewhere, behavior is undefined if (end-begin) >= 2^30
   Value const* find(char const* begin, char const* end) const;
-<<<<<<< HEAD
-=======
   /// Most general and efficient version of isMember()const, get()const,
   /// and operator[]const
   Value const* find(const String& key) const;
->>>>>>> 5.10.0
   /// Most general and efficient version of object-mutators.
   /// \note As stated elsewhere, behavior is undefined if (end-begin) >= 2^30
   /// \return non-zero, but JSON_ASSERT if this is neither object nor nullValue.
@@ -1196,8 +1124,6 @@ public:
   iterator begin();
   iterator end();
 
-<<<<<<< HEAD
-=======
   /// \brief Returns a reference to the first element in the `Value`.
   /// Requires that this value holds an array or json object, with at least one
   /// element.
@@ -1218,7 +1144,6 @@ public:
   /// element.
   Value& back();
 
->>>>>>> 5.10.0
   // Accessors for the [start, limit) range of bytes within the JSON text from
   // which this value was parsed, if any.
   void setOffsetStart(ptrdiff_t start);
@@ -1559,8 +1484,6 @@ public:
 
 inline void swap(Value& a, Value& b) { a.swap(b); }
 
-<<<<<<< HEAD
-=======
 inline const Value& Value::front() const { return *begin(); }
 
 inline Value& Value::front() { return *begin(); }
@@ -1569,7 +1492,6 @@ inline const Value& Value::back() const { return *(--end()); }
 
 inline Value& Value::back() { return *(--end()); }
 
->>>>>>> 5.10.0
 } // namespace Json
 
 #pragma pack(pop)
@@ -1618,12 +1540,8 @@ inline Value& Value::back() { return *(--end()); }
 #pragma warning(disable : 4251)
 #endif // if defined(JSONCPP_DISABLE_DLL_INTERFACE_WARNING)
 
-<<<<<<< HEAD
-#pragma pack(push, 8)
-=======
 #pragma pack(push)
 #pragma pack()
->>>>>>> 5.10.0
 
 namespace Json {
 
@@ -1650,20 +1568,12 @@ public:
   };
 
   /** \brief Constructs a Reader allowing all features for parsing.
-<<<<<<< HEAD
-    * \deprecated Use CharReader and CharReaderBuilder.
-=======
    * \deprecated Use CharReader and CharReaderBuilder.
->>>>>>> 5.10.0
    */
   Reader();
 
   /** \brief Constructs a Reader allowing the specified feature set for parsing.
-<<<<<<< HEAD
-    * \deprecated Use CharReader and CharReaderBuilder.
-=======
    * \deprecated Use CharReader and CharReaderBuilder.
->>>>>>> 5.10.0
    */
   Reader(const Features& features);
 
@@ -1797,10 +1707,7 @@ private:
   using Errors = std::deque<ErrorInfo>;
 
   bool readToken(Token& token);
-<<<<<<< HEAD
-=======
   bool readTokenSkippingComments(Token& token);
->>>>>>> 5.10.0
   void skipSpaces();
   bool match(const Char* pattern, int patternLength);
   bool readComment();
@@ -1832,10 +1739,6 @@ private:
                                 int& column) const;
   String getLocationLineAndColumn(Location location) const;
   void addComment(Location begin, Location end, CommentPlacement placement);
-<<<<<<< HEAD
-  void skipCommentTokens(Token& token);
-=======
->>>>>>> 5.10.0
 
   static bool containsNewLine(Location begin, Location end);
   static String normalizeEOL(Location begin, Location end);
@@ -1858,15 +1761,12 @@ private:
  */
 class JSON_API CharReader {
 public:
-<<<<<<< HEAD
-=======
   struct JSON_API StructuredError {
     ptrdiff_t offset_start;
     ptrdiff_t offset_limit;
     String message;
   };
 
->>>>>>> 5.10.0
   virtual ~CharReader() = default;
   /** \brief Read a Value from a <a HREF="http://www.json.org">JSON</a>
    * document. The document must be a UTF-8 encoded string containing the
@@ -1885,16 +1785,12 @@ public:
    * error occurred.
    */
   virtual bool parse(char const* beginDoc, char const* endDoc, Value* root,
-<<<<<<< HEAD
-                     String* errs) = 0;
-=======
                      String* errs);
 
   /** \brief Returns a vector of structured errors encountered while parsing.
    * Each parse call resets the stored list of errors.
    */
   std::vector<StructuredError> getStructuredErrors() const;
->>>>>>> 5.10.0
 
   class JSON_API Factory {
   public:
@@ -1904,9 +1800,6 @@ public:
      */
     virtual CharReader* newCharReader() const = 0;
   }; // Factory
-<<<<<<< HEAD
-};   // CharReader
-=======
 
 protected:
   class Impl {
@@ -1922,7 +1815,6 @@ protected:
 private:
   std::unique_ptr<Impl> _impl;
 }; // CharReader
->>>>>>> 5.10.0
 
 /** \brief Build a CharReader implementation.
  *
@@ -2010,15 +1902,12 @@ public:
    * \snippet src/lib_json/json_reader.cpp CharReaderBuilderStrictMode
    */
   static void strictMode(Json::Value* settings);
-<<<<<<< HEAD
-=======
   /** ECMA-404 mode.
    * \pre 'settings' != NULL (but Json::null is fine)
    * \remark Defaults:
    * \snippet src/lib_json/json_reader.cpp CharReaderBuilderECMA404Mode
    */
   static void ecma404Mode(Json::Value* settings);
->>>>>>> 5.10.0
 };
 
 /** Consume entire stream and use its begin/end.
@@ -2099,12 +1988,8 @@ JSON_API IStream& operator>>(IStream&, Value&);
 #pragma warning(disable : 4251)
 #endif // if defined(JSONCPP_DISABLE_DLL_INTERFACE_WARNING)
 
-<<<<<<< HEAD
-#pragma pack(push, 8)
-=======
 #pragma pack(push)
 #pragma pack()
->>>>>>> 5.10.0
 
 namespace Json {
 
@@ -2147,11 +2032,7 @@ public:
      */
     virtual StreamWriter* newStreamWriter() const = 0;
   }; // Factory
-<<<<<<< HEAD
-};   // StreamWriter
-=======
 }; // StreamWriter
->>>>>>> 5.10.0
 
 /** \brief Write into stringstream, then return string, for convenience.
  * A StreamWriter will be created from the factory, used, and then deleted.
@@ -2255,12 +2136,7 @@ public:
 #pragma warning(push)
 #pragma warning(disable : 4996) // Deriving from deprecated class
 #endif
-<<<<<<< HEAD
-class JSON_API FastWriter
-    : public Writer {
-=======
 class JSON_API FastWriter : public Writer {
->>>>>>> 5.10.0
 public:
   FastWriter();
   ~FastWriter() override = default;
@@ -2309,11 +2185,7 @@ private:
  *     - otherwise, it the values do not fit on one line, or the array contains
  *       object or non empty array, then print one value per line.
  *
-<<<<<<< HEAD
- * If the Value have comments then they are outputed according to their
-=======
  * If the Value have comments then they are outputted according to their
->>>>>>> 5.10.0
  *#CommentPlacement.
  *
  * \sa Reader, Value, Value::setComment()
@@ -2323,12 +2195,7 @@ private:
 #pragma warning(push)
 #pragma warning(disable : 4996) // Deriving from deprecated class
 #endif
-<<<<<<< HEAD
-class JSON_API
-    StyledWriter : public Writer {
-=======
 class JSON_API StyledWriter : public Writer {
->>>>>>> 5.10.0
 public:
   StyledWriter();
   ~StyledWriter() override = default;
@@ -2386,11 +2253,7 @@ private:
  *     - otherwise, it the values do not fit on one line, or the array contains
  *       object or non empty array, then print one value per line.
  *
-<<<<<<< HEAD
- * If the Value have comments then they are outputed according to their
-=======
  * If the Value have comments then they are outputted according to their
->>>>>>> 5.10.0
  #CommentPlacement.
  *
  * \sa Reader, Value, Value::setComment()
@@ -2400,12 +2263,7 @@ private:
 #pragma warning(push)
 #pragma warning(disable : 4996) // Deriving from deprecated class
 #endif
-<<<<<<< HEAD
-class JSON_API
-    StyledStreamWriter {
-=======
 class JSON_API StyledStreamWriter {
->>>>>>> 5.10.0
 public:
   /**
    * \param indentation Each level will be indented by this amount extra.
@@ -2461,10 +2319,7 @@ String JSON_API valueToString(
     PrecisionType precisionType = PrecisionType::significantDigits);
 String JSON_API valueToString(bool value);
 String JSON_API valueToQuotedString(const char* value);
-<<<<<<< HEAD
-=======
 String JSON_API valueToQuotedString(const char* value, size_t length);
->>>>>>> 5.10.0
 
 /// \brief Output using the StyledStreamWriter.
 /// \see Json::operator>>()

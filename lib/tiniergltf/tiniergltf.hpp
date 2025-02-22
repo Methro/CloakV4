@@ -1,12 +1,9 @@
 #pragma once
 
 #include <json/json.h>
-<<<<<<< HEAD
-=======
 #include "util/base64.h"
 
 #include <cstdint>
->>>>>>> 5.10.0
 #include <functional>
 #include <stack>
 #include <string>
@@ -16,12 +13,6 @@
 #include <array>
 #include <optional>
 #include <limits>
-<<<<<<< HEAD
-#include <stdexcept>
-#include <unordered_map>
-#include <unordered_set>
-#include "util/base64.h"
-=======
 #include <memory> // unique_ptr
 #include <stdexcept>
 #include <unordered_map>
@@ -32,7 +23,6 @@ namespace Json {
 	using String = JSONCPP_STRING; // Polyfill
 }
 #endif
->>>>>>> 5.10.0
 
 namespace tiniergltf {
 
@@ -479,12 +469,8 @@ struct Buffer {
 	std::optional<std::string> name;
 	std::string data;
 	Buffer(const Json::Value &o,
-<<<<<<< HEAD
-			const std::function<std::string(const std::string &uri)> &resolveURI)
-=======
 			const std::function<std::string(const std::string &uri)> &resolveURI,
 			std::optional<std::string> &&glbData = std::nullopt)
->>>>>>> 5.10.0
 		: byteLength(as<std::size_t>(o["byteLength"]))
 	{
 		check(o.isObject());
@@ -492,26 +478,6 @@ struct Buffer {
 		if (o.isMember("name")) {
 			name = as<std::string>(o["name"]);
 		}
-<<<<<<< HEAD
-		check(o.isMember("uri"));
-		bool dataURI = false;
-		const std::string uri = as<std::string>(o["uri"]);
-		for (auto &prefix : std::array<std::string, 2> {
-			"data:application/octet-stream;base64,",
-			"data:application/gltf-buffer;base64,"
-		}) {
-			if (std::string_view(uri).substr(0, prefix.length()) == prefix) {
-				auto view = std::string_view(uri).substr(prefix.length());
-				check(base64_is_valid(view));
-				data = base64_decode(view);
-				dataURI = true;
-				break;
-			}
-		}
-		if (!dataURI)
-			data = resolveURI(uri);
-		check(data.size() >= byteLength);
-=======
 		if (glbData.has_value()) {
 			check(!o.isMember("uri"));
 			data = *std::move(glbData);
@@ -538,7 +504,6 @@ struct Buffer {
 				data = resolveURI(uri);
 			check(data.size() >= byteLength);
 		}
->>>>>>> 5.10.0
 		data.resize(byteLength);
 	}
 };
@@ -1022,33 +987,16 @@ struct Sampler {
 	};
 	std::optional<MinFilter> minFilter;
 	std::optional<std::string> name;
-<<<<<<< HEAD
-	enum class WrapS {
-=======
 	enum class Wrap {
->>>>>>> 5.10.0
 		REPEAT,
 		CLAMP_TO_EDGE,
 		MIRRORED_REPEAT,
 	};
-<<<<<<< HEAD
-	WrapS wrapS;
-	enum class WrapT {
-		REPEAT,
-		CLAMP_TO_EDGE,
-		MIRRORED_REPEAT,
-	};
-	WrapT wrapT;
-	Sampler(const Json::Value &o)
-		: wrapS(WrapS::REPEAT)
-		, wrapT(WrapT::REPEAT)
-=======
 	Wrap wrapS;
 	Wrap wrapT;
 	Sampler(const Json::Value &o)
 		: wrapS(Wrap::REPEAT)
 		, wrapT(Wrap::REPEAT)
->>>>>>> 5.10.0
 	{
 		check(o.isObject());
 		if (o.isMember("magFilter")) {
@@ -1074,33 +1022,16 @@ struct Sampler {
 		if (o.isMember("name")) {
 			name = as<std::string>(o["name"]);
 		}
-<<<<<<< HEAD
-		if (o.isMember("wrapS")) {
-			static std::unordered_map<Json::UInt64, WrapS> map = {
-				{10497, WrapS::REPEAT},
-				{33071, WrapS::CLAMP_TO_EDGE},
-				{33648, WrapS::MIRRORED_REPEAT},
-			};
-=======
 		static std::unordered_map<Json::UInt64, Wrap> map = {
 			{10497, Wrap::REPEAT},
 			{33071, Wrap::CLAMP_TO_EDGE},
 			{33648, Wrap::MIRRORED_REPEAT},
 		};
 		if (o.isMember("wrapS")) {
->>>>>>> 5.10.0
 			const auto &v = o["wrapS"]; check(v.isUInt64());
 			wrapS = map.at(v.asUInt64());
 		}
 		if (o.isMember("wrapT")) {
-<<<<<<< HEAD
-			static std::unordered_map<Json::UInt64, WrapT> map = {
-				{10497, WrapT::REPEAT},
-				{33071, WrapT::CLAMP_TO_EDGE},
-				{33648, WrapT::MIRRORED_REPEAT},
-			};
-=======
->>>>>>> 5.10.0
 			const auto &v = o["wrapT"]; check(v.isUInt64());
 			wrapT = map.at(v.asUInt64());
 		}
@@ -1170,15 +1101,12 @@ struct Texture {
 };
 template<> Texture as(const Json::Value &o) { return o; }
 
-<<<<<<< HEAD
-=======
 using UriResolver = std::function<std::string(const std::string &uri)>;
 static inline std::string uriError(const std::string &uri) {
 	// only base64 data URI support by default
 	throw std::runtime_error("unsupported URI: " + uri);
 }
 
->>>>>>> 5.10.0
 struct GlTF {
 	std::optional<std::vector<Accessor>> accessors;
 	std::optional<std::vector<Animation>> animations;
@@ -1197,19 +1125,10 @@ struct GlTF {
 	std::optional<std::vector<Scene>> scenes;
 	std::optional<std::vector<Skin>> skins;
 	std::optional<std::vector<Texture>> textures;
-<<<<<<< HEAD
-	static std::string uriError(const std::string &uri) {
-		// only base64 data URI support by default
-		throw std::runtime_error("unsupported URI: " + uri);
-	}
-	GlTF(const Json::Value &o,
-			const std::function<std::string(const std::string &uri)> &resolveURI = uriError)
-=======
 
 	GlTF(const Json::Value &o,
 			const UriResolver &resolveUri = uriError,
 			std::optional<std::string> &&glbData = std::nullopt)
->>>>>>> 5.10.0
 		: asset(as<Asset>(o["asset"]))
 	{
 		check(o.isObject());
@@ -1231,12 +1150,8 @@ struct GlTF {
 			std::vector<Buffer> bufs;
 			bufs.reserve(b.size());
 			for (Json::ArrayIndex i = 0; i < b.size(); ++i) {
-<<<<<<< HEAD
-				bufs.emplace_back(b[i], resolveURI);
-=======
 				bufs.emplace_back(b[i], resolveUri,
 						i == 0 ? std::move(glbData) : std::nullopt);
->>>>>>> 5.10.0
 			}
 			check(bufs.size() >= 1);
 			buffers = std::move(bufs);
@@ -1452,8 +1367,6 @@ struct GlTF {
 	}
 };
 
-<<<<<<< HEAD
-=======
 // std::span is C++ 20, so we roll our own little struct here.
 template <typename T>
 struct Span {
@@ -1573,5 +1486,4 @@ inline GlTF readGlTF(const char *data, std::size_t len, const UriResolver &resol
 	return GlTF(readJson({data, static_cast<uint32_t>(len)}), resolveUri);
 }
 
->>>>>>> 5.10.0
 }

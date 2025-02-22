@@ -24,16 +24,12 @@ namespace core
 {
 
 //! 4x4 matrix. Mostly used as transformation matrix for 3d calculations.
-<<<<<<< HEAD
-/** The matrix is a D3D style matrix, row major with translations in the 4th row. */
-=======
 /** Conventions: Matrices are considered to be in row-major order.
  * Multiplication of a matrix A with a row vector v is the premultiplication vA.
  * Translations are thus in the 4th row.
  * The matrix product AB yields a matrix C such that vC = (vB)A:
  * B is applied first, then A.
  */
->>>>>>> 5.10.0
 template <class T>
 class CMatrix4
 {
@@ -251,25 +247,11 @@ public:
 	//! Translate a vector by the inverse of the translation part of this matrix.
 	void inverseTranslateVect(vector3df &vect) const;
 
-<<<<<<< HEAD
-	//! Rotate a vector by the inverse of the rotation part of this matrix.
-	void inverseRotateVect(vector3df &vect) const;
-
-	//! Rotate a vector by the rotation part of this matrix.
-	void rotateVect(vector3df &vect) const;
-
-	//! An alternate transform vector method, writing into a second vector
-	void rotateVect(core::vector3df &out, const core::vector3df &in) const;
-
-	//! An alternate transform vector method, writing into an array of 3 floats
-	void rotateVect(T *out, const core::vector3df &in) const;
-=======
 	//! Scale a vector, then rotate by the inverse of the rotation part of this matrix.
 	[[nodiscard]] vector3d<T> scaleThenInvRotVect(const vector3d<T> &vect) const;
 
 	//! Rotate and scale a vector. Applies both rotation & scale part of the matrix.
 	[[nodiscard]] vector3d<T> rotateAndScaleVect(const vector3d<T> &vect) const;
->>>>>>> 5.10.0
 
 	//! Transforms the vector by this matrix
 	/** This operation is performed as if the vector was 4d with the 4th component =1 */
@@ -1171,41 +1153,6 @@ inline bool CMatrix4<T>::isIdentity_integer_base() const
 }
 
 template <class T>
-<<<<<<< HEAD
-inline void CMatrix4<T>::rotateVect(vector3df &vect) const
-{
-	vector3d<T> tmp(static_cast<T>(vect.X), static_cast<T>(vect.Y), static_cast<T>(vect.Z));
-	vect.X = static_cast<f32>(tmp.X * M[0] + tmp.Y * M[4] + tmp.Z * M[8]);
-	vect.Y = static_cast<f32>(tmp.X * M[1] + tmp.Y * M[5] + tmp.Z * M[9]);
-	vect.Z = static_cast<f32>(tmp.X * M[2] + tmp.Y * M[6] + tmp.Z * M[10]);
-}
-
-//! An alternate transform vector method, writing into a second vector
-template <class T>
-inline void CMatrix4<T>::rotateVect(core::vector3df &out, const core::vector3df &in) const
-{
-	out.X = in.X * M[0] + in.Y * M[4] + in.Z * M[8];
-	out.Y = in.X * M[1] + in.Y * M[5] + in.Z * M[9];
-	out.Z = in.X * M[2] + in.Y * M[6] + in.Z * M[10];
-}
-
-//! An alternate transform vector method, writing into an array of 3 floats
-template <class T>
-inline void CMatrix4<T>::rotateVect(T *out, const core::vector3df &in) const
-{
-	out[0] = in.X * M[0] + in.Y * M[4] + in.Z * M[8];
-	out[1] = in.X * M[1] + in.Y * M[5] + in.Z * M[9];
-	out[2] = in.X * M[2] + in.Y * M[6] + in.Z * M[10];
-}
-
-template <class T>
-inline void CMatrix4<T>::inverseRotateVect(vector3df &vect) const
-{
-	vector3d<T> tmp(static_cast<T>(vect.X), static_cast<T>(vect.Y), static_cast<T>(vect.Z));
-	vect.X = static_cast<f32>(tmp.X * M[0] + tmp.Y * M[1] + tmp.Z * M[2]);
-	vect.Y = static_cast<f32>(tmp.X * M[4] + tmp.Y * M[5] + tmp.Z * M[6]);
-	vect.Z = static_cast<f32>(tmp.X * M[8] + tmp.Y * M[9] + tmp.Z * M[10]);
-=======
 inline vector3d<T> CMatrix4<T>::rotateAndScaleVect(const vector3d<T> &v) const
 {
 	return {
@@ -1223,7 +1170,6 @@ inline vector3d<T> CMatrix4<T>::scaleThenInvRotVect(const vector3d<T> &v) const
 		v.X * M[4] + v.Y * M[5] + v.Z * M[6],
 		v.X * M[8] + v.Y * M[9] + v.Z * M[10]
 	};
->>>>>>> 5.10.0
 }
 
 template <class T>
@@ -1284,12 +1230,7 @@ inline void CMatrix4<T>::transformPlane(core::plane3d<f32> &plane) const
 
 	// Transform the normal by the transposed inverse of the matrix
 	CMatrix4<T> transposedInverse(*this, EM4CONST_INVERSE_TRANSPOSED);
-<<<<<<< HEAD
-	vector3df normal = plane.Normal;
-	transposedInverse.rotateVect(normal);
-=======
 	vector3df normal = transposedInverse.rotateAndScaleVect(plane.Normal);
->>>>>>> 5.10.0
 	plane.setPlane(member, normal.normalize());
 }
 

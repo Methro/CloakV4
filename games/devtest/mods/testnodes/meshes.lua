@@ -1,10 +1,6 @@
 -- Meshes
 
-<<<<<<< HEAD
-local S = minetest.get_translator("testnodes")
-=======
 local S = core.get_translator("testnodes")
->>>>>>> 5.10.0
 
 local ocorner_cbox = {
 	type = "fixed",
@@ -27,11 +23,7 @@ local tall_pyr_cbox = {
 }
 
 -- Normal mesh
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh", {
-=======
 core.register_node("testnodes:mesh", {
->>>>>>> 5.10.0
 	description = S("Mesh Test Node"),
 	drawtype = "mesh",
 	mesh = "testnodes_pyramid.obj",
@@ -43,11 +35,7 @@ core.register_node("testnodes:mesh", {
 })
 
 -- Facedir mesh: outer corner slope
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_facedir", {
-=======
 core.register_node("testnodes:mesh_facedir", {
->>>>>>> 5.10.0
 	description = S("Facedir Mesh Test Node").."\n"..
 		S("param2 = facedir rotation (0..23)"),
 	drawtype = "mesh",
@@ -60,11 +48,7 @@ core.register_node("testnodes:mesh_facedir", {
 	groups = {dig_immediate=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_colorfacedir", {
-=======
 core.register_node("testnodes:mesh_colorfacedir", {
->>>>>>> 5.10.0
 	description = S("Color Facedir Mesh Test Node").."\n"..
 		S("param2 = color + facedir rotation (0..23, 32..55, ...)"),
 	drawtype = "mesh",
@@ -78,11 +62,7 @@ core.register_node("testnodes:mesh_colorfacedir", {
 	groups = {dig_immediate=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_4dir", {
-=======
 core.register_node("testnodes:mesh_4dir", {
->>>>>>> 5.10.0
 	description = S("4dir Mesh Test Node").."\n"..
 		S("param2 = 4dir rotation (0..3)"),
 	drawtype = "mesh",
@@ -95,11 +75,7 @@ core.register_node("testnodes:mesh_4dir", {
 	groups = {dig_immediate=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_color4dir", {
-=======
 core.register_node("testnodes:mesh_color4dir", {
->>>>>>> 5.10.0
 	description = S("Color 4dir Mesh Test Node").."\n"..
 		S("param2 = color + 4dir rotation (0..255)"),
 	drawtype = "mesh",
@@ -114,11 +90,7 @@ core.register_node("testnodes:mesh_color4dir", {
 })
 
 -- Wallmounted mesh: pyramid
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_wallmounted", {
-=======
 core.register_node("testnodes:mesh_wallmounted", {
->>>>>>> 5.10.0
 	description = S("Wallmounted Mesh Test Node").."\n"..
 		S("param2 = wallmounted rotation (0..7)"),
 	drawtype = "mesh",
@@ -131,11 +103,7 @@ core.register_node("testnodes:mesh_wallmounted", {
 	groups = {dig_immediate=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_colorwallmounted", {
-=======
 core.register_node("testnodes:mesh_colorwallmounted", {
->>>>>>> 5.10.0
 	description = S("Color Wallmounted Mesh Test Node").."\n"..
 		S("param2 = color + wallmounted rotation (0..7, 8..15, ...)"),
 	drawtype = "mesh",
@@ -150,11 +118,7 @@ core.register_node("testnodes:mesh_colorwallmounted", {
 })
 
 
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_double", {
-=======
 core.register_node("testnodes:mesh_double", {
->>>>>>> 5.10.0
 	description = S("Double-sized Mesh Test Node"),
 	drawtype = "mesh",
 	mesh = "testnodes_pyramid.obj",
@@ -165,11 +129,7 @@ core.register_node("testnodes:mesh_double", {
 
 	groups = {dig_immediate=3},
 })
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_half", {
-=======
 core.register_node("testnodes:mesh_half", {
->>>>>>> 5.10.0
 	description = S("Half-sized Mesh Test Node"),
 	drawtype = "mesh",
 	mesh = "testnodes_pyramid.obj",
@@ -181,11 +141,7 @@ core.register_node("testnodes:mesh_half", {
 	groups = {dig_immediate=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_waving1", {
-=======
 core.register_node("testnodes:mesh_waving1", {
->>>>>>> 5.10.0
 	description = S("Plantlike-waving Mesh Test Node").."\n"..
 		S("Waves if waving plants are enabled by client"),
 	drawtype = "mesh",
@@ -197,11 +153,7 @@ core.register_node("testnodes:mesh_waving1", {
 
 	groups = {dig_immediate=3},
 })
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_waving2", {
-=======
 core.register_node("testnodes:mesh_waving2", {
->>>>>>> 5.10.0
 	description = S("Leaflike-waving Mesh Test Node").."\n"..
 		S("Waves if waving leaves are enabled by client"),
 	drawtype = "mesh",
@@ -213,11 +165,7 @@ core.register_node("testnodes:mesh_waving2", {
 
 	groups = {dig_immediate=3},
 })
-<<<<<<< HEAD
-minetest.register_node("testnodes:mesh_waving3", {
-=======
 core.register_node("testnodes:mesh_waving3", {
->>>>>>> 5.10.0
 	description = S("Liquidlike-waving Mesh Test Node").."\n"..
 		S("Waves if waving liquids are enabled by client"),
 	drawtype = "mesh",

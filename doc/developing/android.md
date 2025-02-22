@@ -2,11 +2,7 @@
 
 ## Sign the Android APK from CI
 
-<<<<<<< HEAD
-The [Github Actions Workflow](https://github.com/otterminetest/OtterClient/actions?query=workflow%3Aandroid+event%3Apush)
-=======
 The [Github Actions Workflow](https://github.com/minetest/minetest/actions?query=workflow%3Aandroid+event%3Apush)
->>>>>>> 5.10.0
 automatically produces an APK for each architecture.
 Before installing them onto a device they however need to be signed.
 
@@ -25,11 +21,7 @@ After that installing it will work:
 adb install -r -d ./app-arm64-v8a-release-unsigned.apk
 ```
 
-<<<<<<< HEAD
-## How to get debug output from Minetest on Android
-=======
 ## How to get debug output from Luanti on Android
->>>>>>> 5.10.0
 
 In case debug.txt isn't enough (e.g. when debugging a crash), you can get debug
 output using logcat:

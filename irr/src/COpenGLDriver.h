@@ -58,49 +58,28 @@ public:
 
 	struct SHWBufferLink_opengl : public SHWBufferLink
 	{
-<<<<<<< HEAD
-		SHWBufferLink_opengl(const scene::IMeshBuffer *_MeshBuffer) :
-				SHWBufferLink(_MeshBuffer), vbo_verticesID(0), vbo_indicesID(0) {}
-
-		GLuint vbo_verticesID; // tmp
-		GLuint vbo_indicesID;  // tmp
-
-		GLuint vbo_verticesSize; // tmp
-		GLuint vbo_indicesSize;  // tmp
-=======
 		SHWBufferLink_opengl(const scene::IVertexBuffer *vb) : SHWBufferLink(vb) {}
 		SHWBufferLink_opengl(const scene::IIndexBuffer *ib) : SHWBufferLink(ib) {}
 
 		GLuint vbo_ID = 0;
 		u32 vbo_Size = 0;
->>>>>>> 5.10.0
 	};
 
 	//! updates hardware buffer if needed
 	bool updateHardwareBuffer(SHWBufferLink *HWBuffer) override;
 
-<<<<<<< HEAD
-	//! Create hardware buffer from mesh
-	SHWBufferLink *createHardwareBuffer(const scene::IMeshBuffer *mb) override;
-=======
 	//! Create hardware buffer from vertex buffer
 	SHWBufferLink *createHardwareBuffer(const scene::IVertexBuffer *vb) override;
 
 	//! Create hardware buffer from index buffer
 	SHWBufferLink *createHardwareBuffer(const scene::IIndexBuffer *ib) override;
->>>>>>> 5.10.0
 
 	//! Delete hardware buffer (only some drivers can)
 	void deleteHardwareBuffer(SHWBufferLink *HWBuffer) override;
 
-<<<<<<< HEAD
-	//! Draw hardware buffer
-	void drawHardwareBuffer(SHWBufferLink *HWBuffer) override;
-=======
 	void drawBuffers(const scene::IVertexBuffer *vb,
 		const scene::IIndexBuffer *ib, u32 primCount,
 		scene::E_PRIMITIVE_TYPE pType = scene::EPT_TRIANGLES) override;
->>>>>>> 5.10.0
 
 	//! Create occlusion query.
 	/** Use node for identification and mesh for occlusion test. */
@@ -190,16 +169,7 @@ public:
 			SColor color = SColor(255, 255, 255, 255)) override;
 
 	//! Draws a 3d box
-<<<<<<< HEAD
-	void draw3DBox(const core::aabbox3d<f32> &box,
-		SColor color = SColor(255, 255, 255, 255),
-		int drawType = 0,
-		int edgeAlpha = -1,
-		int faceAlpha = -1,
-		u8 diffNeighbors = 63) override;
-=======
 	void draw3DBox(const core::aabbox3d<f32> &box, SColor color = SColor(255, 255, 255, 255)) override;
->>>>>>> 5.10.0
 
 	//! Draws a 3d line.
 	virtual void draw3DLine(const core::vector3df &start,

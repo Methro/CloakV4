@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
 #if (MATERIAL_TYPE == TILE_MATERIAL_WAVING_LIQUID_TRANSPARENT || MATERIAL_TYPE == TILE_MATERIAL_WAVING_LIQUID_OPAQUE || MATERIAL_TYPE == TILE_MATERIAL_WAVING_LIQUID_BASIC || MATERIAL_TYPE == TILE_MATERIAL_LIQUID_TRANSPARENT)
 #define MATERIAL_WAVING_LIQUID 1
 #endif
 
->>>>>>> 5.10.0
 uniform sampler2D baseTexture;
 
 uniform vec3 dayLight;
@@ -14,10 +11,7 @@ uniform float fogShadingParameter;
 
 // The cameraOffset is the current center of the visible world.
 uniform highp vec3 cameraOffset;
-<<<<<<< HEAD
-=======
 uniform vec3 cameraPosition;
->>>>>>> 5.10.0
 uniform float animationTimer;
 #ifdef ENABLE_DYNAMIC_SHADOWS
 	// shadow texture
@@ -31,10 +25,7 @@ uniform float animationTimer;
 	uniform vec4 CameraPos;
 	uniform float xyPerspectiveBias0;
 	uniform float xyPerspectiveBias1;
-<<<<<<< HEAD
-=======
 	uniform vec3 shadow_tint;
->>>>>>> 5.10.0
 
 	varying float adj_shadow_strength;
 	varying float cosLight;
@@ -62,8 +53,6 @@ varying highp vec3 eyeVec;
 varying float nightRatio;
 
 #ifdef ENABLE_DYNAMIC_SHADOWS
-<<<<<<< HEAD
-=======
 #if (defined(MATERIAL_WAVING_LIQUID) && defined(ENABLE_WATER_REFLECTIONS) && ENABLE_WAVING_WATER)
 vec4 perm(vec4 x)
 {
@@ -107,7 +96,6 @@ vec2 wave_noise(vec3 p, float off) {
 	return (gnoise(p + vec3(0.0, 0.0, off)) * 0.4 + gnoise(2.0 * p + vec3(0.0, off, off)) * 0.2 + gnoise(3.0 * p + vec3(0.0, off, off)) * 0.225 + gnoise(4.0 * p + vec3(-off, off, 0.0)) * 0.2).xz;
 }
 #endif
->>>>>>> 5.10.0
 
 // assuming near is always 1.0
 float getLinearDepth()
@@ -127,8 +115,6 @@ float mtsmoothstep(in float edge0, in float edge1, in float x)
 	return t * t * (3.0 - 2.0 * t);
 }
 
-<<<<<<< HEAD
-=======
 float shadowCutoff(float x) {
 	#if defined(ENABLE_TRANSLUCENT_FOLIAGE) && MATERIAL_TYPE == TILE_MATERIAL_WAVING_LEAVES
 		return mtsmoothstep(0.0, 0.002, x);
@@ -137,7 +123,6 @@ float shadowCutoff(float x) {
 	#endif
 }
 
->>>>>>> 5.10.0
 #ifdef COLORED_SHADOWS
 
 // c_precision of 128 fits within 7 base-10 digits
@@ -164,17 +149,10 @@ vec4 getHardShadowColor(sampler2D shadowsampler, vec2 smTexCoord, float realDist
 {
 	vec4 texDepth = texture2D(shadowsampler, smTexCoord.xy).rgba;
 
-<<<<<<< HEAD
-	float visibility = step(0.0, realDistance - texDepth.r);
-	vec4 result = vec4(visibility, vec3(0.0,0.0,0.0));//unpackColor(texDepth.g));
-	if (visibility < 0.1) {
-		visibility = step(0.0, realDistance - texDepth.b);
-=======
 	float visibility = shadowCutoff(realDistance - texDepth.r);
 	vec4 result = vec4(visibility, vec3(0.0,0.0,0.0));//unpackColor(texDepth.g));
 	if (visibility < 0.1) {
 		visibility = shadowCutoff(realDistance - texDepth.b);
->>>>>>> 5.10.0
 		result = vec4(visibility, unpackColor(texDepth.a));
 	}
 	return result;
@@ -185,11 +163,7 @@ vec4 getHardShadowColor(sampler2D shadowsampler, vec2 smTexCoord, float realDist
 float getHardShadow(sampler2D shadowsampler, vec2 smTexCoord, float realDistance)
 {
 	float texDepth = texture2D(shadowsampler, smTexCoord.xy).r;
-<<<<<<< HEAD
-	float visibility = step(0.0, realDistance - texDepth);
-=======
 	float visibility = shadowCutoff(realDistance - texDepth);
->>>>>>> 5.10.0
 	return visibility;
 }
 
@@ -461,12 +435,9 @@ void main(void)
 	vec4 col = vec4(color.rgb * varColor.rgb, 1.0);
 
 #ifdef ENABLE_DYNAMIC_SHADOWS
-<<<<<<< HEAD
-=======
 	// Fragment normal, can differ from vNormal which is derived from vertex normals.
 	vec3 fNormal = vNormal;
 
->>>>>>> 5.10.0
 	if (f_shadow_strength > 0.0) {
 		float shadow_int = 0.0;
 		vec3 shadow_color = vec3(0.0, 0.0, 0.0);
@@ -503,25 +474,19 @@ void main(void)
 		// Power ratio was measured on torches in MTG (brightness = 14).
 		float adjusted_night_ratio = pow(max(0.0, nightRatio), 0.6);
 
-<<<<<<< HEAD
-=======
 		float shadow_uncorrected = shadow_int;
 
->>>>>>> 5.10.0
 		// Apply self-shadowing when light falls at a narrow angle to the surface
 		// Cosine of the cut-off angle.
 		const float self_shadow_cutoff_cosine = 0.035;
 		if (f_normal_length != 0 && cosLight < self_shadow_cutoff_cosine) {
 			shadow_int = max(shadow_int, 1 - clamp(cosLight, 0.0, self_shadow_cutoff_cosine)/self_shadow_cutoff_cosine);
 			shadow_color = mix(vec3(0.0), shadow_color, min(cosLight, self_shadow_cutoff_cosine)/self_shadow_cutoff_cosine);
-<<<<<<< HEAD
-=======
 
 #if (MATERIAL_TYPE == TILE_MATERIAL_WAVING_LEAVES || MATERIAL_TYPE == TILE_MATERIAL_WAVING_PLANTS)
 			// Prevents foliage from becoming insanely bright outside the shadow map.
 			shadow_uncorrected = mix(shadow_int, shadow_uncorrected, clamp(distance_rate * 4.0 - 3.0, 0.0, 1.0));
 #endif
->>>>>>> 5.10.0
 		}
 
 		shadow_int *= f_adj_shadow_strength;
@@ -530,10 +495,6 @@ void main(void)
 		col.rgb =
 				adjusted_night_ratio * col.rgb + // artificial light
 				(1.0 - adjusted_night_ratio) * ( // natural light
-<<<<<<< HEAD
-						col.rgb * (1.0 - shadow_int * (1.0 - shadow_color)) +  // filtered texture color
-						dayLight * shadow_color * shadow_int);                 // reflected filtered sunlight/moonlight
-=======
 						col.rgb * (1.0 - shadow_int * (1.0 - shadow_color) * (1.0 - shadow_tint)) +  // filtered texture color
 						dayLight * shadow_color * shadow_int);                 // reflected filtered sunlight/moonlight
 
@@ -588,7 +549,6 @@ void main(void)
 		// Simulate translucent foliage.
 		col.rgb += 4.0 * dayLight * base.rgb * normalize(base.rgb * varColor.rgb * varColor.rgb) * f_adj_shadow_strength * pow(max(-dot(v_LightDirection, viewVec), 0.0), 4.0) * max(1.0 - shadow_uncorrected, 0.0);
 #endif
->>>>>>> 5.10.0
 	}
 #endif
 
@@ -603,9 +563,6 @@ void main(void)
 	// Note: clarity = (1 - fogginess)
 	float clarity = clamp(fogShadingParameter
 		- fogShadingParameter * length(eyeVec) / fogDistance, 0.0, 1.0);
-<<<<<<< HEAD
-	col = mix(fogColor, col, clarity);
-=======
 	float fogColorMax = max(max(fogColor.r, fogColor.g), fogColor.b);
 	// Prevent zero division.
 	if (fogColorMax < 0.0000001) fogColorMax = 1.0;
@@ -613,7 +570,6 @@ void main(void)
 	// For this to not make the fog color artificially dark we need to normalize using the
 	// fog color's brightest value. We then blend our base color with this to make the fog.
 	col = mix(fogColor * pow(fogColor / fogColorMax, vec4(2.0 * clarity)), col, clarity);
->>>>>>> 5.10.0
 	col = vec4(col.rgb, base.a);
 
 	gl_FragData[0] = col;

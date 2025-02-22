@@ -13,14 +13,9 @@
 It is highly recommended to use vcpkg as package manager.
 
 After you successfully built vcpkg you can easily install the required libraries:
-<<<<<<< HEAD
-```powershell
-vcpkg install zlib zstd curl[winssl] openal-soft libvorbis libogg libjpeg-turbo sqlite3 freetype luajit gmp jsoncpp gettext sdl2 --triplet x64-windows
-=======
 
 ```powershell
 vcpkg install zlib zstd curl[winssl] openal-soft libvorbis libogg libjpeg-turbo sqlite3 freetype luajit gmp jsoncpp gettext[tools] opengl-registry --triplet x64-windows
->>>>>>> 5.10.0
 ```
 
 - `curl` is optional, but required to read the serverlist, `curl[winssl]` is required to use the content store.
@@ -34,11 +29,7 @@ There are other optional libraries, but they are not tested if they can build an
 Use `--triplet` to specify the target triplet, e.g. `x64-windows` or `x86-windows`.
 
 
-<<<<<<< HEAD
-## Compile Minetest
-=======
 ## Compile Luanti
->>>>>>> 5.10.0
 
 ### a) Using the vcpkg toolchain and CMake GUI
 
@@ -55,22 +46,14 @@ Use `--triplet` to specify the target triplet, e.g. `x64-windows` or `x86-window
 11. If there are any errors, solve them and hit **Configure**
 12. Click **Generate**
 13. Click **Open Project**
-<<<<<<< HEAD
-14. Compile Minetest inside Visual studio.
-=======
 14. Compile Luanti inside Visual studio.
->>>>>>> 5.10.0
 
 ### b) Using the vcpkg toolchain and the commandline
 
 Run the following script in PowerShell:
 
 ```powershell
-<<<<<<< HEAD
-cmake . -G"Visual Studio 15 2017 Win64" -DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_GETTEXT=OFF -DENABLE_CURSES=OFF
-=======
 cmake . -G"Visual Studio 16 2019" -DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_CURSES=OFF
->>>>>>> 5.10.0
 cmake --build . --config Release
 ```
 Make sure that the right compiler is selected and the path to the vcpkg toolchain is correct.
@@ -88,9 +71,3 @@ Build the binaries as described above, but make sure you unselect `RUN_IN_PLACE`
 
 Open the generated project file with Visual Studio. Right-click **Package** and choose **Generate**.
 It may take some minutes to generate the installer.
-<<<<<<< HEAD
-
-# Compiling on Windows using MSYS2
-https://wiki.voxelmanip.se/Compiling_on_Windows_using_MSYS2
-=======
->>>>>>> 5.10.0

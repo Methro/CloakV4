@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-Minetest protocol (incomplete, early draft):
-=======
 Luanti protocol (incomplete, early draft):
->>>>>>> 5.10.0
 Updated 2011-06-18
 
 A custom protocol over UDP.
@@ -74,11 +70,7 @@ function check_if_minetestserver_up($host, $port)
 	return false;
 }
 
-<<<<<<< HEAD
-- Here's a Python script for checking if a minetest server is up, confirmed working
-=======
 - Here's a Python script for checking if a Luanti server is up, confirmed working
->>>>>>> 5.10.0
 
 #!/usr/bin/env python3
 import sys, time, socket

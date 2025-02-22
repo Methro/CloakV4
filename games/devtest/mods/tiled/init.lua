@@ -1,11 +1,7 @@
 local align_help = "Texture spans over a space of 8×8 nodes"
 local align_help_n = "Tiles looks the same for every node"
 
-<<<<<<< HEAD
-minetest.register_node("tiled:tiled", {
-=======
 core.register_node("tiled:tiled", {
->>>>>>> 5.10.0
         description = "Tiled Node (world-aligned)".."\n"..align_help,
         tiles = {{
                 name = "tiled_tiled.png",
@@ -15,11 +11,7 @@ core.register_node("tiled:tiled", {
         groups = {cracky=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("tiled:tiled_rooted", {
-=======
 core.register_node("tiled:tiled_rooted", {
->>>>>>> 5.10.0
         description = "Tiled 'plantlike_rooted' Node (world-aligned)".."\n"..
                 "Base node texture spans over a space of 8×8 nodes".."\n"..
                 "A plantlike thing grows on top",
@@ -34,11 +26,7 @@ core.register_node("tiled:tiled_rooted", {
         groups = {cracky=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("tiled:tiled_n", {
-=======
 core.register_node("tiled:tiled_n", {
->>>>>>> 5.10.0
         description = "Tiled Node (node-aligned)".."\n"..align_help_n,
         tiles = {{
                 name = "tiled_tiled_node.png",

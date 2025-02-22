@@ -2,11 +2,7 @@
 local walk_speed = 2
 local walk_distance = 10
 
-<<<<<<< HEAD
-minetest.register_entity("soundstuff:bigfoot", {
-=======
 core.register_entity("soundstuff:bigfoot", {
->>>>>>> 5.10.0
 	initial_properties = {
 		physical = false,
 		collisionbox = {-1, -1, -1, 1, 1, 1},
@@ -35,30 +31,18 @@ core.register_entity("soundstuff:bigfoot", {
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_chatcommand("spawn_bigfoot", {
-	params = "",
-	description = "Spawn a big foot object that makes footstep sounds",
-	func = function(name, _param)
-		local player = minetest.get_player_by_name(name)
-=======
 core.register_chatcommand("spawn_bigfoot", {
 	params = "",
 	description = "Spawn a big foot object that makes footstep sounds",
 	func = function(name, _param)
 		local player = core.get_player_by_name(name)
->>>>>>> 5.10.0
 		if not player then
 			return false, "No player."
 		end
 		local pos = player:get_pos()
 		pos.y = pos.y + player:get_properties().collisionbox[2]
 		pos.y = pos.y - (-1) -- bigfoot collisionbox goes 1 down
-<<<<<<< HEAD
-		minetest.add_entity(pos, "soundstuff:bigfoot")
-=======
 		core.add_entity(pos, "soundstuff:bigfoot")
->>>>>>> 5.10.0
 		return true
 	end,
 })

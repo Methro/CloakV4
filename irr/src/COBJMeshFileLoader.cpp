@@ -182,11 +182,7 @@ IAnimatedMesh *COBJMeshFileLoader::createMesh(io::IReadFile *file)
 				mtlChanged = false;
 			}
 			if (currMtl)
-<<<<<<< HEAD
-				v.Color = currMtl->Meshbuffer->Material.DiffuseColor;
-=======
 				v.Color = video::SColorf(0.8f, 0.8f, 0.8f, 1.0f).toSColor();
->>>>>>> 5.10.0
 
 			// get all vertices data in this face (current line of obj file)
 			const core::stringc wordBuffer = copyLine(bufPtr, bufEnd);
@@ -196,10 +192,7 @@ IAnimatedMesh *COBJMeshFileLoader::createMesh(io::IReadFile *file)
 			faceCorners.set_used(0); // fast clear
 
 			// read in all vertices
-<<<<<<< HEAD
-=======
 			auto &Vertices = currMtl->Meshbuffer->Vertices->Data;
->>>>>>> 5.10.0
 			linePtr = goNextWord(linePtr, endPtr);
 			while (0 != linePtr[0]) {
 				// Array to communicate with retrieveVertexIndices()
@@ -236,13 +229,8 @@ IAnimatedMesh *COBJMeshFileLoader::createMesh(io::IReadFile *file)
 				if (n != currMtl->VertMap.end()) {
 					vertLocation = n->second;
 				} else {
-<<<<<<< HEAD
-					currMtl->Meshbuffer->Vertices.push_back(v);
-					vertLocation = currMtl->Meshbuffer->Vertices.size() - 1;
-=======
 					Vertices.push_back(v);
 					vertLocation = Vertices.size() - 1;
->>>>>>> 5.10.0
 					currMtl->VertMap.emplace(v, vertLocation);
 				}
 
@@ -260,25 +248,16 @@ IAnimatedMesh *COBJMeshFileLoader::createMesh(io::IReadFile *file)
 			}
 
 			// triangulate the face
-<<<<<<< HEAD
-=======
 			auto &Indices = currMtl->Meshbuffer->Indices->Data;
->>>>>>> 5.10.0
 			const int c = faceCorners[0];
 			for (u32 i = 1; i < faceCorners.size() - 1; ++i) {
 				// Add a triangle
 				const int a = faceCorners[i + 1];
 				const int b = faceCorners[i];
 				if (a != b && a != c && b != c) { // ignore degenerated faces. We can get them when we merge vertices above in the VertMap.
-<<<<<<< HEAD
-					currMtl->Meshbuffer->Indices.push_back(a);
-					currMtl->Meshbuffer->Indices.push_back(b);
-					currMtl->Meshbuffer->Indices.push_back(c);
-=======
 					Indices.push_back(a);
 					Indices.push_back(b);
 					Indices.push_back(c);
->>>>>>> 5.10.0
 				} else {
 					++degeneratedFaces;
 				}

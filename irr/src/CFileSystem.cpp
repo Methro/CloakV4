@@ -7,19 +7,11 @@
 #include "IWriteFile.h"
 #include "CZipReader.h"
 #include "CFileList.h"
-<<<<<<< HEAD
-#include "stdio.h"
-#include "os.h"
-=======
->>>>>>> 5.10.0
 #include "CReadFile.h"
 #include "CMemoryFile.h"
 #include "CLimitReadFile.h"
 #include "CWriteFile.h"
-<<<<<<< HEAD
-=======
 #include "coreutil.h"
->>>>>>> 5.10.0
 #include <list>
 
 #if defined(__STRICT_ANSI__)

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-local S = minetest.get_translator("testpathfinder")
-=======
 local S = core.get_translator("testpathfinder")
->>>>>>> 5.10.0
 
 -- Config parameters
 
@@ -41,28 +37,6 @@ local function find_path_for_player(player, itemstack)
 		local pos1 = vector.round(player:get_pos())
 		-- Don't bother calling pathfinder for high distance to avoid freezing
 		if (not IGNORE_MAX_DISTANCE_SAFEGUARD) and (vector.distance(pos1, pos2) > MAX_DIRECT_DISTANCE) then
-<<<<<<< HEAD
-			minetest.chat_send_player(player:get_player_name(), S("Destination too far away! Set a destination (via placing) within a distance of @1 and try again!", MAX_DIRECT_DISTANCE))
-			return
-		end
-		local str = S("Path from @1 to @2:",
-			minetest.pos_to_string(pos1),
-			minetest.pos_to_string(pos2))
-
-		minetest.chat_send_player(player:get_player_name(), str)
-		local time_start = minetest.get_us_time()
-		local path = minetest.find_path(pos1, pos2, MAX_SEARCH_DISTANCE, MAX_JUMP, MAX_DROP, algo)
-		local time_end = minetest.get_us_time()
-		local time_diff = time_end - time_start
-		str = ""
-		if not path then
-			minetest.chat_send_player(player:get_player_name(), S("No path!"))
-			minetest.chat_send_player(player:get_player_name(), S("Time: @1 ms", time_diff/1000))
-			return
-		end
-		for s=1, #path do
-			str = str .. minetest.pos_to_string(path[s]) .. "\n"
-=======
 			core.chat_send_player(player:get_player_name(), S("Destination too far away! Set a destination (via placing) within a distance of @1 and try again!", MAX_DIRECT_DISTANCE))
 			return
 		end
@@ -83,7 +57,6 @@ local function find_path_for_player(player, itemstack)
 		end
 		for s=1, #path do
 			str = str .. core.pos_to_string(path[s]) .. "\n"
->>>>>>> 5.10.0
 			local t
 			if s == #path then
 				t = "testpathfinder_waypoint_end.png"
@@ -93,32 +66,18 @@ local function find_path_for_player(player, itemstack)
 				local c = math.floor(((#path-s)/#path)*255)
 				t = string.format("testpathfinder_waypoint.png^[multiply:#%02x%02x00", 0xFF-c, c)
 			end
-<<<<<<< HEAD
-			minetest.add_particle({
-				pos = path[s],
-				expirationtime = 5 + 0.2 * s,
-				playername = player:get_player_name(),
-				glow = minetest.LIGHT_MAX,
-=======
 			core.add_particle({
 				pos = path[s],
 				expirationtime = 5 + 0.2 * s,
 				playername = player:get_player_name(),
 				glow = core.LIGHT_MAX,
->>>>>>> 5.10.0
 				texture = t,
 				size = 3,
 			})
 		end
-<<<<<<< HEAD
-		minetest.chat_send_player(player:get_player_name(), str)
-		minetest.chat_send_player(player:get_player_name(), S("Path length: @1", #path))
-		minetest.chat_send_player(player:get_player_name(), S("Time: @1 ms", time_diff/1000))
-=======
 		core.chat_send_player(player:get_player_name(), str)
 		core.chat_send_player(player:get_player_name(), S("Path length: @1", #path))
 		core.chat_send_player(player:get_player_name(), S("Time: @1 ms", time_diff/1000))
->>>>>>> 5.10.0
 	end
 end
 
@@ -134,11 +93,7 @@ local function set_destination(itemstack, user, pointed_thing)
 		meta:set_int("pos_x", pos.x)
 		meta:set_int("pos_y", pos.y)
 		meta:set_int("pos_z", pos.z)
-<<<<<<< HEAD
-		minetest.chat_send_player(user:get_player_name(), S("Destination set to @1", minetest.pos_to_string(pos)))
-=======
 		core.chat_send_player(user:get_player_name(), S("Destination set to @1", core.pos_to_string(pos)))
->>>>>>> 5.10.0
 		return itemstack
 	end
 end
@@ -157,11 +112,7 @@ local function find_path_or_set_algorithm(itemstack, user, pointed_thing)
 		local algo = meta:get_int("algorithm")
 		algo = (algo + 1) % #algorithms
 		meta:set_int("algorithm", algo)
-<<<<<<< HEAD
-		minetest.chat_send_player(user:get_player_name(), S("Algorithm: @1", algorithms[algo+1]))
-=======
 		core.chat_send_player(user:get_player_name(), S("Algorithm: @1", algorithms[algo+1]))
->>>>>>> 5.10.0
 		return itemstack
 	end
 end
@@ -169,11 +120,7 @@ end
 -- Punch: Find path
 -- Sneak+punch: Select pathfinding algorithm
 -- Place: Select destination node
-<<<<<<< HEAD
-minetest.register_tool("testpathfinder:testpathfinder", {
-=======
 core.register_tool("testpathfinder:testpathfinder", {
->>>>>>> 5.10.0
 	description = S("Pathfinder Tester") .."\n"..
 		S("Finds path between 2 points") .."\n"..
 		S("Place on node: Select destination") .."\n"..

@@ -55,11 +55,7 @@ see https://www.gnu.org/licenses/.  */
 #include <float.h>
 #endif
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* Macros */
 #define GMP_LIMB_BITS (sizeof(mp_limb_t) * CHAR_BIT)
 
@@ -287,11 +283,7 @@ see https://www.gnu.org/licenses/.  */
 
 const int mp_bits_per_limb = GMP_LIMB_BITS;
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* Memory allocation and other helper functions. */
 static void
 gmp_die (const char *msg)
@@ -392,11 +384,7 @@ gmp_free_limbs (mp_ptr old, mp_size_t size)
   gmp_free (old, size * sizeof (mp_limb_t));
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPN interface */
 
 void
@@ -789,11 +777,7 @@ mpn_neg (mp_ptr rp, mp_srcptr up, mp_size_t n)
   return 1;
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPN division interface. */
 
 /* The 3/2 inverse is defined as
@@ -1185,11 +1169,7 @@ mpn_div_qr (mp_ptr qp, mp_ptr np, mp_size_t nn, mp_srcptr dp, mp_size_t dn)
     gmp_free_limbs (tp, dn);
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPN base conversion. */
 static unsigned
 mpn_base_power_of_two_p (unsigned b)
@@ -1445,11 +1425,7 @@ mpn_set_str (mp_ptr rp, const unsigned char *sp, size_t sn, int base)
     }
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPZ interface */
 void
 mpz_init (mpz_t r)
@@ -1504,11 +1480,7 @@ mpz_realloc (mpz_t r, mp_size_t size)
 #define MPZ_REALLOC(z,n) ((n) > (z)->_mp_alloc			\
 			  ? mpz_realloc(z,n)			\
 			  : (z)->_mp_d)
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPZ assignment and basic conversions. */
 void
 mpz_set_si (mpz_t r, signed long int x)
@@ -1732,11 +1704,7 @@ mpz_roinit_n (mpz_t x, mp_srcptr xp, mp_size_t xs)
   return x;
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* Conversions and comparison to double. */
 void
 mpz_set_d (mpz_t r, double x)
@@ -1894,11 +1862,7 @@ mpz_cmp_d (const mpz_t x, double d)
     }
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPZ comparisons and the like. */
 int
 mpz_sgn (const mpz_t u)
@@ -1986,11 +1950,7 @@ mpz_swap (mpz_t u, mpz_t v)
   MPN_PTR_SWAP (u->_mp_d, u->_mp_size, v->_mp_d, v->_mp_size);
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPZ addition and subtraction */
 
 
@@ -2090,11 +2050,7 @@ mpz_sub (mpz_t r, const mpz_t a, const mpz_t b)
   r->_mp_size = a->_mp_size >= 0 ? rn : - rn;
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPZ multiplication */
 void
 mpz_mul_si (mpz_t r, const mpz_t u, long int v)
@@ -2230,11 +2186,7 @@ mpz_submul (mpz_t r, const mpz_t u, const mpz_t v)
   mpz_clear (t);
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPZ division */
 enum mpz_div_round_mode { GMP_DIV_FLOOR, GMP_DIV_CEIL, GMP_DIV_TRUNC };
 
@@ -2709,11 +2661,7 @@ mpz_divisible_ui_p (const mpz_t n, unsigned long d)
   return mpz_div_qr_ui (NULL, NULL, n, d, GMP_DIV_TRUNC) == 0;
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* GCD */
 static mp_limb_t
 mpn_gcd_11 (mp_limb_t u, mp_limb_t v)
@@ -3106,11 +3054,7 @@ mpz_invert (mpz_t r, const mpz_t u, const mpz_t m)
   return invertible;
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* Higher level operations (sqrt, pow and root) */
 
 void
@@ -3390,11 +3334,7 @@ mpn_sqrtrem (mp_ptr sp, mp_ptr rp, mp_srcptr p, mp_size_t n)
   mpz_clear (r);
   return res;
 }
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* Combinatorics */
 
 void
@@ -3438,11 +3378,7 @@ mpz_bin_uiui (mpz_t r, unsigned long n, unsigned long k)
   mpz_clear (t);
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* Primality testing */
 
 /* Computes Kronecker (a/b) with odd b, a!=0 and GCD(a,b) = 1 */
@@ -3710,11 +3646,7 @@ mpz_probab_prime_p (const mpz_t n, int reps)
   return is_prime;
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* Logical operations and bit manipulation. */
 
 /* Numbers are treated as if represented in two's complement (and
@@ -4251,11 +4183,7 @@ mpz_scan0 (const mpz_t u, mp_bitcnt_t starting_bit)
   return mpn_common_scan (limb, i, up, un, ux);
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 /* MPZ base conversion. */
 
 size_t
@@ -4515,11 +4443,7 @@ mpz_out_str (FILE *stream, int base, const mpz_t x)
   return n;
 }
 
-<<<<<<< HEAD
-
-=======
 
->>>>>>> 5.10.0
 static int
 gmp_detect_endian (void)
 {

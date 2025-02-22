@@ -1,11 +1,7 @@
 uniform mat4 mWorld;
 uniform vec3 dayLight;
 uniform float animationTimer;
-<<<<<<< HEAD
-uniform lowp vec4 emissiveColor;
-=======
 uniform lowp vec4 materialColor;
->>>>>>> 5.10.0
 
 varying vec3 vNormal;
 varying vec3 vPosition;
@@ -95,11 +91,7 @@ float directional_ambient(vec3 normal)
 
 void main(void)
 {
-<<<<<<< HEAD
-	varTexCoord = (mTexture * inTexCoord0).st;
-=======
 	varTexCoord = (mTexture * vec4(inTexCoord0.xy, 1.0, 1.0)).st;
->>>>>>> 5.10.0
 	gl_Position = mWorldViewProj * inVertexPosition;
 
 	vPosition = gl_Position.xyz;
@@ -117,19 +109,9 @@ void main(void)
 		: directional_ambient(normalize(inVertexNormal));
 #endif
 
-<<<<<<< HEAD
-#ifdef GL_ES
-	vec4 color = inVertexColor.bgra;
-#else
-	vec4 color = inVertexColor;
-#endif
-
-	color *= emissiveColor;
-=======
 	vec4 color = inVertexColor;
 
 	color *= materialColor;
->>>>>>> 5.10.0
 
 	// The alpha gives the ratio of sunlight in the incoming light.
 	nightRatio = 1.0 - color.a;

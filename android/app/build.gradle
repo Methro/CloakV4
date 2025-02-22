@@ -1,20 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-<<<<<<< HEAD
-	compileSdkVersion 33
-	buildToolsVersion '33.0.2'
-=======
->>>>>>> 5.10.0
 	ndkVersion "$ndk_version"
 	defaultConfig {
 		applicationId 'net.minetest.minetest'
 		minSdkVersion 21
-<<<<<<< HEAD
-		targetSdkVersion 33
-		versionName "${versionMajor}.${versionMinor}.${versionPatch}"
-		versionCode project.versionCode
-=======
 		compileSdk 34
 		targetSdkVersion 34
 		versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -23,7 +13,6 @@ android {
 
 	buildFeatures {
 		buildConfig true
->>>>>>> 5.10.0
 	}
 
 	// load properties
@@ -63,10 +52,7 @@ android {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
 	}
-<<<<<<< HEAD
-=======
 	namespace 'net.minetest.minetest'
->>>>>>> 5.10.0
 }
 
 task prepareAssets() {
@@ -109,11 +95,7 @@ task prepareAssets() {
 			def moPath = "${assetsFolder}/locale/${poFile.parentFile.name}/LC_MESSAGES/"
 			file(moPath).mkdirs()
 			exec {
-<<<<<<< HEAD
-				commandLine 'msgfmt', '-o', "${moPath}/minetest.mo", poFile
-=======
 				commandLine 'msgfmt', '-o', "${moPath}/luanti.mo", poFile
->>>>>>> 5.10.0
 			}
 		}
 
@@ -121,11 +103,7 @@ task prepareAssets() {
 	}
 
 	task zipAssets(dependsOn: prepareAssets, type: Zip) {
-<<<<<<< HEAD
-		archiveFileName = "Minetest.zip"
-=======
 		archiveFileName = "assets.zip"
->>>>>>> 5.10.0
 		from assetsFolder
 		destinationDirectory = file("src/main/assets")
 	}
@@ -135,23 +113,7 @@ preBuild.dependsOn zipAssets
 prepareAssets.dependsOn ':native:getDeps'
 
 clean {
-<<<<<<< HEAD
-	delete new File("src/main/assets", "Minetest.zip")
-}
-
-// Map for the version code that gives each ABI a value.
-import com.android.build.OutputFile
-
-def abiCodes = ['armeabi-v7a': 0, 'arm64-v8a': 1]
-android.applicationVariants.all { variant ->
-	variant.outputs.each {
-		output ->
-			def abiName = output.getFilter(OutputFile.ABI)
-			output.versionCodeOverride = abiCodes.get(abiName, 0) + variant.versionCode
-	}
-=======
 	delete new File("src/main/assets", "assets.zip")
->>>>>>> 5.10.0
 }
 
 dependencies {

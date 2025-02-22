@@ -38,13 +38,10 @@ public class SDL {
     }
 
     public static void loadLibrary(String libraryName) throws UnsatisfiedLinkError, SecurityException, NullPointerException {
-<<<<<<< HEAD
-=======
         loadLibrary(libraryName, mContext);
     }
 
     public static void loadLibrary(String libraryName, Context context) throws UnsatisfiedLinkError, SecurityException, NullPointerException {
->>>>>>> 5.10.0
 
         if (libraryName == null) {
             throw new NullPointerException("No library name provided.");
@@ -60,17 +57,10 @@ public class SDL {
             // To use ReLinker, just add it as a dependency.  For more information, see 
             // https://github.com/KeepSafe/ReLinker for ReLinker's repository.
             //
-<<<<<<< HEAD
-            Class<?> relinkClass = mContext.getClassLoader().loadClass("com.getkeepsafe.relinker.ReLinker");
-            Class<?> relinkListenerClass = mContext.getClassLoader().loadClass("com.getkeepsafe.relinker.ReLinker$LoadListener");
-            Class<?> contextClass = mContext.getClassLoader().loadClass("android.content.Context");
-            Class<?> stringClass = mContext.getClassLoader().loadClass("java.lang.String");
-=======
             Class<?> relinkClass = context.getClassLoader().loadClass("com.getkeepsafe.relinker.ReLinker");
             Class<?> relinkListenerClass = context.getClassLoader().loadClass("com.getkeepsafe.relinker.ReLinker$LoadListener");
             Class<?> contextClass = context.getClassLoader().loadClass("android.content.Context");
             Class<?> stringClass = context.getClassLoader().loadClass("java.lang.String");
->>>>>>> 5.10.0
 
             // Get a 'force' instance of the ReLinker, so we can ensure libraries are reinstalled if 
             // they've changed during updates.
@@ -80,11 +70,7 @@ public class SDL {
 
             // Actually load the library!
             Method loadMethod = relinkInstanceClass.getDeclaredMethod("loadLibrary", contextClass, stringClass, stringClass, relinkListenerClass);
-<<<<<<< HEAD
-            loadMethod.invoke(relinkInstance, mContext, libraryName, null, null);
-=======
             loadMethod.invoke(relinkInstance, context, libraryName, null, null);
->>>>>>> 5.10.0
         }
         catch (final Throwable e) {
             // Fall back

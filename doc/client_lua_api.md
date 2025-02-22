@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-Minetest Lua Client Modding API Reference 5.9.0
-================================================
-=======
 Luanti Lua Client Modding API Reference 5.10.0
 ==============================================
 
@@ -9,7 +5,6 @@ Luanti Lua Client Modding API Reference 5.10.0
 it's now called `core` due to the renaming of Luanti (formerly Minetest).
 `minetest` will keep existing as an alias, so that old code won't break.
 
->>>>>>> 5.10.0
 * More information at <http://www.minetest.net/>
 * Developer Wiki: <http://dev.minetest.net/>
 
@@ -18,19 +13,11 @@ Introduction
 
 ** WARNING: The client API is currently unstable, and may break/change without warning. **
 
-<<<<<<< HEAD
-Content and functionality can be added to Minetest by using Lua
-scripting in run-time loaded mods.
-
-A mod is a self-contained bunch of scripts, textures and other related
-things that is loaded by and interfaces with Minetest.
-=======
 Content and functionality can be added to Luanti by using Lua
 scripting in run-time loaded mods.
 
 A mod is a self-contained bunch of scripts, textures and other related
 things that is loaded by and interfaces with Luanti.
->>>>>>> 5.10.0
 
 Transferring client-sided mods from the server to the client is planned, but not implemented yet.
 
@@ -115,11 +102,7 @@ The location of this directory.
 
 An (optional) settings file that provides meta information about the mod.
 
-<<<<<<< HEAD
-* `name`: The mod name. Allows Minetest to determine the mod name even if the
-=======
 * `name`: The mod name. Allows Luanti to determine the mod name even if the
->>>>>>> 5.10.0
           folder is wrongly named.
 * `description`: Description of mod to be shown in the Mods tab of the main
                  menu.
@@ -131,11 +114,7 @@ An (optional) settings file that provides meta information about the mod.
 ### `init.lua`
 
 The main Lua script. Running this script should register everything it
-<<<<<<< HEAD
-wants to register. Subsequent execution depends on minetest calling the
-=======
 wants to register. Subsequent execution depends on Luanti calling the
->>>>>>> 5.10.0
 registered callbacks.
 
 **NOTE**: Client mods currently can't provide textures, sounds, or models by
@@ -273,21 +252,6 @@ Helper functions
     * e.g. `string:split("a,b", ",") == {"a","b"}`
 * `string:trim()`
     * e.g. `string.trim("\n \t\tfoo bar\t ") == "foo bar"`
-<<<<<<< HEAD
-* `minetest.wrap_text(str, limit)`: returns a string
-    * Adds new lines to the string to keep it within the specified character limit
-    * limit: Maximal amount of characters in one line
-* `minetest.pos_to_string({x=X,y=Y,z=Z}, decimal_places))`: returns string `"(X,Y,Z)"`
-    * Convert position to a printable string
-      Optional: 'decimal_places' will round the x, y and z of the pos to the given decimal place.
-* `minetest.string_to_pos(string)`: returns a position
-    * Same but in reverse. Returns `nil` if the string can't be parsed to a position.
-* `minetest.string_to_area("(X1, Y1, Z1) (X2, Y2, Z2)")`: returns two positions
-    * Converts a string representing an area box into two positions
-* `minetest.is_yes(arg)`
-    * returns whether `arg` can be interpreted as yes
-* `minetest.is_nan(arg)`
-=======
 * `core.wrap_text(str, limit)`: returns a string
     * Adds new lines to the string to keep it within the specified character limit
     * limit: Maximal amount of characters in one line
@@ -301,29 +265,10 @@ Helper functions
 * `core.is_yes(arg)`
     * returns whether `arg` can be interpreted as yes
 * `core.is_nan(arg)`
->>>>>>> 5.10.0
     * returns true when the passed number represents NaN.
 * `table.copy(table)`: returns a table
     * returns a deep copy of `table`
 
-<<<<<<< HEAD
-Minetest namespace reference
-------------------------------
-
-### Utilities
-
-* `minetest.get_current_modname()`: returns the currently loading mod's name, when we are loading a mod
-* `minetest.get_modpath(modname)`: returns virtual path of given mod including
-   the trailing separator. This is useful to load additional Lua files
-   contained in your mod:
-   e.g. `dofile(minetest.get_modpath(minetest.get_current_modname()) .. "stuff.lua")`
-* `minetest.get_language()`: returns two strings
-   * the current gettext locale
-   * the current language code (the same as used for client-side translations)
-* `minetest.get_version()`: returns a table containing components of the
-   engine version.  Components:
-    * `project`: Name of the project, eg, "Minetest"
-=======
 'core' namespace reference
 --------------------------
 
@@ -340,7 +285,6 @@ Minetest namespace reference
 * `core.get_version()`: returns a table containing components of the
    engine version.  Components:
     * `project`: Name of the project, eg, "Luanti"
->>>>>>> 5.10.0
     * `string`: Simple version, eg, "1.2.3-dev"
     * `hash`: Full git version (only set if available), eg, "1.2.3-dev-01234567-dirty"
   Use this for informational purposes only. The information in the returned
@@ -348,16 +292,6 @@ Minetest namespace reference
   reliable or verifiable. Compatible forks will have a different name and
   version entirely. To check for the presence of engine features, test
   whether the functions exported by the wanted features exist. For example:
-<<<<<<< HEAD
-  `if minetest.check_for_falling then ... end`.
-* `minetest.sha1(data, [raw])`: returns the sha1 hash of data
-    * `data`: string of data to hash
-    * `raw`: return raw bytes instead of hex digits, default: false
-* `minetest.colorspec_to_colorstring(colorspec)`: Converts a ColorSpec to a
-  ColorString. If the ColorSpec is invalid, returns `nil`.
-    * `colorspec`: The ColorSpec to convert
-* `minetest.get_csm_restrictions()`: returns a table of `Flags` indicating the
-=======
   `if core.check_for_falling then ... end`.
 * `core.sha1(data, [raw])`: returns the sha1 hash of data
     * `data`: string of data to hash
@@ -366,96 +300,34 @@ Minetest namespace reference
   ColorString. If the ColorSpec is invalid, returns `nil`.
     * `colorspec`: The ColorSpec to convert
 * `core.get_csm_restrictions()`: returns a table of `Flags` indicating the
->>>>>>> 5.10.0
    restrictions applied to the current mod.
    * If a flag in this table is set to true, the feature is RESTRICTED.
    * Possible flags: `load_client_mods`, `chat_messages`, `read_itemdefs`,
                    `read_nodedefs`, `lookup_nodes`, `read_playerinfo`
-<<<<<<< HEAD
-* `minetest.urlencode(str)`: Encodes non-unreserved URI characters by a
-=======
 * `core.urlencode(str)`: Encodes non-unreserved URI characters by a
->>>>>>> 5.10.0
   percent sign followed by two hex digits. See
   [RFC 3986, section 2.3](https://datatracker.ietf.org/doc/html/rfc3986#section-2.3).
 
 ### Logging
-<<<<<<< HEAD
-* `minetest.debug(...)`
-    * Equivalent to `minetest.log(table.concat({...}, "\t"))`
-* `minetest.log([level,] text)`
-=======
 * `core.debug(...)`
     * Equivalent to `core.log(table.concat({...}, "\t"))`
 * `core.log([level,] text)`
->>>>>>> 5.10.0
     * `level` is one of `"none"`, `"error"`, `"warning"`, `"action"`,
       `"info"`, or `"verbose"`.  Default is `"none"`.
 
 ### Global callback registration functions
 Call these functions only at load time!
 
-<<<<<<< HEAD
-* `minetest.register_globalstep(function(dtime))`
-    * Called every client environment step
-	* `dtime` is the time since last execution in seconds.
-* `minetest.register_on_mods_loaded(function())`
-    * Called just after mods have finished loading.
-* `minetest.register_on_shutdown(function())`
-=======
 * `core.register_globalstep(function(dtime))`
     * Called every client environment step
     * `dtime` is the time since last execution in seconds.
 * `core.register_on_mods_loaded(function())`
     * Called just after mods have finished loading.
 * `core.register_on_shutdown(function())`
->>>>>>> 5.10.0
     * Called before client shutdown
     * **Warning**: If the client terminates abnormally (i.e. crashes), the registered
       callbacks **will likely not be run**. Data should be saved at
       semi-frequent intervals as well as on server shutdown.
-<<<<<<< HEAD
-* `minetest.register_on_receiving_chat_message(function(message))`
-    * Called always when a client receive a message
-    * Return `true` to mark the message as handled, which means that it will not be shown to chat
-* `minetest.register_on_sending_chat_message(function(message))`
-    * Called always when a client sends a message from chat
-    * Return `true` to mark the message as handled, which means that it will not be sent to server
-* `minetest.register_chatcommand(cmd, chatcommand definition)`
-    * Adds definition to minetest.registered_chatcommands
-* `minetest.unregister_chatcommand(name)`
-    * Unregisters a chatcommands registered with register_chatcommand.
-* `minetest.register_on_chatcommand(function(command, params))`
-    * Called always when a chatcommand is triggered, before `minetest.registered_chatcommands`
-      is checked to see if the command exists, but after the input is parsed.
-    * Return `true` to mark the command as handled, which means that the default
-      handlers will be prevented.
-* `minetest.register_on_death(function())`
-    * Called when the local player dies
-* `minetest.register_on_hp_modification(function(hp))`
-    * Called when server modified player's HP
-* `minetest.register_on_damage_taken(function(hp))`
-    * Called when the local player take damages
-* `minetest.register_on_formspec_input(function(formname, fields))`
-    * Called when a button is pressed in the local player's inventory form
-    * Newest functions are called first
-    * If function returns `true`, remaining functions are not called
-* `minetest.register_on_dignode(function(pos, node))`
-    * Called when the local player digs a node
-    * Newest functions are called first
-    * If any function returns true, the node isn't dug
-* `minetest.register_on_punchnode(function(pos, node))`
-    * Called when the local player punches a node
-    * Newest functions are called first
-    * If any function returns true, the punch is ignored
-* `minetest.register_on_placenode(function(pointed_thing, node))`
-    * Called when a node has been placed
-* `minetest.register_on_item_use(function(item, pointed_thing))`
-    * Called when the local player uses an item.
-    * Newest functions are called first.
-    * If any function returns true, the item use is not sent to server.
-* `minetest.register_on_modchannel_message(function(channel_name, sender, message))`
-=======
 * `core.register_on_receiving_chat_message(function(message))`
     * Called always when a client receive a message
     * Return `true` to mark the message as handled, which means that it will not be shown to chat
@@ -494,16 +366,11 @@ Call these functions only at load time!
     * Newest functions are called first.
     * If any function returns true, the item use is not sent to server.
 * `core.register_on_modchannel_message(function(channel_name, sender, message))`
->>>>>>> 5.10.0
     * Called when an incoming mod channel message is received
     * You must have joined some channels before, and server must acknowledge the
       join request.
     * If message comes from a server mod, `sender` field is an empty string.
-<<<<<<< HEAD
-* `minetest.register_on_modchannel_signal(function(channel_name, signal))`
-=======
 * `core.register_on_modchannel_signal(function(channel_name, signal))`
->>>>>>> 5.10.0
     * Called when a valid incoming mod channel signal is received
     * Signal id permit to react to server mod channel events
     * Possible values are:
@@ -513,24 +380,11 @@ Call these functions only at load time!
       3: leave_failed
       4: event_on_not_joined_channel
       5: state_changed
-<<<<<<< HEAD
-* `minetest.register_on_inventory_open(function(inventory))`
-=======
 * `core.register_on_inventory_open(function(inventory))`
->>>>>>> 5.10.0
     * Called when the local player open inventory
     * Newest functions are called first
     * If any function returns true, inventory doesn't open
 ### Sounds
-<<<<<<< HEAD
-* `minetest.sound_play(spec, parameters)`: returns a handle
-    * `spec` is a `SimpleSoundSpec`
-    * `parameters` is a sound parameter table
-* `handle:stop()` or `minetest.sound_stop(handle)`
-    * `handle` is a handle returned by `minetest.sound_play`
-* `handle:fade(step, gain)` or `minetest.sound_fade(handle, step, gain)`
-    * `handle` is a handle returned by `minetest.sound_play`
-=======
 * `core.sound_play(spec, parameters)`: returns a handle
     * `spec` is a `SimpleSoundSpec`
     * `parameters` is a sound parameter table
@@ -538,37 +392,19 @@ Call these functions only at load time!
     * `handle` is a handle returned by `core.sound_play`
 * `handle:fade(step, gain)` or `core.sound_fade(handle, step, gain)`
     * `handle` is a handle returned by `core.sound_play`
->>>>>>> 5.10.0
     * `step` determines how fast a sound will fade.
       Negative step will lower the sound volume, positive step will increase
       the sound volume.
     * `gain` the target gain for the fade.
 
 ### Timing
-<<<<<<< HEAD
-* `minetest.after(time, func, ...)`
-=======
 * `core.after(time, func, ...)`
->>>>>>> 5.10.0
     * Call the function `func` after `time` seconds, may be fractional
     * Optional: Variable number of arguments that are passed to `func`
     * Jobs set for earlier times are executed earlier. If multiple jobs expire
       at exactly the same time, then they expire in the order in which they were
       registered. This basically just applies to jobs registered on the same
       step with the exact same delay.
-<<<<<<< HEAD
-* `minetest.get_us_time()`
-    * Returns time with microsecond precision. May not return wall time.
-* `minetest.get_timeofday()`
-    * Returns the time of day: `0` for midnight, `0.5` for midday
-
-### Map
-* `minetest.get_node_or_nil(pos)`
-    * Returns the node at the given position as table in the format
-      `{name="node_name", param1=0, param2=0}`, returns `nil`
-      for unloaded areas or flavor limited areas.
-* `minetest.get_node_light(pos, timeofday)`
-=======
 * `core.get_us_time()`
     * Returns time with microsecond precision. May not return wall time.
 * `core.get_timeofday()`
@@ -580,27 +416,18 @@ Call these functions only at load time!
       `{name="node_name", param1=0, param2=0}`, returns `nil`
       for unloaded areas or flavor limited areas.
 * `core.get_node_light(pos, timeofday)`
->>>>>>> 5.10.0
     * Gets the light value at the given position. Note that the light value
       "inside" the node at the given position is returned, so you usually want
       to get the light value of a neighbor.
     * `pos`: The position where to measure the light.
     * `timeofday`: `nil` for current time, `0` for night, `0.5` for day
     * Returns a number between `0` and `15` or `nil`
-<<<<<<< HEAD
-* `minetest.find_node_near(pos, radius, nodenames, [search_center])`: returns pos or `nil`
-=======
 * `core.find_node_near(pos, radius, nodenames, [search_center])`: returns pos or `nil`
->>>>>>> 5.10.0
     * `radius`: using a maximum metric
     * `nodenames`: e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
     * `search_center` is an optional boolean (default: `false`)
       If true `pos` is also checked for the nodes
-<<<<<<< HEAD
-* `minetest.find_nodes_in_area(pos1, pos2, nodenames, [grouped])`
-=======
 * `core.find_nodes_in_area(pos1, pos2, nodenames, [grouped])`
->>>>>>> 5.10.0
     * `pos1` and `pos2` are the min and max positions of the area to search.
     * `nodenames`: e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
     * If `grouped` is true the return value is a table indexed by node name
@@ -610,78 +437,24 @@ Call these functions only at load time!
       second value: Table with the count of each node with the node name
       as index
     * Area volume is limited to 4,096,000 nodes
-<<<<<<< HEAD
-* `minetest.find_nodes_in_area_under_air(pos1, pos2, nodenames)`: returns a
-=======
 * `core.find_nodes_in_area_under_air(pos1, pos2, nodenames)`: returns a
->>>>>>> 5.10.0
   list of positions.
     * `nodenames`: e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
     * Return value: Table with all node positions with a node air above
     * Area volume is limited to 4,096,000 nodes
-<<<<<<< HEAD
-* `minetest.line_of_sight(pos1, pos2)`: returns `boolean, pos`
-=======
 * `core.line_of_sight(pos1, pos2)`: returns `boolean, pos`
->>>>>>> 5.10.0
     * Checks if there is anything other than air between pos1 and pos2.
     * Returns false if something is blocking the sight.
     * Returns the position of the blocking node when `false`
     * `pos1`: First position
     * `pos2`: Second position
-<<<<<<< HEAD
-* `minetest.raycast(pos1, pos2, objects, liquids)`: returns `Raycast`
-=======
 * `core.raycast(pos1, pos2, objects, liquids)`: returns `Raycast`
->>>>>>> 5.10.0
     * Creates a `Raycast` object.
     * `pos1`: start of the ray
     * `pos2`: end of the ray
     * `objects`: if false, only nodes will be returned. Default is `true`.
     * `liquids`: if false, liquid nodes won't be returned. Default is `false`.
 
-<<<<<<< HEAD
-* `minetest.find_nodes_with_meta(pos1, pos2)`
-    * Get a table of positions of nodes that have metadata within a region
-      {pos1, pos2}.
-* `minetest.get_meta(pos)`
-    * Get a `NodeMetaRef` at that position
-* `minetest.get_node_level(pos)`
-    * get level of leveled node (water, snow)
-* `minetest.get_node_max_level(pos)`
-    * get max available level for leveled node
-
-### Player
-* `minetest.send_chat_message(message)`
-    * Act as if `message` was typed by the player into the terminal.
-* `minetest.run_server_chatcommand(cmd, param)`
-    * Alias for `minetest.send_chat_message("/" .. cmd .. " " .. param)`
-* `minetest.clear_out_chat_queue()`
-    * Clears the out chat queue
-* `minetest.localplayer`
-    * Reference to the LocalPlayer object. See [`LocalPlayer`](#localplayer) class reference for methods.
-
-### Privileges
-* `minetest.get_privilege_list()`
-    * Returns a list of privileges the current player has in the format `{priv1=true,...}`
-* `minetest.string_to_privs(str)`: returns `{priv1=true,...}`
-* `minetest.privs_to_string(privs)`: returns `"priv1,priv2,..."`
-    * Convert between two privilege representations
-
-### Client Environment
-* `minetest.get_player_names()`
-    * Returns list of player names on server (nil if CSM_RF_READ_PLAYERINFO is enabled by server)
-* `minetest.disconnect()`
-    * Disconnect from the server and exit to main menu.
-    * Returns `false` if the client is already disconnecting otherwise returns `true`.
-* `minetest.get_server_info()`
-    * Returns [server info](#server-info).
-* `minetest.send_respawn()`
-    * Sends a respawn request to the server.
-
-### Storage API
-* `minetest.get_mod_storage()`:
-=======
 * `core.find_nodes_with_meta(pos1, pos2)`
     * Get a table of positions of nodes that have metadata within a region
       {pos1, pos2}.
@@ -720,32 +493,12 @@ Call these functions only at load time!
 
 ### Storage API
 * `core.get_mod_storage()`:
->>>>>>> 5.10.0
     * returns reference to mod private `StorageRef`
     * must be called during mod load time
 
 ### Mod channels
 ![Mod channels communication scheme](docs/mod channels.png)
 
-<<<<<<< HEAD
-* `minetest.mod_channel_join(channel_name)`
-    * Client joins channel `channel_name`, and creates it, if necessary. You
-      should listen from incoming messages with `minetest.register_on_modchannel_message`
-      call to receive incoming messages. Warning, this function is asynchronous.
-
-### Particles
-* `minetest.add_particle(particle definition)`
-
-* `minetest.add_particlespawner(particlespawner definition)`
-    * Add a `ParticleSpawner`, an object that spawns an amount of particles over `time` seconds
-    * Returns an `id`, and -1 if adding didn't succeed
-
-* `minetest.delete_particlespawner(id)`
-    * Delete `ParticleSpawner` with `id` (return value from `minetest.add_particlespawner`)
-
-### Misc.
-* `minetest.parse_json(string[, nullvalue])`: returns something
-=======
 * `core.mod_channel_join(channel_name)`
     * Client joins channel `channel_name`, and creates it, if necessary. You
       should listen from incoming messages with `core.register_on_modchannel_message`
@@ -763,17 +516,12 @@ Call these functions only at load time!
 
 ### Misc.
 * `core.parse_json(string[, nullvalue])`: returns something
->>>>>>> 5.10.0
     * Convert a string containing JSON data into the Lua equivalent
     * `nullvalue`: returned in place of the JSON null; defaults to `nil`
     * On success returns a table, a string, a number, a boolean or `nullvalue`
     * On failure outputs an error message and returns `nil`
     * Example: `parse_json("[10, {\"a\":false}]")`, returns `{10, {a = false}}`
-<<<<<<< HEAD
-* `minetest.write_json(data[, styled])`: returns a string or `nil` and an error message
-=======
 * `core.write_json(data[, styled])`: returns a string or `nil` and an error message
->>>>>>> 5.10.0
     * Convert a Lua table into a JSON string
     * styled: Outputs in a human-readable format if this is set, defaults to false
     * Unserializable things like functions and userdata are saved as null.
@@ -782,31 +530,18 @@ Call these functions only at load time!
         2. You cannot mix string and integer keys.
            This is due to the fact that JSON has two distinct array and object values.
     * Example: `write_json({10, {a = false}})`, returns `"[10, {\"a\": false}]"`
-<<<<<<< HEAD
-* `minetest.serialize(table)`: returns a string
-    * Convert a table containing tables, strings, numbers, booleans and `nil`s
-      into string form readable by `minetest.deserialize`
-    * Example: `serialize({foo='bar'})`, returns `'return { ["foo"] = "bar" }'`
-* `minetest.deserialize(string)`: returns a table
-    * Convert a string returned by `minetest.deserialize` into a table
-=======
 * `core.serialize(table)`: returns a string
     * Convert a table containing tables, strings, numbers, booleans and `nil`s
       into string form readable by `core.deserialize`
     * Example: `serialize({foo='bar'})`, returns `'return { ["foo"] = "bar" }'`
 * `core.deserialize(string)`: returns a table
     * Convert a string returned by `core.deserialize` into a table
->>>>>>> 5.10.0
     * `string` is loaded in an empty sandbox environment.
     * Will load functions, but they cannot access the global environment.
     * Example: `deserialize('return { ["foo"] = "bar" }')`, returns `{foo='bar'}`
     * Example: `deserialize('print("foo")')`, returns `nil` (function call fails)
         * `error:[string "print("foo")"]:1: attempt to call global 'print' (a nil value)`
-<<<<<<< HEAD
-* `minetest.compress(data, method, ...)`: returns `compressed_data`
-=======
 * `core.compress(data, method, ...)`: returns `compressed_data`
->>>>>>> 5.10.0
     * Compress a string of data.
     * `method` is a string identifying the compression method to be used.
     * Supported compression methods:
@@ -818,45 +553,6 @@ Call these functions only at load time!
         * Zstandard: `level` - Compression level. Integer or `nil`. Default `3`.
         Note any supported Zstandard compression level could be used here,
         but these are subject to change between Zstandard versions.
-<<<<<<< HEAD
-* `minetest.decompress(compressed_data, method, ...)`: returns data
-    * Decompress a string of data using the algorithm specified by `method`.
-    * See documentation on `minetest.compress()` for supported compression
-      methods.
-    * `...` indicates method-specific arguments. Currently, no methods use this
-* `minetest.rgba(red, green, blue[, alpha])`: returns a string
-    * Each argument is an 8 Bit unsigned integer
-    * Returns the ColorString from rgb or rgba values
-    * Example: `minetest.rgba(10, 20, 30, 40)`, returns `"#0A141E28"`
-* `minetest.encode_base64(string)`: returns string encoded in base64
-    * Encodes a string in base64.
-* `minetest.decode_base64(string)`: returns string or nil on failure
-    * Padding characters are only supported starting at version 5.4.0, where
-      5.5.0 and newer perform proper checks.
-    * Decodes a string encoded in base64.
-* `minetest.gettext(string)` : returns string
-    * look up the translation of a string in the gettext message catalog
-* `fgettext_ne(string, ...)`
-    * call minetest.gettext(string), replace "$1"..."$9" with the given
-      extra arguments and return the result
-* `fgettext(string, ...)` : returns string
-    * same as fgettext_ne(), but calls minetest.formspec_escape before returning result
-* `minetest.pointed_thing_to_face_pos(placer, pointed_thing)`: returns a position
-    * returns the exact position on the surface of a pointed node
-* `minetest.global_exists(name)`
-    * Checks if a global variable has been set, without triggering a warning.
-
-### UI
-* `minetest.ui.minimap`
-    * Reference to the minimap object. See [`Minimap`](#minimap) class reference for methods.
-    * If client disabled minimap (using enable_minimap setting) this reference will be nil.
-* `minetest.camera`
-    * Reference to the camera object. See [`Camera`](#camera) class reference for methods.
-* `minetest.show_formspec(formname, formspec)` : returns true on success
-	* Shows a formspec to the player
-* `minetest.display_chat_message(message)` returns true on success
-	* Shows a chat message to the current player.
-=======
 * `core.decompress(compressed_data, method, ...)`: returns data
     * Decompress a string of data using the algorithm specified by `method`.
     * See documentation on `core.compress()` for supported compression
@@ -894,20 +590,13 @@ Call these functions only at load time!
     * Shows a formspec to the player
 * `core.display_chat_message(message)` returns true on success
     * Shows a chat message to the current player.
->>>>>>> 5.10.0
 
 Setting-related
 ---------------
 
-<<<<<<< HEAD
-* `minetest.settings`: Settings object containing all of the settings from the
-  main config file (`minetest.conf`). Check lua_api.md for class reference.
-* `minetest.setting_get_pos(name)`: Loads a setting from the main settings and
-=======
 * `core.settings`: Settings object containing all of the settings from the
   main config file (`minetest.conf`). Check lua_api.md for class reference.
 * `core.setting_get_pos(name)`: Loads a setting from the main settings and
->>>>>>> 5.10.0
   parses it as a position (in the format `(1,2,3)`). Returns a position or nil.
 
 Class reference
@@ -989,11 +678,6 @@ Methods:
     * returns player speed vector
 * `get_hp()`
     * returns player HP
-<<<<<<< HEAD
-* `get_id()`
-    * returns player cao ID
-=======
->>>>>>> 5.10.0
 * `get_name()`
     * returns player name
 * `get_wield_index()`
@@ -1020,10 +704,6 @@ Methods:
         ```lua
         {
             speed = float,
-<<<<<<< HEAD
-            jump = float,
-            gravity = float,
-=======
             speed_climb = float,
             speed_crouch = float,
             speed_fast = float,
@@ -1036,7 +716,6 @@ Methods:
             liquid_fluidity = float,
             liquid_fluidity_smooth = float,
             liquid_sink = float,
->>>>>>> 5.10.0
             sneak = boolean,
             sneak_glitch = boolean,
             new_move = boolean,
@@ -1052,12 +731,8 @@ Methods:
 * `get_breath()`
     * returns the player's breath
 * `get_movement_acceleration()`
-<<<<<<< HEAD
-    * returns acceleration of the player in different environments:
-=======
     * returns acceleration of the player in different environments
       (note: does not take physics overrides into account):
->>>>>>> 5.10.0
 
         ```lua
         {
@@ -1068,12 +743,8 @@ Methods:
         ```
 
 * `get_movement_speed()`
-<<<<<<< HEAD
-    * returns player's speed in different environments:
-=======
     * returns player's speed in different environments
       (note: does not take physics overrides into account):
->>>>>>> 5.10.0
 
         ```lua
         {
@@ -1086,12 +757,8 @@ Methods:
         ```
 
 * `get_movement()`
-<<<<<<< HEAD
-    * returns player's movement in different environments:
-=======
     * returns player's movement in different environments
       (note: does not take physics overrides into account):
->>>>>>> 5.10.0
 
         ```lua
         {
@@ -1159,11 +826,7 @@ It can be created via `Settings(filename)`.
 
 ### NodeMetaRef
 Node metadata: reference extra data and functionality stored in a node.
-<<<<<<< HEAD
-Can be obtained via `minetest.get_meta(pos)`.
-=======
 Can be obtained via `core.get_meta(pos)`.
->>>>>>> 5.10.0
 
 #### Methods
 * `get_string(name)`
@@ -1189,11 +852,7 @@ The map is loaded as the ray advances. If the map is modified after the
 `Raycast` is created, the changes may or may not have an effect on the object.
 
 It can be created via `Raycast(pos1, pos2, objects, liquids)` or
-<<<<<<< HEAD
-`minetest.raycast(pos1, pos2, objects, liquids)` where:
-=======
 `core.raycast(pos1, pos2, objects, liquids)` where:
->>>>>>> 5.10.0
 
 * `pos1`: start of the ray
 * `pos2`: end of the ray
@@ -1207,17 +866,10 @@ It can be created via `Raycast(pos1, pos2, objects, liquids)` or
 
 -----------------
 ### Definitions
-<<<<<<< HEAD
-* `minetest.get_node_def(nodename)`
-	* Returns [node definition](#node-definition) table of `nodename`
-* `minetest.get_item_def(itemstring)`
-	* Returns item definition table of `itemstring`
-=======
 * `core.get_node_def(nodename)`
     * Returns [node definition](#node-definition) table of `nodename`
 * `core.get_item_def(itemstring)`
     * Returns item definition table of `itemstring`
->>>>>>> 5.10.0
 
 #### Node Definition
 
@@ -1320,17 +972,10 @@ It can be created via `Raycast(pos1, pos2, objects, liquids)` or
 
 ```lua
 {
-<<<<<<< HEAD
-	address = "minetest.example.org", -- The domain name/IP address of a remote server or "" for a local server.
-	ip = "203.0.113.156",             -- The IP address of the server.
-	port = 30000,                     -- The port the client is connected to.
-	protocol_version = 30             -- Will not be accurate at start up as the client might not be connected to the server yet, in that case it will be 0.
-=======
     address = "luanti.example.org",   -- The domain name/IP address of a remote server or "" for a local server.
     ip = "203.0.113.156",             -- The IP address of the server.
     port = 30000,                     -- The port the client is connected to.
     protocol_version = 30             -- Will not be accurate at start up as the client might not be connected to the server yet, in that case it will be 0.
->>>>>>> 5.10.0
 }
 ```
 
@@ -1343,25 +988,6 @@ Escape sequences
 Most text can contain escape sequences that can for example color the text.
 There are a few exceptions: tab headers, dropdowns and vertical labels can't.
 The following functions provide escape sequences:
-<<<<<<< HEAD
-* `minetest.get_color_escape_sequence(color)`:
-    * `color` is a [ColorString](#colorstring)
-    * The escape sequence sets the text color to `color`
-* `minetest.colorize(color, message)`:
-    * Equivalent to:
-      `minetest.get_color_escape_sequence(color) ..
-       message ..
-       minetest.get_color_escape_sequence("#ffffff")`
-* `minetest.get_background_escape_sequence(color)`
-    * `color` is a [ColorString](#colorstring)
-    * The escape sequence sets the background of the whole text element to
-      `color`. Only defined for item descriptions and tooltips.
-* `minetest.strip_foreground_colors(str)`
-    * Removes foreground colors added by `get_color_escape_sequence`.
-* `minetest.strip_background_colors(str)`
-    * Removes background colors added by `get_background_escape_sequence`.
-* `minetest.strip_colors(str)`
-=======
 * `core.get_color_escape_sequence(color)`:
     * `color` is a [ColorString](#colorstring)
     * The escape sequence sets the text color to `color`
@@ -1379,7 +1005,6 @@ The following functions provide escape sequences:
 * `core.strip_background_colors(str)`
     * Removes background colors added by `get_background_escape_sequence`.
 * `core.strip_colors(str)`
->>>>>>> 5.10.0
     * Removes all color escape sequences.
 
 `ColorString`

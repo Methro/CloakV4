@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-minetest.register_chatcommand("hotbar", {
-	params = "<size>",
-	description = "Set hotbar size",
-	func = function(name, param)
-		local player = minetest.get_player_by_name(name)
-=======
 core.register_chatcommand("hotbar", {
 	params = "<size>",
 	description = "Set hotbar size",
 	func = function(name, param)
 		local player = core.get_player_by_name(name)
->>>>>>> 5.10.0
 		if not player then
 			return false, "No player."
 		end
@@ -27,28 +19,16 @@ core.register_chatcommand("hotbar", {
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_chatcommand("hp", {
-	params = "<hp>",
-	description = "Set your health",
-	func = function(name, param)
-		local player = minetest.get_player_by_name(name)
-=======
 core.register_chatcommand("hp", {
 	params = "<hp>",
 	description = "Set your health",
 	func = function(name, param)
 		local player = core.get_player_by_name(name)
->>>>>>> 5.10.0
 		if not player then
 			return false, "No player."
 		end
 		local hp = tonumber(param)
-<<<<<<< HEAD
-		if not hp or minetest.is_nan(hp) or hp < 0 or hp > 65535 then
-=======
 		if not hp or core.is_nan(hp) or hp < 0 or hp > 65535 then
->>>>>>> 5.10.0
 			return false, "Missing or incorrect hp parameter!"
 		end
 		player:set_hp(hp)
@@ -56,55 +36,32 @@ core.register_chatcommand("hp", {
 	end,
 })
 
-<<<<<<< HEAD
-local s_infplace = minetest.settings:get("devtest_infplace")
-=======
 local s_infplace = core.settings:get("devtest_infplace")
->>>>>>> 5.10.0
 if s_infplace == "true" then
 	infplace = true
 elseif s_infplace == "false" then
 	infplace = false
 else
-<<<<<<< HEAD
-	infplace = minetest.is_creative_enabled("")
-end
-
-minetest.register_chatcommand("infplace", {
-=======
 	infplace = core.is_creative_enabled("")
 end
 
 core.register_chatcommand("infplace", {
->>>>>>> 5.10.0
 	params = "",
 	description = "Toggle infinite node placement",
 	func = function(name, param)
 		infplace = not infplace
 		if infplace then
-<<<<<<< HEAD
-			minetest.chat_send_all("Infinite node placement enabled!")
-			minetest.log("action", "Infinite node placement enabled")
-		else
-			minetest.chat_send_all("Infinite node placement disabled!")
-			minetest.log("action", "Infinite node placement disabled")
-=======
 			core.chat_send_all("Infinite node placement enabled!")
 			core.log("action", "Infinite node placement enabled")
 		else
 			core.chat_send_all("Infinite node placement disabled!")
 			core.log("action", "Infinite node placement disabled")
->>>>>>> 5.10.0
 		end
 		return true
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_chatcommand("detach", {
-=======
 core.register_chatcommand("detach", {
->>>>>>> 5.10.0
 	params = "[<radius>]",
 	description = "Detach all objects nearby",
 	func = function(name, param)
@@ -115,19 +72,11 @@ core.register_chatcommand("detach", {
 		if radius < 1 then
 			radius = 1
 		end
-<<<<<<< HEAD
-		local player = minetest.get_player_by_name(name)
-		if not player then
-			return false, "No player."
-		end
-		local objs = minetest.get_objects_inside_radius(player:get_pos(), radius)
-=======
 		local player = core.get_player_by_name(name)
 		if not player then
 			return false, "No player."
 		end
 		local objs = core.get_objects_inside_radius(player:get_pos(), radius)
->>>>>>> 5.10.0
 		local num = 0
 		for o=1, #objs do
 			if objs[o]:get_attach() then
@@ -139,19 +88,11 @@ core.register_chatcommand("detach", {
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_chatcommand("use_tool", {
-	params = "(dig <group> <leveldiff>) | (hit <damage_group> <time_from_last_punch>) [<uses>]",
-	description = "Apply tool wear a number of times, as if it were used for digging",
-	func = function(name, param)
-		local player = minetest.get_player_by_name(name)
-=======
 core.register_chatcommand("use_tool", {
 	params = "(dig <group> <leveldiff>) | (hit <damage_group> <time_from_last_punch>) [<uses>]",
 	description = "Apply tool wear a number of times, as if it were used for digging",
 	func = function(name, param)
 		local player = core.get_player_by_name(name)
->>>>>>> 5.10.0
 		if not player then
 			return false, "No player."
 		end
@@ -176,15 +117,9 @@ core.register_chatcommand("use_tool", {
 			local wear = tool:get_wear()
 			local dp
 			if mode == "dig" then
-<<<<<<< HEAD
-				dp = minetest.get_dig_params({[group]=3, level=level}, caps, wear)
-			else
-				dp = minetest.get_hit_params({[group]=100}, caps, level, wear)
-=======
 				dp = core.get_dig_params({[group]=3, level=level}, caps, wear)
 			else
 				dp = core.get_hit_params({[group]=100}, caps, level, wear)
->>>>>>> 5.10.0
 			end
 			tool:add_wear(dp.wear)
 			actual_uses = actual_uses + 1
@@ -206,24 +141,15 @@ core.register_chatcommand("use_tool", {
 
 
 -- Unlimited node placement
-<<<<<<< HEAD
-minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack)
-=======
 core.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack)
->>>>>>> 5.10.0
 	if placer and placer:is_player() then
 		return infplace
 	end
 end)
 
 -- Don't pick up if the item is already in the inventory
-<<<<<<< HEAD
-local old_handle_node_drops = minetest.handle_node_drops
-function minetest.handle_node_drops(pos, drops, digger)
-=======
 local old_handle_node_drops = core.handle_node_drops
 function core.handle_node_drops(pos, drops, digger)
->>>>>>> 5.10.0
 	if not digger or not digger:is_player() or not infplace then
 		return old_handle_node_drops(pos, drops, digger)
 	end
@@ -237,19 +163,11 @@ function core.handle_node_drops(pos, drops, digger)
 	end
 end
 
-<<<<<<< HEAD
-minetest.register_chatcommand("set_displayed_itemcount", {
-	params = "(-s \"<string>\" [-c <color>]) | -a <alignment_num>",
-	description = "Set the displayed itemcount of the wielded item",
-	func = function(name, param)
-		local player = minetest.get_player_by_name(name)
-=======
 core.register_chatcommand("set_displayed_itemcount", {
 	params = "(-s \"<string>\" [-c <color>]) | -a <alignment_num>",
 	description = "Set the displayed itemcount of the wielded item",
 	func = function(name, param)
 		local player = core.get_player_by_name(name)
->>>>>>> 5.10.0
 		local item = player:get_wielded_item()
 		local meta = item:get_meta()
 		local flag1 = param:sub(1, 2)
@@ -263,11 +181,7 @@ core.register_chatcommand("set_displayed_itemcount", {
 			end
 			local s = param:sub(5, se - 1)
 			if param:sub(se + 1, se + 4) == " -c " then
-<<<<<<< HEAD
-				s = minetest.colorize(param:sub(se + 5), s)
-=======
 				s = core.colorize(param:sub(se + 5), s)
->>>>>>> 5.10.0
 			end
 			meta:set_string("count_meta", s)
 		elseif flag1 == "-a" then
@@ -284,19 +198,11 @@ core.register_chatcommand("set_displayed_itemcount", {
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_chatcommand("dump_item", {
-	params = "",
-	description = "Prints a dump of the wielded item in table form",
-	func = function(name, param)
-		local player = minetest.get_player_by_name(name)
-=======
 core.register_chatcommand("dump_item", {
 	params = "",
 	description = "Prints a dump of the wielded item in table form",
 	func = function(name, param)
 		local player = core.get_player_by_name(name)
->>>>>>> 5.10.0
 		local item = player:get_wielded_item()
 		local str = dump(item:to_table())
 		print(str)
@@ -304,38 +210,22 @@ core.register_chatcommand("dump_item", {
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_chatcommand("dump_itemdef", {
-	params = "",
-	description = "Prints a dump of the wielded item's definition in table form",
-	func = function(name, param)
-		local player = minetest.get_player_by_name(name)
-=======
 core.register_chatcommand("dump_itemdef", {
 	params = "",
 	description = "Prints a dump of the wielded item's definition in table form",
 	func = function(name, param)
 		local player = core.get_player_by_name(name)
->>>>>>> 5.10.0
 		local str = dump(player:get_wielded_item():get_definition())
 		print(str)
 		return true, str
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_chatcommand("dump_wear_bar", {
-	params = "",
-	description = "Prints a dump of the wielded item's wear bar parameters in table form",
-	func = function(name, param)
-		local player = minetest.get_player_by_name(name)
-=======
 core.register_chatcommand("dump_wear_bar", {
 	params = "",
 	description = "Prints a dump of the wielded item's wear bar parameters in table form",
 	func = function(name, param)
 		local player = core.get_player_by_name(name)
->>>>>>> 5.10.0
 		local item = player:get_wielded_item()
 		local str = dump(item:get_wear_bar_params())
 		print(str)
@@ -348,10 +238,6 @@ core.register_chatcommand("set_saturation", {
     description = "Set the saturation for current player.",
     func = function(player_name, param)
         local saturation = tonumber(param)
-<<<<<<< HEAD
-        minetest.get_player_by_name(player_name):set_lighting({saturation = saturation })
-=======
         core.get_player_by_name(player_name):set_lighting({saturation = saturation })
->>>>>>> 5.10.0
     end
 })

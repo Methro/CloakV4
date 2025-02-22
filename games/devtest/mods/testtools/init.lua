@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-local S = minetest.get_translator("testtools")
-local F = minetest.formspec_escape
-
-testtools = {}
-
-dofile(minetest.get_modpath("testtools") .. "/light.lua")
-dofile(minetest.get_modpath("testtools") .. "/privatizer.lua")
-dofile(minetest.get_modpath("testtools") .. "/particles.lua")
-dofile(minetest.get_modpath("testtools") .. "/node_box_visualizer.lua")
-=======
 local S = core.get_translator("testtools")
 local F = core.formspec_escape
 
@@ -18,7 +7,6 @@ dofile(core.get_modpath("testtools") .. "/light.lua")
 dofile(core.get_modpath("testtools") .. "/privatizer.lua")
 dofile(core.get_modpath("testtools") .. "/particles.lua")
 dofile(core.get_modpath("testtools") .. "/node_box_visualizer.lua")
->>>>>>> 5.10.0
 
 local pointabilities_nodes = {
 	nodes = {
@@ -34,11 +22,7 @@ local pointabilities_objects = {
 	},
 }
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:param2tool", {
-=======
 core.register_tool("testtools:param2tool", {
->>>>>>> 5.10.0
 	description = S("Param2 Tool") .."\n"..
 		S("Modify param2 value of nodes") .."\n"..
 		S("Punch: +1") .."\n"..
@@ -49,11 +33,7 @@ core.register_tool("testtools:param2tool", {
 	groups = { testtool = 1, disable_repair = 1 },
 	pointabilities = pointabilities_nodes,
 	on_use = function(itemstack, user, pointed_thing)
-<<<<<<< HEAD
-		local pos = minetest.get_pointed_thing_position(pointed_thing)
-=======
 		local pos = core.get_pointed_thing_position(pointed_thing)
->>>>>>> 5.10.0
 		if pointed_thing.type ~= "node" or (not pos) then
 			return
 		end
@@ -64,21 +44,12 @@ core.register_tool("testtools:param2tool", {
 				add = 8
 			end
 		end
-<<<<<<< HEAD
-		local node = minetest.get_node(pos)
-		node.param2 = node.param2 + add
-		minetest.swap_node(pos, node)
-	end,
-	on_place = function(itemstack, user, pointed_thing)
-		local pos = minetest.get_pointed_thing_position(pointed_thing)
-=======
 		local node = core.get_node(pos)
 		node.param2 = node.param2 + add
 		core.swap_node(pos, node)
 	end,
 	on_place = function(itemstack, user, pointed_thing)
 		local pos = core.get_pointed_thing_position(pointed_thing)
->>>>>>> 5.10.0
 		if pointed_thing.type ~= "node" or (not pos) then
 			return
 		end
@@ -89,15 +60,6 @@ core.register_tool("testtools:param2tool", {
 				add = -8
 			end
 		end
-<<<<<<< HEAD
-		local node = minetest.get_node(pos)
-		node.param2 = node.param2 + add
-		minetest.swap_node(pos, node)
-	end,
-})
-
-minetest.register_tool("testtools:node_setter", {
-=======
 		local node = core.get_node(pos)
 		node.param2 = node.param2 + add
 		core.swap_node(pos, node)
@@ -105,7 +67,6 @@ minetest.register_tool("testtools:node_setter", {
 })
 
 core.register_tool("testtools:node_setter", {
->>>>>>> 5.10.0
 	description = S("Node Setter") .."\n"..
 		S("Replace pointed node with something else") .."\n"..
 		S("Punch: Select pointed node") .."\n"..
@@ -115,40 +76,24 @@ core.register_tool("testtools:node_setter", {
 	groups = { testtool = 1, disable_repair = 1 },
 	pointabilities = pointabilities_nodes,
 	on_use = function(itemstack, user, pointed_thing)
-<<<<<<< HEAD
-		local pos = minetest.get_pointed_thing_position(pointed_thing)
-=======
 		local pos = core.get_pointed_thing_position(pointed_thing)
->>>>>>> 5.10.0
 		if pointed_thing.type == "nothing" then
 			local meta = itemstack:get_meta()
 			meta:set_string("node", "air")
 			meta:set_int("node_param2", 0)
 			if user and user:is_player() then
-<<<<<<< HEAD
-				minetest.chat_send_player(user:get_player_name(), S("Now placing: @1 (param2=@2)", "air", 0))
-=======
 				core.chat_send_player(user:get_player_name(), S("Now placing: @1 (param2=@2)", "air", 0))
->>>>>>> 5.10.0
 			end
 			return itemstack
 		elseif pointed_thing.type ~= "node" or (not pos) then
 			return
 		end
-<<<<<<< HEAD
-		local node = minetest.get_node(pos)
-=======
 		local node = core.get_node(pos)
->>>>>>> 5.10.0
 		local meta = itemstack:get_meta()
 		meta:set_string("node", node.name)
 		meta:set_int("node_param2", node.param2)
 		if user and user:is_player() then
-<<<<<<< HEAD
-			minetest.chat_send_player(user:get_player_name(), S("Now placing: @1 (param2=@2)", node.name, node.param2))
-=======
 			core.chat_send_player(user:get_player_name(), S("Now placing: @1 (param2=@2)", node.name, node.param2))
->>>>>>> 5.10.0
 		end
 		return itemstack
 	end,
@@ -157,11 +102,7 @@ core.register_tool("testtools:node_setter", {
 		local nodename = meta:get_string("node") or ""
 		local param2 = meta:get_int("node_param2") or 0
 
-<<<<<<< HEAD
-		minetest.show_formspec(user:get_player_name(), "testtools:node_setter",
-=======
 		core.show_formspec(user:get_player_name(), "testtools:node_setter",
->>>>>>> 5.10.0
 			"size[4,4]"..
 			"field[0.5,1;3,1;nodename;"..F(S("Node name (itemstring):"))..";"..F(nodename).."]"..
 			"field[0.5,2;3,1;param2;"..F(S("param2:"))..";"..F(tostring(param2)).."]"..
@@ -169,19 +110,11 @@ core.register_tool("testtools:node_setter", {
 		)
 	end,
 	on_place = function(itemstack, user, pointed_thing)
-<<<<<<< HEAD
-		local pos = minetest.get_pointed_thing_position(pointed_thing)
-		local meta = itemstack:get_meta()
-		local nodename = meta:get_string("node")
-		if nodename == "" and user and user:is_player() then
-			minetest.chat_send_player(user:get_player_name(), S("Punch a node first!"))
-=======
 		local pos = core.get_pointed_thing_position(pointed_thing)
 		local meta = itemstack:get_meta()
 		local nodename = meta:get_string("node")
 		if nodename == "" and user and user:is_player() then
 			core.chat_send_player(user:get_player_name(), S("Punch a node first!"))
->>>>>>> 5.10.0
 			return
 		end
 		local param2 = meta:get_int("node_param2")
@@ -189,17 +122,6 @@ core.register_tool("testtools:node_setter", {
 			param2 = 0
 		end
 		local node = { name = nodename, param2 = param2 }
-<<<<<<< HEAD
-		if not minetest.registered_nodes[nodename] then
-			minetest.chat_send_player(user:get_player_name(), S("Cannot set unknown node: @1", nodename))
-			return
-		end
-		minetest.set_node(pos, node)
-	end,
-})
-
-minetest.register_tool("testtools:remover", {
-=======
 		if not core.registered_nodes[nodename] then
 			core.chat_send_player(user:get_player_name(), S("Cannot set unknown node: @1", nodename))
 			return
@@ -209,7 +131,6 @@ minetest.register_tool("testtools:remover", {
 })
 
 core.register_tool("testtools:remover", {
->>>>>>> 5.10.0
 	description = S("Remover") .."\n"..
 		S("Punch: Remove pointed node or object"),
 	inventory_image = "testtools_remover.png",
@@ -219,35 +140,21 @@ core.register_tool("testtools:remover", {
 		objects = pointabilities_objects.objects,
 	},
 	on_use = function(itemstack, user, pointed_thing)
-<<<<<<< HEAD
-		local pos = minetest.get_pointed_thing_position(pointed_thing)
-		if pointed_thing.type == "node" and pos ~= nil then
-			minetest.remove_node(pos)
-=======
 		local pos = core.get_pointed_thing_position(pointed_thing)
 		if pointed_thing.type == "node" and pos ~= nil then
 			core.remove_node(pos)
->>>>>>> 5.10.0
 		elseif pointed_thing.type == "object" then
 			local obj = pointed_thing.ref
 			if not obj:is_player() then
 				obj:remove()
 			else
-<<<<<<< HEAD
-				minetest.chat_send_player(user:get_player_name(), S("Can't remove players!"))
-=======
 				core.chat_send_player(user:get_player_name(), S("Can't remove players!"))
->>>>>>> 5.10.0
 			end
 		end
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:falling_node_tool", {
-=======
 core.register_tool("testtools:falling_node_tool", {
->>>>>>> 5.10.0
 	description = S("Falling Node Tool") .."\n"..
 		S("Punch: Make pointed node fall") .."\n"..
 		S("Place: Move pointed node 2 units upwards, then make it fall"),
@@ -256,11 +163,7 @@ core.register_tool("testtools:falling_node_tool", {
 	pointabilities = pointabilities_nodes,
 	on_place = function(itemstack, user, pointed_thing)
 		-- Teleport node 1-2 units upwards (if possible) and make it fall
-<<<<<<< HEAD
-		local pos = minetest.get_pointed_thing_position(pointed_thing)
-=======
 		local pos = core.get_pointed_thing_position(pointed_thing)
->>>>>>> 5.10.0
 		if pointed_thing.type ~= "node" or (not pos) then
 			return
 		end
@@ -268,13 +171,8 @@ core.register_tool("testtools:falling_node_tool", {
 		local highest
 		for i=1,2 do
 			local above = {x=pos.x,y=pos.y+i,z=pos.z}
-<<<<<<< HEAD
-			local n2 = minetest.get_node(above)
-			local def2 = minetest.registered_nodes[n2.name]
-=======
 			local n2 = core.get_node(above)
 			local def2 = core.registered_nodes[n2.name]
->>>>>>> 5.10.0
 			if def2 and (not def2.walkable) then
 				highest = above
 			else
@@ -282,30 +180,6 @@ core.register_tool("testtools:falling_node_tool", {
 			end
 		end
 		if highest then
-<<<<<<< HEAD
-			local node = minetest.get_node(pos)
-			local metatable = minetest.get_meta(pos):to_table()
-			minetest.remove_node(pos)
-			minetest.set_node(highest, node)
-			local meta_highest = minetest.get_meta(highest)
-			meta_highest:from_table(metatable)
-			ok = minetest.spawn_falling_node(highest)
-		else
-			ok = minetest.spawn_falling_node(pos)
-		end
-		if not ok and user and user:is_player() then
-			minetest.chat_send_player(user:get_player_name(), S("Falling node could not be spawned!"))
-		end
-	end,
-	on_use = function(itemstack, user, pointed_thing)
-		local pos = minetest.get_pointed_thing_position(pointed_thing)
-		if pointed_thing.type ~= "node" or (not pos) then
-			return
-		end
-		local ok = minetest.spawn_falling_node(pos)
-		if not ok and user and user:is_player() then
-			minetest.chat_send_player(user:get_player_name(), S("Falling node could not be spawned!"))
-=======
 			local node = core.get_node(pos)
 			local metatable = core.get_meta(pos):to_table()
 			core.remove_node(pos)
@@ -328,16 +202,11 @@ core.register_tool("testtools:falling_node_tool", {
 		local ok = core.spawn_falling_node(pos)
 		if not ok and user and user:is_player() then
 			core.chat_send_player(user:get_player_name(), S("Falling node could not be spawned!"))
->>>>>>> 5.10.0
 		end
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:rotator", {
-=======
 core.register_tool("testtools:rotator", {
->>>>>>> 5.10.0
 	description = S("Entity Rotator") .. "\n" ..
 		S("Rotate pointed entity") .."\n"..
 		S("Punch: Yaw") .."\n"..
@@ -391,19 +260,11 @@ local mover_config = function(itemstack, user, pointed_thing)
 		dist = dist + 1
 	end
 	meta:set_int("distance", dist)
-<<<<<<< HEAD
-	minetest.chat_send_player(user:get_player_name(), S("distance=@1/10", dist*2))
-	return itemstack
-end
-
-minetest.register_tool("testtools:object_mover", {
-=======
 	core.chat_send_player(user:get_player_name(), S("distance=@1/10", dist*2))
 	return itemstack
 end
 
 core.register_tool("testtools:object_mover", {
->>>>>>> 5.10.0
 	description = S("Object Mover") .."\n"..
 		S("Move pointed object towards or away from you") .."\n"..
 		S("Punch: Move by distance").."\n"..
@@ -424,11 +285,7 @@ core.register_tool("testtools:object_mover", {
 			return
 		end
 		local yaw = user:get_look_horizontal()
-<<<<<<< HEAD
-		local dir = minetest.yaw_to_dir(yaw)
-=======
 		local dir = core.yaw_to_dir(yaw)
->>>>>>> 5.10.0
 		local pos = obj:get_pos()
 		local pitch = user:get_look_vertical()
 		if pitch > 0.25 * math.pi then
@@ -456,11 +313,7 @@ core.register_tool("testtools:object_mover", {
 
 
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:entity_scaler", {
-=======
 core.register_tool("testtools:entity_scaler", {
->>>>>>> 5.10.0
 	description = S("Entity Visual Scaler") .."\n"..
 		S("Scale visual size of entities") .."\n"..
 		S("Punch: Increase size") .."\n"..
@@ -511,22 +364,14 @@ local next_brand_num = 1
 
 function testtools.get_branded_object(name)
 	if name:sub(1, 7) == "player:" then
-<<<<<<< HEAD
-		return minetest.get_player_by_name(name:sub(8))
-=======
 		return core.get_player_by_name(name:sub(8))
->>>>>>> 5.10.0
 	elseif name:sub(1, 4) == "obj:" then
 		return branded_objects[tonumber(name:sub(5)) or 0]
 	end
 	return nil
 end
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:branding_iron", {
-=======
 core.register_tool("testtools:branding_iron", {
->>>>>>> 5.10.0
 	description = S("Branding Iron") .."\n"..
 		S("Give an object a temporary name.") .."\n"..
 		S("Punch object: Brand the object") .."\n"..
@@ -553,11 +398,7 @@ core.register_tool("testtools:branding_iron", {
 		next_brand_num = next_brand_num + 1
 		branded_objects[brand_num] = obj
 
-<<<<<<< HEAD
-		minetest.chat_send_player(user:get_player_name(), S(msg, "obj:"..brand_num))
-=======
 		core.chat_send_player(user:get_player_name(), S(msg, "obj:"..brand_num))
->>>>>>> 5.10.0
 	end,
 })
 
@@ -568,11 +409,7 @@ local function get_entity_list()
 	if entity_list then
 		return entity_list
 	end
-<<<<<<< HEAD
-	local ents = minetest.registered_entities
-=======
 	local ents = core.registered_entities
->>>>>>> 5.10.0
 	local list = {}
 	for k,_ in pairs(ents) do
 		table.insert(list, k)
@@ -581,11 +418,7 @@ local function get_entity_list()
 	entity_list = list
 	return entity_list
 end
-<<<<<<< HEAD
-minetest.register_tool("testtools:entity_spawner", {
-=======
 core.register_tool("testtools:entity_spawner", {
->>>>>>> 5.10.0
 	description = S("Entity Spawner") .."\n"..
 		S("Spawns entities") .."\n"..
 		S("Punch: Select entity to spawn") .."\n"..
@@ -597,15 +430,9 @@ core.register_tool("testtools:entity_spawner", {
 		if pointed_thing.type == "node" then
 			if selections[name] then
 				local pos = pointed_thing.above
-<<<<<<< HEAD
-				minetest.add_entity(pos, get_entity_list()[selections[name]])
-			else
-				minetest.chat_send_player(name, S("Select an entity first (with punch key)!"))
-=======
 				core.add_entity(pos, get_entity_list()[selections[name]])
 			else
 				core.chat_send_player(name, S("Select an entity first (with punch key)!"))
->>>>>>> 5.10.0
 			end
 		end
 	end,
@@ -617,11 +444,7 @@ core.register_tool("testtools:entity_spawner", {
 			local list = table.concat(get_entity_list(), ",")
 			local name = user:get_player_name()
 			local sel = selections[name] or ""
-<<<<<<< HEAD
-			minetest.show_formspec(name, "testtools:entity_list",
-=======
 			core.show_formspec(name, "testtools:entity_list",
->>>>>>> 5.10.0
 				"size[9,9]"..
 				"textlist[0,0;9,8;entity_list;"..list..";"..sel..";false]"..
 				"button[0,8;4,1;spawn;Spawn entity]"
@@ -685,11 +508,7 @@ local editor_formspec = function(playername, obj, value, sel)
 		local ent = obj:get_luaentity()
 		title = S("Object properties of @1", ent.name)
 	end
-<<<<<<< HEAD
-	minetest.show_formspec(playername, "testtools:object_editor",
-=======
 	core.show_formspec(playername, "testtools:object_editor",
->>>>>>> 5.10.0
 		"size[9,9]"..
 		"label[0,0;"..F(title).."]"..
 		"textlist[0,0.5;9,7.5;object_props;"..list..";"..sel..";false]"..
@@ -699,11 +518,7 @@ local editor_formspec = function(playername, obj, value, sel)
 	)
 end
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:object_editor", {
-=======
 core.register_tool("testtools:object_editor", {
->>>>>>> 5.10.0
 	description = S("Object Property Editor") .."\n"..
 		S("Edit properties of objects") .."\n"..
 		S("Punch object: Edit object") .."\n"..
@@ -767,11 +582,7 @@ local attacher_config = function(itemstack, user, pointed_thing)
 		elseif rot_x < 0 then
 			rot_x = math.pi * (15/8)
 		end
-<<<<<<< HEAD
-		minetest.chat_send_player(name, S("rotation=@1", minetest.pos_to_string({x=rot_x,y=0,z=0})))
-=======
 		core.chat_send_player(name, S("rotation=@1", core.pos_to_string({x=rot_x,y=0,z=0})))
->>>>>>> 5.10.0
 		meta:set_float("rot_x", rot_x)
 	else
 		local pos_y
@@ -785,21 +596,13 @@ local attacher_config = function(itemstack, user, pointed_thing)
 		else
 			pos_y = pos_y + 1
 		end
-<<<<<<< HEAD
-		minetest.chat_send_player(name, S("position=@1", minetest.pos_to_string({x=0,y=pos_y,z=0})))
-=======
 		core.chat_send_player(name, S("position=@1", core.pos_to_string({x=0,y=pos_y,z=0})))
->>>>>>> 5.10.0
 		meta:set_int("pos_y", pos_y)
 	end
 	return itemstack
 end
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:object_attacher", {
-=======
 core.register_tool("testtools:object_attacher", {
->>>>>>> 5.10.0
 	description = S("Object Attacher") .."\n"..
 		S("Attach object to another") .."\n"..
 		S("Punch objects to first select parent object, then the child object to attach") .."\n"..
@@ -828,15 +631,9 @@ core.register_tool("testtools:object_attacher", {
 			if ctrl.sneak then
 				if selected_object:get_attach() then
 					selected_object:set_detach()
-<<<<<<< HEAD
-					minetest.chat_send_player(name, S("Object detached!"))
-				else
-					minetest.chat_send_player(name, S("Object is not attached!"))
-=======
 					core.chat_send_player(name, S("Object detached!"))
 				else
 					core.chat_send_player(name, S("Object is not attached!"))
->>>>>>> 5.10.0
 				end
 				return
 			end
@@ -857,15 +654,6 @@ core.register_tool("testtools:object_attacher", {
 				ename = selected_object:get_player_name()
 			end
 			if selected_object == parent then
-<<<<<<< HEAD
-				minetest.chat_send_player(name, S("Parent object selected: @1", ename))
-			elseif selected_object == child then
-				minetest.chat_send_player(name, S("Child object selected: @1", ename))
-			end
-			if parent and child then
-				if parent == child then
-					minetest.chat_send_player(name, S("Can't attach an object to itself!"))
-=======
 				core.chat_send_player(name, S("Parent object selected: @1", ename))
 			elseif selected_object == child then
 				core.chat_send_player(name, S("Child object selected: @1", ename))
@@ -873,7 +661,6 @@ core.register_tool("testtools:object_attacher", {
 			if parent and child then
 				if parent == child then
 					core.chat_send_player(name, S("Can't attach an object to itself!"))
->>>>>>> 5.10.0
 					ent_parent[name] = nil
 					ent_child[name] = nil
 					return
@@ -891,17 +678,10 @@ core.register_tool("testtools:object_attacher", {
 				child:set_attach(parent, "", offset, angle)
 				local check_parent = child:get_attach()
 				if check_parent then
-<<<<<<< HEAD
-					minetest.chat_send_player(name, S("Object attached! position=@1, rotation=@2",
-						minetest.pos_to_string(offset), minetest.pos_to_string(angle)))
-				else
-					minetest.chat_send_player(name, S("Attachment failed!"))
-=======
 					core.chat_send_player(name, S("Object attached! position=@1, rotation=@2",
 						core.pos_to_string(offset), core.pos_to_string(angle)))
 				else
 					core.chat_send_player(name, S("Attachment failed!"))
->>>>>>> 5.10.0
 				end
 				ent_parent[name] = nil
 				ent_child[name] = nil
@@ -920,11 +700,7 @@ local function print_object(obj)
 	end
 end
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:children_getter", {
-=======
 core.register_tool("testtools:children_getter", {
->>>>>>> 5.10.0
 	description = S("Children Getter") .."\n"..
 		S("Shows list of objects attached to object") .."\n"..
 		S("Punch object to show its 'children'") .."\n"..
@@ -958,11 +734,7 @@ core.register_tool("testtools:children_getter", {
 			else
 				ret = S("Children of @1:", self_name) .. "\n" .. ret
 			end
-<<<<<<< HEAD
-			minetest.chat_send_player(user:get_player_name(), ret)
-=======
 			core.chat_send_player(user:get_player_name(), ret)
->>>>>>> 5.10.0
 		end
 	end,
 })
@@ -971,11 +743,7 @@ core.register_tool("testtools:children_getter", {
 local function use_loadstring(param, player)
 	-- For security reasons, require 'server' priv, just in case
 	-- someone is actually crazy enough to run this on a public server.
-<<<<<<< HEAD
-	local privs = minetest.get_player_privs(player:get_player_name())
-=======
 	local privs = core.get_player_privs(player:get_player_name())
->>>>>>> 5.10.0
 	if not privs.server then
 		return false, "You need 'server' privilege to change object properties!"
 	end
@@ -1026,22 +794,14 @@ local function show_meta_formspec(user, metatype, pos_or_item, key, value, keyli
 	local formname
 	if metatype == "node" then
 		formname = "testtools:node_meta_editor"
-<<<<<<< HEAD
-		extra_label = S("pos = @1", minetest.pos_to_string(pos_or_item))
-=======
 		extra_label = S("pos = @1", core.pos_to_string(pos_or_item))
->>>>>>> 5.10.0
 	else
 		formname = "testtools:item_meta_editor"
 		extra_label = S("item = @1", pos_or_item:get_name())
 	end
 	form = form .. "label[0,7.2;"..F(extra_label).."]"
 
-<<<<<<< HEAD
-	minetest.show_formspec(user:get_player_name(), formname, form)
-=======
 	core.show_formspec(user:get_player_name(), formname, form)
->>>>>>> 5.10.0
 end
 
 local function get_meta_keylist(meta, playername, escaped)
@@ -1062,11 +822,7 @@ local function get_meta_keylist(meta, playername, escaped)
 	return table.concat(ekeys, ",")
 end
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:node_meta_editor", {
-=======
 core.register_tool("testtools:node_meta_editor", {
->>>>>>> 5.10.0
 	description = S("Node Meta Editor") .. "\n" ..
 		S("Place: Edit node metadata"),
 	inventory_image = "testtools_node_meta_editor.png",
@@ -1080,11 +836,7 @@ core.register_tool("testtools:node_meta_editor", {
 		end
 		local pos = pointed_thing.under
 		node_meta_posses[user:get_player_name()] = pos
-<<<<<<< HEAD
-		local meta = minetest.get_meta(pos)
-=======
 		local meta = core.get_meta(pos)
->>>>>>> 5.10.0
 		local inv = meta:get_inventory()
 		show_meta_formspec(user, "node", pos, "", "", get_meta_keylist(meta, user:get_player_name(), true))
 		return itemstack
@@ -1109,11 +861,7 @@ local function use_item_meta_editor(itemstack, user, pointed_thing)
 	end
 	local item_to_edit = get_item_next_to_wielded_item(user)
 	if item_to_edit:is_empty() then
-<<<<<<< HEAD
-		minetest.chat_send_player(user:get_player_name(), S("Place an item next to the Item Meta Editor in your inventory first!"))
-=======
 		core.chat_send_player(user:get_player_name(), S("Place an item next to the Item Meta Editor in your inventory first!"))
->>>>>>> 5.10.0
 		return itemstack
 	end
 	local meta = item_to_edit:get_meta()
@@ -1121,11 +869,7 @@ local function use_item_meta_editor(itemstack, user, pointed_thing)
 	return itemstack
 end
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:item_meta_editor", {
-=======
 core.register_tool("testtools:item_meta_editor", {
->>>>>>> 5.10.0
 	description = S("Item Meta Editor") .. "\n" ..
 		S("Punch/Place: Edit item metadata of item in the next inventory slot"),
 	inventory_image = "testtools_item_meta_editor.png",
@@ -1135,30 +879,18 @@ core.register_tool("testtools:item_meta_editor", {
 	on_place = use_item_meta_editor,
 })
 
-<<<<<<< HEAD
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-=======
 core.register_on_player_receive_fields(function(player, formname, fields)
->>>>>>> 5.10.0
 	if not (player and player:is_player()) then
 		return
 	end
 	if formname == "testtools:entity_list" then
 		local name = player:get_player_name()
 		if fields.entity_list then
-<<<<<<< HEAD
-			local expl = minetest.explode_textlist_event(fields.entity_list)
-			if expl.type == "DCL" then
-				local pos = vector.add(player:get_pos(), {x=0,y=1,z=0})
-				selections[name] = expl.index
-				minetest.add_entity(pos, get_entity_list()[expl.index])
-=======
 			local expl = core.explode_textlist_event(fields.entity_list)
 			if expl.type == "DCL" then
 				local pos = vector.add(player:get_pos(), {x=0,y=1,z=0})
 				selections[name] = expl.index
 				core.add_entity(pos, get_entity_list()[expl.index])
->>>>>>> 5.10.0
 				return
 			elseif expl.type == "CHG" then
 				selections[name] = expl.index
@@ -1166,21 +898,13 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		elseif fields.spawn and selections[name] then
 			local pos = vector.add(player:get_pos(), {x=0,y=1,z=0})
-<<<<<<< HEAD
-			minetest.add_entity(pos, get_entity_list()[selections[name]])
-=======
 			core.add_entity(pos, get_entity_list()[selections[name]])
->>>>>>> 5.10.0
 			return
 		end
 	elseif formname == "testtools:object_editor" then
 		local name = player:get_player_name()
 		if fields.object_props then
-<<<<<<< HEAD
-			local expl = minetest.explode_textlist_event(fields.object_props)
-=======
 			local expl = core.explode_textlist_event(fields.object_props)
->>>>>>> 5.10.0
 			if expl.type == "DCL" or expl.type == "CHG" then
 				property_formspec_index[name] = expl.index
 
@@ -1209,11 +933,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 			if success then
 				props[key] = str
 			else
-<<<<<<< HEAD
-				minetest.chat_send_player(name, str)
-=======
 				core.chat_send_player(name, str)
->>>>>>> 5.10.0
 				return
 			end
 			selected_objects[name]:set_properties(props)
@@ -1248,11 +968,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 			pos_or_item = get_item_next_to_wielded_item(player)
 		end
 		if fields.keylist then
-<<<<<<< HEAD
-			local evnt = minetest.explode_textlist_event(fields.keylist)
-=======
 			local evnt = core.explode_textlist_event(fields.keylist)
->>>>>>> 5.10.0
 			if evnt.type == "DCL" or evnt.type == "CHG" then
 				local keylist_table = meta_latest_keylist[name]
 				if metatype == "node" and not pos_or_item then
@@ -1260,11 +976,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 				end
 				local meta
 				if metatype == "node" then
-<<<<<<< HEAD
-					meta = minetest.get_meta(pos_or_item)
-=======
 					meta = core.get_meta(pos_or_item)
->>>>>>> 5.10.0
 				else
 					meta = pos_or_item:get_meta()
 				end
@@ -1290,11 +1002,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 			end
 			local meta
 			if metatype == "node" then
-<<<<<<< HEAD
-				meta = minetest.get_meta(pos_or_item)
-=======
 				meta = core.get_meta(pos_or_item)
->>>>>>> 5.10.0
 			elseif metatype == "item" then
 				if pos_or_item:is_empty() then
 					return
@@ -1314,11 +1022,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-<<<<<<< HEAD
-minetest.register_on_leaveplayer(function(player)
-=======
 core.register_on_leaveplayer(function(player)
->>>>>>> 5.10.0
 	local name = player:get_player_name()
 	meta_latest_keylist[name] = nil
 	node_meta_posses[name] = nil
@@ -1326,11 +1030,7 @@ end)
 
 -- Pointing Staffs
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:blocked_pointing_staff", {
-=======
 core.register_tool("testtools:blocked_pointing_staff", {
->>>>>>> 5.10.0
 	description = S("Blocked Pointing Staff").."\n"..
 			S("Can point the Blocking Pointable Node/Object and "..
 			"the Pointable Node/Object is point blocking."),
@@ -1347,11 +1047,7 @@ core.register_tool("testtools:blocked_pointing_staff", {
 	}
 })
 
-<<<<<<< HEAD
-minetest.register_tool("testtools:ultimate_pointing_staff", {
-=======
 core.register_tool("testtools:ultimate_pointing_staff", {
->>>>>>> 5.10.0
 	description = S("Ultimate Pointing Staff").."\n"..
 			S("Can point all pointable test nodes, objects and liquids."),
 	inventory_image = "testtools_ultimate_pointing_staff.png",

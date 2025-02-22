@@ -810,15 +810,7 @@ void CGUIEditBox::draw()
 					CurrentTextRect.LowerRightCorner.X = CurrentTextRect.UpperLeftCorner.X + mend - mbegin;
 
 					// draw mark
-<<<<<<< HEAD
-					if (customMarkColor) {
-						skin->draw2DRectangle(this, MarkColor, CurrentTextRect, &localClipRect);
-					} else {
-						skin->draw2DRectangle(this, skin->getColor(EGDC_HIGH_LIGHT), CurrentTextRect, &localClipRect);
-					}
-=======
 					skin->draw2DRectangle(this, skin->getColor(EGDC_HIGH_LIGHT), CurrentTextRect, &localClipRect);
->>>>>>> 5.10.0
 
 					// draw marked text
 					s = txtLine->subString(lineStartPos, lineEndPos - lineStartPos);
@@ -1132,22 +1124,13 @@ void CGUIEditBox::breakText()
 		if (!MultiLine)
 			lineBreak = false;
 
-<<<<<<< HEAD
-		if (c == L' ' || c == 0 || i == (size - 1) || c == L',') {
-=======
 		if (c == L' ' || c == 0 || i == (size - 1)) {
->>>>>>> 5.10.0
 			// here comes the next whitespace, look if
 			// we can break the last word to the next line
 			// We also break whitespace, otherwise cursor would vanish beside the right border.
 			s32 whitelgth = font->getDimension(whitespace.c_str()).Width;
 			s32 worldlgth = font->getDimension(word.c_str()).Width;
-<<<<<<< HEAD
-			if (c == L',')
-				word += c;
-=======
 
->>>>>>> 5.10.0
 			if (WordWrap && length + worldlgth + whitelgth > elWidth && line.size() > 0) {
 				// break to next line
 				length = worldlgth;
@@ -1157,10 +1140,6 @@ void CGUIEditBox::breakText()
 				line = word;
 			} else {
 				// add word to line
-<<<<<<< HEAD
-				
-=======
->>>>>>> 5.10.0
 				line += whitespace;
 				line += word;
 				length += whitelgth + worldlgth;
@@ -1169,11 +1148,7 @@ void CGUIEditBox::breakText()
 			word = L"";
 			whitespace = L"";
 
-<<<<<<< HEAD
-			if (c && !c == L',')
-=======
 			if (c)
->>>>>>> 5.10.0
 				whitespace += c;
 
 			// compute line break

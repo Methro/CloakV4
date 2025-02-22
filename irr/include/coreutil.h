@@ -4,10 +4,6 @@
 
 #pragma once
 
-<<<<<<< HEAD
-#include "irrString.h"
-=======
->>>>>>> 5.10.0
 #include "path.h"
 
 namespace irr
@@ -66,11 +62,7 @@ inline io::path &getFileNameExtension(io::path &dest, const io::path &source)
 }
 
 //! delete path from filename
-<<<<<<< HEAD
-inline io::path &deletePathFromFilename(io::path &filename)
-=======
 inline io::path deletePathFromFilename(const io::path &filename)
->>>>>>> 5.10.0
 {
 	// delete path from filename
 	const fschar_t *s = filename.c_str();
@@ -80,18 +72,10 @@ inline io::path deletePathFromFilename(const io::path &filename)
 	while (*p != '/' && *p != '\\' && p != s)
 		p--;
 
-<<<<<<< HEAD
-	if (p != s) {
-		++p;
-		filename = p;
-	}
-	return filename;
-=======
 	if (p != s)
 		++p;
 
 	return p;
->>>>>>> 5.10.0
 }
 
 //! trim paths

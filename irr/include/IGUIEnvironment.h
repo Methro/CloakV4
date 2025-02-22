@@ -7,11 +7,7 @@
 #include "IReferenceCounted.h"
 #include "IGUISkin.h"
 #include "rect.h"
-<<<<<<< HEAD
-#include "EFocusFlags.h"
-=======
 #include "EFocusFlags.h" // IWYU pragma: export
->>>>>>> 5.10.0
 #include "IEventReceiver.h"
 #include "path.h"
 

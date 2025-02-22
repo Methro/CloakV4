@@ -51,12 +51,6 @@ bool CEGLManager::initialize(const SIrrlichtCreationParameters &params, const SE
 #elif defined(_IRR_COMPILE_WITH_X11_DEVICE_)
 	EglWindow = (NativeWindowType)Data.OpenGLLinux.X11Window;
 	EglDisplay = eglGetDisplay((NativeDisplayType)Data.OpenGLLinux.X11Display);
-<<<<<<< HEAD
-#elif defined(_IRR_COMPILE_WITH_FB_DEVICE_)
-	EglWindow = (NativeWindowType)Data.OpenGLFB.Window;
-	EglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-=======
->>>>>>> 5.10.0
 #endif
 
 	// We must check if EGL display is valid.

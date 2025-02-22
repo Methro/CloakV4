@@ -3,19 +3,11 @@
 --
 
 local function print_to_everything(msg)
-<<<<<<< HEAD
-	minetest.log("action", "[callbacks] " .. msg)
-	minetest.chat_send_all(msg)
-end
-
-minetest.register_craftitem("callbacks:callback_item_1", {
-=======
 	core.log("action", "[callbacks] " .. msg)
 	core.chat_send_all(msg)
 end
 
 core.register_craftitem("callbacks:callback_item_1", {
->>>>>>> 5.10.0
 	description = "Callback Test Item 1".."\n"..
 		"Tests callbacks: on_secondary_use, on_drop, on_pickup, on_use, after_use".."\n"..
 		"Punch/Drop + Sneak: Switch to Callback Test Item 2".."\n"..
@@ -42,11 +34,7 @@ core.register_craftitem("callbacks:callback_item_1", {
 			itemstack:set_name("callbacks:callback_item_2")
 		end
 
-<<<<<<< HEAD
-		return minetest.item_drop(itemstack, dropper, pos)
-=======
 		return core.item_drop(itemstack, dropper, pos)
->>>>>>> 5.10.0
 	end,
 
 	on_pickup = function(itemstack, picker, pointed_thing, ...)
@@ -62,11 +50,7 @@ core.register_craftitem("callbacks:callback_item_1", {
 			-- Pick up one item of the other kind at once
 			local taken = itemstack:take_item()
 			taken:set_name("callbacks:callback_item_2")
-<<<<<<< HEAD
-			local leftover = minetest.item_pickup(taken, picker, pointed_thing, ...)
-=======
 			local leftover = core.item_pickup(taken, picker, pointed_thing, ...)
->>>>>>> 5.10.0
 			leftover:set_name("callbacks:callback_item_1")
 			itemstack:add_item(leftover)
 			return itemstack
@@ -75,17 +59,10 @@ core.register_craftitem("callbacks:callback_item_1", {
 			return
 		elseif ctrl.left then
 			-- Eat it
-<<<<<<< HEAD
-			return minetest.do_item_eat(2, nil, itemstack, picker, pointed_thing)
-		else
-			-- Normal: pick up everything
-			return minetest.item_pickup(itemstack, picker, pointed_thing, ...)
-=======
 			return core.do_item_eat(2, nil, itemstack, picker, pointed_thing)
 		else
 			-- Normal: pick up everything
 			return core.item_pickup(itemstack, picker, pointed_thing, ...)
->>>>>>> 5.10.0
 		end
 	end,
 
@@ -110,11 +87,7 @@ core.register_craftitem("callbacks:callback_item_1", {
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_craftitem("callbacks:callback_item_2", {
-=======
 core.register_craftitem("callbacks:callback_item_2", {
->>>>>>> 5.10.0
 	description = "Callback Test Item 2".."\n"..
 		"Punch to switch to Callback Test Item 1",
 	inventory_image = "callbacks_callback_item_2.png",
@@ -129,11 +102,7 @@ core.register_craftitem("callbacks:callback_item_2", {
 	end,
 })
 
-<<<<<<< HEAD
-minetest.register_on_item_pickup(function(itemstack, picker, pointed_thing, time_from_last_punch, ...)
-=======
 core.register_on_item_pickup(function(itemstack, picker, pointed_thing, time_from_last_punch, ...)
->>>>>>> 5.10.0
 	assert(not pointed_thing or pointed_thing.ref:get_luaentity().name == "__builtin:item")
 
 	local item_name = itemstack:get_name()

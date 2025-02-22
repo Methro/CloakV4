@@ -8,31 +8,19 @@ local LAVA_VISC = 7
 
 -- Register nodes
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:stone", {
-=======
 core.register_node("basenodes:stone", {
->>>>>>> 5.10.0
 	description = "Stone",
 	tiles = {"default_stone.png"},
 	groups = {cracky=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:desert_stone", {
-=======
 core.register_node("basenodes:desert_stone", {
->>>>>>> 5.10.0
 	description = "Desert Stone",
 	tiles = {"default_desert_stone.png"},
 	groups = {cracky=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:dirt_with_grass", {
-=======
 core.register_node("basenodes:dirt_with_grass", {
->>>>>>> 5.10.0
 	description = "Dirt with Grass",
 	tiles ={"default_grass.png",
 		-- a little dot on the bottom to distinguish it from dirt
@@ -42,11 +30,7 @@ core.register_node("basenodes:dirt_with_grass", {
 	groups = {crumbly=3, soil=1},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:dirt_with_snow", {
-=======
 core.register_node("basenodes:dirt_with_snow", {
->>>>>>> 5.10.0
 	description = "Dirt with Snow",
 	tiles ={"basenodes_dirt_with_snow.png",
 		-- a little dot on the bottom to distinguish it from dirt
@@ -56,51 +40,31 @@ core.register_node("basenodes:dirt_with_snow", {
 	groups = {crumbly=3, soil=1},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:dirt", {
-=======
 core.register_node("basenodes:dirt", {
->>>>>>> 5.10.0
 	description = "Dirt",
 	tiles ={"default_dirt.png"},
 	groups = {crumbly=3, soil=1},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:sand", {
-=======
 core.register_node("basenodes:sand", {
->>>>>>> 5.10.0
 	description = "Sand",
 	tiles ={"default_sand.png"},
 	groups = {crumbly=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:desert_sand", {
-=======
 core.register_node("basenodes:desert_sand", {
->>>>>>> 5.10.0
 	description = "Desert Sand",
 	tiles ={"default_desert_sand.png"},
 	groups = {crumbly=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:gravel", {
-=======
 core.register_node("basenodes:gravel", {
->>>>>>> 5.10.0
 	description = "Gravel",
 	tiles ={"default_gravel.png"},
 	groups = {crumbly=2},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:junglegrass", {
-=======
 core.register_node("basenodes:junglegrass", {
->>>>>>> 5.10.0
 	description = "Jungle Grass",
 	drawtype = "plantlike",
 	tiles ={"default_junglegrass.png"},
@@ -111,22 +75,14 @@ core.register_node("basenodes:junglegrass", {
 	groups = {snappy=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:tree", {
-=======
 core.register_node("basenodes:tree", {
->>>>>>> 5.10.0
 	description = "Normal Tree Trunk",
 	tiles = {"default_tree_top.png", "default_tree_top.png", "default_tree.png"},
 	is_ground_content = false,
 	groups = {choppy=2,oddly_breakable_by_hand=1},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:leaves", {
-=======
 core.register_node("basenodes:leaves", {
->>>>>>> 5.10.0
 	description = "Normal Leaves",
 	drawtype = "allfaces_optional",
 	tiles = {"default_leaves.png"},
@@ -135,22 +91,14 @@ core.register_node("basenodes:leaves", {
 	groups = {snappy=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:jungletree", {
-=======
 core.register_node("basenodes:jungletree", {
->>>>>>> 5.10.0
 	description = "Jungle Tree Trunk",
 	tiles = {"default_jungletree_top.png", "default_jungletree_top.png", "default_jungletree.png"},
 	is_ground_content = false,
 	groups = {choppy=2,oddly_breakable_by_hand=1},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:jungleleaves", {
-=======
 core.register_node("basenodes:jungleleaves", {
->>>>>>> 5.10.0
 	description = "Jungle Leaves",
 	drawtype = "allfaces_optional",
 	tiles = {"default_jungleleaves.png"},
@@ -159,22 +107,14 @@ core.register_node("basenodes:jungleleaves", {
 	groups = {snappy=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:pine_tree", {
-=======
 core.register_node("basenodes:pine_tree", {
->>>>>>> 5.10.0
 	description = "Pine Tree Trunk",
 	tiles = {"default_pine_tree_top.png", "default_pine_tree_top.png", "default_pine_tree.png"},
 	is_ground_content = false,
 	groups = {choppy=2,oddly_breakable_by_hand=1},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:pine_needles", {
-=======
 core.register_node("basenodes:pine_needles", {
->>>>>>> 5.10.0
 	description = "Pine Needles",
 	drawtype = "allfaces_optional",
 	tiles = {"default_pine_needles.png"},
@@ -183,11 +123,7 @@ core.register_node("basenodes:pine_needles", {
 	groups = {snappy=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:water_source", {
-=======
 core.register_node("basenodes:water_source", {
->>>>>>> 5.10.0
 	description = "Water Source".."\n"..
 		"Swimmable, spreading, renewable liquid".."\n"..
 		"Drowning damage: 1",
@@ -215,11 +151,7 @@ core.register_node("basenodes:water_source", {
 	groups = {water = 3, liquid = 3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:water_flowing", {
-=======
 core.register_node("basenodes:water_flowing", {
->>>>>>> 5.10.0
 	description = "Flowing Water".."\n"..
 		"Swimmable, spreading, renewable liquid".."\n"..
 		"Drowning damage: 1",
@@ -250,11 +182,7 @@ core.register_node("basenodes:water_flowing", {
 	groups = {water = 3, liquid = 3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:river_water_source", {
-=======
 core.register_node("basenodes:river_water_source", {
->>>>>>> 5.10.0
 	description = "River Water Source".."\n"..
 		"Swimmable, spreading, non-renewable liquid".."\n"..
 		"Drowning damage: 1",
@@ -284,11 +212,7 @@ core.register_node("basenodes:river_water_source", {
 	groups = {water = 3, liquid = 3, },
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:river_water_flowing", {
-=======
 core.register_node("basenodes:river_water_flowing", {
->>>>>>> 5.10.0
 	description = "Flowing River Water".."\n"..
 		"Swimmable, spreading, non-renewable liquid".."\n"..
 		"Drowning damage: 1",
@@ -321,11 +245,7 @@ core.register_node("basenodes:river_water_flowing", {
 	groups = {water = 3, liquid = 3, },
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:lava_flowing", {
-=======
 core.register_node("basenodes:lava_flowing", {
->>>>>>> 5.10.0
 	description = "Flowing Lava".."\n"..
 		"Swimmable, spreading, renewable liquid".."\n"..
 		"4 damage per second".."\n"..
@@ -337,11 +257,7 @@ core.register_node("basenodes:lava_flowing", {
 		{name="default_lava_flowing.png", backface_culling = false},
 	},
 	paramtype = "light",
-<<<<<<< HEAD
-	light_source = minetest.LIGHT_MAX,
-=======
 	light_source = core.LIGHT_MAX,
->>>>>>> 5.10.0
 	walkable = false,
 	pointable = false,
 	diggable = false,
@@ -357,11 +273,7 @@ core.register_node("basenodes:lava_flowing", {
 	groups = {lava=3, liquid=1},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:lava_source", {
-=======
 core.register_node("basenodes:lava_source", {
->>>>>>> 5.10.0
 	description = "Lava Source".."\n"..
 		"Swimmable, spreading, renewable liquid".."\n"..
 		"4 damage per second".."\n"..
@@ -373,11 +285,7 @@ core.register_node("basenodes:lava_source", {
 		{name = "default_lava.png", backface_culling = true},
 	},
 	paramtype = "light",
-<<<<<<< HEAD
-	light_source = minetest.LIGHT_MAX,
-=======
 	light_source = core.LIGHT_MAX,
->>>>>>> 5.10.0
 	walkable = false,
 	pointable = false,
 	diggable = false,
@@ -393,33 +301,21 @@ core.register_node("basenodes:lava_source", {
 	groups = {lava=3, liquid=1},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:cobble", {
-=======
 core.register_node("basenodes:cobble", {
->>>>>>> 5.10.0
 	description = "Cobblestone",
 	tiles ={"default_cobble.png"},
 	is_ground_content = false,
 	groups = {cracky=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:mossycobble", {
-=======
 core.register_node("basenodes:mossycobble", {
->>>>>>> 5.10.0
 	description = "Mossy Cobblestone",
 	tiles ={"default_mossycobble.png"},
 	is_ground_content = false,
 	groups = {cracky=3},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:apple", {
-=======
 core.register_node("basenodes:apple", {
->>>>>>> 5.10.0
 	description = "Apple".."\n"..
 		"Punch: Eat (+2)",
 	drawtype = "plantlike",
@@ -432,17 +328,10 @@ core.register_node("basenodes:apple", {
 	groups = {dig_immediate=3},
 
 	-- Make eatable because why not?
-<<<<<<< HEAD
-	on_use = minetest.item_eat(2),
-})
-
-minetest.register_node("basenodes:ice", {
-=======
 	on_use = core.item_eat(2),
 })
 
 core.register_node("basenodes:ice", {
->>>>>>> 5.10.0
 	description = "Ice",
 	tiles ={"default_ice.png"},
 	groups = {cracky=3},
@@ -450,11 +339,7 @@ core.register_node("basenodes:ice", {
 
 -- The snow nodes intentionally have different tints to make them more
 -- distinguishable
-<<<<<<< HEAD
-minetest.register_node("basenodes:snow", {
-=======
 core.register_node("basenodes:snow", {
->>>>>>> 5.10.0
 	description = "Snow Sheet",
 	tiles = {"basenodes_snow_sheet.png"},
 	groups = {crumbly=3},
@@ -467,11 +352,7 @@ core.register_node("basenodes:snow", {
 	},
 })
 
-<<<<<<< HEAD
-minetest.register_node("basenodes:snowblock", {
-=======
 core.register_node("basenodes:snowblock", {
->>>>>>> 5.10.0
 	description = "Snow Block",
 	tiles ={"default_snow.png"},
 	groups = {crumbly=3},

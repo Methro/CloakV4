@@ -7,10 +7,6 @@
 #include "IReferenceCounted.h"
 #include "vector3d.h"
 #include "aabbox3d.h"
-<<<<<<< HEAD
-#include "matrix4.h"
-=======
->>>>>>> 5.10.0
 #include "IAnimatedMesh.h"
 #include "IMeshBuffer.h"
 #include "SVertexManipulator.h"

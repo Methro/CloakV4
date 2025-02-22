@@ -109,13 +109,6 @@ bool CXMeshFileLoader::load(io::IReadFile *file)
 		// default material if nothing loaded
 		if (!mesh->Materials.size()) {
 			mesh->Materials.push_back(video::SMaterial());
-<<<<<<< HEAD
-			mesh->Materials[0].DiffuseColor.set(0xff777777);
-			mesh->Materials[0].Shininess = 0.f;
-			mesh->Materials[0].SpecularColor.set(0xff777777);
-			mesh->Materials[0].EmissiveColor.set(0xff000000);
-=======
->>>>>>> 5.10.0
 		}
 
 		u32 i;
@@ -145,11 +138,7 @@ bool CXMeshFileLoader::load(io::IReadFile *file)
 		if (!mesh->HasVertexColors) {
 			for (u32 j = 0; j < mesh->FaceMaterialIndices.size(); ++j) {
 				for (u32 id = j * 3 + 0; id <= j * 3 + 2; ++id) {
-<<<<<<< HEAD
-					mesh->Vertices[mesh->Indices[id]].Color = mesh->Buffers[mesh->FaceMaterialIndices[j]]->Material.DiffuseColor;
-=======
 					mesh->Vertices[mesh->Indices[id]].Color = 0xff777777;
->>>>>>> 5.10.0
 				}
 			}
 		}
@@ -280,20 +269,12 @@ bool CXMeshFileLoader::load(io::IReadFile *file)
 				}
 				if (mesh->TCoords2.size()) {
 					for (i = 0; i != mesh->Buffers.size(); ++i) {
-<<<<<<< HEAD
-						mesh->Buffers[i]->Vertices_2TCoords.reserve(vCountArray[i]);
-=======
 						mesh->Buffers[i]->Vertices_2TCoords->Data.reserve(vCountArray[i]);
->>>>>>> 5.10.0
 						mesh->Buffers[i]->VertexType = video::EVT_2TCOORDS;
 					}
 				} else {
 					for (i = 0; i != mesh->Buffers.size(); ++i)
-<<<<<<< HEAD
-						mesh->Buffers[i]->Vertices_Standard.reserve(vCountArray[i]);
-=======
 						mesh->Buffers[i]->Vertices_Standard->Data.reserve(vCountArray[i]);
->>>>>>> 5.10.0
 				}
 
 				verticesLinkIndex.set_used(mesh->Vertices.size());
@@ -305,16 +286,6 @@ bool CXMeshFileLoader::load(io::IReadFile *file)
 					scene::SSkinMeshBuffer *buffer = mesh->Buffers[verticesLinkBuffer[i]];
 
 					if (mesh->TCoords2.size()) {
-<<<<<<< HEAD
-						verticesLinkIndex[i] = buffer->Vertices_2TCoords.size();
-						buffer->Vertices_2TCoords.emplace_back(mesh->Vertices[i]);
-						// We have a problem with correct tcoord2 handling here
-						// crash fixed for now by checking the values
-						buffer->Vertices_2TCoords.back().TCoords2 = (i < mesh->TCoords2.size()) ? mesh->TCoords2[i] : mesh->Vertices[i].TCoords;
-					} else {
-						verticesLinkIndex[i] = buffer->Vertices_Standard.size();
-						buffer->Vertices_Standard.push_back(mesh->Vertices[i]);
-=======
 						verticesLinkIndex[i] = buffer->Vertices_2TCoords->getCount();
 						buffer->Vertices_2TCoords->Data.emplace_back(mesh->Vertices[i]);
 						// We have a problem with correct tcoord2 handling here
@@ -323,7 +294,6 @@ bool CXMeshFileLoader::load(io::IReadFile *file)
 					} else {
 						verticesLinkIndex[i] = buffer->Vertices_Standard->getCount();
 						buffer->Vertices_Standard->Data.push_back(mesh->Vertices[i]);
->>>>>>> 5.10.0
 					}
 				}
 
@@ -332,21 +302,13 @@ bool CXMeshFileLoader::load(io::IReadFile *file)
 				for (i = 0; i < mesh->FaceMaterialIndices.size(); ++i)
 					++vCountArray[mesh->FaceMaterialIndices[i]];
 				for (i = 0; i != mesh->Buffers.size(); ++i)
-<<<<<<< HEAD
-					mesh->Buffers[i]->Indices.reserve(vCountArray[i]);
-=======
 					mesh->Buffers[i]->Indices->Data.reserve(vCountArray[i]);
->>>>>>> 5.10.0
 				delete[] vCountArray;
 				// create indices per buffer
 				for (i = 0; i < mesh->FaceMaterialIndices.size(); ++i) {
 					scene::SSkinMeshBuffer *buffer = mesh->Buffers[mesh->FaceMaterialIndices[i]];
 					for (u32 id = i * 3 + 0; id != i * 3 + 3; ++id) {
-<<<<<<< HEAD
-						buffer->Indices.push_back(verticesLinkIndex[mesh->Indices[id]]);
-=======
 						buffer->Indices->Data.push_back(verticesLinkIndex[mesh->Indices[id]]);
->>>>>>> 5.10.0
 					}
 				}
 			}
@@ -1028,15 +990,9 @@ bool CXMeshFileLoader::parseDataObjectSkinWeights(SXMesh &mesh)
 	// transforms the mesh vertices to the space of the bone
 	// When concatenated to the bone's transform, this provides the
 	// world space coordinates of the mesh as affected by the bone
-<<<<<<< HEAD
-	core::matrix4 &MatrixOffset = joint->GlobalInversedMatrix;
-
-	readMatrix(MatrixOffset);
-=======
 	core::matrix4 MatrixOffset;
 	readMatrix(MatrixOffset);
 	joint->GlobalInversedMatrix = MatrixOffset;
->>>>>>> 5.10.0
 
 	if (!checkForOneFollowingSemicolons()) {
 		os::Printer::log("No finishing semicolon in Skin Weights found in x file", ELL_WARNING);

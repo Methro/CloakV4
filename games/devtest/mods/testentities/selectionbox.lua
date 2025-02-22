@@ -12,11 +12,7 @@ end
 
 local active_selectionbox_entities = 0 -- count active entities
 
-<<<<<<< HEAD
-minetest.register_entity("testentities:selectionbox", {
-=======
 core.register_entity("testentities:selectionbox", {
->>>>>>> 5.10.0
 	initial_properties = {
 		visual = "cube",
 		infotext = "Punch to randomize rotation, rightclick to toggle rotation"
@@ -49,28 +45,16 @@ core.register_entity("testentities:selectionbox", {
 })
 
 local hud_ids = {}
-<<<<<<< HEAD
-minetest.register_globalstep(function()
-=======
 core.register_globalstep(function()
->>>>>>> 5.10.0
 	if active_selectionbox_entities == 0 then
 		return
 	end
 
-<<<<<<< HEAD
-	for _, player in pairs(minetest.get_connected_players()) do
-		local offset = player:get_eye_offset()
-		offset.y = offset.y + player:get_properties().eye_height
-		local pos1 = vector.add(player:get_pos(), offset)
-		local raycast = minetest.raycast(pos1, vector.add(pos1, vector.multiply(player:get_look_dir(), 10)), true, false)
-=======
 	for _, player in pairs(core.get_connected_players()) do
 		local offset = player:get_eye_offset()
 		offset.y = offset.y + player:get_properties().eye_height
 		local pos1 = vector.add(player:get_pos(), offset)
 		local raycast = core.raycast(pos1, vector.add(pos1, vector.multiply(player:get_look_dir(), 10)), true, false)
->>>>>>> 5.10.0
 		local pointed_thing = raycast()
 		if pointed_thing.ref == player then
 			pointed_thing = raycast()
@@ -89,21 +73,13 @@ core.register_globalstep(function()
 					alignment = {x=0, y=0},
 				})
 				local shade = math.random(0, 0xFF)
-<<<<<<< HEAD
-				minetest.add_particle({
-=======
 				core.add_particle({
->>>>>>> 5.10.0
 					-- Random shade of red for the intersection point
 					texture = color(0x10000 * shade),
 					pos = pointed_thing.intersection_point,
 					size = 0.1
 				})
-<<<<<<< HEAD
-				minetest.add_particle({
-=======
 				core.add_particle({
->>>>>>> 5.10.0
 					-- Same shade of green for the corresponding intersection normal
 					texture = color(0x100 * shade),
 					pos = vector.add(pointed_thing.intersection_point, pointed_thing.intersection_normal * 0.1),

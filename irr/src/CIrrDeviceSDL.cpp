@@ -341,11 +341,7 @@ CIrrDeviceSDL::CIrrDeviceSDL(const SIrrlichtCreationParameters &param) :
 		SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "0");
 
 #if defined(SDL_HINT_APP_NAME)
-<<<<<<< HEAD
-		SDL_SetHint(SDL_HINT_APP_NAME, "Minetest");
-=======
 		SDL_SetHint(SDL_HINT_APP_NAME, "Luanti");
->>>>>>> 5.10.0
 #endif
 
 		// Set IME hints
@@ -606,11 +602,7 @@ bool CIrrDeviceSDL::createWindowWithContext()
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
 		break;
 	default:
-<<<<<<< HEAD
-			_IRR_DEBUG_BREAK_IF(1);
-=======
 		_IRR_DEBUG_BREAK_IF(1);
->>>>>>> 5.10.0
 	}
 
 	if (CreationParams.DriverDebug) {
@@ -729,14 +721,6 @@ bool CIrrDeviceSDL::run()
 
 			irrevent.EventType = irr::EET_MOUSE_INPUT_EVENT;
 			irrevent.MouseInput.Event = irr::EMIE_MOUSE_MOVED;
-<<<<<<< HEAD
-			MouseX = irrevent.MouseInput.X =
-				static_cast<s32>(SDL_event.motion.x * ScaleX);
-			MouseY = irrevent.MouseInput.Y =
-				static_cast<s32>(SDL_event.motion.y * ScaleY);
-			MouseXRel = static_cast<s32>(SDL_event.motion.xrel * ScaleX);
-			MouseYRel = static_cast<s32>(SDL_event.motion.yrel * ScaleY);
-=======
 
 			MouseXRel = static_cast<s32>(SDL_event.motion.xrel * ScaleX);
 			MouseYRel = static_cast<s32>(SDL_event.motion.yrel * ScaleY);
@@ -750,7 +734,6 @@ bool CIrrDeviceSDL::run()
 			irrevent.MouseInput.X = MouseX;
 			irrevent.MouseInput.Y = MouseY;
 
->>>>>>> 5.10.0
 			irrevent.MouseInput.ButtonStates = MouseButtonStates;
 			irrevent.MouseInput.Shift = (keymod & KMOD_SHIFT) != 0;
 			irrevent.MouseInput.Control = (keymod & KMOD_CTRL) != 0;
@@ -1310,15 +1293,12 @@ bool CIrrDeviceSDL::isWindowVisible() const
 	return !IsInBackground;
 }
 
-<<<<<<< HEAD
-=======
 //! Checks if the Irrlicht device supports touch events.
 bool CIrrDeviceSDL::supportsTouchEvents() const
 {
 	return true;
 }
 
->>>>>>> 5.10.0
 //! returns if window is active. if not, nothing need to be drawn
 bool CIrrDeviceSDL::isWindowActive() const
 {

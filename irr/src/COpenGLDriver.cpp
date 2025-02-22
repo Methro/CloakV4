@@ -40,15 +40,10 @@ COpenGLDriver::COpenGLDriver(const SIrrlichtCreationParameters &params, io::IFil
 
 bool COpenGLDriver::initDriver()
 {
-<<<<<<< HEAD
-	ContextManager->generateSurface();
-	ContextManager->generateContext();
-=======
 	if (!ContextManager->generateSurface())
 		return false;
 	if (!ContextManager->generateContext())
 		return false;
->>>>>>> 5.10.0
 	ExposedData = ContextManager->getContext();
 	ContextManager->activateContext(ExposedData, false);
 	GL.LoadAllProcedures(ContextManager);
@@ -267,17 +262,10 @@ bool COpenGLDriver::updateVertexHardwareBuffer(SHWBufferLink_opengl *HWBuffer)
 		return false;
 
 #if defined(GL_ARB_vertex_buffer_object)
-<<<<<<< HEAD
-	const scene::IMeshBuffer *mb = HWBuffer->MeshBuffer;
-	const void *vertices = mb->getVertices();
-	const u32 vertexCount = mb->getVertexCount();
-	const E_VERTEX_TYPE vType = mb->getVertexType();
-=======
 	const auto *vb = HWBuffer->VertexBuffer;
 	const void *vertices = vb->getData();
 	const u32 vertexCount = vb->getCount();
 	const E_VERTEX_TYPE vType = vb->getType();
->>>>>>> 5.10.0
 	const u32 vertexSize = getVertexPitchFromType(vType);
 
 	accountHWBufferUpload(vertexSize * vertexCount);
@@ -321,18 +309,6 @@ bool COpenGLDriver::updateVertexHardwareBuffer(SHWBufferLink_opengl *HWBuffer)
 
 	// get or create buffer
 	bool newBuffer = false;
-<<<<<<< HEAD
-	if (!HWBuffer->vbo_verticesID) {
-		extGlGenBuffers(1, &HWBuffer->vbo_verticesID);
-		if (!HWBuffer->vbo_verticesID)
-			return false;
-		newBuffer = true;
-	} else if (HWBuffer->vbo_verticesSize < vertexCount * vertexSize) {
-		newBuffer = true;
-	}
-
-	extGlBindBuffer(GL_ARRAY_BUFFER, HWBuffer->vbo_verticesID);
-=======
 	if (!HWBuffer->vbo_ID) {
 		extGlGenBuffers(1, &HWBuffer->vbo_ID);
 		if (!HWBuffer->vbo_ID)
@@ -343,25 +319,16 @@ bool COpenGLDriver::updateVertexHardwareBuffer(SHWBufferLink_opengl *HWBuffer)
 	}
 
 	extGlBindBuffer(GL_ARRAY_BUFFER, HWBuffer->vbo_ID);
->>>>>>> 5.10.0
 
 	// copy data to graphics card
 	if (!newBuffer)
 		extGlBufferSubData(GL_ARRAY_BUFFER, 0, vertexCount * vertexSize, vbuf);
 	else {
-<<<<<<< HEAD
-		HWBuffer->vbo_verticesSize = vertexCount * vertexSize;
-
-		if (HWBuffer->Mapped_Vertex == scene::EHM_STATIC)
-			extGlBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, vbuf, GL_STATIC_DRAW);
-		else if (HWBuffer->Mapped_Vertex == scene::EHM_DYNAMIC)
-=======
 		HWBuffer->vbo_Size = vertexCount * vertexSize;
 
 		if (vb->getHardwareMappingHint() == scene::EHM_STATIC)
 			extGlBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, vbuf, GL_STATIC_DRAW);
 		else if (vb->getHardwareMappingHint() == scene::EHM_DYNAMIC)
->>>>>>> 5.10.0
 			extGlBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, vbuf, GL_DYNAMIC_DRAW);
 		else // scene::EHM_STREAM
 			extGlBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, vbuf, GL_STREAM_DRAW);
@@ -384,15 +351,6 @@ bool COpenGLDriver::updateIndexHardwareBuffer(SHWBufferLink_opengl *HWBuffer)
 		return false;
 
 #if defined(GL_ARB_vertex_buffer_object)
-<<<<<<< HEAD
-	const scene::IMeshBuffer *mb = HWBuffer->MeshBuffer;
-
-	const void *indices = mb->getIndices();
-	u32 indexCount = mb->getIndexCount();
-
-	GLenum indexSize;
-	switch (mb->getIndexType()) {
-=======
 	const auto *ib = HWBuffer->IndexBuffer;
 
 	const void *indices = ib->getData();
@@ -400,7 +358,6 @@ bool COpenGLDriver::updateIndexHardwareBuffer(SHWBufferLink_opengl *HWBuffer)
 
 	GLenum indexSize;
 	switch (ib->getType()) {
->>>>>>> 5.10.0
 	case EIT_16BIT: {
 		indexSize = sizeof(u16);
 		break;
@@ -418,18 +375,6 @@ bool COpenGLDriver::updateIndexHardwareBuffer(SHWBufferLink_opengl *HWBuffer)
 
 	// get or create buffer
 	bool newBuffer = false;
-<<<<<<< HEAD
-	if (!HWBuffer->vbo_indicesID) {
-		extGlGenBuffers(1, &HWBuffer->vbo_indicesID);
-		if (!HWBuffer->vbo_indicesID)
-			return false;
-		newBuffer = true;
-	} else if (HWBuffer->vbo_indicesSize < indexCount * indexSize) {
-		newBuffer = true;
-	}
-
-	extGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER, HWBuffer->vbo_indicesID);
-=======
 	if (!HWBuffer->vbo_ID) {
 		extGlGenBuffers(1, &HWBuffer->vbo_ID);
 		if (!HWBuffer->vbo_ID)
@@ -440,25 +385,16 @@ bool COpenGLDriver::updateIndexHardwareBuffer(SHWBufferLink_opengl *HWBuffer)
 	}
 
 	extGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER, HWBuffer->vbo_ID);
->>>>>>> 5.10.0
 
 	// copy data to graphics card
 	if (!newBuffer)
 		extGlBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indexCount * indexSize, indices);
 	else {
-<<<<<<< HEAD
-		HWBuffer->vbo_indicesSize = indexCount * indexSize;
-
-		if (HWBuffer->Mapped_Index == scene::EHM_STATIC)
-			extGlBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * indexSize, indices, GL_STATIC_DRAW);
-		else if (HWBuffer->Mapped_Index == scene::EHM_DYNAMIC)
-=======
 		HWBuffer->vbo_Size = indexCount * indexSize;
 
 		if (ib->getHardwareMappingHint() == scene::EHM_STATIC)
 			extGlBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * indexSize, indices, GL_STATIC_DRAW);
 		else if (ib->getHardwareMappingHint() == scene::EHM_DYNAMIC)
->>>>>>> 5.10.0
 			extGlBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * indexSize, indices, GL_DYNAMIC_DRAW);
 		else // scene::EHM_STREAM
 			extGlBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * indexSize, indices, GL_STREAM_DRAW);
@@ -478,39 +414,6 @@ bool COpenGLDriver::updateHardwareBuffer(SHWBufferLink *HWBuffer)
 	if (!HWBuffer)
 		return false;
 
-<<<<<<< HEAD
-	if (HWBuffer->Mapped_Vertex != scene::EHM_NEVER) {
-		if (HWBuffer->ChangedID_Vertex != HWBuffer->MeshBuffer->getChangedID_Vertex() || !((SHWBufferLink_opengl *)HWBuffer)->vbo_verticesID) {
-
-			HWBuffer->ChangedID_Vertex = HWBuffer->MeshBuffer->getChangedID_Vertex();
-
-			if (!updateVertexHardwareBuffer((SHWBufferLink_opengl *)HWBuffer))
-				return false;
-		}
-	}
-
-	if (HWBuffer->Mapped_Index != scene::EHM_NEVER) {
-		if (HWBuffer->ChangedID_Index != HWBuffer->MeshBuffer->getChangedID_Index() || !((SHWBufferLink_opengl *)HWBuffer)->vbo_indicesID) {
-
-			HWBuffer->ChangedID_Index = HWBuffer->MeshBuffer->getChangedID_Index();
-
-			if (!updateIndexHardwareBuffer((SHWBufferLink_opengl *)HWBuffer))
-				return false;
-		}
-	}
-
-	return true;
-}
-
-//! Create hardware buffer from meshbuffer
-COpenGLDriver::SHWBufferLink *COpenGLDriver::createHardwareBuffer(const scene::IMeshBuffer *mb)
-{
-#if defined(GL_ARB_vertex_buffer_object)
-	if (!mb || (mb->getHardwareMappingHint_Index() == scene::EHM_NEVER && mb->getHardwareMappingHint_Vertex() == scene::EHM_NEVER))
-		return 0;
-
-	SHWBufferLink_opengl *HWBuffer = new SHWBufferLink_opengl(mb);
-=======
 	auto *b = static_cast<SHWBufferLink_opengl *>(HWBuffer);
 
 	if (b->IsVertex) {
@@ -562,25 +465,11 @@ COpenGLDriver::SHWBufferLink *COpenGLDriver::createHardwareBuffer(const scene::I
 		return 0;
 
 	SHWBufferLink_opengl *HWBuffer = new SHWBufferLink_opengl(ib);
->>>>>>> 5.10.0
 
 	// add to map
 	HWBuffer->listPosition = HWBufferList.insert(HWBufferList.end(), HWBuffer);
 
-<<<<<<< HEAD
-	HWBuffer->ChangedID_Vertex = HWBuffer->MeshBuffer->getChangedID_Vertex();
-	HWBuffer->ChangedID_Index = HWBuffer->MeshBuffer->getChangedID_Index();
-	HWBuffer->Mapped_Vertex = mb->getHardwareMappingHint_Vertex();
-	HWBuffer->Mapped_Index = mb->getHardwareMappingHint_Index();
-	HWBuffer->vbo_verticesID = 0;
-	HWBuffer->vbo_indicesID = 0;
-	HWBuffer->vbo_verticesSize = 0;
-	HWBuffer->vbo_indicesSize = 0;
-
-	if (!updateHardwareBuffer(HWBuffer)) {
-=======
 	if (!updateIndexHardwareBuffer(HWBuffer)) {
->>>>>>> 5.10.0
 		deleteHardwareBuffer(HWBuffer);
 		return 0;
 	}
@@ -597,60 +486,16 @@ void COpenGLDriver::deleteHardwareBuffer(SHWBufferLink *_HWBuffer)
 		return;
 
 #if defined(GL_ARB_vertex_buffer_object)
-<<<<<<< HEAD
-	SHWBufferLink_opengl *HWBuffer = (SHWBufferLink_opengl *)_HWBuffer;
-	if (HWBuffer->vbo_verticesID) {
-		extGlDeleteBuffers(1, &HWBuffer->vbo_verticesID);
-		HWBuffer->vbo_verticesID = 0;
-	}
-	if (HWBuffer->vbo_indicesID) {
-		extGlDeleteBuffers(1, &HWBuffer->vbo_indicesID);
-		HWBuffer->vbo_indicesID = 0;
-=======
 	auto *HWBuffer = (SHWBufferLink_opengl *)_HWBuffer;
 	if (HWBuffer->vbo_ID) {
 		extGlDeleteBuffers(1, &HWBuffer->vbo_ID);
 		HWBuffer->vbo_ID = 0;
->>>>>>> 5.10.0
 	}
 #endif
 
 	CNullDriver::deleteHardwareBuffer(_HWBuffer);
 }
 
-<<<<<<< HEAD
-//! Draw hardware buffer
-void COpenGLDriver::drawHardwareBuffer(SHWBufferLink *_HWBuffer)
-{
-	if (!_HWBuffer)
-		return;
-
-	updateHardwareBuffer(_HWBuffer); // check if update is needed
-
-#if defined(GL_ARB_vertex_buffer_object)
-	SHWBufferLink_opengl *HWBuffer = (SHWBufferLink_opengl *)_HWBuffer;
-
-	const scene::IMeshBuffer *mb = HWBuffer->MeshBuffer;
-	const void *vertices = mb->getVertices();
-	const void *indexList = mb->getIndices();
-
-	if (HWBuffer->Mapped_Vertex != scene::EHM_NEVER) {
-		extGlBindBuffer(GL_ARRAY_BUFFER, HWBuffer->vbo_verticesID);
-		vertices = 0;
-	}
-
-	if (HWBuffer->Mapped_Index != scene::EHM_NEVER) {
-		extGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER, HWBuffer->vbo_indicesID);
-		indexList = 0;
-	}
-
-	drawVertexPrimitiveList(vertices, mb->getVertexCount(), indexList, mb->getPrimitiveCount(), mb->getVertexType(), mb->getPrimitiveType(), mb->getIndexType());
-
-	if (HWBuffer->Mapped_Vertex != scene::EHM_NEVER)
-		extGlBindBuffer(GL_ARRAY_BUFFER, 0);
-	if (HWBuffer->Mapped_Index != scene::EHM_NEVER)
-		extGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-=======
 void COpenGLDriver::drawBuffers(const scene::IVertexBuffer *vb,
 	const scene::IIndexBuffer *ib, u32 PrimitiveCount,
 	scene::E_PRIMITIVE_TYPE PrimitiveType)
@@ -686,7 +531,6 @@ void COpenGLDriver::drawBuffers(const scene::IVertexBuffer *vb,
 #else
 	drawVertexPrimitiveList(vb->getData(), vb->getCount(), ib->getData(),
 		PrimitiveCount, vb->getType(), PrimitiveType, ib->getType());
->>>>>>> 5.10.0
 #endif
 }
 
@@ -1998,120 +1842,11 @@ void COpenGLDriver::setBasicRenderStates(const SMaterial &material, const SMater
 	E_OPENGL_FIXED_PIPELINE_STATE tempState = FixedPipelineState;
 
 	if (resetAllRenderStates || tempState == EOFPS_ENABLE || tempState == EOFPS_DISABLE_TO_ENABLE) {
-<<<<<<< HEAD
-		// material colors
-		if (resetAllRenderStates || tempState == EOFPS_DISABLE_TO_ENABLE ||
-				lastmaterial.ColorMaterial != material.ColorMaterial) {
-			switch (material.ColorMaterial) {
-			case ECM_NONE:
-				glDisable(GL_COLOR_MATERIAL);
-				break;
-			case ECM_DIFFUSE:
-				glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
-				break;
-			case ECM_AMBIENT:
-				glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT);
-				break;
-			case ECM_EMISSIVE:
-				glColorMaterial(GL_FRONT_AND_BACK, GL_EMISSION);
-				break;
-			case ECM_SPECULAR:
-				glColorMaterial(GL_FRONT_AND_BACK, GL_SPECULAR);
-				break;
-			case ECM_DIFFUSE_AND_AMBIENT:
-				glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-				break;
-			}
-			if (material.ColorMaterial != ECM_NONE)
-				glEnable(GL_COLOR_MATERIAL);
-		}
-
-		if (resetAllRenderStates || tempState == EOFPS_DISABLE_TO_ENABLE ||
-				lastmaterial.AmbientColor != material.AmbientColor ||
-				lastmaterial.DiffuseColor != material.DiffuseColor ||
-				lastmaterial.EmissiveColor != material.EmissiveColor ||
-				lastmaterial.ColorMaterial != material.ColorMaterial) {
-			GLfloat color[4];
-
-			const f32 inv = 1.0f / 255.0f;
-
-			if ((material.ColorMaterial != video::ECM_AMBIENT) &&
-					(material.ColorMaterial != video::ECM_DIFFUSE_AND_AMBIENT)) {
-				color[0] = material.AmbientColor.getRed() * inv;
-				color[1] = material.AmbientColor.getGreen() * inv;
-				color[2] = material.AmbientColor.getBlue() * inv;
-				color[3] = material.AmbientColor.getAlpha() * inv;
-				glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, color);
-			}
-
-			if ((material.ColorMaterial != video::ECM_DIFFUSE) &&
-					(material.ColorMaterial != video::ECM_DIFFUSE_AND_AMBIENT)) {
-				color[0] = material.DiffuseColor.getRed() * inv;
-				color[1] = material.DiffuseColor.getGreen() * inv;
-				color[2] = material.DiffuseColor.getBlue() * inv;
-				color[3] = material.DiffuseColor.getAlpha() * inv;
-				glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, color);
-			}
-
-			if (material.ColorMaterial != video::ECM_EMISSIVE) {
-				color[0] = material.EmissiveColor.getRed() * inv;
-				color[1] = material.EmissiveColor.getGreen() * inv;
-				color[2] = material.EmissiveColor.getBlue() * inv;
-				color[3] = material.EmissiveColor.getAlpha() * inv;
-				glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, color);
-			}
-		}
-
-		if (resetAllRenderStates || tempState == EOFPS_DISABLE_TO_ENABLE ||
-				lastmaterial.SpecularColor != material.SpecularColor ||
-				lastmaterial.Shininess != material.Shininess ||
-				lastmaterial.ColorMaterial != material.ColorMaterial) {
-			GLfloat color[4] = {0.f, 0.f, 0.f, 1.f};
-			const f32 inv = 1.0f / 255.0f;
-
-			glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, material.Shininess);
-			// disable Specular colors if no shininess is set
-			if ((material.Shininess != 0.0f) &&
-					(material.ColorMaterial != video::ECM_SPECULAR)) {
-#ifdef GL_EXT_separate_specular_color
-				if (FeatureAvailable[IRR_EXT_separate_specular_color])
-					glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
-#endif
-				color[0] = material.SpecularColor.getRed() * inv;
-				color[1] = material.SpecularColor.getGreen() * inv;
-				color[2] = material.SpecularColor.getBlue() * inv;
-				color[3] = material.SpecularColor.getAlpha() * inv;
-			}
-#ifdef GL_EXT_separate_specular_color
-			else if (FeatureAvailable[IRR_EXT_separate_specular_color])
-				glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SINGLE_COLOR);
-#endif
-			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, color);
-		}
-
-		// shademode
-		if (resetAllRenderStates || tempState == EOFPS_DISABLE_TO_ENABLE ||
-				lastmaterial.GouraudShading != material.GouraudShading) {
-			if (material.GouraudShading)
-				glShadeModel(GL_SMOOTH);
-			else
-				glShadeModel(GL_FLAT);
-		}
-
-		// lighting
-		if (resetAllRenderStates || tempState == EOFPS_DISABLE_TO_ENABLE ||
-				lastmaterial.Lighting != material.Lighting) {
-			if (material.Lighting)
-				glEnable(GL_LIGHTING);
-			else
-				glDisable(GL_LIGHTING);
-=======
 		if (resetAllRenderStates || tempState == EOFPS_DISABLE_TO_ENABLE) {
 			glDisable(GL_COLOR_MATERIAL);
 			glDisable(GL_LIGHTING);
 			glShadeModel(GL_SMOOTH);
 			glDisable(GL_NORMALIZE);
->>>>>>> 5.10.0
 		}
 
 		// fog
@@ -2123,18 +1858,6 @@ void COpenGLDriver::setBasicRenderStates(const SMaterial &material, const SMater
 				glDisable(GL_FOG);
 		}
 
-<<<<<<< HEAD
-		// normalization
-		if (resetAllRenderStates || tempState == EOFPS_DISABLE_TO_ENABLE ||
-				lastmaterial.NormalizeNormals != material.NormalizeNormals) {
-			if (material.NormalizeNormals)
-				glEnable(GL_NORMALIZE);
-			else
-				glDisable(GL_NORMALIZE);
-		}
-
-=======
->>>>>>> 5.10.0
 		// Set fixed pipeline as active.
 		tempState = EOFPS_ENABLE;
 	} else if (tempState == EOFPS_ENABLE_TO_DISABLE) {
@@ -2472,11 +2195,7 @@ void COpenGLDriver::setTextureRenderStates(const SMaterial &material, bool reset
 					E_TEXTURE_MIN_FILTER minFilter = material.TextureLayers[i].MinFilter;
 					glTexParameteri(tmpType, GL_TEXTURE_MIN_FILTER,
 							minFilter == ETMINF_NEAREST_MIPMAP_NEAREST ? GL_NEAREST_MIPMAP_NEAREST : minFilter == ETMINF_LINEAR_MIPMAP_NEAREST ? GL_LINEAR_MIPMAP_NEAREST
-<<<<<<< HEAD
-																							 : minFilter == ETMINF_NEAREST_MIPMAP_LINEAR	   ? GL_NEAREST_MIPMAP_LINEAR
-=======
 																							 : minFilter == ETMINF_NEAREST_MIPMAP_LINEAR       ? GL_NEAREST_MIPMAP_LINEAR
->>>>>>> 5.10.0
 																																			   : (assert(minFilter == ETMINF_LINEAR_MIPMAP_LINEAR), GL_LINEAR_MIPMAP_LINEAR));
 
 					statesCache.MinFilter = minFilter;
@@ -2578,10 +2297,6 @@ void COpenGLDriver::setRenderStates2DMode(bool alpha, bool texture, bool alphaCh
 	}
 
 	SMaterial currentMaterial = (!OverrideMaterial2DEnabled) ? InitMaterial2D : OverrideMaterial2D;
-<<<<<<< HEAD
-	currentMaterial.Lighting = false;
-=======
->>>>>>> 5.10.0
 
 	if (texture) {
 		setTransform(ETS_TEXTURE_0, core::IdentityMatrix);
@@ -2747,13 +2462,8 @@ void COpenGLDriver::setFog(SColor c, E_FOG_TYPE fogType, f32 start,
 	GLfloat data[4] = {color.r, color.g, color.b, color.a};
 	glFogfv(GL_FOG_COLOR, data);
 }
-<<<<<<< HEAD
-/*
-//! Draws a 3d box, only outlines.
-=======
 
 //! Draws a 3d box.
->>>>>>> 5.10.0
 void COpenGLDriver::draw3DBox(const core::aabbox3d<f32> &box, SColor color)
 {
 	core::vector3df edges[8];
@@ -2813,325 +2523,6 @@ void COpenGLDriver::draw3DBox(const core::aabbox3d<f32> &box, SColor color)
 	glDrawArrays(GL_LINES, 0, 24);
 }
 
-<<<<<<< HEAD
-//! Draws a 3d box, only faces.
-void COpenGLDriver::draw3DBoxSides(const core::aabbox3d<f32> &box, SColor color)
-{
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	core::vector3df edges[8];
-	box.getEdges(edges);
-
-	setRenderStates3DMode();
-
-	video::S3DVertex v[36];
-
-	for (u32 i = 0; i < 36; i++)
-		v[i].Color = color;
-
-	// Front face
-	v[0].Pos = edges[0];
-	v[1].Pos = edges[1];
-	v[2].Pos = edges[5];
-
-	v[3].Pos = edges[0];
-	v[4].Pos = edges[5];
-	v[5].Pos = edges[4];
-
-	// Back face
-	v[6].Pos = edges[3];
-	v[7].Pos = edges[6];
-	v[8].Pos = edges[7];
-
-	v[9].Pos = edges[3];
-	v[10].Pos = edges[2];
-	v[11].Pos = edges[6];
-
-	// Left face
-	v[12].Pos = edges[0];
-	v[13].Pos = edges[3];
-	v[14].Pos = edges[1];
-
-	v[15].Pos = edges[0];
-	v[16].Pos = edges[2];
-	v[17].Pos = edges[3];
-
-	// Right face
-	v[18].Pos = edges[5];
-	v[19].Pos = edges[6];
-	v[20].Pos = edges[4];
-
-	v[21].Pos = edges[5];
-	v[22].Pos = edges[7];
-	v[23].Pos = edges[6];
-
-	// Top face
-	v[24].Pos = edges[1];
-	v[25].Pos = edges[3];
-	v[26].Pos = edges[7];
-
-	v[27].Pos = edges[1];
-	v[28].Pos = edges[7];
-	v[29].Pos = edges[5];
-
-	// Bottom face
-	v[30].Pos = edges[0];
-	v[31].Pos = edges[4];
-	v[32].Pos = edges[2];
-
-	v[33].Pos = edges[2];
-	v[34].Pos = edges[4];
-	v[35].Pos = edges[6];
-
-	if (!FeatureAvailable[IRR_ARB_vertex_array_bgra] && !FeatureAvailable[IRR_EXT_vertex_array_bgra])
-		getColorBuffer(v, 36, EVT_STANDARD);
-
-	CacheHandler->setClientState(true, false, true, false);
-
-	glVertexPointer(3, GL_FLOAT, sizeof(S3DVertex), &(static_cast<const S3DVertex *>(v))[0].Pos);
-
-#ifdef GL_BGRA
-	const GLint colorSize = (FeatureAvailable[IRR_ARB_vertex_array_bgra] || FeatureAvailable[IRR_EXT_vertex_array_bgra]) ? GL_BGRA : 4;
-#else
-	const GLint colorSize = 4;
-#endif
-	if (FeatureAvailable[IRR_ARB_vertex_array_bgra] || FeatureAvailable[IRR_EXT_vertex_array_bgra])
-		glColorPointer(colorSize, GL_UNSIGNED_BYTE, sizeof(S3DVertex), &(static_cast<const S3DVertex *>(v))[0].Color);
-	else {
-		_IRR_DEBUG_BREAK_IF(ColorBuffer.size() == 0);
-		glColorPointer(colorSize, GL_UNSIGNED_BYTE, 0, &ColorBuffer[0]);
-	}
-
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-
-	glDisable(GL_BLEND);
-}
-*/
-//! Draws a 3d box based on drawType.
-//! 0 = draw edges, 1 = draw faces (sides), 2 = draw both.
-void COpenGLDriver::draw3DBox(const core::aabbox3d<f32>& box, SColor color, int drawType, int edgeAlpha, int faceAlpha, u8 diffNeighbors)
-{
-	core::vector3df edges[8];
-	box.getEdges(edges);
-	setRenderStates3DMode();
-
-	video::S3DVertex edgeV[24];
-    video::S3DVertex faceV[36];
-
-    SColor edgeColor = color;
-    if (edgeAlpha >= 0 && edgeAlpha <= 255) {
-        edgeColor.setAlpha(edgeAlpha);
-    }
-
-    SColor faceColor = color;
-    if (faceAlpha >= 0 && faceAlpha <= 255) {
-        faceColor.setAlpha(faceAlpha);
-    }
-
-	// if drawType is 0 or 2, draw edges
-	if (drawType == 0 || drawType == 2) {
-        for (u32 i = 0; i < 24; i++)
-            edgeV[i].Color = edgeColor;
-
-		edgeV[0].Pos = edges[5];
-		edgeV[1].Pos = edges[1];
-		edgeV[2].Pos = edges[1];
-		edgeV[3].Pos = edges[3];
-		edgeV[4].Pos = edges[3];
-		edgeV[5].Pos = edges[7];
-		edgeV[6].Pos = edges[7];
-		edgeV[7].Pos = edges[5];
-		edgeV[8].Pos = edges[0];
-		edgeV[9].Pos = edges[2];
-		edgeV[10].Pos = edges[2];
-		edgeV[11].Pos = edges[6];
-		edgeV[12].Pos = edges[6];
-		edgeV[13].Pos = edges[4];
-		edgeV[14].Pos = edges[4];
-		edgeV[15].Pos = edges[0];
-		edgeV[16].Pos = edges[1];
-		edgeV[17].Pos = edges[0];
-		edgeV[18].Pos = edges[3];
-		edgeV[19].Pos = edges[2];
-		edgeV[20].Pos = edges[7];
-		edgeV[21].Pos = edges[6];
-		edgeV[22].Pos = edges[5];
-		edgeV[23].Pos = edges[4];
-
-		if (!FeatureAvailable[IRR_ARB_vertex_array_bgra] && !FeatureAvailable[IRR_EXT_vertex_array_bgra])
-			getColorBuffer(edgeV, 24, EVT_STANDARD);
-
-		CacheHandler->setClientState(true, false, true, false);
-
-		glVertexPointer(3, GL_FLOAT, sizeof(S3DVertex), &(static_cast<const S3DVertex *>(edgeV))[0].Pos);
-
-	#ifdef GL_BGRA
-		const GLint colorSize = (FeatureAvailable[IRR_ARB_vertex_array_bgra] || FeatureAvailable[IRR_EXT_vertex_array_bgra]) ? GL_BGRA : 4;
-	#else
-		const GLint colorSize = 4;
-	#endif
-		if (FeatureAvailable[IRR_ARB_vertex_array_bgra] || FeatureAvailable[IRR_EXT_vertex_array_bgra])
-			glColorPointer(colorSize, GL_UNSIGNED_BYTE, sizeof(S3DVertex), &(static_cast<const S3DVertex *>(edgeV))[0].Color);
-		else {
-			_IRR_DEBUG_BREAK_IF(ColorBuffer.size() == 0);
-			glColorPointer(colorSize, GL_UNSIGNED_BYTE, 0, &ColorBuffer[0]);
-		}
-
-		glDrawArrays(GL_LINES, 0, 24);
-	}
-
-	// If drawType is 1 or 2, draw faces
-	if (drawType == 1 || drawType == 2) {
-        for (u32 i = 0; i < 36; i++)
-            faceV[i].Color = faceColor;
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		/*
-		DEBUG START
-		*/
-		/*
-	    irr::video::SColor frontColor(255, 255, 0, 0); // Red color (-Z)
-	    irr::video::SColor backColor(255, 0, 255, 0); // Green color (+Z)
-	    irr::video::SColor leftColor(255, 0, 0, 255); // Blue color (-X)
-	    irr::video::SColor rightColor(255, 255, 255, 0); // Yellow color (+X)
-	    irr::video::SColor topColor(255, 0, 255, 255); // Cyan color (+Y)
-	    irr::video::SColor bottomColor(255, 255, 0, 255); // Magenta color (-Y)
-
-	    // Front face
-	    if (diffNeighbors & (1<<0)) {
-	        faceV[0].Color = faceV[1].Color = faceV[2].Color = frontColor;
-	        faceV[3].Color = faceV[4].Color = faceV[5].Color = frontColor;
-	    }
-
-	    // Back face
-	    if (diffNeighbors & (1<<1)) {
-	        faceV[6].Color = faceV[7].Color = faceV[8].Color = backColor;
-	        faceV[9].Color = faceV[10].Color = faceV[11].Color = backColor;
-	    }
-
-	    // Left face
-	    if (diffNeighbors & (1<<2)) {
-	        faceV[12].Color = faceV[13].Color = faceV[14].Color = leftColor;
-	        faceV[15].Color = faceV[16].Color = faceV[17].Color = leftColor;
-	    }
-
-	    // Right face
-	    if (diffNeighbors & (1<<3)) {
-	        faceV[18].Color = faceV[19].Color = faceV[20].Color = rightColor;
-	        faceV[21].Color = faceV[22].Color = faceV[23].Color = rightColor;
-	    }
-
-	    // Top face
-	    if (diffNeighbors & (1<<4)) {
-	        faceV[24].Color = faceV[25].Color = faceV[26].Color = topColor;
-	        faceV[27].Color = faceV[28].Color = faceV[29].Color = topColor;
-	    }
-
-	    // Bottom face
-	    if (diffNeighbors & (1<<5)) {
-	        faceV[30].Color = faceV[31].Color = faceV[32].Color = bottomColor;
-	        faceV[33].Color = faceV[34].Color = faceV[35].Color = bottomColor;
-	    }
-	    */
-	    /*
-	    DEBUG END
-	    */
-
-		// Front face
-		if (diffNeighbors & (1<<0)) {
-			faceV[0].Pos = edges[0];
-			faceV[1].Pos = edges[1];
-			faceV[2].Pos = edges[5];
-
-			faceV[3].Pos = edges[0];
-			faceV[4].Pos = edges[5];
-			faceV[5].Pos = edges[4];
-		}
-
-		// Back face
-		if (diffNeighbors & (1<<1)) {
-			faceV[6].Pos = edges[3];
-			faceV[7].Pos = edges[6];
-			faceV[8].Pos = edges[7];
-
-			faceV[9].Pos = edges[3];
-			faceV[10].Pos = edges[2];
-			faceV[11].Pos = edges[6];
-		}
-
-		// Left face
-		if (diffNeighbors & (1<<2)) {
-			faceV[12].Pos = edges[0];
-			faceV[13].Pos = edges[3];
-			faceV[14].Pos = edges[1];
-
-			faceV[15].Pos = edges[0];
-			faceV[16].Pos = edges[2];
-			faceV[17].Pos = edges[3];
-		}
-
-		// Right face
-		if (diffNeighbors & (1<<3)) {
-			faceV[18].Pos = edges[5];
-			faceV[19].Pos = edges[6];
-			faceV[20].Pos = edges[4];
-
-			faceV[21].Pos = edges[5];
-			faceV[22].Pos = edges[7];
-			faceV[23].Pos = edges[6];
-		}
-
-		// Top face
-		if (diffNeighbors & (1<<4)) {
-			faceV[24].Pos = edges[1];
-			faceV[25].Pos = edges[3];
-			faceV[26].Pos = edges[7];
-
-			faceV[27].Pos = edges[1];
-			faceV[28].Pos = edges[7];
-			faceV[29].Pos = edges[5];
-		}
-
-		// Bottom face
-		if (diffNeighbors & (1<<5)) {
-			faceV[30].Pos = edges[0];
-			faceV[31].Pos = edges[4];
-			faceV[32].Pos = edges[2];
-
-			faceV[33].Pos = edges[2];
-			faceV[34].Pos = edges[4];
-			faceV[35].Pos = edges[6];
-		}
-
-		if (!FeatureAvailable[IRR_ARB_vertex_array_bgra] && !FeatureAvailable[IRR_EXT_vertex_array_bgra])
-			getColorBuffer(faceV, 36, EVT_STANDARD);
-
-		CacheHandler->setClientState(true, false, true, false);
-
-		glVertexPointer(3, GL_FLOAT, sizeof(S3DVertex), &(static_cast<const S3DVertex *>(faceV))[0].Pos);
-
-	#ifdef GL_BGRA
-		const GLint colorSize = (FeatureAvailable[IRR_ARB_vertex_array_bgra] || FeatureAvailable[IRR_EXT_vertex_array_bgra]) ? GL_BGRA : 4;
-	#else
-		const GLint colorSize = 4;
-	#endif
-		if (FeatureAvailable[IRR_ARB_vertex_array_bgra] || FeatureAvailable[IRR_EXT_vertex_array_bgra])
-			glColorPointer(colorSize, GL_UNSIGNED_BYTE, sizeof(S3DVertex), &(static_cast<const S3DVertex *>(faceV))[0].Color);
-		else {
-			_IRR_DEBUG_BREAK_IF(ColorBuffer.size() == 0);
-			glColorPointer(colorSize, GL_UNSIGNED_BYTE, 0, &ColorBuffer[0]);
-		}
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		glDisable(GL_BLEND);
-	}
-}
-
-=======
->>>>>>> 5.10.0
 //! Draws a 3d line.
 void COpenGLDriver::draw3DLine(const core::vector3df &start,
 		const core::vector3df &end, SColor color)

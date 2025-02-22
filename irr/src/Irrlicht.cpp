@@ -5,12 +5,9 @@
 static const char *const copyright = "Irrlicht Engine (c) 2002-2017 Nikolaus Gebhardt"; // put string in binary
 
 #include "irrlicht.h"
-<<<<<<< HEAD
-=======
 #include "matrix4.h"
 #include "SMaterial.h"
 
->>>>>>> 5.10.0
 #ifdef _IRR_COMPILE_WITH_WINDOWS_DEVICE_
 #include "CIrrDeviceWin32.h"
 #endif
