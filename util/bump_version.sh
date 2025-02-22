@@ -16,30 +16,18 @@ prompt_for() {
 }
 
 # Reads current versions
-<<<<<<< HEAD
-# out: VERSION_MAJOR VERSION_MINOR VERSION_PATCH VERSION_IS_DEV CURRENT_VERSION ANDROID_VERSION_CODE
-=======
 # out: VERSION_MAJOR VERSION_MINOR VERSION_PATCH VERSION_IS_DEV CURRENT_VERSION
->>>>>>> 5.10.0
 read_versions() {
 	VERSION_MAJOR=$(grep -oE '^set\(VERSION_MAJOR [0-9]+\)$' CMakeLists.txt | tr -dC 0-9)
 	VERSION_MINOR=$(grep -oE '^set\(VERSION_MINOR [0-9]+\)$' CMakeLists.txt | tr -dC 0-9)
 	VERSION_PATCH=$(grep -oE '^set\(VERSION_PATCH [0-9]+\)$' CMakeLists.txt | tr -dC 0-9)
 	VERSION_IS_DEV=$(grep -oE '^set\(DEVELOPMENT_BUILD [A-Z]+\)$' CMakeLists.txt)
-<<<<<<< HEAD
-	ANDROID_VERSION_CODE=$(grep -oE '\("versionCode", [0-9]+\)' android/build.gradle | tr -dC 0-9)
-=======
->>>>>>> 5.10.0
 
 	# Make sure they all exist
 	[ -n "$VERSION_MAJOR" ]
 	[ -n "$VERSION_MINOR" ]
 	[ -n "$VERSION_PATCH" ]
 	[ -n "$VERSION_IS_DEV" ]
-<<<<<<< HEAD
-	[ -n "$ANDROID_VERSION_CODE" ]
-=======
->>>>>>> 5.10.0
 
 	if echo "$VERSION_IS_DEV" | grep -q ' TRUE'; then
 		VERSION_IS_DEV=1
@@ -48,40 +36,19 @@ read_versions() {
 	fi
 	CURRENT_VERSION="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
 
-<<<<<<< HEAD
-	echo "Current Minetest version: $CURRENT_VERSION"
-	echo "Current Android version code: $ANDROID_VERSION_CODE"
-=======
 	echo "Current Luanti version: $CURRENT_VERSION"
->>>>>>> 5.10.0
 }
 
 # Retrieves protocol version from header
 # in: $1
 read_proto_ver() {
 	local ref=$1
-<<<<<<< HEAD
-	git show "$ref":src/network/networkprotocol.h | grep -oE 'LATEST_PROTOCOL_VERSION [0-9]+' | tr -dC 0-9
-}
-
-## Prompts for new android version code
-# in: ANDROID_VERSION_CODE
-# out: NEW_ANDROID_VERSION_CODE
-bump_android_ver() {
-	# +1 for ARM and +1 for ARM64 APKs
-	NEW_ANDROID_VERSION_CODE=$(expr $ANDROID_VERSION_CODE + 2)
-	NEW_ANDROID_VERSION_CODE=$(prompt_for "Set android version code" '[0-9]+' $NEW_ANDROID_VERSION_CODE)
-
-	echo
-	echo "New android version code: $NEW_ANDROID_VERSION_CODE"
-=======
 	local output=$(git show "$ref":src/network/networkprotocol.cpp 2>/dev/null)
 	if [ -z "$output" ]; then
 		# Fallback to previous file (for tags < 5.10.0)
 		output=$(git show "$ref":src/network/networkprotocol.h)
 	fi
 	grep -oE 'LATEST_PROTOCOL_VERSION\s+=?\s*[0-9]+' <<<"$output" | tr -dC 0-9
->>>>>>> 5.10.0
 }
 
 ## Prompts for new version
@@ -131,17 +98,6 @@ set_dev_build() {
 	git add -f CMakeLists.txt android/build.gradle
 }
 
-<<<<<<< HEAD
-## Writes new android version code
-# in: NEW_ANDROID_VERSION_CODE
-write_android_version() {
-	sed -i -re "s/\"versionCode\", [0-9]+/\"versionCode\", $NEW_ANDROID_VERSION_CODE/" android/build.gradle
-
-	git add -f android/build.gradle
-}
-
-=======
->>>>>>> 5.10.0
 ## Writes new version to the right files
 # in: NEXT_VERSION NEXT_VERSION_{MAJOR,MINOR,PATCH}
 write_new_version() {
@@ -192,11 +148,7 @@ back_to_devel() {
 # Start of main logic:
 #######################
 
-<<<<<<< HEAD
-# Switch to top minetest directory
-=======
 # Switch to top luanti directory
->>>>>>> 5.10.0
 cd ${0%/*}/..
 
 # Determine old versions
@@ -228,11 +180,6 @@ if [ "$DO_PATCH_REL" -eq 0 ]; then
 		exit 1
 	fi
 
-<<<<<<< HEAD
-	bump_android_ver
-	write_android_version
-=======
->>>>>>> 5.10.0
 	set_dev_build 0
 
 	perform_release "$CURRENT_VERSION"
@@ -245,11 +192,6 @@ if [ "$DO_PATCH_REL" -eq 0 ]; then
 else
 	# On a patch release the version moves from 5.7.0 -> 5.7.1 (new tag)
 
-<<<<<<< HEAD
-	bump_android_ver
-	write_android_version
-=======
->>>>>>> 5.10.0
 	bump_version
 	write_new_version
 

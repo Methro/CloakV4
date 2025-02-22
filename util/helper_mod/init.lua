@@ -48,8 +48,6 @@ elseif mode == "mapgen" then
 	end
 	core.after(0, next_, 1)
 
-<<<<<<< HEAD
-=======
 elseif mode == "error" then
 
 	local n = tonumber(core.settings:get("error_type"))
@@ -70,5 +68,4 @@ elseif mode == "error" then
 		assert(false)
 	end
 
->>>>>>> 5.10.0
 end

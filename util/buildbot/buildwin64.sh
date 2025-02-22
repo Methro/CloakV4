@@ -42,10 +42,6 @@ download "$libhost/llvm/libleveldb-$leveldb_version-win64.zip"
 download "$libhost/llvm/openal-soft-$openal_version-win64.zip"
 download "$libhost/llvm/libjpeg-$libjpeg_version-win64.zip"
 download "$libhost/llvm/libpng-$libpng_version-win64.zip"
-<<<<<<< HEAD
-download "$libhost/llvm/sdl2-$sdl2_version-win64.zip"
-=======
->>>>>>> 5.10.0
 
 # Set source dir, downloading Minetest as needed
 get_sources

@@ -3,11 +3,7 @@
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 gameid=${gameid:-devtest}
-<<<<<<< HEAD
-minetest=$dir/../bin/minetest
-=======
 executable=$dir/../bin/luanti
->>>>>>> 5.10.0
 testspath=$dir/../tests
 conf_client1=$testspath/client1.conf
 conf_server=$testspath/server.conf
@@ -25,11 +21,7 @@ waitfor () {
 	exit 1
 }
 
-<<<<<<< HEAD
-[ -e "$minetest" ] || { echo "executable $minetest missing"; exit 1; }
-=======
 [ -e "$executable" ] || { echo "executable $executable missing"; exit 1; }
->>>>>>> 5.10.0
 
 rm -f "$testspath/log.txt"
 rm -rf "$worldpath"
@@ -41,30 +33,18 @@ printf '%s\n' >"$testspath/client1.conf" \
 
 printf '%s\n' >"$testspath/server.conf" \
 	max_block_send_distance=1 active_block_range=1 \
-<<<<<<< HEAD
-	devtest_unittests_autostart=true helper_mode=devtest
-=======
 	devtest_unittests_autostart=true helper_mode=devtest \
 	"${serverconf:-}"
->>>>>>> 5.10.0
 
 ln -s "$dir/helper_mod" "$worldpath/worldmods/"
 
 echo "Starting server"
-<<<<<<< HEAD
-"$minetest" --debugger --server --config "$conf_server" --world "$worldpath" --gameid $gameid 2>&1 \
-=======
 "$executable" --debugger --server --config "$conf_server" --world "$worldpath" --gameid $gameid 2>&1 \
->>>>>>> 5.10.0
 	| sed -u 's/^/(server) /' | tee -a "$testspath/log.txt" &
 waitfor "$worldpath/startup"
 
 echo "Starting client"
-<<<<<<< HEAD
-"$minetest" --debugger --config "$conf_client1" --go --address 127.0.0.1 2>&1 \
-=======
 "$executable" --debugger --config "$conf_client1" --go --address 127.0.0.1 2>&1 \
->>>>>>> 5.10.0
 	| sed -u 's/^/(client) /' | tee -a "$testspath/log.txt" &
 waitfor "$worldpath/done"
 

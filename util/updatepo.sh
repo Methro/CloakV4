@@ -1,10 +1,6 @@
 #!/bin/sh
 
-<<<<<<< HEAD
-# Update/create minetest po files
-=======
 # Update/create luanti po files
->>>>>>> 5.10.0
 
 # an auxiliary function to abort processing with an optional error
 # message
@@ -51,15 +47,9 @@ cd ..
 # First thing first, update the .pot template. We place it in the po/
 # directory at the top level. You a recent enough xgettext that supports
 # --package-name
-<<<<<<< HEAD
-potfile=po/minetest.pot
-echo "updating pot"
-xgettext --package-name=minetest \
-=======
 potfile=po/luanti.pot
 echo "updating pot"
 xgettext --package-name=luanti \
->>>>>>> 5.10.0
 	--add-comments='~' \
 	--sort-by-file \
 	--add-location=file \
@@ -85,11 +75,7 @@ sed '/^#\. ~<number>.*relative_to/,/^#: /{ /^#: /!d; }' -i $potfile
 # Now iterate on all languages and create the po file if missing, or update it
 # if it exists already
 for lang in $langs ; do # note the missing quotes around $langs
-<<<<<<< HEAD
-	pofile=po/$lang/minetest.po
-=======
 	pofile=po/$lang/luanti.po
->>>>>>> 5.10.0
 	if test -e $pofile; then
 		echo "[$lang]: updating strings"
 		msgmerge --update --sort-by-file $pofile $potfile
