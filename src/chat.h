@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -19,6 +20,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #pragma once
 
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+
+#pragma once
+
+#include <set>
+>>>>>>> 5.10.0
 #include <string>
 #include <vector>
 #include <list>
@@ -26,7 +36,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "irrlichttypes.h"
 #include "util/enriched_string.h"
+<<<<<<< HEAD
 #include "settings.h"
+=======
+>>>>>>> 5.10.0
 
 // Chat console related classes
 

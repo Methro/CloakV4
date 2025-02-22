@@ -21,6 +21,7 @@
 
 For Debian/Ubuntu users:
 
+<<<<<<< HEAD
     sudo apt install g++ make libc6-dev cmake libpng-dev libjpeg-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev libzstd-dev libluajit-5.1-dev gettext libsdl2-dev
 
 For Fedora users:
@@ -42,6 +43,29 @@ For Alpine users:
 For Void users:
 
     sudo xbps-install cmake libpng-devel jpeg-devel mesa sqlite-devel libogg-devel libvorbis-devel libopenal-devel libcurl-devel freetype-devel zlib-devel gmp-devel jsoncpp-devel LuaJIT-devel zstd libzstd-devel gettext SDL2-devel
+=======
+    sudo apt install g++ make libc6-dev cmake libpng-dev libjpeg-dev libxi-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev libzstd-dev libluajit-5.1-dev gettext
+
+For Fedora users:
+
+    sudo dnf install make automake gcc gcc-c++ kernel-devel cmake libcurl-devel openal-soft-devel libpng-devel libjpeg-devel libvorbis-devel libXi-devel libogg-devel freetype-devel mesa-libGL-devel zlib-devel jsoncpp-devel gmp-devel sqlite-devel luajit-devel leveldb-devel ncurses-devel spatialindex-devel libzstd-devel gettext
+
+For openSUSE users:
+
+	sudo zypper install gcc gcc-c++ cmake libjpeg8-devel libpng16-devel openal-soft-devel libcurl-devel sqlite3-devel luajit-devel libzstd-devel Mesa-libGL-devel libXi-devel libvorbis-devel freetype2-devel
+
+For Arch users:
+
+    sudo pacman -S --needed base-devel libcurl-gnutls cmake libxi libpng sqlite libogg libvorbis openal freetype2 jsoncpp gmp luajit leveldb ncurses zstd gettext
+
+For Alpine users:
+
+    sudo apk add build-base cmake libpng-dev jpeg-dev libxi-dev mesa-dev sqlite-dev libogg-dev libvorbis-dev openal-soft-dev curl-dev freetype-dev zlib-dev gmp-dev jsoncpp-dev luajit-dev zstd-dev gettext
+
+For Void users:
+
+    sudo xbps-install cmake libpng-devel jpeg-devel libXi-devel mesa sqlite-devel libogg-devel libvorbis-devel libopenal-devel libcurl-devel freetype-devel zlib-devel gmp-devel jsoncpp-devel LuaJIT-devel zstd libzstd-devel gettext
+>>>>>>> 5.10.0
 
 ## Download
 
@@ -69,6 +93,7 @@ For Void users:
 
 Download source (this is the URL to the latest of source repository, which might not work at all times) using Git:
 
+<<<<<<< HEAD
     git clone --depth 1 https://github.com/teamacedia/cloakv4.git
     cd cloakv4
 
@@ -77,6 +102,16 @@ Download source, without using Git:
     wget https://github.com/teamacedia/cloakv4/archive/master.tar.gz
     tar xf master.tar.gz
     cd cloakv4-master
+=======
+    git clone --depth 1 https://github.com/minetest/minetest.git
+    cd minetest
+
+Download source, without using Git:
+
+    wget https://github.com/minetest/minetest/archive/master.tar.gz
+    tar xf master.tar.gz
+    cd minetest-master
+>>>>>>> 5.10.0
 
 ## Build
 

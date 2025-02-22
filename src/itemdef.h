@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2013 Kahrl <kahrl@gmx.net>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -35,11 +42,19 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 class IGameDef;
 class Client;
 struct ToolCapabilities;
+<<<<<<< HEAD
 #ifndef SERVER
 #include "client/texturesource.h"
 struct ItemMesh;
 struct ItemStack;
 #endif
+=======
+struct ItemMesh;
+struct ItemStack;
+typedef std::vector<video::SColor> Palette; // copied from src/client/texturesource.h
+namespace irr::video { class ITexture; }
+using namespace irr;
+>>>>>>> 5.10.0
 
 /*
 	Base item definition
@@ -71,7 +86,12 @@ struct TouchInteraction
 	TouchInteraction();
 	// Returns the right mode for the pointed thing and resolves any occurrence
 	// of TouchInteractionMode_USER into an actual mode.
+<<<<<<< HEAD
 	TouchInteractionMode getMode(PointedThingType pointed_type) const;
+=======
+	TouchInteractionMode getMode(const ItemDefinition &selected_def,
+			PointedThingType pointed_type) const;
+>>>>>>> 5.10.0
 	void serialize(std::ostream &os) const;
 	void deSerialize(std::istream &is);
 };
@@ -154,6 +174,7 @@ public:
 	virtual void getAll(std::set<std::string> &result) const=0;
 	// Check if item is known
 	virtual bool isKnown(const std::string &name) const=0;
+<<<<<<< HEAD
 #ifndef SERVER
 	// Get item inventory texture
 	virtual video::ITexture* getInventoryTexture(const ItemStack &item, Client *client) const=0;
@@ -173,6 +194,34 @@ public:
 #endif
 
 	virtual void serialize(std::ostream &os, u16 protocol_version)=0;
+=======
+
+	virtual void serialize(std::ostream &os, u16 protocol_version)=0;
+
+	/* Client-specific methods */
+	// TODO: should be moved elsewhere in the future
+
+	// Get item inventory texture
+	virtual video::ITexture* getInventoryTexture(const ItemStack &item, Client *client) const
+	{ return nullptr; }
+
+	/**
+	 * Get wield mesh
+	 * @returns nullptr if there is an inventory image
+	 */
+	virtual ItemMesh* getWieldMesh(const ItemStack &item, Client *client) const
+	{ return nullptr; }
+
+	// Get item palette
+	virtual Palette* getPalette(const ItemStack &item, Client *client) const
+	{ return nullptr; }
+
+	// Returns the base color of an item stack: the color of all
+	// tiles that do not define their own color.
+	virtual video::SColor getItemstackColor(const ItemStack &stack,
+		Client *client) const
+	{ return video::SColor(0); }
+>>>>>>> 5.10.0
 };
 
 class IWritableItemDefManager : public IItemDefManager

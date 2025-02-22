@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -21,6 +22,16 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "clouds.h"
 #include "gui/touchscreengui.h"
 #include "server.h"
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+
+#include "IAttributes.h"
+#include "gui/mainmenumanager.h"
+#include "clouds.h"
+#include "gui/touchcontrols.h"
+>>>>>>> 5.10.0
 #include "filesys.h"
 #include "gui/guiMainMenu.h"
 #include "game.h"
@@ -34,7 +45,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "clientlauncher.h"
 #include "version.h"
 #include "renderingengine.h"
+<<<<<<< HEAD
 #include "network/networkexceptions.h"
+=======
+#include "settings.h"
+#include "util/tracy_wrapper.h"
+>>>>>>> 5.10.0
 #include <IGUISpriteBank.h>
 #include <ICameraSceneNode.h>
 #include <unordered_map>
@@ -70,8 +86,13 @@ static void dump_start_data(const GameStartData &data)
 ClientLauncher::~ClientLauncher()
 {
 	delete input;
+<<<<<<< HEAD
 	g_settings->deregisterChangedCallback("dpi_change_notifier", setting_changed_callback, this);
 	g_settings->deregisterChangedCallback("gui_scaling", setting_changed_callback, this);
+=======
+
+	g_settings->deregisterAllChangedCallbacks(this);
+>>>>>>> 5.10.0
 
 	delete g_fontengine;
 	g_fontengine = nullptr;
@@ -132,6 +153,10 @@ bool ClientLauncher::run(GameStartData &start_data, const Settings &cmd_args)
 	guienv = m_rendering_engine->get_gui_env();
 	config_guienv();
 	g_settings->registerChangedCallback("dpi_change_notifier", setting_changed_callback, this);
+<<<<<<< HEAD
+=======
+	g_settings->registerChangedCallback("display_density_factor", setting_changed_callback, this);
+>>>>>>> 5.10.0
 	g_settings->registerChangedCallback("gui_scaling", setting_changed_callback, this);
 
 	g_fontengine = new FontEngine(guienv);
@@ -139,8 +164,15 @@ bool ClientLauncher::run(GameStartData &start_data, const Settings &cmd_args)
 	// Create the menu clouds
 	// This is only global so it can be used by RenderingEngine::draw_load_screen().
 	assert(!g_menucloudsmgr && !g_menuclouds);
+<<<<<<< HEAD
 	g_menucloudsmgr = m_rendering_engine->get_scene_manager()->createNewSceneManager();
 	g_menuclouds = new Clouds(g_menucloudsmgr, nullptr, -1, rand());
+=======
+	std::unique_ptr<IWritableShaderSource> ssrc(createShaderSource());
+	ssrc->addShaderConstantSetterFactory(new FogShaderConstantSetterFactory());
+	g_menucloudsmgr = m_rendering_engine->get_scene_manager()->createNewSceneManager();
+	g_menuclouds = new Clouds(g_menucloudsmgr, ssrc.get(), -1, rand());
+>>>>>>> 5.10.0
 	g_menuclouds->setHeight(100.0f);
 	g_menuclouds->update(v3f(0, 0, 0), video::SColor(255, 240, 240, 255));
 	scene::ICameraSceneNode* camera;
@@ -231,9 +263,15 @@ bool ClientLauncher::run(GameStartData &start_data, const Settings &cmd_args)
 
 		m_rendering_engine->get_scene_manager()->clear();
 
+<<<<<<< HEAD
 		if (g_touchscreengui) {
 			delete g_touchscreengui;
 			g_touchscreengui = NULL;
+=======
+		if (g_touchcontrols) {
+			delete g_touchcontrols;
+			g_touchcontrols = NULL;
+>>>>>>> 5.10.0
 		}
 
 		/* Save the settings when leaving the game.
@@ -544,15 +582,28 @@ void ClientLauncher::main_menu(MainMenuData *menudata)
 	video::IVideoDriver *driver = m_rendering_engine->get_video_driver();
 
 	infostream << "Waiting for other menus" << std::endl;
+<<<<<<< HEAD
+=======
+	auto framemarker = FrameMarker("ClientLauncher::main_menu()-wait-frame").started();
+>>>>>>> 5.10.0
 	while (m_rendering_engine->run() && !*kill) {
 		if (!isMenuActive())
 			break;
 		driver->beginScene(true, true, video::SColor(255, 128, 128, 128));
 		m_rendering_engine->get_gui_env()->drawAll();
 		driver->endScene();
+<<<<<<< HEAD
 		// On some computers framerate doesn't seem to be automatically limited
 		sleep_ms(25);
 	}
+=======
+		framemarker.end();
+		// On some computers framerate doesn't seem to be automatically limited
+		sleep_ms(25);
+		framemarker.start();
+	}
+	framemarker.end();
+>>>>>>> 5.10.0
 	infostream << "Waited for other menus" << std::endl;
 
 	auto *cur_control = m_rendering_engine->get_raw_device()->getCursorControl();

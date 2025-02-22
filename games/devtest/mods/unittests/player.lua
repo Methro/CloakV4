@@ -42,6 +42,7 @@ unittests.register("test_hpchangereason", run_hpchangereason_tests, {player=true
 --
 
 local expected_diff = nil
+<<<<<<< HEAD
 core.register_on_player_hpchange(function(player, hp_change, reason)
 	if expected_diff then
 		assert(hp_change == expected_diff)
@@ -61,22 +62,111 @@ local function run_hp_difference_tests(player)
 	player:set_hp(-3)
 	-- and actual final HP value is clamped to >= 0 too
 	assert(player:get_hp() == 0)
+=======
+local hpchange_counter = 0
+local die_counter = 0
+core.register_on_player_hpchange(function(player, hp_change, reason)
+	if expected_diff then
+		assert(hp_change == expected_diff)
+		hpchange_counter = hpchange_counter + 1
+	end
+end)
+core.register_on_dieplayer(function()
+	die_counter = die_counter + 1
+end)
+
+local function hp_diference_test(player, hp_max)
+	assert(hp_max >= 22)
+
+	local old_hp = player:get_hp()
+	local old_hp_max = player:get_properties().hp_max
+
+	hpchange_counter = 0
+	die_counter = 0
+
+	expected_diff = nil
+	player:set_properties({hp_max = hp_max})
+	player:set_hp(22)
+	assert(player:get_hp() == 22)
+	assert(hpchange_counter == 0)
+	assert(die_counter == 0)
+
+	-- HP difference is not clamped
+	expected_diff = -25
+	player:set_hp(-3)
+	-- actual final HP value is clamped to >= 0
+	assert(player:get_hp() == 0)
+	assert(hpchange_counter == 1)
+	assert(die_counter == 1)
+>>>>>>> 5.10.0
 
 	expected_diff = 22
 	player:set_hp(22)
 	assert(player:get_hp() == 22)
+<<<<<<< HEAD
 
 	-- final HP value is clamped to <= U16_MAX before difference calculation
 	expected_diff = 65535 - 22
 	player:set_hp(1000000)
 	-- and actual final HP value is clamped to <= hp_max
 	assert(player:get_hp() == 30)
+=======
+	assert(hpchange_counter == 2)
+	assert(die_counter == 1)
+
+	-- Integer overflow is prevented
+	-- so result is S32_MIN, not S32_MIN - 22
+	expected_diff = -2147483648
+	player:set_hp(-2147483648)
+	-- actual final HP value is clamped to >= 0
+	assert(player:get_hp() == 0)
+	assert(hpchange_counter == 3)
+	assert(die_counter == 2)
+
+	-- Damage is ignored if player is already dead (hp == 0)
+	expected_diff = "never equal"
+	player:set_hp(-11)
+	assert(player:get_hp() == 0)
+	-- no on_player_hpchange or on_dieplayer call expected
+	assert(hpchange_counter == 3)
+	assert(die_counter == 2)
+
+	expected_diff = 11
+	player:set_hp(11)
+	assert(player:get_hp() == 11)
+	assert(hpchange_counter == 4)
+	assert(die_counter == 2)
+
+	-- HP difference is not clamped
+	expected_diff = 1000000 - 11
+	player:set_hp(1000000)
+	-- actual final HP value is clamped to <= hp_max
+	assert(player:get_hp() == hp_max)
+	assert(hpchange_counter == 5)
+	assert(die_counter == 2)
+
+	-- "Healing" is not ignored when hp == hp_max
+	expected_diff = 80000 - hp_max
+	player:set_hp(80000)
+	assert(player:get_hp() == hp_max)
+	-- on_player_hpchange_call expected
+	assert(hpchange_counter == 6)
+	assert(die_counter == 2)
+>>>>>>> 5.10.0
 
 	expected_diff = nil
 	player:set_properties({hp_max = old_hp_max})
 	player:set_hp(old_hp)
 	core.close_formspec(player:get_player_name(), "") -- hide death screen
 end
+<<<<<<< HEAD
+=======
+local function run_hp_difference_tests(player)
+	hp_diference_test(player, 22)
+	hp_diference_test(player, 30)
+	hp_diference_test(player, 65535) -- U16_MAX
+end
+>>>>>>> 5.10.0
 unittests.register("test_hp_difference", run_hp_difference_tests, {player=true})
 
 --

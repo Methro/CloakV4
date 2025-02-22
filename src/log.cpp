@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -18,6 +19,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include "log.h"
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+
+#include "log_internal.h"
+>>>>>>> 5.10.0
 
 #include "threading/mutex_auto_lock.h"
 #include "debug.h"
@@ -27,7 +35,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "config.h"
 #include "exceptions.h"
 #include "util/numeric.h"
+<<<<<<< HEAD
 #include "log.h"
+=======
+>>>>>>> 5.10.0
 #include "filesys.h"
 
 #ifdef __ANDROID__
@@ -372,6 +383,7 @@ void StreamLogOutput::logRaw(LogLevel lev, std::string_view line)
 	}
 }
 
+<<<<<<< HEAD
 void LogOutputBuffer::updateLogLevel()
 {
 	const std::string &conf_loglev = g_settings->get("chat_log_level");
@@ -410,4 +422,17 @@ void LogOutputBuffer::logRaw(LogLevel lev, std::string_view line)
 	}
 	MutexAutoLock lock(m_buffer_mutex);
 	m_buffer.emplace(color.append(line));
+=======
+void StreamProxy::fix_stream_state(std::ostream &os)
+{
+	std::ios::iostate state = os.rdstate();
+	// clear error state so the stream works again
+	os.clear();
+	if (state & std::ios::eofbit)
+		os << "(ostream:eofbit)";
+	if (state & std::ios::badbit)
+		os << "(ostream:badbit)";
+	if (state & std::ios::failbit)
+		os << "(ostream:failbit)";
+>>>>>>> 5.10.0
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,13 +17,25 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include "lua_api/l_base.h"
+<<<<<<< HEAD
 #include "serverenvironment.h"
 #include "raycast.h"
 
+=======
+#include "raycast.h"
+
+class ServerScripting;
+
+>>>>>>> 5.10.0
 // base class containing helpers
 class ModApiEnvBase : public ModApiBase {
 protected:
@@ -64,6 +77,13 @@ private:
 	// pos = {x=num, y=num, z=num}
 	static int l_bulk_set_node(lua_State *L);
 
+<<<<<<< HEAD
+=======
+	// bulk_swap_node([pos1, pos2, ...], node)
+	// pos = {x=num, y=num, z=num}
+	static int l_bulk_swap_node(lua_State *L);
+
+>>>>>>> 5.10.0
 	static int l_add_node(lua_State *L);
 
 	// remove_node(pos)
@@ -169,6 +189,7 @@ private:
 	// nodenames: eg. {"ignore", "group:tree"} or "default:dirt"
 	static int l_find_node_near(lua_State *L);
 
+<<<<<<< HEAD
 	// find_nodes_near(pos, radius, nodenames, search_center) -> list of positions
 	// nodenames: eg. {"ignore", "group:tree"} or "default:dirt"
 	static int l_find_nodes_near(lua_State *L);
@@ -181,6 +202,8 @@ private:
 	// nodenames: eg. {"ignore", "group:tree"} or "default:dirt"
 	static int l_find_nodes_near_under_air_except(lua_State *L);
 
+=======
+>>>>>>> 5.10.0
 	// find_nodes_in_area(minp, maxp, nodenames) -> list of positions
 	// nodenames: eg. {"ignore", "group:tree"} or "default:dirt"
 	static int l_find_nodes_in_area(lua_State *L);
@@ -293,6 +316,7 @@ public:
 	static void InitializeEmerge(lua_State *L, int top);
 };
 
+<<<<<<< HEAD
 class LuaABM : public ActiveBlockModifier {
 private:
 	int m_id;
@@ -369,6 +393,8 @@ public:
 	virtual void trigger(ServerEnvironment *env, v3s16 p, MapNode n, float dtime_s);
 };
 
+=======
+>>>>>>> 5.10.0
 //! Lua wrapper for RaycastState objects
 class LuaRaycast : public ModApiBase
 {

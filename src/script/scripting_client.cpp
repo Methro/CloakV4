@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -20,6 +21,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "scripting_client.h"
 #include "lua_api/l_clientobject.h"
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+
+#include "scripting_client.h"
+>>>>>>> 5.10.0
 #include "client/client.h"
 #include "cpp_api/s_internal.h"
 #include "lua_api/l_client.h"
@@ -33,22 +42,31 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "lua_api/l_util.h"
 #include "lua_api/l_item.h"
 #include "lua_api/l_nodemeta.h"
+<<<<<<< HEAD
 #include "lua_api/l_noise.h"
+=======
+>>>>>>> 5.10.0
 #include "lua_api/l_localplayer.h"
 #include "lua_api/l_camera.h"
 #include "lua_api/l_settings.h"
 #include "lua_api/l_client_sound.h"
+<<<<<<< HEAD
 #include "lua_api/l_cheats.h"
 
 #include "lua_api/l_inventoryaction.h"
 
 #include "client/game.h"
+=======
+>>>>>>> 5.10.0
 
 ClientScripting::ClientScripting(Client *client):
 	ScriptApiBase(ScriptingType::Client)
 {
 	setGameDef(client);
+<<<<<<< HEAD
 	setGame(g_game);
+=======
+>>>>>>> 5.10.0
 
 	SCRIPTAPI_PRECHECKHEADER
 
@@ -74,11 +92,14 @@ ClientScripting::ClientScripting(Client *client):
 void ClientScripting::InitializeModApi(lua_State *L, int top)
 {
 	LuaItemStack::Register(L);
+<<<<<<< HEAD
 	LuaPerlinNoise::Register(L);
 	LuaPerlinNoiseMap::Register(L);
 	LuaPseudoRandom::Register(L);
 	LuaPcgRandom::Register(L);
 	LuaSecureRandom::Register(L);
+=======
+>>>>>>> 5.10.0
 	ItemStackMetaRef::Register(L);
 	LuaRaycast::Register(L);
 	StorageRef::Register(L);
@@ -89,8 +110,11 @@ void ClientScripting::InitializeModApi(lua_State *L, int top)
 	ModChannelRef::Register(L);
 	LuaSettings::Register(L);
 	ClientSoundHandle::Register(L);
+<<<<<<< HEAD
    	LuaInventoryAction::Register(L);
     ClientObjectRef::Register(L);
+=======
+>>>>>>> 5.10.0
 
 	ModApiUtil::InitializeClient(L, top);
 	ModApiClient::Initialize(L, top);
@@ -100,7 +124,10 @@ void ClientScripting::InitializeModApi(lua_State *L, int top)
 	ModApiChannels::Initialize(L, top);
 	ModApiParticlesLocal::Initialize(L, top);
 	ModApiClientSound::Initialize(L, top);
+<<<<<<< HEAD
 	l_cheats::Initialize(L, top);
+=======
+>>>>>>> 5.10.0
 }
 
 void ClientScripting::on_client_ready(LocalPlayer *localplayer)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2017 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2017 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "util/serialize.h"
 #include "util/pointedthing.h"
@@ -43,10 +49,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	ClientEnvironment
 */
 
+<<<<<<< HEAD
 ClientEnvironment::ClientEnvironment(ClientMap *map,
 	ITextureSource *texturesource, Client *client):
 	Environment(client),
 	m_map(map),
+=======
+ClientEnvironment::ClientEnvironment(irr_ptr<ClientMap> map,
+	ITextureSource *texturesource, Client *client):
+	Environment(client),
+	m_map(std::move(map)),
+>>>>>>> 5.10.0
 	m_texturesource(texturesource),
 	m_client(client)
 {
@@ -60,18 +73,30 @@ ClientEnvironment::~ClientEnvironment()
 		delete simple_object;
 	}
 
+<<<<<<< HEAD
 	// Drop/delete map
 	m_map->drop();
+=======
+	m_map.reset();
+>>>>>>> 5.10.0
 
 	delete m_local_player;
 }
 
+<<<<<<< HEAD
 Map & ClientEnvironment::getMap()
+=======
+Map &ClientEnvironment::getMap()
+>>>>>>> 5.10.0
 {
 	return *m_map;
 }
 
+<<<<<<< HEAD
 ClientMap & ClientEnvironment::getClientMap()
+=======
+ClientMap &ClientEnvironment::getClientMap()
+>>>>>>> 5.10.0
 {
 	return *m_map;
 }
@@ -93,8 +118,13 @@ void ClientEnvironment::step(float dtime)
 	stepTimeOfDay(dtime);
 
 	// Get some settings
+<<<<<<< HEAD
 	bool fly_allowed = m_client->checkLocalPrivilege("fly") || g_settings->getBool("freecam");
 	bool free_move = (fly_allowed && g_settings->getBool("free_move")) || g_settings->getBool("freecam");
+=======
+	bool fly_allowed = m_client->checkLocalPrivilege("fly");
+	bool free_move = fly_allowed && g_settings->getBool("free_move");
+>>>>>>> 5.10.0
 
 	// Get local player
 	LocalPlayer *lplayer = getLocalPlayer();
@@ -145,7 +175,11 @@ void ClientEnvironment::step(float dtime)
 
 		// Apply physics
 		lplayer->gravity = 0;
+<<<<<<< HEAD
 		if (!free_move && !g_settings->getBool("freecam")) {
+=======
+		if (!free_move) {
+>>>>>>> 5.10.0
 			// Gravity
 			if (!is_climbing && !lplayer->in_liquid)
 				// HACK the factor 2 for gravity is arbitrary and should be removed eventually
@@ -159,7 +193,11 @@ void ClientEnvironment::step(float dtime)
 				lplayer->gravity = 2 * lplayer->movement_liquid_sink * lplayer->physics_override.liquid_sink;
 
 			// Movement resistance
+<<<<<<< HEAD
 			if (lplayer->move_resistance > 0 && !g_settings->getBool("no_slow")) {
+=======
+			if (lplayer->move_resistance > 0) {
+>>>>>>> 5.10.0
 				v3f speed = lplayer->getSpeed();
 
 				// How much the node's move_resistance blocks movement, ranges
@@ -238,10 +276,16 @@ void ClientEnvironment::step(float dtime)
 			f32 damage_f = (speed - tolerance) / BS;
 			u16 damage = (u16)MYMIN(damage_f + 0.5, U16_MAX);
 			if (damage != 0) {
+<<<<<<< HEAD
 				if (!g_settings->getBool("prevent_natural_damage")) {
 					damageLocalPlayer(damage, true);
 					m_client->getEventManager()->put(new SimpleTriggerEvent(MtEvent::PLAYER_FALLING_DAMAGE));
 				}
+=======
+				damageLocalPlayer(damage, true);
+				m_client->getEventManager()->put(
+					new SimpleTriggerEvent(MtEvent::PLAYER_FALLING_DAMAGE));
+>>>>>>> 5.10.0
 			}
 		}
 	}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -51,9 +58,12 @@ private:
 	// show_formspec(name, formspec)
 	static int l_show_formspec(lua_State *L);
 
+<<<<<<< HEAD
 	// send_respawn()
 	static int l_send_respawn(lua_State *L);
 
+=======
+>>>>>>> 5.10.0
 	// disconnect()
 	static int l_disconnect(lua_State *L);
 
@@ -90,6 +100,7 @@ private:
 	// get_csm_restrictions()
 	static int l_get_csm_restrictions(lua_State *L);
 
+<<<<<<< HEAD
 	// send_damage(damage)
 	static int l_send_damage(lua_State *L);
 
@@ -169,6 +180,8 @@ private:
 
 	static int l_on_client_initialize(lua_State* L);
 
+=======
+>>>>>>> 5.10.0
 public:
 	static void Initialize(lua_State *L, int top);
 };

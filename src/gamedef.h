@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -34,19 +40,31 @@ class Camera;
 class ModChannel;
 class ModStorage;
 class ModStorageDatabase;
+<<<<<<< HEAD
+=======
+struct SubgameSpec;
+struct ModSpec;
+struct ModIPCStore;
+>>>>>>> 5.10.0
 
 namespace irr::scene {
 	class IAnimatedMesh;
 	class ISceneManager;
 }
 
+<<<<<<< HEAD
 struct SubgameSpec;
 struct ModSpec;
+=======
+>>>>>>> 5.10.0
 /*
 	An interface for fetching game-global definitions like tool and
 	mapnode properties
 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5.10.0
 class IGameDef
 {
 public:
@@ -63,6 +81,12 @@ public:
 	// environment thread.
 	virtual IRollbackManager* getRollbackManager() { return NULL; }
 
+<<<<<<< HEAD
+=======
+	// Only usable on server.
+	virtual ModIPCStore *getModIPCStore() { return nullptr; }
+
+>>>>>>> 5.10.0
 	// Shorthands
 	// TODO: these should be made const-safe so that a const IGameDef* is
 	//       actually usable

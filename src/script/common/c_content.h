@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 
 /******************************************************************************/
@@ -74,6 +80,10 @@ namespace treegen { struct TreeDef; }
 
 extern struct EnumString es_TileAnimationType[];
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 extern const std::array<const char *, 33> object_property_keys;
 
 void               read_content_features     (lua_State *L, ContentFeatures &f,
@@ -104,7 +114,10 @@ void               push_hit_params           (lua_State *L,
 ItemStack          read_item                 (lua_State *L, int index, IItemDefManager *idef);
 
 struct TileAnimationParams read_animation_definition(lua_State *L, int index);
+<<<<<<< HEAD
 void push_animation_definition(lua_State *L, struct TileAnimationParams anim);
+=======
+>>>>>>> 5.10.0
 
 PointabilityType   read_pointability_type    (lua_State *L, int index);
 Pointabilities     read_pointabilities       (lua_State *L, int index);
@@ -133,12 +146,15 @@ void               read_object_properties    (lua_State *L, int index,
 void               push_object_properties    (lua_State *L,
                                               const ObjectProperties *prop);
 
+<<<<<<< HEAD
 void               push_punch_damage_result  (lua_State *L,
                                               PunchDamageResult *result);
 
 void               push_dig_result           (lua_State *L,
                                               DigParams *result);
 
+=======
+>>>>>>> 5.10.0
 void               push_inventory_list       (lua_State *L,
                                               const InventoryList &invlist);
 void               push_inventory_lists      (lua_State *L,
@@ -206,7 +222,11 @@ bool               push_json_value           (lua_State *L,
                                               const Json::Value &value,
                                               int nullindex);
 void               read_json_value           (lua_State *L, Json::Value &root,
+<<<<<<< HEAD
                                               int index, u8 recursion = 0);
+=======
+                                              int index, u16 max_depth);
+>>>>>>> 5.10.0
 
 /*!
  * Pushes a Lua `pointed_thing` to the given Lua stack.
@@ -226,7 +246,10 @@ bool read_hud_change           (lua_State *L, HudElementStat &stat, HudElement *
 
 void push_collision_move_result(lua_State *L, const collisionMoveResult &res);
 
+<<<<<<< HEAD
 void push_physics_override	   (lua_State *L, float speed, float jump, float gravity, bool sneak, bool sneak_glitch, bool new_move, float speed_climb, float speed_crouch, float liquid_fluiditiy, 
 							    float liquid_fluidity_smooth, float liquid_sink, float acceleration_default, float acceleration_air);
 
+=======
+>>>>>>> 5.10.0
 void push_mod_spec(lua_State *L, const ModSpec &spec, bool include_unsatisfied);

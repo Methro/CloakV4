@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "settings.h"
 #include "irrlichttypes_bloated.h"
@@ -589,9 +595,12 @@ u32 Settings::getFlagStr(const std::string &name, const FlagDesc *flagdesc,
 	return flags;
 }
 
+<<<<<<< HEAD
 Json::Value Settings::getJson(const std::string &name) const {
 	return str_to_json(get(name));
 }
+=======
+>>>>>>> 5.10.0
 
 bool Settings::getNoiseParams(const std::string &name, NoiseParams &np) const
 {
@@ -811,6 +820,7 @@ bool Settings::getV3FNoEx(const std::string &name, v3f &val) const
 	}
 }
 
+<<<<<<< HEAD
 bool Settings::getJsonNoEx(const std::string& jsonString, Json::Value& outputJson) const {
 	Json::CharReaderBuilder builder;
 	Json::CharReader* reader = builder.newCharReader();
@@ -826,6 +836,8 @@ bool Settings::getJsonNoEx(const std::string& jsonString, Json::Value& outputJso
 	}
 	return true;
 }
+=======
+>>>>>>> 5.10.0
 
 bool Settings::getFlagStrNoEx(const std::string &name, u32 &val,
 	const FlagDesc *flagdesc) const
@@ -908,9 +920,12 @@ bool Settings::setGroup(const std::string &name, const Settings &group)
 
 bool Settings::setBool(const std::string &name, bool value)
 {
+<<<<<<< HEAD
 	if (name == "killaura.assist" && value && !getBool("killaura.players")) {
 		set("killaura.players", "true");
 	}
+=======
+>>>>>>> 5.10.0
 	return set(name, value ? "true" : "false");
 }
 
@@ -974,6 +989,7 @@ bool Settings::setFlagStr(const std::string &name, u32 flags,
 	return set(name, writeFlagString(flags, flagdesc, flagmask));
 }
 
+<<<<<<< HEAD
 bool Settings::setJson(const std::string &name, const Json::Value& jsonData) {
     Json::StreamWriterBuilder writerBuilder;
     std::unique_ptr<Json::StreamWriter> writer(writerBuilder.newStreamWriter());
@@ -981,6 +997,8 @@ bool Settings::setJson(const std::string &name, const Json::Value& jsonData) {
     writer->write(jsonData, &outputStream);
     return set(name, outputStream.str());
 }
+=======
+>>>>>>> 5.10.0
 
 bool Settings::setNoiseParams(const std::string &name, const NoiseParams &np)
 {
@@ -1076,6 +1094,7 @@ void Settings::registerChangedCallback(const std::string &name,
 	m_callbacks[name].emplace_back(cbf, userdata);
 }
 
+<<<<<<< HEAD
 void Settings::deregisterChangedCallback(const std::string &name,
 	SettingsChangedCallback cbf, void *userdata)
 {
@@ -1091,6 +1110,24 @@ void Settings::deregisterChangedCallback(const std::string &name,
 		if (position != cbks.end())
 			cbks.erase(position);
 	}
+=======
+size_t Settings::deregisterAllChangedCallbacks(const void *userdata)
+{
+	MutexAutoLock lock(m_callback_mutex);
+
+	size_t n_removed = 0;
+	for (auto &settings : m_callbacks) {
+		for (auto cb = settings.second.begin(); cb != settings.second.end();) {
+			if (cb->second == userdata) {
+				cb = settings.second.erase(cb);
+				n_removed++;
+			} else {
+				++cb;
+			}
+		}
+	}
+	return n_removed;
+>>>>>>> 5.10.0
 }
 
 void Settings::removeSecureSettings()

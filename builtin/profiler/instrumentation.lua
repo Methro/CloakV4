@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 --Minetest
+=======
+--Luanti
+>>>>>>> 5.10.0
 --Copyright (C) 2016 T4im
 --
 --This program is free software; you can redistribute it and/or modify
@@ -217,8 +221,14 @@ local function init()
 		-- Wrap register_lbm() to automatically instrument lbms.
 		local orig_register_lbm = core.register_lbm
 		core.register_lbm = function(spec)
+<<<<<<< HEAD
 			spec.action = instrument {
 				func = spec.action,
+=======
+			local k = spec.bulk_action ~= nil and "bulk_action" or "action"
+			spec[k] = instrument {
+				func = spec[k],
+>>>>>>> 5.10.0
 				class = "LBM",
 				label = spec.label or spec.name,
 			}

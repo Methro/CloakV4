@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2014-2020 paramat
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2014-2020 paramat
+// Copyright (C) 2014-2016 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -128,11 +135,22 @@ public:
 	// Same as above, but uses a raw numeric index correlating to the (x,z) position.
 	virtual Biome *getBiomeAtIndex(size_t index, v3s16 pos) const = 0;
 
+<<<<<<< HEAD
 	virtual s16 *getBiomeTransitions() const = 0;
 
 	// Result of calcBiomes bulk computation.
 	biome_t *biomemap = nullptr;
 	s16 *biome_transitions = nullptr;
+=======
+	// Returns the next lower y position at which the biome could change.
+	// You can use this to optimize calls to getBiomeAtIndex().
+	virtual s16 getNextTransitionY(s16 y) const {
+		return y == S16_MIN ? y : (y - 1);
+	};
+
+	// Result of calcBiomes bulk computation.
+	biome_t *biomemap = nullptr;
+>>>>>>> 5.10.0
 
 protected:
 	BiomeManager *m_bmgr = nullptr;
@@ -167,7 +185,11 @@ struct BiomeParamsOriginal : public BiomeParams {
 	NoiseParams np_humidity_blend;
 };
 
+<<<<<<< HEAD
 class BiomeGenOriginal : public BiomeGen {
+=======
+class BiomeGenOriginal final : public BiomeGen {
+>>>>>>> 5.10.0
 public:
 	BiomeGenOriginal(BiomeManager *biomemgr,
 		const BiomeParamsOriginal *params, v3s16 chunksize);
@@ -189,7 +211,11 @@ public:
 	Biome *getBiomeAtIndex(size_t index, v3s16 pos) const;
 
 	Biome *calcBiomeFromNoise(float heat, float humidity, v3s16 pos) const;
+<<<<<<< HEAD
 	s16 *getBiomeTransitions() const;
+=======
+	s16 getNextTransitionY(s16 y) const;
+>>>>>>> 5.10.0
 
 	float *heatmap;
 	float *humidmap;
@@ -201,6 +227,12 @@ private:
 	Noise *noise_humidity;
 	Noise *noise_heat_blend;
 	Noise *noise_humidity_blend;
+<<<<<<< HEAD
+=======
+
+	// ordered descending
+	std::vector<s16> m_transitions_y;
+>>>>>>> 5.10.0
 };
 
 

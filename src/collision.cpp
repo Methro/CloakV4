@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -18,6 +19,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include <iostream>
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "collision.h"
 #include <cmath>
@@ -25,10 +31,16 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "map.h"
 #include "nodedef.h"
 #include "gamedef.h"
+<<<<<<< HEAD
 #ifndef SERVER
 #include "client/clientenvironment.h"
 #include "client/localplayer.h"
 #include "client/game.h"
+=======
+#if CHECK_CLIENT_BUILD()
+#include "client/clientenvironment.h"
+#include "client/localplayer.h"
+>>>>>>> 5.10.0
 #endif
 #include "serverenvironment.h"
 #include "server/serveractiveobject.h"
@@ -224,7 +236,10 @@ bool wouldCollideWithCeiling(
 static bool add_area_node_boxes(const v3s16 min, const v3s16 max, IGameDef *gamedef,
 		Environment *env, std::vector<NearbyCollisionInfo> &cinfo)
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5.10.0
 	const auto *nodedef = gamedef->getNodeDefManager();
 	bool any_position_valid = false;
 
@@ -244,8 +259,14 @@ static bool add_area_node_boxes(const v3s16 min, const v3s16 max, IGameDef *game
 			any_position_valid = true;
 			const ContentFeatures &f = nodedef->get(n);
 
+<<<<<<< HEAD
 			if (!(f.walkable || ((g_settings->getBool("jesus")) && f.isLiquid())))
 				continue;
+=======
+			if (!f.walkable)
+				continue;
+
+>>>>>>> 5.10.0
 			// Negative bouncy may have a meaning, but we need +value here.
 			int n_bouncy_value = abs(itemgroup_get(f.groups, "bouncy"));
 
@@ -284,6 +305,7 @@ static void add_object_boxes(Environment *env,
 		}
 	};
 
+<<<<<<< HEAD
 		// Calculate distance by speed, add own extent and 1.5m of tolerance
 	const f32 distance = speed_f.getLength() * dtime +
 		box_0.getExtent().getLength() + 1.5f * BS;
@@ -295,6 +317,18 @@ static void add_object_boxes(Environment *env,
 	if (c_env) {
 		std::vector<DistanceSortedActiveObject> clientobjects;
 		c_env->getActiveObjects(pos_f, distance, clientobjects);
+=======
+	// Calculate distance by speed, add own extent and 1.5m of tolerance
+	const f32 distance = speed_f.getLength() * dtime +
+		box_0.getExtent().getLength() + 1.5f * BS;
+
+#if CHECK_CLIENT_BUILD()
+	ClientEnvironment *c_env = dynamic_cast<ClientEnvironment*>(env);
+	if (c_env) {
+		std::vector<DistanceSortedActiveObject> clientobjects;
+		c_env->getActiveObjects(pos_f, distance, clientobjects);
+
+>>>>>>> 5.10.0
 		for (auto &clientobject : clientobjects) {
 			// Do collide with everything but itself and children
 			if (!self || (self != clientobject.obj &&
@@ -303,9 +337,15 @@ static void add_object_boxes(Environment *env,
 			}
 		}
 
+<<<<<<< HEAD
 					// add collision with local player
 		LocalPlayer *lplayer = c_env->getLocalPlayer();
 				auto *obj = (ClientActiveObject*) lplayer->getCAO();
+=======
+		// add collision with local player
+		LocalPlayer *lplayer = c_env->getLocalPlayer();
+		auto *obj = (ClientActiveObject*) lplayer->getCAO();
+>>>>>>> 5.10.0
 		if (!self || (self != obj && self != obj->getParent())) {
 			aabb3f lplayer_collisionbox = lplayer->getCollisionbox();
 			v3f lplayer_pos = lplayer->getPosition();
@@ -313,13 +353,21 @@ static void add_object_boxes(Environment *env,
 			lplayer_collisionbox.MaxEdge += lplayer_pos;
 			cinfo.emplace_back(obj, 0, lplayer_collisionbox);
 		}
+<<<<<<< HEAD
 		}
+=======
+	}
+>>>>>>> 5.10.0
 	else
 #endif
 	{
 		ServerEnvironment *s_env = dynamic_cast<ServerEnvironment*>(env);
 		if (s_env) {
+<<<<<<< HEAD
 			// search for objects which are not us, or we are not its parent.
+=======
+			// search for objects which are not us and not our children.
+>>>>>>> 5.10.0
 			// we directly process the object in this callback to avoid useless
 			// looping afterwards.
 			auto include_obj_cb = [self, &process_object] (ServerActiveObject *obj) {
@@ -336,7 +384,13 @@ static void add_object_boxes(Environment *env,
 		}
 	}
 }
+<<<<<<< HEAD
 #define PROFILER_NAME(text) (dynamic_cast<ServerEnvironment*>(env) ? ("Server: " text) : ("Client: " text))
+=======
+
+#define PROFILER_NAME(text) (dynamic_cast<ServerEnvironment*>(env) ? ("Server: " text) : ("Client: " text))
+
+>>>>>>> 5.10.0
 collisionMoveResult collisionMoveSimple(Environment *env, IGameDef *gamedef,
 		f32 pos_max_d, const aabb3f &box_0,
 		f32 stepheight, f32 dtime,
@@ -345,8 +399,16 @@ collisionMoveResult collisionMoveSimple(Environment *env, IGameDef *gamedef,
 		bool collide_with_objects)
 {
 	static bool time_notification_done = false;
+<<<<<<< HEAD
 	ScopeProfiler sp(g_profiler, PROFILER_NAME("collisionMoveSimple()"), SPT_AVG, PRECISION_MICRO);
 	collisionMoveResult result;
+=======
+
+	ScopeProfiler sp(g_profiler, PROFILER_NAME("collisionMoveSimple()"), SPT_AVG, PRECISION_MICRO);
+
+	collisionMoveResult result;
+
+>>>>>>> 5.10.0
 	/*
 		Calculate new velocity
 	*/
@@ -360,16 +422,29 @@ collisionMoveResult collisionMoveSimple(Environment *env, IGameDef *gamedef,
 	} else {
 		time_notification_done = false;
 	}
+<<<<<<< HEAD
 	v3f dpos_f = (*speed_f + accel_f * 0.5f * dtime) * dtime;
 	v3f newpos_f = *pos_f + dpos_f;
 	*speed_f += accel_f * dtime;
 	// If the object is static, there are no collisions
 	if (dpos_f == v3f())
 		return result;
+=======
+
+	v3f dpos_f = (*speed_f + accel_f * 0.5f * dtime) * dtime;
+	v3f newpos_f = *pos_f + dpos_f;
+	*speed_f += accel_f * dtime;
+
+	// If the object is static, there are no collisions
+	if (dpos_f == v3f())
+		return result;
+
+>>>>>>> 5.10.0
 	// Limit speed for avoiding hangs
 	speed_f->Y = rangelim(speed_f->Y, -5000, 5000);
 	speed_f->X = rangelim(speed_f->X, -5000, 5000);
 	speed_f->Z = rangelim(speed_f->Z, -5000, 5000);
+<<<<<<< HEAD
 	*speed_f = truncate(*speed_f, 10000.0f);
 	/*
 		Collect node boxes in movement range
@@ -377,6 +452,19 @@ collisionMoveResult collisionMoveSimple(Environment *env, IGameDef *gamedef,
 	// cached allocation
 	thread_local std::vector<NearbyCollisionInfo> cinfo;
 	cinfo.clear();
+=======
+
+	*speed_f = truncate(*speed_f, 10000.0f);
+
+	/*
+		Collect node boxes in movement range
+	*/
+
+	// cached allocation
+	thread_local std::vector<NearbyCollisionInfo> cinfo;
+	cinfo.clear();
+
+>>>>>>> 5.10.0
 	{
 		v3f minpos_f(
 			MYMIN(pos_f->X, newpos_f.X),
@@ -390,7 +478,13 @@ collisionMoveResult collisionMoveSimple(Environment *env, IGameDef *gamedef,
 		);
 		v3s16 min = floatToInt(minpos_f + box_0.MinEdge, BS) - v3s16(1, 1, 1);
 		v3s16 max = floatToInt(maxpos_f + box_0.MaxEdge, BS) + v3s16(1, 1, 1);
+<<<<<<< HEAD
 		bool any_position_valid = add_area_node_boxes(min, max, gamedef, env, cinfo);
+=======
+
+		bool any_position_valid = add_area_node_boxes(min, max, gamedef, env, cinfo);
+
+>>>>>>> 5.10.0
 		// Do not move if world has not loaded yet, since custom node boxes
 		// are not available for collision detection.
 		// This also intentionally occurs in the case of the object being positioned
@@ -591,19 +685,37 @@ bool collision_check_intersection(Environment *env, IGameDef *gamedef,
 		bool collide_with_objects)
 {
 	ScopeProfiler sp(g_profiler, PROFILER_NAME("collision_check_intersection()"), SPT_AVG, PRECISION_MICRO);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 	std::vector<NearbyCollisionInfo> cinfo;
 	{
 		v3s16 min = floatToInt(pos_f + box_0.MinEdge, BS) - v3s16(1, 1, 1);
 		v3s16 max = floatToInt(pos_f + box_0.MaxEdge, BS) + v3s16(1, 1, 1);
+<<<<<<< HEAD
 		bool any_position_valid = add_area_node_boxes(min, max, gamedef, env, cinfo);
+=======
+
+		bool any_position_valid = add_area_node_boxes(min, max, gamedef, env, cinfo);
+
+>>>>>>> 5.10.0
 		if (!any_position_valid) {
 			return true;
 		}
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 	if (collide_with_objects) {
 		v3f speed;
 		add_object_boxes(env, box_0, 0, pos_f, speed, self, cinfo);
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 	/*
 		Collision detection
 	*/
@@ -613,7 +725,10 @@ bool collision_check_intersection(Environment *env, IGameDef *gamedef,
 	checkbox.MinEdge += pos_f + (0.1f * BS);
 	checkbox.MaxEdge += pos_f - (0.1f * BS);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5.10.0
 	/*
 		Go through every node and object box
 	*/
@@ -621,5 +736,11 @@ bool collision_check_intersection(Environment *env, IGameDef *gamedef,
 		if (box_info.box.intersectsWithBox(checkbox))
 			return true;
 	}
+<<<<<<< HEAD
 	return false;
 }
+=======
+
+	return false;
+}
+>>>>>>> 5.10.0

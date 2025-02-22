@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2013 Kahrl <kahrl@gmx.net>
+>>>>>>> 5.10.0
 
 #include <fstream>
 #include <iterator>
@@ -218,15 +225,24 @@ class MainShaderConstantSetter : public IShaderConstantSetter
 	CachedVertexShaderSetting<float, 16> m_texture{"mTexture"};
 
 	// commonly used way to pass material color to shader
+<<<<<<< HEAD
 	video::SColor m_emissive_color;
 	CachedPixelShaderSetting<float, 4> m_emissive_color_setting{"emissiveColor"};
+=======
+	video::SColor m_material_color;
+	CachedPixelShaderSetting<float, 4> m_material_color_setting{"materialColor"};
+>>>>>>> 5.10.0
 
 public:
 	~MainShaderConstantSetter() = default;
 
 	virtual void onSetMaterial(const video::SMaterial& material) override
 	{
+<<<<<<< HEAD
 		m_emissive_color = material.EmissiveColor;
+=======
+		m_material_color = material.ColorParam;
+>>>>>>> 5.10.0
 	}
 
 	virtual void onSetConstants(video::IMaterialRendererServices *services) override
@@ -249,13 +265,22 @@ public:
 		m_world_view_proj.set(worldViewProj, services);
 
 		if (driver->getDriverType() == video::EDT_OGLES2 || driver->getDriverType() == video::EDT_OPENGL3) {
+<<<<<<< HEAD
 			core::matrix4 texture = driver->getTransform(video::ETS_TEXTURE_0);
+=======
+			auto &texture = driver->getTransform(video::ETS_TEXTURE_0);
+>>>>>>> 5.10.0
 			m_world_view.set(worldView, services);
 			m_texture.set(texture, services);
 		}
 
+<<<<<<< HEAD
 		video::SColorf emissive_color(m_emissive_color);
 		m_emissive_color_setting.set(emissive_color, services);
+=======
+		video::SColorf colorf(m_material_color);
+		m_material_color_setting.set(colorf, services);
+>>>>>>> 5.10.0
 	}
 };
 
@@ -322,6 +347,12 @@ public:
 
 private:
 
+<<<<<<< HEAD
+=======
+	// Are shaders even enabled?
+	bool m_enabled;
+
+>>>>>>> 5.10.0
 	// The id of the thread that is allowed to use irrlicht directly
 	std::thread::id m_main_thread;
 
@@ -360,6 +391,15 @@ ShaderSource::ShaderSource()
 	// Add a dummy ShaderInfo as the first index, named ""
 	m_shaderinfo_cache.emplace_back();
 
+<<<<<<< HEAD
+=======
+	m_enabled = g_settings->getBool("enable_shaders");
+	if (!m_enabled) {
+		warningstream << "You are running " PROJECT_NAME_C " with shaders disabled, "
+			"this is not a recommended configuration." << std::endl;
+	}
+
+>>>>>>> 5.10.0
 	// Add main global constant setter
 	addShaderConstantSetterFactory(new MainShaderConstantSetterFactory());
 }
@@ -368,9 +408,17 @@ ShaderSource::~ShaderSource()
 {
 	MutexAutoLock lock(m_shaderinfo_cache_mutex);
 
+<<<<<<< HEAD
 	// Delete materials
 	video::IGPUProgrammingServices *gpu = RenderingEngine::get_video_driver()->
 		getGPUProgrammingServices();
+=======
+	if (!m_enabled)
+		return;
+
+	// Delete materials
+	auto *gpu = RenderingEngine::get_video_driver()->getGPUProgrammingServices();
+>>>>>>> 5.10.0
 	for (ShaderInfo &i : m_shaderinfo_cache) {
 		if (!i.name.empty())
 			gpu->deleteShaderMaterial(i.material);
@@ -499,9 +547,17 @@ void ShaderSource::rebuildShaders()
 {
 	MutexAutoLock lock(m_shaderinfo_cache_mutex);
 
+<<<<<<< HEAD
 	// Delete materials
 	video::IGPUProgrammingServices *gpu = RenderingEngine::get_video_driver()->
 		getGPUProgrammingServices();
+=======
+	if (!m_enabled)
+		return;
+
+	// Delete materials
+	auto *gpu = RenderingEngine::get_video_driver()->getGPUProgrammingServices();
+>>>>>>> 5.10.0
 	for (ShaderInfo &i : m_shaderinfo_cache) {
 		if (!i.name.empty()) {
 			gpu->deleteShaderMaterial(i.material);
@@ -548,12 +604,20 @@ ShaderInfo ShaderSource::generateShader(const std::string &name,
 	}
 	shaderinfo.material = shaderinfo.base_material;
 
+<<<<<<< HEAD
 	bool enable_shaders = g_settings->getBool("enable_shaders");
 	if (!enable_shaders)
 		return shaderinfo;
 
 	video::IVideoDriver *driver = RenderingEngine::get_video_driver();
 	video::IGPUProgrammingServices *gpu = driver->getGPUProgrammingServices();
+=======
+	if (!m_enabled)
+		return shaderinfo;
+
+	video::IVideoDriver *driver = RenderingEngine::get_video_driver();
+	auto *gpu = driver->getGPUProgrammingServices();
+>>>>>>> 5.10.0
 	if (!driver->queryFeature(video::EVDF_ARB_GLSL) || !gpu) {
 		throw ShaderException(gettext("Shaders are enabled but GLSL is not "
 			"supported by the driver."));
@@ -561,7 +625,11 @@ ShaderInfo ShaderSource::generateShader(const std::string &name,
 
 	// Create shaders header
 	bool fully_programmable = driver->getDriverType() == video::EDT_OGLES2 || driver->getDriverType() == video::EDT_OPENGL3;
+<<<<<<< HEAD
 	std::stringstream shaders_header;
+=======
+	std::ostringstream shaders_header;
+>>>>>>> 5.10.0
 	shaders_header
 		<< std::noboolalpha
 		<< std::showpoint // for GLSL ES
@@ -573,6 +641,10 @@ ShaderInfo ShaderSource::generateShader(const std::string &name,
 		} else {
 			shaders_header << "#version 100\n";
 		}
+<<<<<<< HEAD
+=======
+		// cf. EVertexAttributes.h for the predefined ones
+>>>>>>> 5.10.0
 		vertex_header = R"(
 			precision mediump float;
 
@@ -582,15 +654,29 @@ ShaderInfo ShaderSource::generateShader(const std::string &name,
 
 			attribute highp vec4 inVertexPosition;
 			attribute lowp vec4 inVertexColor;
+<<<<<<< HEAD
 			attribute mediump vec4 inTexCoord0;
+=======
+			attribute mediump vec2 inTexCoord0;
+>>>>>>> 5.10.0
 			attribute mediump vec3 inVertexNormal;
 			attribute mediump vec4 inVertexTangent;
 			attribute mediump vec4 inVertexBinormal;
 		)";
+<<<<<<< HEAD
+=======
+		// Our vertex color has components reversed compared to what OpenGL
+		// normally expects, so we need to take that into account.
+		vertex_header += "#define inVertexColor (inVertexColor.bgra)\n";
+>>>>>>> 5.10.0
 		fragment_header = R"(
 			precision mediump float;
 		)";
 	} else {
+<<<<<<< HEAD
+=======
+		/* legacy OpenGL driver */
+>>>>>>> 5.10.0
 		shaders_header << R"(
 			#version 120
 			#define lowp
@@ -688,6 +774,18 @@ ShaderInfo ShaderSource::generateShader(const std::string &name,
 		if (g_settings->getBool("shadow_poisson_filter"))
 			shaders_header << "#define POISSON_FILTER 1\n";
 
+<<<<<<< HEAD
+=======
+		if (g_settings->getBool("enable_water_reflections"))
+			shaders_header << "#define ENABLE_WATER_REFLECTIONS 1\n";
+
+		if (g_settings->getBool("enable_translucent_foliage"))
+			shaders_header << "#define ENABLE_TRANSLUCENT_FOLIAGE 1\n";
+
+		if (g_settings->getBool("enable_node_specular"))
+			shaders_header << "#define ENABLE_NODE_SPECULAR 1\n";
+
+>>>>>>> 5.10.0
 		s32 shadow_filter = g_settings->getS32("shadow_filters");
 		shaders_header << "#define SHADOW_FILTER " << shadow_filter << "\n";
 

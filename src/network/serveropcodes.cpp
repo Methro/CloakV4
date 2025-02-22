@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2015 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #include "serveropcodes.h"
 #include "server.h"
@@ -82,7 +89,11 @@ const ToServerCommandHandler toServerCommandTable[TOSERVER_NUM_MSG_TYPES] =
 	{ "TOSERVER_DAMAGE",                   TOSERVER_STATE_INGAME, &Server::handleCommand_Damage }, // 0x35
 	null_command_handler, // 0x36
 	{ "TOSERVER_PLAYERITEM",               TOSERVER_STATE_INGAME, &Server::handleCommand_PlayerItem }, // 0x37
+<<<<<<< HEAD
 	{ "TOSERVER_RESPAWN",                  TOSERVER_STATE_INGAME, &Server::handleCommand_Respawn }, // 0x38
+=======
+	null_command_handler, // 0x38
+>>>>>>> 5.10.0
 	{ "TOSERVER_INTERACT",                 TOSERVER_STATE_INGAME, &Server::handleCommand_Interact }, // 0x39
 	{ "TOSERVER_REMOVED_SOUNDS",           TOSERVER_STATE_INGAME, &Server::handleCommand_RemovedSounds }, // 0x3a
 	{ "TOSERVER_NODEMETA_FIELDS",          TOSERVER_STATE_INGAME, &Server::handleCommand_NodeMetaFields }, // 0x3b
@@ -181,7 +192,11 @@ const ClientCommandFactory clientCommandFactoryTable[TOCLIENT_NUM_MSG_TYPES] =
 	{ "TOCLIENT_MOVE_PLAYER",              0, true }, // 0x34
 	null_command_factory, // 0x35
 	{ "TOCLIENT_FOV",                      0, true }, // 0x36
+<<<<<<< HEAD
 	{ "TOCLIENT_DEATHSCREEN",              0, true }, // 0x37
+=======
+	null_command_factory, // 0x37
+>>>>>>> 5.10.0
 	{ "TOCLIENT_MEDIA",                    2, true }, // 0x38
 	null_command_factory, // 0x39
 	{ "TOCLIENT_NODEDEF",                  0, true }, // 0x3A

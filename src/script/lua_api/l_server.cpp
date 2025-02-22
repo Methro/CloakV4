@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "lua_api/l_server.h"
 #include "lua_api/l_internal.h"
@@ -365,7 +371,11 @@ int ModApiServer::l_ban_player(lua_State *L)
 	return 1;
 }
 
+<<<<<<< HEAD
 // disconnect_player(name, [reason]) -> success
+=======
+// disconnect_player(name[, reason[, reconnect]]) -> success
+>>>>>>> 5.10.0
 int ModApiServer::l_disconnect_player(lua_State *L)
 {
 	NO_MAP_LOCK_REQUIRED;
@@ -388,7 +398,13 @@ int ModApiServer::l_disconnect_player(lua_State *L)
 		return 1;
 	}
 
+<<<<<<< HEAD
 	server->DenyAccess(player->getPeerId(), SERVER_ACCESSDENIED_CUSTOM_STRING, message);
+=======
+	bool reconnect = readParam<bool>(L, 3, false);
+
+	server->DenyAccess(player->getPeerId(), SERVER_ACCESSDENIED_CUSTOM_STRING, message, reconnect);
+>>>>>>> 5.10.0
 	lua_pushboolean(L, true);
 	return 1;
 }

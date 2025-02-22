@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 --Minetest
+=======
+--Luanti
+>>>>>>> 5.10.0
 --Copyright (C) 2013 sapier
 --
 --This program is free software; you can redistribute it and/or modify
@@ -16,6 +20,7 @@
 --51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
+<<<<<<< HEAD
 local function get_background()
 	if core.settings:get("background") then
 		if core.settings:get("background") == "tree" then 
@@ -32,6 +37,8 @@ local function get_background()
 	return "menu_bg.png"
 end
 
+=======
+>>>>>>> 5.10.0
 mm_game_theme = {}
 
 --------------------------------------------------------------------------------
@@ -67,7 +74,15 @@ function mm_game_theme.set_engine(hide_decorations)
 	end
 
 	if not have_bg then
+<<<<<<< HEAD
 		mm_game_theme.set_menu_bg()
+=======
+		if core.settings:get_bool("menu_clouds") then
+			core.set_clouds(true)
+		else
+			mm_game_theme.set_dirt_bg()
+		end
+>>>>>>> 5.10.0
 	end
 end
 
@@ -98,7 +113,15 @@ function mm_game_theme.set_game(gamedetails)
 	mm_game_theme.set_game_single("footer", gamedetails)
 
 	if not have_bg then
+<<<<<<< HEAD
 		mm_game_theme.set_menu_bg()
+=======
+		if core.settings:get_bool("menu_clouds") then
+			core.set_clouds(true)
+		else
+			mm_game_theme.set_dirt_bg()
+		end
+>>>>>>> 5.10.0
 	end
 end
 
@@ -167,10 +190,24 @@ function mm_game_theme.set_game_single(identifier, gamedetails)
 end
 
 --------------------------------------------------------------------------------
+<<<<<<< HEAD
 function mm_game_theme.set_menu_bg()
 	-- Use universal fallback texture in textures/base/pack
 	local minimalpath = defaulttexturedir .. get_background()
 	core.set_background("background", minimalpath, false, 128)
+=======
+function mm_game_theme.set_dirt_bg()
+	if mm_game_theme.texturepack ~= nil then
+		local path = mm_game_theme.texturepack .. DIR_DELIM .."default_dirt.png"
+		if core.set_background("background", path, true, 128) then
+			return true
+		end
+	end
+
+	-- Use universal fallback texture in textures/base/pack
+	local minimalpath = defaulttexturedir .. "menu_bg.png"
+	core.set_background("background", minimalpath, true, 128)
+>>>>>>> 5.10.0
 end
 
 --------------------------------------------------------------------------------

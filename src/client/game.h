@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,10 +17,16 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include "irrlichttypes.h"
+<<<<<<< HEAD
 #include <string>
 
 #include "client.h"
@@ -85,6 +92,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "clientdynamicinfo.h"
 
 #ifdef SERVER
+=======
+#include "config.h"
+#include <string>
+
+#if !IS_CLIENT_BUILD
+>>>>>>> 5.10.0
 #error Do not include in server builds
 #endif
 
@@ -109,6 +122,7 @@ struct CameraOrientation {
 	f32 camera_pitch;  // "up/down"
 };
 
+<<<<<<< HEAD
 /*
 a1
 */
@@ -1011,6 +1025,8 @@ private:
 z1
 */
 
+=======
+>>>>>>> 5.10.0
 #define GAME_FALLBACK_TIMEOUT 1.8f
 #define GAME_CONNECTION_TIMEOUT 10.0f
 
@@ -1021,5 +1037,8 @@ void the_game(bool *kill,
 		std::string &error_message,
 		ChatBackend &chat_backend,
 		bool *reconnect_requested);
+<<<<<<< HEAD
 
 extern Game *g_game;
+=======
+>>>>>>> 5.10.0

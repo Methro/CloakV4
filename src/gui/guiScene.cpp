@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2020 Jean-Patrick Guerrero <jeanpatrick.guerrero@gmail.com>
@@ -16,13 +17,25 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2020 Jean-Patrick Guerrero <jeanpatrick.guerrero@gmail.com>
+>>>>>>> 5.10.0
 
 #include "guiScene.h"
 
 #include <SViewFrustum.h>
 #include <IAnimatedMeshSceneNode.h>
 #include <IVideoDriver.h>
+<<<<<<< HEAD
 #include "porting.h"
+=======
+#include "IAttributes.h"
+#include "porting.h"
+#include "client/mesh.h"
+#include "settings.h"
+>>>>>>> 5.10.0
 
 GUIScene::GUIScene(gui::IGUIEnvironment *env, scene::ISceneManager *smgr,
 		   gui::IGUIElement *parent, core::recti rect, s32 id)
@@ -67,7 +80,10 @@ void GUIScene::setTexture(u32 idx, video::ITexture *texture)
 	material.MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL;
 	material.MaterialTypeParam = 0.5f;
 	material.TextureLayers[0].Texture = texture;
+<<<<<<< HEAD
 	material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 	material.FogEnable = true;
 	material.TextureLayers[0].MinFilter = video::ETMINF_NEAREST_MIPMAP_NEAREST;
 	material.TextureLayers[0].MagFilter = video::ETMAGF_NEAREST;
@@ -111,6 +127,14 @@ void GUIScene::draw()
 	if (m_inf_rot)
 		rotateCamera(v3f(0.f, -0.03f * (float)dtime_ms, 0.f));
 
+<<<<<<< HEAD
+=======
+	// HACK restore mesh vertex colors to full brightness:
+	// They may have been mutated in entity rendering code before.
+	if (!g_settings->getBool("enable_shaders"))
+		setMeshColor(m_mesh->getMesh(), irr::video::SColor(0xFFFFFFFF));
+
+>>>>>>> 5.10.0
 	m_smgr->drawAll();
 
 	if (m_initial_rotation && m_mesh) {
@@ -158,7 +182,11 @@ void GUIScene::setStyles(const std::array<StyleSpec, StyleSpec::NUM_STATES> &sty
 /**
  * Sets the frame loop range for the mesh
  */
+<<<<<<< HEAD
 void GUIScene::setFrameLoop(s32 begin, s32 end)
+=======
+void GUIScene::setFrameLoop(f32 begin, f32 end)
+>>>>>>> 5.10.0
 {
 	if (m_mesh->getStartFrame() != begin || m_mesh->getEndFrame() != end)
 		m_mesh->setFrameLoop(begin, end);
@@ -226,8 +254,12 @@ void GUIScene::setCameraRotation(v3f rot)
 	core::matrix4 mat;
 	mat.setRotationDegrees(rot);
 
+<<<<<<< HEAD
 	m_cam_pos = v3f(0.f, 0.f, m_cam_distance);
 	mat.rotateVect(m_cam_pos);
+=======
+	m_cam_pos = mat.rotateAndScaleVect(v3f(0.f, 0.f, m_cam_distance));
+>>>>>>> 5.10.0
 
 	m_cam_pos += m_target_pos;
 	m_cam->setPosition(m_cam_pos);

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2021 Liso <anlismon@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2021 Liso <anlismon@gmail.com>
+>>>>>>> 5.10.0
 
 #include <cmath>
 
@@ -137,8 +143,13 @@ void DirectionalLight::update_frustum(const Camera *cam, Client *client, bool fo
 	// when camera offset changes, adjust the current frustum view matrix to avoid flicker
 	v3s16 cam_offset = cam->getOffset();
 	if (cam_offset != shadow_frustum.camera_offset) {
+<<<<<<< HEAD
 		v3f rotated_offset;
 		shadow_frustum.ViewMat.rotateVect(rotated_offset, intToFloat(cam_offset - shadow_frustum.camera_offset, BS));
+=======
+		v3f rotated_offset = shadow_frustum.ViewMat.rotateAndScaleVect(
+				intToFloat(cam_offset - shadow_frustum.camera_offset, BS));
+>>>>>>> 5.10.0
 		shadow_frustum.ViewMat.setTranslation(shadow_frustum.ViewMat.getTranslation() + rotated_offset);
 		shadow_frustum.player += intToFloat(shadow_frustum.camera_offset - cam->getOffset(), BS);
 		shadow_frustum.camera_offset = cam_offset;

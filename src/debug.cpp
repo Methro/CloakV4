@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 
 #include "porting.h"
@@ -54,7 +60,11 @@ void sanity_check_fn(const char *assertion, const char *file,
 #endif
 
 	errorstream << std::endl << "In thread " << std::hex
+<<<<<<< HEAD
 		<< std::this_thread::get_id() << ":" << std::endl;
+=======
+		<< std::this_thread::get_id() << ":\n" << std::dec;
+>>>>>>> 5.10.0
 	errorstream << file << ":" << line << ": " << function
 		<< ": An engine assumption '" << assertion << "' failed." << std::endl;
 
@@ -69,7 +79,11 @@ void fatal_error_fn(const char *msg, const char *file,
 #endif
 
 	errorstream << std::endl << "In thread " << std::hex
+<<<<<<< HEAD
 		<< std::this_thread::get_id() << ":" << std::endl;
+=======
+		<< std::this_thread::get_id() << ":\n" << std::dec;
+>>>>>>> 5.10.0
 	errorstream << file << ":" << line << ": " << function
 		<< ": A fatal error occurred: " << msg << std::endl;
 

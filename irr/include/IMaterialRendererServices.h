@@ -5,7 +5,10 @@
 #pragma once
 
 #include "SMaterial.h"
+<<<<<<< HEAD
 #include "S3DVertex.h"
+=======
+>>>>>>> 5.10.0
 
 namespace irr
 {

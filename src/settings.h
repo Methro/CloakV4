@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -26,7 +32,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <set>
 #include <map>
 #include <mutex>
+<<<<<<< HEAD
 #include <json/json.h>
+=======
+>>>>>>> 5.10.0
 
 class Settings;
 struct NoiseParams;
@@ -167,7 +176,10 @@ public:
 	float getFloat(const std::string &name, float min, float max) const;
 	v2f getV2F(const std::string &name) const;
 	v3f getV3F(const std::string &name) const;
+<<<<<<< HEAD
 	Json::Value getJson(const std::string &name) const;
+=======
+>>>>>>> 5.10.0
 	u32 getFlagStr(const std::string &name, const FlagDesc *flagdesc,
 			u32 *flagmask) const;
 	bool getNoiseParams(const std::string &name, NoiseParams &np) const;
@@ -197,7 +209,10 @@ public:
 	bool getFloatNoEx(const std::string &name, float &val) const;
 	bool getV2FNoEx(const std::string &name, v2f &val) const;
 	bool getV3FNoEx(const std::string &name, v3f &val) const;
+<<<<<<< HEAD
 	bool getJsonNoEx(const std::string& jsonString, Json::Value& outputJson) const;
+=======
+>>>>>>> 5.10.0
 
 	// Like other getters, but handling each flag individualy:
 	// 1) Read default flags (or 0)
@@ -227,7 +242,10 @@ public:
 	bool setV3F(const std::string &name, v3f value);
 	bool setFlagStr(const std::string &name, u32 flags,
 		const FlagDesc *flagdesc = nullptr, u32 flagmask = U32_MAX);
+<<<<<<< HEAD
 	bool setJson(const std::string &name, const Json::Value& jsonData);
+=======
+>>>>>>> 5.10.0
 	bool setNoiseParams(const std::string &name, const NoiseParams &np);
 
 	// remove a setting
@@ -242,8 +260,12 @@ public:
 
 	void registerChangedCallback(const std::string &name,
 		SettingsChangedCallback cbf, void *userdata = NULL);
+<<<<<<< HEAD
 	void deregisterChangedCallback(const std::string &name,
 		SettingsChangedCallback cbf, void *userdata = NULL);
+=======
+	size_t deregisterAllChangedCallbacks(const void *userdata);
+>>>>>>> 5.10.0
 
 	void removeSecureSettings();
 

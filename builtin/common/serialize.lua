@@ -204,18 +204,30 @@ local function dummy_func() end
 function core.deserialize(str, safe)
 	-- Backwards compatibility
 	if str == nil then
+<<<<<<< HEAD
 		core.log("deprecated", "minetest.deserialize called with nil (expected string).")
+=======
+		core.log("deprecated", "core.deserialize called with nil (expected string).")
+>>>>>>> 5.10.0
 		return nil, "Invalid type: Expected a string, got nil"
 	end
 	local t = type(str)
 	if t ~= "string" then
+<<<<<<< HEAD
 		error(("minetest.deserialize called with %s (expected string)."):format(t))
+=======
+		error(("core.deserialize called with %s (expected string)."):format(t))
+>>>>>>> 5.10.0
 	end
 
 	local func, err = loadstring(str)
 	if not func then return nil, err end
 
+<<<<<<< HEAD
 	-- math.huge was serialized to inf and NaNs to nan by Lua in Minetest 5.6, so we have to support this here
+=======
+	-- math.huge was serialized to inf and NaNs to nan by Lua in engine version 5.6, so we have to support this here
+>>>>>>> 5.10.0
 	local env = {inf = math_huge, nan = 0/0}
 	if safe then
 		env.loadstring = dummy_func

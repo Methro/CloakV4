@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 local F = minetest.formspec_escape
+=======
+local F = core.formspec_escape
+>>>>>>> 5.10.0
 
 -- hashed node pos -> sound handle
 local played_sounds = {}
@@ -57,8 +61,13 @@ local function get_all_metadata(meta)
 end
 
 local function log_msg(msg)
+<<<<<<< HEAD
 	minetest.log("action", msg)
 	minetest.chat_send_all(msg)
+=======
+	core.log("action", msg)
+	core.chat_send_all(msg)
+>>>>>>> 5.10.0
 end
 
 local function try_call(f, ...)
@@ -74,11 +83,19 @@ local function try_call(f, ...)
 end
 
 local function show_formspec(pos, player)
+<<<<<<< HEAD
 	local meta = minetest.get_meta(pos)
 
 	local md = get_all_metadata(meta)
 
 	local pos_hash = minetest.hash_node_position(pos)
+=======
+	local meta = core.get_meta(pos)
+
+	local md = get_all_metadata(meta)
+
+	local pos_hash = core.hash_node_position(pos)
+>>>>>>> 5.10.0
 	local sound_handle = played_sounds[pos_hash]
 
 	local fs = {}
@@ -195,17 +212,29 @@ local function show_formspec(pos, player)
 		button_exit[10.75,11;3,0.75;btn_save_quit;Save & Quit]
 	]])
 
+<<<<<<< HEAD
 	minetest.show_formspec(player:get_player_name(), "soundstuff:jukebox@"..pos:to_string(),
 			table.concat(fs))
 end
 
 minetest.register_node("soundstuff:jukebox", {
+=======
+	core.show_formspec(player:get_player_name(), "soundstuff:jukebox@"..pos:to_string(),
+			table.concat(fs))
+end
+
+core.register_node("soundstuff:jukebox", {
+>>>>>>> 5.10.0
 	description = "Jukebox\nAllows to play arbitrary sounds.",
 	tiles = {"soundstuff_jukebox.png"},
 	groups = {dig_immediate = 2},
 
 	on_construct = function(pos)
+<<<<<<< HEAD
 		local meta = minetest.get_meta(pos)
+=======
+		local meta = core.get_meta(pos)
+>>>>>>> 5.10.0
 		-- SimpleSoundSpec
 		meta:set_string("sss.name", "")
 		meta:set_string("sss.gain", "")
@@ -236,18 +265,30 @@ minetest.register_node("soundstuff:jukebox", {
 	end,
 })
 
+<<<<<<< HEAD
 minetest.register_on_player_receive_fields(function(player, formname, fields)
+=======
+core.register_on_player_receive_fields(function(player, formname, fields)
+>>>>>>> 5.10.0
 	if formname:sub(1, 19) ~= "soundstuff:jukebox@" then
 		return false
 	end
 
 	local pos = vector.from_string(formname, 20)
 	if not pos or pos ~= pos:round() then
+<<<<<<< HEAD
 		minetest.log("error", "[soundstuff:jukebox] Invalid formname.")
 		return true
 	end
 
 	local meta = minetest.get_meta(pos)
+=======
+		core.log("error", "[soundstuff:jukebox] Invalid formname.")
+		return true
+	end
+
+	local meta = core.get_meta(pos)
+>>>>>>> 5.10.0
 
 	for _, k in ipairs(meta_keys) do
 		if fields[k] then
@@ -256,7 +297,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 	meta:mark_as_private(meta_keys)
 
+<<<<<<< HEAD
 	local pos_hash = minetest.hash_node_position(pos)
+=======
+	local pos_hash = core.hash_node_position(pos)
+>>>>>>> 5.10.0
 	local sound_handle = played_sounds[pos_hash]
 
 	if not sound_handle then
@@ -274,17 +319,28 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				pitch = tonumber(md.sparam.pitch),
 				fade  = tonumber(md.sparam.fade),
 				start_time = tonumber(md.sparam.start_time),
+<<<<<<< HEAD
 				loop = minetest.is_yes(md.sparam.loop),
+=======
+				loop = core.is_yes(md.sparam.loop),
+>>>>>>> 5.10.0
 				pos = vector.from_string(md.sparam.pos),
 				object = testtools.get_branded_object(md.sparam.object),
 				to_player = md.sparam.to_player,
 				exclude_player = md.sparam.exclude_player,
 				max_hear_distance = tonumber(md.sparam.max_hear_distance),
 			}
+<<<<<<< HEAD
 			local ephemeral = minetest.is_yes(md.ephemeral)
 
 			log_msg(string.format(
 					"[soundstuff:jukebox] Playing sound: minetest.sound_play(%s, %s, %s)",
+=======
+			local ephemeral = core.is_yes(md.ephemeral)
+
+			log_msg(string.format(
+					"[soundstuff:jukebox] Playing sound: core.sound_play(%s, %s, %s)",
+>>>>>>> 5.10.0
 					string.format("{name=\"%s\", gain=%s, pitch=%s, fade=%s}",
 							sss.name, sss.gain, sss.pitch, sss.fade),
 					string.format("{gain=%s, pitch=%s, fade=%s, start_time=%s, loop=%s, pos=%s, "
@@ -295,7 +351,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 							sparam.max_hear_distance),
 					tostring(ephemeral)))
 
+<<<<<<< HEAD
 			sound_handle = try_call(minetest.sound_play, sss, sparam, ephemeral)
+=======
+			sound_handle = try_call(core.sound_play, sss, sparam, ephemeral)
+>>>>>>> 5.10.0
 
 			played_sounds[pos_hash] = sound_handle
 			show_formspec(pos, player)
@@ -303,9 +363,15 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
 	else
 		if fields.btn_stop then
+<<<<<<< HEAD
 			log_msg("[soundstuff:jukebox] Stopping sound: minetest.sound_stop(<handle>)")
 
 			try_call(minetest.sound_stop, sound_handle)
+=======
+			log_msg("[soundstuff:jukebox] Stopping sound: core.sound_stop(<handle>)")
+
+			try_call(core.sound_stop, sound_handle)
+>>>>>>> 5.10.0
 
 		elseif fields.btn_release then
 			log_msg("[soundstuff:jukebox] Releasing handle.")
@@ -320,10 +386,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local gain = tonumber(md.fade.gain)
 
 			log_msg(string.format(
+<<<<<<< HEAD
 					"[soundstuff:jukebox] Fading sound: minetest.sound_fade(<handle>, %s, %s)",
 					step, gain))
 
 			try_call(minetest.sound_fade, sound_handle, step, gain)
+=======
+					"[soundstuff:jukebox] Fading sound: core.sound_fade(<handle>, %s, %s)",
+					step, gain))
+
+			try_call(core.sound_fade, sound_handle, step, gain)
+>>>>>>> 5.10.0
 		end
 	end
 

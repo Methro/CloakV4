@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2014 sapier <sapier at gmx dot net>
@@ -16,24 +17,45 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2014 sapier <sapier at gmx dot net>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include <map>
 #include "util/basic_macros.h"
 #include "irrlichttypes.h"
+<<<<<<< HEAD
 #include <IGUIFont.h>
 #include <IGUISkin.h>
 #include <IGUIEnvironment.h>
 #include "settings.h"
 #include "threading/mutex_auto_lock.h"
 
+=======
+#include "irrString.h" // utf8_to_wide
+#include "threading/mutex_auto_lock.h"
+
+namespace irr {
+	namespace gui {
+		class IGUIEnvironment;
+		class IGUIFont;
+	}
+}
+
+>>>>>>> 5.10.0
 #define FONT_SIZE_UNSPECIFIED 0xFFFFFFFF
 
 enum FontMode : u8 {
 	FM_Standard = 0,
 	FM_Mono,
+<<<<<<< HEAD
     FM_HD,
+=======
+>>>>>>> 5.10.0
 	_FM_Fallback, // do not use directly
 	FM_MaxMode,
 	FM_Unspecified

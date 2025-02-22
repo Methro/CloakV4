@@ -15,7 +15,11 @@ namespace scene
 {
 
 //! Simple implementation of the IAnimatedMesh interface.
+<<<<<<< HEAD
 struct SAnimatedMesh : public IAnimatedMesh
+=======
+struct SAnimatedMesh final : public IAnimatedMesh
+>>>>>>> 5.10.0
 {
 	//! constructor
 	SAnimatedMesh(scene::IMesh *mesh = 0, scene::E_ANIMATED_MESH_TYPE type = scene::EAMT_UNKNOWN) :
@@ -36,11 +40,17 @@ struct SAnimatedMesh : public IAnimatedMesh
 			mesh->drop();
 	}
 
+<<<<<<< HEAD
 	//! Gets the frame count of the animated mesh.
 	/** \return Amount of frames. If the amount is 1, it is a static, non animated mesh. */
 	u32 getFrameCount() const override
 	{
 		return static_cast<u32>(Meshes.size());
+=======
+	f32 getMaxFrameNumber() const override
+	{
+		return static_cast<f32>(Meshes.size() - 1);
+>>>>>>> 5.10.0
 	}
 
 	//! Gets the default animation speed of the animated mesh.
@@ -59,6 +69,7 @@ struct SAnimatedMesh : public IAnimatedMesh
 	}
 
 	//! Returns the IMesh interface for a frame.
+<<<<<<< HEAD
 	/** \param frame: Frame number as zero based index. The maximum frame number is
 	getFrameCount() - 1;
 	\param detailLevel: Level of detail. 0 is the lowest,
@@ -72,6 +83,16 @@ struct SAnimatedMesh : public IAnimatedMesh
 			return 0;
 
 		return Meshes[frame];
+=======
+	/** \param frame: Frame number as zero based index.
+	\return The animated mesh based for the given frame */
+	IMesh *getMesh(f32 frame) override
+	{
+		if (Meshes.empty())
+			return nullptr;
+
+		return Meshes[static_cast<s32>(frame)];
+>>>>>>> 5.10.0
 	}
 
 	//! adds a Mesh

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,12 +17,20 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include <iostream>
 #include <algorithm>
 #include <sstream>
 #include <cmath>
+<<<<<<< HEAD
 #include <random>
+=======
+>>>>>>> 5.10.0
 #include <IFileSystem.h>
 #include <json/json.h>
 #include "client.h"
@@ -34,6 +43,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "client/renderingengine.h"
 #include "client/sound.h"
 #include "client/texturepaths.h"
+<<<<<<< HEAD
+=======
+#include "client/texturesource.h"
+>>>>>>> 5.10.0
 #include "client/mesh_generator_thread.h"
 #include "client/particles.h"
 #include "client/localplayer.h"
@@ -121,7 +134,11 @@ Client::Client(
 	m_rendering_engine(rendering_engine),
 	m_mesh_update_manager(std::make_unique<MeshUpdateManager>(this)),
 	m_env(
+<<<<<<< HEAD
 		new ClientMap(this, rendering_engine, control, 666),
+=======
+		make_irr<ClientMap>(this, rendering_engine, control, 666),
+>>>>>>> 5.10.0
 		tsrc, this
 	),
 	m_particle_manager(std::make_unique<ParticleManager>(&m_env)),
@@ -149,8 +166,11 @@ Client::Client(
 
 	m_cache_save_interval = g_settings->getU16("server_map_save_interval");
 	m_mesh_grid = { g_settings->getU16("client_mesh_chunk") };
+<<<<<<< HEAD
 
 	std::srand(std::time(0));
+=======
+>>>>>>> 5.10.0
 }
 
 void Client::migrateModStorage()
@@ -185,9 +205,14 @@ void Client::loadMods()
 	// Don't load mods twice.
 	// If client scripting is disabled by the client, don't load builtin or
 	// client-provided mods.
+<<<<<<< HEAD
 	if (m_mods_loaded || !g_settings->getBool("enable_client_modding")) {
 		return;
 	}
+=======
+	if (m_mods_loaded || !g_settings->getBool("enable_client_modding"))
+		return;
+>>>>>>> 5.10.0
 
 	// If client scripting is disabled by the server, don't load builtin or
 	// client-provided mods.
@@ -253,6 +278,7 @@ void Client::loadMods()
 	// Run a callback when mods are loaded
 	m_script->on_mods_loaded();
 
+<<<<<<< HEAD
 	// Initialize cheats
 	m_script->init_cheats();
 
@@ -266,6 +292,8 @@ void Client::loadMods()
 
 	m_script->get_description();
 
+=======
+>>>>>>> 5.10.0
 	// Create objects if they're ready
 	if (m_state == LC_Ready)
 		m_script->on_client_ready(m_env.getLocalPlayer());
@@ -545,7 +573,11 @@ void Client::step(float dtime)
 		if (envEvent.type == CEE_PLAYER_DAMAGE) {
 			u16 damage = envEvent.player_damage.amount;
 
+<<<<<<< HEAD
 			if (envEvent.player_damage.send_to_server && !g_settings->getBool("prevent_natural_damage"))
+=======
+			if (envEvent.player_damage.send_to_server)
+>>>>>>> 5.10.0
 				sendDamage(damage);
 
 			// Add to ClientEvent queue
@@ -844,7 +876,11 @@ bool Client::loadMedia(const std::string &data, const std::string &filename,
 	}
 
 	const char *model_ext[] = {
+<<<<<<< HEAD
 		".x", ".b3d", ".obj", ".gltf",
+=======
+		".x", ".b3d", ".obj", ".gltf", ".glb",
+>>>>>>> 5.10.0
 		NULL
 	};
 	name = removeStringEnd(filename, model_ext);
@@ -858,16 +894,24 @@ bool Client::loadMedia(const std::string &data, const std::string &filename,
 		return true;
 	}
 
+<<<<<<< HEAD
 	const char *translate_ext[] = {
 		".tr", NULL
 	};
 	name = removeStringEnd(filename, translate_ext);
 	if (!name.empty()) {
+=======
+	if (Translations::isTranslationFile(filename)) {
+>>>>>>> 5.10.0
 		if (from_media_push)
 			return false;
 		TRACESTREAM(<< "Client: Loading translation: "
 				<< "\"" << filename << "\"" << std::endl);
+<<<<<<< HEAD
 		g_client_translations->loadTranslation(data);
+=======
+		g_client_translations->loadTranslation(filename, data);
+>>>>>>> 5.10.0
 		return true;
 	}
 
@@ -1051,6 +1095,7 @@ void Client::Send(NetworkPacket* pkt)
 	m_con->Send(PEER_ID_SERVER, scf.channel, pkt, scf.reliable);
 }
 
+<<<<<<< HEAD
 // Will fill up 12 + 12 + 4 + 4 + 4 + 1 + 1 + 1 bytes
 void writePlayerPos(LocalPlayer *myplayer, ClientMap *clientMap, NetworkPacket *pkt, bool camera_inverted, bool autoSneak)
 {
@@ -1064,10 +1109,25 @@ void writePlayerPos(LocalPlayer *myplayer, ClientMap *clientMap, NetworkPacket *
 	} else {
 		keyPressed = myplayer->control.getKeysPressed();
 	}
+=======
+// Will fill up 12 + 12 + 4 + 4 + 4 + 1 + 1 + 1 + 4 + 4 bytes
+void writePlayerPos(LocalPlayer *myplayer, ClientMap *clientMap, NetworkPacket *pkt, bool camera_inverted)
+{
+	v3f pf           = myplayer->getPosition() * 100;
+	v3f sf           = myplayer->getSpeed() * 100;
+	s32 pitch        = myplayer->getPitch() * 100;
+	s32 yaw          = myplayer->getYaw() * 100;
+	u32 keyPressed   = myplayer->control.getKeysPressed();
+>>>>>>> 5.10.0
 	// scaled by 80, so that pi can fit into a u8
 	u8 fov           = std::fmin(255.0f, clientMap->getCameraFov() * 80.0f);
 	u8 wanted_range  = std::fmin(255.0f,
 			std::ceil(clientMap->getWantedRange() * (1.0f / MAP_BLOCKSIZE)));
+<<<<<<< HEAD
+=======
+	f32 movement_speed = myplayer->control.movement_speed;
+	f32 movement_dir = myplayer->control.movement_direction;
+>>>>>>> 5.10.0
 
 	v3s32 position(pf.X, pf.Y, pf.Z);
 	v3s32 speed(sf.X, sf.Y, sf.Z);
@@ -1082,14 +1142,24 @@ void writePlayerPos(LocalPlayer *myplayer, ClientMap *clientMap, NetworkPacket *
 		[12+12+4+4+4] u8 fov*80
 		[12+12+4+4+4+1] u8 ceil(wanted_range / MAP_BLOCKSIZE)
 		[12+12+4+4+4+1+1] u8 camera_inverted (bool)
+<<<<<<< HEAD
+=======
+		[12+12+4+4+4+1+1+1] f32 movement_speed
+		[12+12+4+4+4+1+1+1+4] f32 movement_direction
+>>>>>>> 5.10.0
 	*/
 	*pkt << position << speed << pitch << yaw << keyPressed;
 	*pkt << fov << wanted_range;
 	*pkt << camera_inverted;
+<<<<<<< HEAD
+=======
+	*pkt << movement_speed << movement_dir;
+>>>>>>> 5.10.0
 }
 
 void Client::interact(InteractAction action, const PointedThing& pointed)
 {
+<<<<<<< HEAD
 
 	LocalPlayer *myplayer = m_env.getLocalPlayer();
 	if (myplayer == NULL)
@@ -1107,6 +1177,8 @@ void Client::interact(InteractAction action, const PointedThing& pointed)
 }
 void Client::interact(InteractAction action, const PointedThing& pointed, const u16 index)
 {
+=======
+>>>>>>> 5.10.0
 	if(m_state != LC_Ready) {
 		errorstream << "Client::interact() "
 				"Canceled (not connected)"
@@ -1117,7 +1189,11 @@ void Client::interact(InteractAction action, const PointedThing& pointed, const 
 	LocalPlayer *myplayer = m_env.getLocalPlayer();
 	if (myplayer == NULL)
 		return;
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 5.10.0
 	/*
 		[0] u16 command
 		[2] u8 action
@@ -1130,18 +1206,26 @@ void Client::interact(InteractAction action, const PointedThing& pointed, const 
 	NetworkPacket pkt(TOSERVER_INTERACT, 1 + 2 + 0);
 
 	pkt << (u8)action;
+<<<<<<< HEAD
 	pkt << index;
+=======
+	pkt << myplayer->getWieldIndex();
+>>>>>>> 5.10.0
 
 	std::ostringstream tmp_os(std::ios::binary);
 	pointed.serialize(tmp_os);
 
 	pkt.putLongString(tmp_os.str());
 
+<<<<<<< HEAD
 	if (action == INTERACT_PLACE) {
 		writePlayerPos(myplayer, &m_env.getClientMap(), &pkt, m_camera->getCameraMode() == CAMERA_MODE_THIRD_FRONT, false);
 	} else {
 		writePlayerPos(myplayer, &m_env.getClientMap(), &pkt, m_camera->getCameraMode() == CAMERA_MODE_THIRD_FRONT, g_settings->getBool("autosneak"));
 	}
+=======
+	writePlayerPos(myplayer, &m_env.getClientMap(), &pkt, m_camera->getCameraMode() == CAMERA_MODE_THIRD_FRONT);
+>>>>>>> 5.10.0
 
 	Send(&pkt);
 }
@@ -1184,11 +1268,16 @@ void Client::sendInit(const std::string &playerName)
 {
 	NetworkPacket pkt(TOSERVER_INIT, 1 + 2 + 2 + (1 + playerName.size()));
 
+<<<<<<< HEAD
 	// we don't support network compression yet
 	u16 supp_comp_modes = NETPROTO_COMPRESSION_NONE;
 
 	pkt << (u8) SER_FMT_VER_HIGHEST_READ << (u16) supp_comp_modes;
 	pkt << (u16) CLIENT_PROTOCOL_VERSION_MIN << (u16) CLIENT_PROTOCOL_VERSION_MAX;
+=======
+	pkt << (u8) SER_FMT_VER_HIGHEST_READ << (u16) 0;
+	pkt << CLIENT_PROTOCOL_VERSION_MIN << LATEST_PROTOCOL_VERSION;
+>>>>>>> 5.10.0
 	pkt << playerName;
 
 	Send(&pkt);
@@ -1405,6 +1494,7 @@ void Client::sendDamage(u16 damage)
 	Send(&pkt);
 }
 
+<<<<<<< HEAD
 void Client::sendRespawn()
 {
 	NetworkPacket pkt(TOSERVER_RESPAWN, 0);
@@ -1465,6 +1555,28 @@ void Client::sendReady()
 }
 
 void Client::sendPlayerPos(v3f pos)
+=======
+void Client::sendRespawnLegacy()
+{
+	NetworkPacket pkt(TOSERVER_RESPAWN_LEGACY, 0);
+	Send(&pkt);
+}
+
+void Client::sendReady()
+{
+	NetworkPacket pkt(TOSERVER_CLIENT_READY,
+			1 + 1 + 1 + 1 + 2 + sizeof(char) * strlen(g_version_hash) + 2);
+
+	pkt << (u8) VERSION_MAJOR << (u8) VERSION_MINOR << (u8) VERSION_PATCH
+		<< (u8) 0 << (u16) strlen(g_version_hash);
+
+	pkt.putRawString(g_version_hash, (u16) strlen(g_version_hash));
+	pkt << (u16)FORMSPEC_API_VERSION;
+	Send(&pkt);
+}
+
+void Client::sendPlayerPos()
+>>>>>>> 5.10.0
 {
 	LocalPlayer *player = m_env.getLocalPlayer();
 	if (!player)
@@ -1483,6 +1595,7 @@ void Client::sendPlayerPos(v3f pos)
 
 	u32 keyPressed = player->control.getKeysPressed();
 	bool camera_inverted = m_camera->getCameraMode() == CAMERA_MODE_THIRD_FRONT;
+<<<<<<< HEAD
 
 	if (
 			player->last_position        == pos &&
@@ -1499,19 +1612,51 @@ void Client::sendPlayerPos(v3f pos)
 	player->last_speed           = player->getSendSpeed();
 	player->last_pitch           = player->getLegitPitch();
 	player->last_yaw             = player->getLegitYaw();
+=======
+	f32 movement_speed = player->control.movement_speed;
+	f32 movement_dir = player->control.movement_direction;
+
+	if (
+			player->last_position        == player->getPosition() &&
+			player->last_speed           == player->getSpeed()    &&
+			player->last_pitch           == player->getPitch()    &&
+			player->last_yaw             == player->getYaw()      &&
+			player->last_keyPressed      == keyPressed            &&
+			player->last_camera_fov      == camera_fov            &&
+			player->last_camera_inverted == camera_inverted       &&
+			player->last_wanted_range    == wanted_range          &&
+			player->last_movement_speed  == movement_speed        &&
+			player->last_movement_dir    == movement_dir)
+		return;
+
+	player->last_position        = player->getPosition();
+	player->last_speed           = player->getSpeed();
+	player->last_pitch           = player->getPitch();
+	player->last_yaw             = player->getYaw();
+>>>>>>> 5.10.0
 	player->last_keyPressed      = keyPressed;
 	player->last_camera_fov      = camera_fov;
 	player->last_camera_inverted = camera_inverted;
 	player->last_wanted_range    = wanted_range;
+<<<<<<< HEAD
 
 	NetworkPacket pkt(TOSERVER_PLAYERPOS, 12 + 12 + 4 + 4 + 4 + 1 + 1 + 1);
 
 	bool autosneak = g_settings->getBool("autosneak");
 	writePlayerPos(player, &map, &pkt, camera_inverted, autosneak);
+=======
+	player->last_movement_speed  = movement_speed;
+	player->last_movement_dir    = movement_dir;
+
+	NetworkPacket pkt(TOSERVER_PLAYERPOS, 12 + 12 + 4 + 4 + 4 + 1 + 1 + 1 + 4 + 4);
+
+	writePlayerPos(player, &map, &pkt, camera_inverted);
+>>>>>>> 5.10.0
 
 	Send(&pkt);
 }
 
+<<<<<<< HEAD
 void Client::sendPlayerPos()
 {
 	LocalPlayer *player = m_env.getLocalPlayer();
@@ -1520,6 +1665,8 @@ void Client::sendPlayerPos()
 	sendPlayerPos(player->getLegitPosition());
 }
 
+=======
+>>>>>>> 5.10.0
 void Client::sendHaveMedia(const std::vector<u32> &tokens)
 {
 	NetworkPacket pkt(TOSERVER_HAVE_MEDIA, 1 + tokens.size() * 4);
@@ -1622,6 +1769,7 @@ void Client::addNode(v3s16 p, MapNode n, bool remove_metadata)
 	}
 }
 
+<<<<<<< HEAD
 std::vector<std::pair<v3s16, MapNode>> Client::getNodesAtBlockPos(v3s16 blockPos)
 {
 	Map &map = m_env.getMap();
@@ -1692,6 +1840,8 @@ void Client::updateAllMapBlocks()
 	}
 }
 
+=======
+>>>>>>> 5.10.0
 void Client::setPlayerControl(PlayerControl &control)
 {
 	LocalPlayer *player = m_env.getLocalPlayer();
@@ -2281,6 +2431,7 @@ const std::string &Client::getFormspecPrepend() const
 {
 	return m_env.getLocalPlayer()->formspec_prepend;
 }
+<<<<<<< HEAD
 
 void Client::setWieldIndex(u16 index) {
 	LocalPlayer *myplayer = m_env.getLocalPlayer();
@@ -2399,3 +2550,5 @@ void Client::setBestHotbarItemForBreak(v3s16 nodepos) {
 
 	return;
 }
+=======
+>>>>>>> 5.10.0

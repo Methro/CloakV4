@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,13 +18,26 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #include "settings.h"
 #include "util/numeric.h"
 #include "inputhandler.h"
 #include "gui/mainmenumanager.h"
+<<<<<<< HEAD
 #include "gui/touchscreengui.h"
 #include "hud.h"
+=======
+#include "gui/touchcontrols.h"
+#include "hud.h"
+#include "log_internal.h"
+#include "client/renderingengine.h"
+>>>>>>> 5.10.0
 
 void KeyCache::populate_nonchanging()
 {
@@ -66,7 +80,10 @@ void KeyCache::populate()
 	key[KeyType::TOGGLE_HUD] = getKeySetting("keymap_toggle_hud");
 	key[KeyType::TOGGLE_CHAT] = getKeySetting("keymap_toggle_chat");
 	key[KeyType::TOGGLE_FOG] = getKeySetting("keymap_toggle_fog");
+<<<<<<< HEAD
 	key[KeyType::TOGGLE_CHEAT_MENU] = getKeySetting("keymap_toggle_cheat_menu");
+=======
+>>>>>>> 5.10.0
 	key[KeyType::TOGGLE_UPDATE_CAMERA] = getKeySetting("keymap_toggle_update_camera");
 	key[KeyType::TOGGLE_DEBUG] = getKeySetting("keymap_toggle_debug");
 	key[KeyType::TOGGLE_PROFILER] = getKeySetting("keymap_toggle_profiler");
@@ -77,6 +94,7 @@ void KeyCache::populate()
 			getKeySetting("keymap_decrease_viewing_range_min");
 	key[KeyType::RANGESELECT] = getKeySetting("keymap_rangeselect");
 	key[KeyType::ZOOM] = getKeySetting("keymap_zoom");
+<<<<<<< HEAD
 	key[KeyType::SELECT_UP] = getKeySetting("keymap_select_up");
 	key[KeyType::SELECT_DOWN] = getKeySetting("keymap_select_down");
 	key[KeyType::SELECT_LEFT] = getKeySetting("keymap_select_left");
@@ -88,6 +106,8 @@ void KeyCache::populate()
 	key[KeyType::KILLAURA] = getKeySetting("keymap_toggle_killaura");
     key[KeyType::AUTOAIM] = getKeySetting("keymap_toggle_autoaim");
     key[KeyType::SCAFFOLD] = getKeySetting("keymap_toggle_scaffold");
+=======
+>>>>>>> 5.10.0
 
 	key[KeyType::QUICKTUNE_NEXT] = getKeySetting("keymap_quicktune_next");
 	key[KeyType::QUICKTUNE_PREV] = getKeySetting("keymap_quicktune_prev");
@@ -153,10 +173,22 @@ bool MyEventReceiver::OnEvent(const SEvent &event)
 		}
 	}
 
+<<<<<<< HEAD
 	// Let the menu handle events, if one is active.
 	if (isMenuActive()) {
 		if (g_touchscreengui)
 			g_touchscreengui->setVisible(false);
+=======
+	if (event.EventType == EET_MOUSE_INPUT_EVENT && !event.MouseInput.Simulated)
+		last_pointer_type = PointerType::Mouse;
+	else if (event.EventType == EET_TOUCH_INPUT_EVENT)
+		last_pointer_type = PointerType::Touch;
+
+	// Let the menu handle events, if one is active.
+	if (isMenuActive()) {
+		if (g_touchcontrols)
+			g_touchcontrols->setVisible(false);
+>>>>>>> 5.10.0
 		return g_menumgr.preprocessEvent(event);
 	}
 
@@ -180,9 +212,15 @@ bool MyEventReceiver::OnEvent(const SEvent &event)
 			return true;
 		}
 
+<<<<<<< HEAD
 	} else if (g_touchscreengui && event.EventType == irr::EET_TOUCH_INPUT_EVENT) {
 		// In case of touchscreengui, we have to handle different events
 		g_touchscreengui->translateEvent(event);
+=======
+	} else if (g_touchcontrols && event.EventType == irr::EET_TOUCH_INPUT_EVENT) {
+		// In case of touchcontrols, we have to handle different events
+		g_touchcontrols->translateEvent(event);
+>>>>>>> 5.10.0
 		return true;
 	} else if (event.EventType == irr::EET_JOYSTICK_INPUT_EVENT) {
 		// joystick may be nullptr if game is launched with '--random-input' parameter
@@ -232,6 +270,7 @@ bool MyEventReceiver::OnEvent(const SEvent &event)
 /*
  * RealInputHandler
  */
+<<<<<<< HEAD
 float RealInputHandler::getMovementSpeed()
 {
 	bool f = m_receiver->IsKeyDown(keycache.key[KeyType::FORWARD]),
@@ -275,6 +314,42 @@ float RealInputHandler::getMovementDirection()
 	else if (g_touchscreengui && g_touchscreengui->getMovementSpeed())
 		return g_touchscreengui->getMovementDirection();
 	return joystick.getMovementDirection();
+=======
+float RealInputHandler::getJoystickSpeed()
+{
+	if (g_touchcontrols && g_touchcontrols->getJoystickSpeed())
+		return g_touchcontrols->getJoystickSpeed();
+	return joystick.getMovementSpeed();
+}
+
+float RealInputHandler::getJoystickDirection()
+{
+	// `getJoystickDirection() == 0` means forward, so we cannot use
+	// `getJoystickDirection()` as a condition.
+	if (g_touchcontrols && g_touchcontrols->getJoystickSpeed())
+		return g_touchcontrols->getJoystickDirection();
+	return joystick.getMovementDirection();
+}
+
+v2s32 RealInputHandler::getMousePos()
+{
+	auto control = RenderingEngine::get_raw_device()->getCursorControl();
+	if (control) {
+		return control->getPosition();
+	}
+
+	return m_mousepos;
+}
+
+void RealInputHandler::setMousePos(s32 x, s32 y)
+{
+	auto control = RenderingEngine::get_raw_device()->getCursorControl();
+	if (control) {
+		control->setPosition(x, y);
+	} else {
+		m_mousepos = v2s32(x, y);
+	}
+>>>>>>> 5.10.0
 }
 
 /*
@@ -332,6 +407,7 @@ void RandomInputHandler::step(float dtime)
 		counterMovement -= dtime;
 		if (counterMovement < 0.0) {
 			counterMovement = 0.1 * Rand(1, 40);
+<<<<<<< HEAD
 			movementSpeed = Rand(0,100)*0.01;
 			movementDirection = Rand(-100, 100)*0.01 * M_PI;
 		}
@@ -352,5 +428,13 @@ void RandomInputHandler::step(float dtime)
 			movementSpeed = 0.0;
 			movementDirection = 0.0;
 		}
+=======
+			joystickSpeed = Rand(0,100)*0.01;
+			joystickDirection = Rand(-100, 100)*0.01 * M_PI;
+		}
+	} else {
+		joystickSpeed = 0.0f;
+		joystickDirection = 0.0f;
+>>>>>>> 5.10.0
 	}
 }

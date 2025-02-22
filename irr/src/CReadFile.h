@@ -17,7 +17,11 @@ namespace io
 /*!
 	Class for reading a real file from disk.
 */
+<<<<<<< HEAD
 class CReadFile : public IReadFile
+=======
+class CReadFile final : public IReadFile
+>>>>>>> 5.10.0
 {
 public:
 	CReadFile(const io::path &fileName);

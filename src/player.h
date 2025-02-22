@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -24,10 +30,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "constants.h"
 #include "util/basic_macros.h"
 #include "util/string.h"
+<<<<<<< HEAD
 #include <list>
 #include <mutex>
 #include <functional>
 #include <tuple>
+=======
+#include <mutex>
+#include <functional>
+>>>>>>> 5.10.0
 #include <string>
 
 #define PLAYERNAME_SIZE 20
@@ -88,6 +99,7 @@ struct PlayerControl
 		movement_direction = a_movement_direction;
 	}
 
+<<<<<<< HEAD
 #ifndef SERVER
 	// For client use
 	u32 getKeysPressed() const;
@@ -97,6 +109,20 @@ struct PlayerControl
 
 	// For server use
 	void unpackKeysPressed(u32 keypress_bits);
+=======
+	// Sets movement_speed and movement_direction according to direction_keys
+	// if direction_keys != 0, otherwise leaves them unchanged to preserve
+	// joystick input.
+	void setMovementFromKeys();
+
+	// For client use
+	u32 getKeysPressed() const;
+	inline bool isMoving() const { return movement_speed > 0.001f; }
+
+	// For server use
+	void unpackKeysPressed(u32 keypress_bits);
+	v2f getMovement() const;
+>>>>>>> 5.10.0
 
 	u8 direction_keys = 0;
 	bool jump = false;
@@ -105,7 +131,11 @@ struct PlayerControl
 	bool zoom = false;
 	bool dig = false;
 	bool place = false;
+<<<<<<< HEAD
 	// Note: These four are NOT available on the server
+=======
+	// Note: These two are NOT available on the server
+>>>>>>> 5.10.0
 	float pitch = 0.0f;
 	float yaw = 0.0f;
 	float movement_speed = 0.0f;
@@ -130,6 +160,7 @@ struct PlayerPhysicsOverride
 	float liquid_sink = 1.f;
 	float acceleration_default = 1.f;
 	float acceleration_air = 1.f;
+<<<<<<< HEAD
 
 private:
 	auto tie() const {
@@ -148,6 +179,16 @@ public:
 	bool operator!=(const PlayerPhysicsOverride &other) const {
 		return tie() != other.tie();
 	};
+=======
+	float speed_fast = 1.f;
+	float acceleration_fast = 1.f;
+	float speed_walk = 1.f;
+
+	bool operator==(const PlayerPhysicsOverride &other) const;
+	bool operator!=(const PlayerPhysicsOverride &other) const {
+		return !(*this == other);
+	}
+>>>>>>> 5.10.0
 };
 
 class Map;
@@ -210,7 +251,11 @@ public:
 	f32 movement_liquid_sink;
 	f32 movement_gravity;
 
+<<<<<<< HEAD
 	v2s32 local_animations[4];
+=======
+	v2f local_animations[4];
+>>>>>>> 5.10.0
 	float local_animation_speed;
 
 	std::string inventory_formspec;
@@ -223,7 +268,10 @@ public:
 
 	// Returns non-empty `selected` ItemStack. `hand` is a fallback, if specified
 	ItemStack &getWieldedItem(ItemStack *selected, ItemStack *hand) const;
+<<<<<<< HEAD
 	ItemStack &getHandItem(ItemStack *hand) const;
+=======
+>>>>>>> 5.10.0
 	void setWieldIndex(u16 index);
 	u16 getWieldIndex();
 

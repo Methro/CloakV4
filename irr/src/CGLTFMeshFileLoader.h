@@ -10,9 +10,17 @@
 #include "path.h"
 #include "S3DVertex.h"
 
+<<<<<<< HEAD
 #include <tiniergltf.hpp>
 
 #include <cstddef>
+=======
+#include "tiniergltf.hpp"
+
+#include <functional>
+#include <cstddef>
+#include <tuple>
+>>>>>>> 5.10.0
 #include <vector>
 
 namespace irr
@@ -26,9 +34,15 @@ class CGLTFMeshFileLoader : public IMeshLoader
 public:
 	CGLTFMeshFileLoader() noexcept {};
 
+<<<<<<< HEAD
 	bool isALoadableFileExtension(const io::path& filename) const override;
 
 	IAnimatedMesh* createMesh(io::IReadFile* file) override;
+=======
+	bool isALoadableFileExtension(const io::path &filename) const override;
+
+	IAnimatedMesh *createMesh(io::IReadFile *file) override;
+>>>>>>> 5.10.0
 
 private:
 	template <typename T>
@@ -94,11 +108,20 @@ private:
 			const NormalizedValuesAccessor<N> &accessor,
 			const std::size_t i);
 
+<<<<<<< HEAD
 	class MeshExtractor {
 	public:
 		MeshExtractor(tiniergltf::GlTF &&model,
 				CSkinnedMesh *mesh) noexcept
 			: m_gltf_model(model), m_irr_model(mesh) {};
+=======
+	class MeshExtractor
+	{
+	public:
+		MeshExtractor(tiniergltf::GlTF &&model,
+				CSkinnedMesh *mesh) noexcept
+			: m_gltf_model(std::move(model)), m_irr_model(mesh) {};
+>>>>>>> 5.10.0
 
 		/* Gets indices for the given mesh/primitive.
 		 *
@@ -114,12 +137,30 @@ private:
 
 		std::size_t getPrimitiveCount(const std::size_t meshIdx) const;
 
+<<<<<<< HEAD
 		void loadNodes() const;
+=======
+		void load();
+		const std::vector<std::string> &getWarnings() {
+			return warnings;
+		}
+>>>>>>> 5.10.0
 
 	private:
 		const tiniergltf::GlTF m_gltf_model;
 		CSkinnedMesh *m_irr_model;
 
+<<<<<<< HEAD
+=======
+		std::vector<std::function<void()>> m_mesh_loaders;
+		std::vector<CSkinnedMesh::SJoint *> m_loaded_nodes;
+
+		std::vector<std::string> warnings;
+		void warn(const std::string &warning) {
+			warnings.push_back(warning);
+		}
+
+>>>>>>> 5.10.0
 		void copyPositions(const std::size_t accessorIdx,
 				std::vector<video::S3DVertex>& vertices) const;
 
@@ -129,6 +170,7 @@ private:
 		void copyTCoords(const std::size_t accessorIdx,
 				std::vector<video::S3DVertex>& vertices) const;
 
+<<<<<<< HEAD
 		void loadMesh(
 			std::size_t meshIdx,
 			ISkinnedMesh::SJoint *parentJoint) const;
@@ -139,6 +181,26 @@ private:
 	};
 
 	std::optional<tiniergltf::GlTF> tryParseGLTF(io::IReadFile* file);
+=======
+		void addPrimitive(const tiniergltf::MeshPrimitive &primitive,
+				const std::optional<std::size_t> skinIdx,
+				CSkinnedMesh::SJoint *parent);
+
+		void deferAddMesh(const std::size_t meshIdx,
+				const std::optional<std::size_t> skinIdx,
+				CSkinnedMesh::SJoint *parentJoint);
+
+		void loadNode(const std::size_t nodeIdx, CSkinnedMesh::SJoint *parentJoint);
+
+		void loadNodes();
+
+		void loadSkins();
+
+		void loadAnimation(const std::size_t animIdx);
+	};
+
+	tiniergltf::GlTF parseGLTF(io::IReadFile *file);
+>>>>>>> 5.10.0
 };
 
 } // namespace scene

@@ -8,6 +8,10 @@
 #include "dimension2d.h"
 
 #include <functional>
+<<<<<<< HEAD
+=======
+#include <array>
+>>>>>>> 5.10.0
 
 namespace irr
 {
@@ -34,6 +38,18 @@ public:
 	constexpr vector2d(const dimension2d<T> &other) :
 			X(other.Width), Y(other.Height) {}
 
+<<<<<<< HEAD
+=======
+	explicit constexpr vector2d(const std::array<T, 2> &arr) :
+			X(arr[0]), Y(arr[1]) {}
+
+	template <class U>
+	constexpr static vector2d<T> from(const vector2d<U> &other)
+	{
+		return {static_cast<T>(other.X), static_cast<T>(other.Y)};
+	}
+
+>>>>>>> 5.10.0
 	// operators
 
 	vector2d<T> operator-() const { return vector2d<T>(-X, -Y); }

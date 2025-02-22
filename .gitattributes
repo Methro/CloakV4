@@ -3,3 +3,8 @@
 
 *.cpp diff=cpp
 *.h diff=cpp
+<<<<<<< HEAD
+=======
+
+*.gltf binary
+>>>>>>> 5.10.0

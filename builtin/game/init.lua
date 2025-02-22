@@ -38,6 +38,10 @@ dofile(gamepath .. "forceloading.lua")
 dofile(gamepath .. "hud.lua")
 dofile(gamepath .. "knockback.lua")
 dofile(gamepath .. "async.lua")
+<<<<<<< HEAD
+=======
+dofile(gamepath .. "death_screen.lua")
+>>>>>>> 5.10.0
 
 core.after(0, builtin_shared.cache_content_ids)
 

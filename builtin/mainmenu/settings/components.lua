@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 --Minetest
+=======
+--Luanti
+>>>>>>> 5.10.0
 --Copyright (C) 2022 rubenwardy
 --
 --This program is free software; you can redistribute it and/or modify
@@ -67,6 +71,22 @@ function make.heading(text)
 end
 
 
+<<<<<<< HEAD
+=======
+function make.note(text)
+	return {
+		full_width = true,
+		get_formspec = function(self, avail_w)
+			-- Assuming label height 0.4:
+			-- Position at y=0 to eat 0.2 of the padding above, leave 0.05.
+			-- The returned used_height doesn't include padding.
+			return ("label[0,0;%s]"):format(core.colorize("#bbb", core.formspec_escape(text))), 0.2
+		end,
+	}
+end
+
+
+>>>>>>> 5.10.0
 --- Used for string and numeric style fields
 ---
 --- @param converter Function to coerce values from strings.
@@ -402,11 +422,19 @@ local function make_noise_params(setting)
 			return fs, 0.8
 		end,
 
+<<<<<<< HEAD
 		on_submit = function(self, fields, dlgview)
 			if fields["edit_" .. setting.name] then
 				local dlg = create_change_mapgen_flags_dlg(setting)
 				dlg:set_parent(dlgview)
 				dlgview:hide()
+=======
+		on_submit = function(self, fields, tabview)
+			if fields["edit_" .. setting.name] then
+				local dlg = create_change_mapgen_flags_dlg(setting)
+				dlg:set_parent(tabview)
+				tabview:hide()
+>>>>>>> 5.10.0
 				dlg:show()
 
 				return true

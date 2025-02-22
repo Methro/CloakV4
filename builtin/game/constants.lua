@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/constants.lua
 
+=======
+>>>>>>> 5.10.0
 --
 -- Constants values for use with the Lua API
 --

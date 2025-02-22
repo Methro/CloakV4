@@ -7,7 +7,12 @@
 #include <png.h> // use system lib png
 
 #include "CImage.h"
+<<<<<<< HEAD
 #include "CReadFile.h"
+=======
+#include "IReadFile.h"
+#include "coreutil.h"
+>>>>>>> 5.10.0
 #include "os.h"
 
 namespace irr

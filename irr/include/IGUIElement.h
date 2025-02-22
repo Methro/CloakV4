@@ -10,10 +10,15 @@
 #include "IEventReceiver.h"
 #include "EGUIElementTypes.h"
 #include "EGUIAlignment.h"
+<<<<<<< HEAD
 #include "IAttributes.h"
 #include "IGUIEnvironment.h"
 #include <cassert>
 #include <algorithm>
+=======
+#include "IGUIEnvironment.h"
+#include <cassert>
+>>>>>>> 5.10.0
 #include <list>
 #include <vector>
 
@@ -325,7 +330,11 @@ public:
 	}
 
 	//! Moves this element.
+<<<<<<< HEAD
 	virtual void move(core::position2d<s32> absoluteMovement)	
+=======
+	virtual void move(core::position2d<s32> absoluteMovement)
+>>>>>>> 5.10.0
 	{
 		setRelativePosition(DesiredRect + absoluteMovement);
 	}

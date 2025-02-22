@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -43,21 +49,29 @@ struct Nametag
 	video::SColor textcolor;
 	std::optional<video::SColor> bgcolor;
 	v3f pos;
+<<<<<<< HEAD
 	ITextureSource *texture_source;
 	std::vector<video::ITexture *> images;
 	core::dimension2di images_dim;
+=======
+>>>>>>> 5.10.0
 
 	Nametag(scene::ISceneNode *a_parent_node,
 			const std::string &text,
 			const video::SColor &textcolor,
 			const std::optional<video::SColor> &bgcolor,
+<<<<<<< HEAD
 			const v3f &pos,
 			ITextureSource *tsrc,
 			const std::vector<std::string> &image_names):
+=======
+			const v3f &pos):
+>>>>>>> 5.10.0
 		parent_node(a_parent_node),
 		text(text),
 		textcolor(textcolor),
 		bgcolor(bgcolor),
+<<<<<<< HEAD
 		pos(pos),
 		texture_source(tsrc),
 		images(),
@@ -77,6 +91,10 @@ struct Nametag
 				images_dim.Height = imgsize.Height;
 			images.push_back(texture);
 		}
+=======
+		pos(pos)
+	{
+>>>>>>> 5.10.0
 	}
 
 	video::SColor getBgColor(bool use_fallback) const
@@ -223,15 +241,22 @@ public:
 
 	Nametag *addNametag(scene::ISceneNode *parent_node,
 		const std::string &text, video::SColor textcolor,
+<<<<<<< HEAD
 		std::optional<video::SColor> bgcolor, const v3f &pos,
 		const std::vector<std::string> &image_names);
+=======
+		std::optional<video::SColor> bgcolor, const v3f &pos);
+>>>>>>> 5.10.0
 
 	void removeNametag(Nametag *nametag);
 
 	void drawNametags();
 
+<<<<<<< HEAD
 	void drawHealthESP();
 
+=======
+>>>>>>> 5.10.0
 	inline void addArmInertia(f32 player_yaw);
 
 private:

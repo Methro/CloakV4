@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2016 est31, <MTest31@outlook.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2016 est31, <MTest31@outlook.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -63,7 +69,10 @@ public:
 		TOGGLE_HUD,
 		TOGGLE_CHAT,
 		TOGGLE_FOG,
+<<<<<<< HEAD
 		TOGGLE_CHEAT_MENU,
+=======
+>>>>>>> 5.10.0
 		TOGGLE_UPDATE_CAMERA,
 		TOGGLE_DEBUG,
 		TOGGLE_PROFILER,
@@ -73,23 +82,29 @@ public:
 		RANGESELECT,
 		ZOOM,
 
+<<<<<<< HEAD
 		SELECT_UP,
 		SELECT_DOWN,
 		SELECT_LEFT,
 		SELECT_RIGHT,
 		SELECT_CONFIRM,
 
+=======
+>>>>>>> 5.10.0
 		QUICKTUNE_NEXT,
 		QUICKTUNE_PREV,
 		QUICKTUNE_INC,
 		QUICKTUNE_DEC,
 
+<<<<<<< HEAD
 		// cheats
 		KILLAURA,
 		FREECAM,
         AUTOAIM,
         SCAFFOLD,
 
+=======
+>>>>>>> 5.10.0
 		// hotbar
 		SLOT_1,
 		SLOT_2,

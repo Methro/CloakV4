@@ -3,7 +3,11 @@
 -- Register wrapper for compactness
 local function register_pointable_testentity(name, pointable)
 	local texture = "testnodes_"..name..".png"
+<<<<<<< HEAD
 	minetest.register_entity("testentities:"..name, {
+=======
+	core.register_entity("testentities:"..name, {
+>>>>>>> 5.10.0
 		initial_properties = {
 			visual = "cube",
 			visual_size = {x = 0.6, y = 0.6, z = 0.6},

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Minetest Direction Document
+=======
+# Luanti Direction Document
+>>>>>>> 5.10.0
 
 ## 1. Long-term Roadmap
 
@@ -6,6 +10,7 @@ The long-term roadmaps, aims, and guiding philosophies are set out using the
 following documents:
 
 * [What is Minetest?](http://c55.me/blog/?p=1491)
+<<<<<<< HEAD
 * [celeron55's roadmap](https://forum.minetest.net/viewtopic.php?t=9177)
 * [celeron55's comment in "A clear mission statement for Minetest is missing"](https://github.com/minetest/minetest/issues/3476#issuecomment-167399287)
 * [Core developer to-do/wish lists](https://forum.minetest.net/viewforum.php?f=7)
@@ -13,6 +18,15 @@ following documents:
 ## 2. Medium-term Roadmap
 
 These are the current medium-term goals for Minetest development, in no
+=======
+* [celeron55's roadmap](https://forum.luanti.org/viewtopic.php?t=9177)
+* [celeron55's comment in "A clear mission statement for Minetest is missing"](https://github.com/minetest/minetest/issues/3476#issuecomment-167399287)
+* [Core developer to-do/wish lists](https://forum.luanti.org/viewforum.php?f=7)
+
+## 2. Medium-term Roadmap
+
+These are the current medium-term goals for Luanti development, in no
+>>>>>>> 5.10.0
 particular order.
 
 These goals were created from the top points in a
@@ -42,7 +56,11 @@ alternative libraries to replace Irrlicht functionality as needed
 
 ### 2.2 Internal code refactoring
 
+<<<<<<< HEAD
 To ensure sustainable development, Minetest's code needs to be
+=======
+To ensure sustainable development, Luanti's code needs to be
+>>>>>>> 5.10.0
 [refactored and improved](https://github.com/minetest/minetest/pulls?q=is%3Aopen+sort%3Aupdated-desc+label%3A%22Code+quality%22+).
 This will remove code rot and allow for more efficient development.
 
@@ -54,7 +72,11 @@ be a replacement for HUDs, allowing for a unified API.
 
 A [new mainmenu](https://github.com/minetest/minetest/issues/6733) is needed to
 improve user experience. First impressions matter, and the current main menu
+<<<<<<< HEAD
 doesn't do a very good job at selling Minetest or explaining what it is.
+=======
+doesn't do a very good job at selling Luanti or explaining what it is.
+>>>>>>> 5.10.0
 A new main menu should promote games to users, allowing Minetest Game to no
 longer be bundled by default.
 

@@ -140,6 +140,7 @@ IAnimatedMesh *CSceneManager::getMesh(io::IReadFile *file)
 // load and create a mesh which we know already isn't in the cache and put it in there
 IAnimatedMesh *CSceneManager::getUncachedMesh(io::IReadFile *file, const io::path &filename, const io::path &cachename)
 {
+<<<<<<< HEAD
 	IAnimatedMesh *msh = 0;
 
 	// iterate the list in reverse order so user-added loaders can override the built-in ones
@@ -152,16 +153,40 @@ IAnimatedMesh *CSceneManager::getUncachedMesh(io::IReadFile *file, const io::pat
 				MeshCache->addMesh(cachename, msh);
 				msh->drop();
 				break;
+=======
+	// iterate the list in reverse order so user-added loaders can override the built-in ones
+
+	bool unsupported = true;
+	for (auto it = MeshLoaderList.rbegin(); it != MeshLoaderList.rend(); it++) {
+		if ((*it)->isALoadableFileExtension(filename)) {
+			unsupported = false;
+			// reset file to avoid side effects of previous calls to createMesh
+			file->seek(0);
+			IAnimatedMesh *msh = (*it)->createMesh(file);
+			if (msh) {
+				MeshCache->addMesh(cachename, msh);
+				msh->drop();
+				os::Printer::log("Loaded mesh", filename, ELL_DEBUG);
+				return msh;
+>>>>>>> 5.10.0
 			}
 		}
 	}
 
+<<<<<<< HEAD
 	if (!msh)
 		os::Printer::log("Could not load mesh, file format seems to be unsupported", filename, ELL_ERROR);
 	else
 		os::Printer::log("Loaded mesh", filename, ELL_DEBUG);
 
 	return msh;
+=======
+	os::Printer::log(unsupported
+			? "Could not load mesh, file format seems to be unsupported"
+			: "Attempt to load mesh failed",
+			filename, ELL_ERROR);
+	return nullptr;
+>>>>>>> 5.10.0
 }
 
 //! returns the video driver

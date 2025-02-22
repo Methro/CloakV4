@@ -28,7 +28,11 @@ DEALINGS IN THE SOFTWARE.
 
 void Event::wait()
 {
+<<<<<<< HEAD
 	MutexAutoLock lock(mutex);
+=======
+	std::unique_lock lock(mutex);
+>>>>>>> 5.10.0
 	while (!notified) {
 		cv.wait(lock);
 	}
@@ -38,7 +42,14 @@ void Event::wait()
 
 void Event::signal()
 {
+<<<<<<< HEAD
 	MutexAutoLock lock(mutex);
 	notified = true;
+=======
+	{
+		std::lock_guard lock(mutex);
+		notified = true;
+	}
+>>>>>>> 5.10.0
 	cv.notify_one();
 }

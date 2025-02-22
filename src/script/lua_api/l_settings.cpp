@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 PilzAdam <pilzadam@minetest.net>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 PilzAdam <pilzadam@minetest.net>
+>>>>>>> 5.10.0
 
 #include "lua_api/l_settings.h"
 #include "lua_api/l_internal.h"
@@ -46,7 +52,11 @@ static inline int checkSettingSecurity(lua_State* L, const std::string &name)
 		throw LuaError("Attempted to set secure setting.");
 
 	bool is_mainmenu = false;
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	is_mainmenu = ModApiBase::getGuiEngine(L) != nullptr;
 #endif
 	if (!is_mainmenu && (name == "mg_name" || name == "mg_flags")) {
@@ -128,6 +138,7 @@ int LuaSettings::l_get(lua_State* L)
 	return 1;
 }
 
+<<<<<<< HEAD
 // get_json(self, key) -> table
 int LuaSettings::l_get_json(lua_State *L)
 {
@@ -151,6 +162,8 @@ int LuaSettings::l_get_json(lua_State *L)
 	return 1;
 }
 
+=======
+>>>>>>> 5.10.0
 // get_bool(self, key) -> boolean
 int LuaSettings::l_get_bool(lua_State* L)
 {
@@ -231,6 +244,7 @@ int LuaSettings::l_set(lua_State* L)
 	return 0;
 }
 
+<<<<<<< HEAD
 // set_json(self, key, value)
 int LuaSettings::l_set_json(lua_State* L)
 {
@@ -250,6 +264,8 @@ int LuaSettings::l_set_json(lua_State* L)
 	return 0;
 }
 
+=======
+>>>>>>> 5.10.0
 // set_bool(self, key, value)
 int LuaSettings::l_set_bool(lua_State* L)
 {
@@ -409,12 +425,18 @@ int LuaSettings::create_object(lua_State* L)
 const char LuaSettings::className[] = "Settings";
 const luaL_Reg LuaSettings::methods[] = {
 	luamethod(LuaSettings, get),
+<<<<<<< HEAD
 	luamethod(LuaSettings, get_json),
+=======
+>>>>>>> 5.10.0
 	luamethod(LuaSettings, get_bool),
 	luamethod(LuaSettings, get_np_group),
 	luamethod(LuaSettings, get_flags),
 	luamethod(LuaSettings, set),
+<<<<<<< HEAD
 	luamethod(LuaSettings, set_json),
+=======
+>>>>>>> 5.10.0
 	luamethod(LuaSettings, set_bool),
 	luamethod(LuaSettings, set_np_group),
 	luamethod(LuaSettings, remove),

@@ -1,9 +1,17 @@
 local function print_to_everything(msg)
+<<<<<<< HEAD
 	minetest.log("action", "[chest] " .. msg)
 	minetest.chat_send_all(msg)
 end
 
 minetest.register_node("chest:chest", {
+=======
+	core.log("action", "[chest] " .. msg)
+	core.chat_send_all(msg)
+end
+
+core.register_node("chest:chest", {
+>>>>>>> 5.10.0
 	description = "Chest" .. "\n" ..
 		"32 inventory slots",
 	tiles ={"chest_chest.png^[sheet:2x2:0,0", "chest_chest.png^[sheet:2x2:0,0",
@@ -13,7 +21,11 @@ minetest.register_node("chest:chest", {
 	groups = {dig_immediate=2,choppy=3,meta_is_privatizable=1},
 	is_ground_content = false,
 	on_construct = function(pos)
+<<<<<<< HEAD
 		local meta = minetest.get_meta(pos)
+=======
+		local meta = core.get_meta(pos)
+>>>>>>> 5.10.0
 		meta:set_string("formspec",
 				"size[8,9]"..
 				"list[current_name;main;0,0;8,4;]"..
@@ -24,7 +36,11 @@ minetest.register_node("chest:chest", {
 		inv:set_size("main", 8*4)
 	end,
 	can_dig = function(pos,player)
+<<<<<<< HEAD
 		local meta = minetest.get_meta(pos);
+=======
+		local meta = core.get_meta(pos);
+>>>>>>> 5.10.0
 		local inv = meta:get_inventory()
 		return inv:is_empty("main")
 	end,

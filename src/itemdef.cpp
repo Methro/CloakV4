@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,17 +18,31 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2013 Kahrl <kahrl@gmx.net>
+>>>>>>> 5.10.0
 
 #include "itemdef.h"
 
 #include "nodedef.h"
 #include "tool.h"
 #include "inventory.h"
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 #include "client/mapblock_mesh.h"
 #include "client/mesh.h"
 #include "client/wieldmesh.h"
 #include "client/client.h"
+<<<<<<< HEAD
+=======
+#include "client/texturesource.h"
+>>>>>>> 5.10.0
 #endif
 #include "log.h"
 #include "settings.h"
@@ -45,7 +60,12 @@ TouchInteraction::TouchInteraction()
 	pointed_object  = TouchInteractionMode_USER;
 }
 
+<<<<<<< HEAD
 TouchInteractionMode TouchInteraction::getMode(PointedThingType pointed_type) const
+=======
+TouchInteractionMode TouchInteraction::getMode(const ItemDefinition &selected_def,
+		PointedThingType pointed_type) const
+>>>>>>> 5.10.0
 {
 	TouchInteractionMode result;
 	switch (pointed_type) {
@@ -63,7 +83,13 @@ TouchInteractionMode TouchInteraction::getMode(PointedThingType pointed_type) co
 	}
 
 	if (result == TouchInteractionMode_USER) {
+<<<<<<< HEAD
 		if (pointed_type == POINTEDTHING_OBJECT)
+=======
+		if (pointed_type == POINTEDTHING_OBJECT && !selected_def.usable)
+			// Only apply when we're actually able to punch the object, i.e. when
+			// the selected item has no on_use callback defined.
+>>>>>>> 5.10.0
 			result = g_settings->get("touch_punch_gesture") == "long_tap" ?
 					LONG_DIG_SHORT_PLACE : SHORT_DIG_LONG_PLACE;
 		else
@@ -371,7 +397,11 @@ void ItemDefinition::deSerialize(std::istream &is, u16 protocol_version)
 
 class CItemDefManager: public IWritableItemDefManager
 {
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	struct ClientCached
 	{
 		video::ITexture *inventory_texture;
@@ -396,7 +426,11 @@ public:
 	CItemDefManager()
 	{
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 		m_main_thread = std::this_thread::get_id();
 #endif
 		clear();
@@ -445,8 +479,14 @@ public:
 		// Get the definition
 		return m_item_definitions.find(name) != m_item_definitions.cend();
 	}
+<<<<<<< HEAD
 #ifndef SERVER
 public:
+=======
+
+#if CHECK_CLIENT_BUILD()
+protected:
+>>>>>>> 5.10.0
 	ClientCached* createClientCachedDirect(const ItemStack &item, Client *client) const
 	{
 		// This is not thread-safe
@@ -487,6 +527,10 @@ public:
 		return ptr;
 	}
 
+<<<<<<< HEAD
+=======
+public:
+>>>>>>> 5.10.0
 	// Get item inventory texture
 	virtual video::ITexture* getInventoryTexture(const ItemStack &item,
 			Client *client) const
@@ -675,7 +719,11 @@ private:
 	std::map<std::string, ItemDefinition*> m_item_definitions;
 	// Aliases
 	StringMap m_aliases;
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	// The id of the thread that is allowed to use irrlicht directly
 	std::thread::id m_main_thread;
 	// Cached textures and meshes

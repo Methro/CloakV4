@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /// Json-cpp amalgamated forward header (http://jsoncpp.sourceforge.net/).
+=======
+/// Json-cpp amalgamated forward header (https://github.com/open-source-parsers/jsoncpp/).
+>>>>>>> 5.10.0
 /// It is intended to be used with #include "json/json-forwards.h"
 /// This header provides forward declaration for all JsonCpp types.
 
@@ -94,19 +98,32 @@ license you like.
 // 3. /CMakeLists.txt
 // IMPORTANT: also update the SOVERSION!!
 
+<<<<<<< HEAD
 #define JSONCPP_VERSION_STRING "1.9.5"
 #define JSONCPP_VERSION_MAJOR 1
 #define JSONCPP_VERSION_MINOR 9
 #define JSONCPP_VERSION_PATCH 5
+=======
+#define JSONCPP_VERSION_STRING "1.9.7"
+#define JSONCPP_VERSION_MAJOR 1
+#define JSONCPP_VERSION_MINOR 9
+#define JSONCPP_VERSION_PATCH 7
+>>>>>>> 5.10.0
 #define JSONCPP_VERSION_QUALIFIER
 #define JSONCPP_VERSION_HEXA                                                   \
   ((JSONCPP_VERSION_MAJOR << 24) | (JSONCPP_VERSION_MINOR << 16) |             \
    (JSONCPP_VERSION_PATCH << 8))
 
+<<<<<<< HEAD
 #ifdef JSONCPP_USING_SECURE_MEMORY
 #undef JSONCPP_USING_SECURE_MEMORY
 #endif
 #define JSONCPP_USING_SECURE_MEMORY 0
+=======
+#if !defined(JSONCPP_USE_SECURE_MEMORY)
+#define JSONCPP_USE_SECURE_MEMORY 0
+#endif
+>>>>>>> 5.10.0
 // If non-zero, the library zeroes any memory that it has allocated before
 // it frees its memory.
 
@@ -133,10 +150,19 @@ license you like.
 #ifndef JSON_ALLOCATOR_H_INCLUDED
 #define JSON_ALLOCATOR_H_INCLUDED
 
+<<<<<<< HEAD
 #include <cstring>
 #include <memory>
 
 #pragma pack(push, 8)
+=======
+#include <algorithm>
+#include <cstring>
+#include <memory>
+
+#pragma pack(push)
+#pragma pack()
+>>>>>>> 5.10.0
 
 namespace Json {
 template <typename T> class SecureAllocator {
@@ -164,8 +190,21 @@ public:
    * The memory block is filled with zeroes before being released.
    */
   void deallocate(pointer p, size_type n) {
+<<<<<<< HEAD
     // memset_s is used because memset may be optimized away by the compiler
     memset_s(p, n * sizeof(T), 0, n * sizeof(T));
+=======
+    // These constructs will not be removed by the compiler during optimization,
+    // unlike memset.
+#if defined(HAVE_MEMSET_S)
+    memset_s(p, n * sizeof(T), 0, n * sizeof(T));
+#elif defined(_WIN32)
+    RtlSecureZeroMemory(p, n * sizeof(T));
+#else
+    std::fill_n(reinterpret_cast<volatile unsigned char*>(p), n, 0);
+#endif
+
+>>>>>>> 5.10.0
     // free using "global operator delete"
     ::operator delete(p);
   }
@@ -195,7 +234,13 @@ public:
   // Boilerplate
   SecureAllocator() {}
   template <typename U> SecureAllocator(const SecureAllocator<U>&) {}
+<<<<<<< HEAD
   template <typename U> struct rebind { using other = SecureAllocator<U>; };
+=======
+  template <typename U> struct rebind {
+    using other = SecureAllocator<U>;
+  };
+>>>>>>> 5.10.0
 };
 
 template <typename T, typename U>
@@ -356,7 +401,11 @@ using LargestUInt = UInt64;
 
 template <typename T>
 using Allocator =
+<<<<<<< HEAD
     typename std::conditional<JSONCPP_USING_SECURE_MEMORY, SecureAllocator<T>,
+=======
+    typename std::conditional<JSONCPP_USE_SECURE_MEMORY, SecureAllocator<T>,
+>>>>>>> 5.10.0
                               std::allocator<T>>::type;
 using String = std::basic_string<char, std::char_traits<char>, Allocator<char>>;
 using IStringStream =

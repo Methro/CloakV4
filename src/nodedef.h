@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -25,7 +31,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <map>
 #include "mapnode.h"
 #include "nameidmapping.h"
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 #include "client/tile.h"
 #include <IMeshManipulator.h>
 class Client;
@@ -315,7 +325,11 @@ struct ContentFeatures
 	/*
 		Cached stuff
 	 */
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	// 0     1     2     3     4     5
 	// up    down  right left  back  front
 	TileSpec tiles[6];
@@ -351,10 +365,17 @@ struct ContentFeatures
 
 	enum NodeDrawType drawtype;
 	std::string mesh;
+<<<<<<< HEAD
 #ifndef SERVER
 	scene::IMesh *mesh_ptr[24];
 #endif
 	video::SColor minimap_color;
+=======
+#if CHECK_CLIENT_BUILD()
+	scene::IMesh *mesh_ptr[24];
+	video::SColor minimap_color;
+#endif
+>>>>>>> 5.10.0
 	float visual_scale; // Misc. scale parameter
 	TileDef tiledef[6];
 	// These will be drawn over the base tiles.
@@ -530,10 +551,14 @@ struct ContentFeatures
 		return itemgroup_get(groups, group);
 	}
 
+<<<<<<< HEAD
 
 	video::SColor getNodeEspColor() const;
 
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	void updateTextures(ITextureSource *tsrc, IShaderSource *shdsrc,
 		scene::IMeshManipulator *meshmanip, Client *client, const TextureSettings &tsettings);
 #endif
@@ -757,11 +782,14 @@ public:
 	 */
 	void resolveCrossrefs();
 
+<<<<<<< HEAD
 	/*!
 	 * Print out node ESP colors to console.
 	 */
 	void printESPColors() const;
 
+=======
+>>>>>>> 5.10.0
 private:
 	/*!
 	 * Resets the manager to its initial state.

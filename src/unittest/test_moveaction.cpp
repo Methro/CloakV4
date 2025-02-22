@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2022 Minetest core developers & community
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2022 Minetest core developers & community
+>>>>>>> 5.10.0
 
 #include "test.h"
 
@@ -68,6 +74,11 @@ void TestMoveAction::runTests(IGameDef *gamedef)
 	auto null_map = std::unique_ptr<ServerMap>();
 	ServerEnvironment server_env(std::move(null_map), &server, &mb);
 	MockServerActiveObject obj(&server_env);
+<<<<<<< HEAD
+=======
+	obj.setId(1);
+	server.getScriptIface()->addObjectReference(&obj);
+>>>>>>> 5.10.0
 
 	TEST(testMove, &obj, gamedef);
 	TEST(testMoveFillStack, &obj, gamedef);
@@ -82,6 +93,11 @@ void TestMoveAction::runTests(IGameDef *gamedef)
 
 	TEST(testCallbacks, &obj, &server);
 	TEST(testCallbacksSwap, &obj, &server);
+<<<<<<< HEAD
+=======
+
+	server.getScriptIface()->removeObjectReference(&obj);
+>>>>>>> 5.10.0
 }
 
 static ItemStack parse_itemstack(const char *s)

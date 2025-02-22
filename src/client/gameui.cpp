@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,14 +18,25 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2018 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #include "gameui.h"
 #include <irrlicht_changes/static_text.h>
 #include <gettext.h>
 #include "gui/mainmenumanager.h"
 #include "gui/guiChatConsole.h"
+<<<<<<< HEAD
 #include "client/game.h"
 #include "gui/guiFormSpecMenu.h"
+=======
+#include "gui/guiFormSpecMenu.h"
+#include "gui/touchcontrols.h"
+>>>>>>> 5.10.0
 #include "util/enriched_string.h"
 #include "util/pointedthing.h"
 #include "client.h"
@@ -57,6 +69,7 @@ GameUI::GameUI()
 }
 void GameUI::init()
 {
+<<<<<<< HEAD
 	// show coords bottom left of screen
 	m_guitext_coords = gui::StaticText::add(guienv, L"", core::rect<s32>(0, 0, 0, 0), false,
 		false, guiroot);
@@ -64,6 +77,8 @@ void GameUI::init()
 	gui::IGUIFont *coords_font = g_fontengine->getFont(fontSpec);
 	m_guitext_coords->setOverrideFont(coords_font);
 
+=======
+>>>>>>> 5.10.0
 	// First line of debug text
 	m_guitext = gui::StaticText::add(guienv, utf8_to_wide(PROJECT_NAME_C).c_str(),
 		core::rect<s32>(0, 0, 0, 0), false, true, guiroot);
@@ -114,6 +129,7 @@ void GameUI::update(const RunStats &stats, Client *client, MapDrawControl *draw_
 	v2u32 screensize = RenderingEngine::getWindowSize();
 
 	LocalPlayer *player = client->getEnv().getLocalPlayer();
+<<<<<<< HEAD
 	v3f player_position = player->getPosition();
 
 	s32 minimal_debug_height = 0;
@@ -139,6 +155,11 @@ void GameUI::update(const RunStats &stats, Client *client, MapDrawControl *draw_
 
 	m_guitext_coords->setVisible(show_coords);
 
+=======
+
+	s32 minimal_debug_height = 0;
+
+>>>>>>> 5.10.0
 	// Minimal debug text must only contain info that can't give a gameplay advantage
 	if (m_flags.show_minimal_debug) {
 		const u16 fps = 1.0 / stats.dtime_jitter.avg;
@@ -221,6 +242,7 @@ void GameUI::update(const RunStats &stats, Client *client, MapDrawControl *draw_
 		}
 	}
 
+<<<<<<< HEAD
 	setStaticText(m_guitext_status, m_statustext.c_str());
 	m_guitext_status->setVisible(!m_statustext.empty());
 
@@ -231,6 +253,29 @@ void GameUI::update(const RunStats &stats, Client *client, MapDrawControl *draw_
 		s32 status_x = (screensize.X - status_width) / 2;
 
 		m_guitext_status->setRelativePosition(core::rect<s32>(status_x ,
+=======
+	IGUIStaticText *guitext_status;
+	bool overriden = g_touchcontrols && g_touchcontrols->isStatusTextOverriden();
+	if (overriden) {
+		guitext_status = g_touchcontrols->getStatusText();
+		m_guitext_status->setVisible(false);
+	} else {
+		guitext_status = m_guitext_status;
+		if (g_touchcontrols)
+			g_touchcontrols->getStatusText()->setVisible(false);
+	}
+
+	setStaticText(guitext_status, m_statustext.c_str());
+	guitext_status->setVisible(!m_statustext.empty());
+
+	if (!m_statustext.empty()) {
+		s32 status_width  = guitext_status->getTextWidth();
+		s32 status_height = guitext_status->getTextHeight();
+		s32 status_y = screensize.Y  - (overriden ? 15 : 150);
+		s32 status_x = (screensize.X - status_width) / 2;
+
+		guitext_status->setRelativePosition(core::rect<s32>(status_x ,
+>>>>>>> 5.10.0
 			status_y - status_height, status_x + status_width, status_y));
 
 		// Fade out
@@ -238,6 +283,7 @@ void GameUI::update(const RunStats &stats, Client *client, MapDrawControl *draw_
 		final_color.setAlpha(0);
 		video::SColor fade_color = m_statustext_initial_color.getInterpolated_quadratic(
 			m_statustext_initial_color, final_color, m_statustext_time / statustext_time_max);
+<<<<<<< HEAD
 		m_guitext_status->setOverrideColor(fade_color);
 		m_guitext_status->enableOverrideColor(true);
 	}
@@ -245,6 +291,14 @@ void GameUI::update(const RunStats &stats, Client *client, MapDrawControl *draw_
 	// Hide chat when disabled by server or when console is visible
 	//m_guitext_chat->setVisible(isChatVisible() && !chat_console->isVisible() && (player->hud_flags & HUD_FLAG_CHAT_VISIBLE));
 	m_guitext_chat->setVisible(isChatVisible());
+=======
+		guitext_status->setOverrideColor(fade_color);
+		guitext_status->enableOverrideColor(true);
+	}
+
+	// Hide chat when disabled by server or when console is visible
+	m_guitext_chat->setVisible(isChatVisible() && !chat_console->isVisible() && (player->hud_flags & HUD_FLAG_CHAT_VISIBLE));
+>>>>>>> 5.10.0
 }
 
 void GameUI::initFlags()
@@ -269,13 +323,17 @@ void GameUI::updateChatSize()
 {
 	// Update gui element size and position
 	s32 chat_y = 5;
+<<<<<<< HEAD
 	const v2u32 &window_size = RenderingEngine::getWindowSize();
+=======
+>>>>>>> 5.10.0
 
 	if (m_flags.show_minimal_debug)
 		chat_y += m_guitext->getTextHeight();
 	if (m_flags.show_basic_debug)
 		chat_y += m_guitext2->getTextHeight();
 
+<<<<<<< HEAD
 	//core::rect<s32> chat_size(10, chat_y, window_size.X - 20, 0);
 
     int cwidth;
@@ -294,6 +352,11 @@ void GameUI::updateChatSize()
 		chat_start = cwidth + 7;
 	}
 	core::rect<s32> chat_size(chat_start, chat_y, chat_length, 0);
+=======
+	const v2u32 &window_size = RenderingEngine::getWindowSize();
+
+	core::rect<s32> chat_size(10, chat_y, window_size.X - 20, 0);
+>>>>>>> 5.10.0
 	chat_size.LowerRightCorner.Y = std::min((s32)window_size.Y,
 			m_guitext_chat->getTextHeight() + chat_y);
 
@@ -344,6 +407,7 @@ void GameUI::toggleChat(Client *client)
 
 }
 
+<<<<<<< HEAD
 void GameUI::toggleCheatMenu()
 {
 	m_flags.show_cheat_menu = !m_flags.show_cheat_menu;
@@ -353,6 +417,8 @@ void GameUI::toggleCheatMenu()
 		showTranslatedStatusText("Cheat Menu hidden");
 }
 
+=======
+>>>>>>> 5.10.0
 void GameUI::toggleHud()
 {
 	m_flags.show_hud = !m_flags.show_hud;
@@ -420,9 +486,12 @@ void GameUI::clearText()
 		m_guitext_profiler->remove();
 		m_guitext_profiler = nullptr;
 	}
+<<<<<<< HEAD
 	
 	if (m_guitext_coords) {
 		m_guitext_coords->remove();
 		m_guitext_coords = nullptr;
 	}
+=======
+>>>>>>> 5.10.0
 }

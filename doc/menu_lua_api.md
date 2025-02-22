@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 Minetest Lua Mainmenu API Reference 5.9.0
 =========================================
+=======
+Luanti Lua Mainmenu API Reference 5.10.0
+========================================
+>>>>>>> 5.10.0
 
 Introduction
 -------------
@@ -57,7 +62,14 @@ Functions
   * returns the maximum supported network protocol version
 * `core.open_url(url)`
   * opens the URL in a web browser, returns false on failure.
+<<<<<<< HEAD
   * Must begin with http:// or https://
+=======
+  * `url` must begin with http:// or https://
+* `core.open_url_dialog(url)`
+  * shows a dialog to allow the user to choose whether to open a URL.
+  * `url` must begin with http:// or https://
+>>>>>>> 5.10.0
 * `core.open_dir(path)`
   * opens the path in the system file browser/explorer, returns false on failure.
   * Must be an existing directory.
@@ -65,6 +77,11 @@ Functions
   * Android only. Shares file using the share popup
 * `core.get_version()` (possible in async calls)
   * returns current core version
+<<<<<<< HEAD
+=======
+* `core.get_formspec_version()`
+  * returns maximum supported formspec version
+>>>>>>> 5.10.0
 
 
 
@@ -123,7 +140,11 @@ HTTP Requests
     * returns `HTTPApiTable` containing http functions.
     * The returned table contains the functions `fetch_sync`, `fetch_async` and
       `fetch_async_get` described below.
+<<<<<<< HEAD
     * Function only exists if minetest server was built with cURL support.
+=======
+    * Function only exists if Luanti server was built with cURL support.
+>>>>>>> 5.10.0
 * `HTTPApiTable.fetch_sync(HTTPRequest req)`: returns HTTPRequestResult
     * Performs given request synchronously
 * `HTTPApiTable.fetch_async(HTTPRequest req)`: returns handle
@@ -150,7 +171,11 @@ Used by `HTTPApiTable.fetch` and `HTTPApiTable.fetch_async`.
     -- If post_data is not specified, a GET request is performed instead.
 
     user_agent = "ExampleUserAgent",
+<<<<<<< HEAD
     -- Optional, if specified replaces the default minetest user agent with
+=======
+    -- Optional, if specified replaces the default Luanti user agent with
+>>>>>>> 5.10.0
     -- given string
 
     extra_headers = { "Accept-Language: en-us", "Accept-Charset: utf-8" },
@@ -252,9 +277,15 @@ GUI
           y = 577,
       },
 
+<<<<<<< HEAD
       -- Estimated maximum formspec size before Minetest will start shrinking the
       -- formspec to fit. For a fullscreen formspec, use a size 10-20% larger than
       -- this and `padding[-0.01,-0.01]`.
+=======
+      -- Estimated maximum formspec size before Luanti will start shrinking the
+      -- formspec to fit. For a fullscreen formspec, use this formspec size and
+      -- `padding[0,0]`. `bgcolor[;true]` is also recommended.
+>>>>>>> 5.10.0
       max_formspec_size = {
           x = 20,
           y = 11.25
@@ -290,7 +321,11 @@ Package - content which is downloadable from the content db, may or may not be i
 * `core.get_modpaths()` (possible in async calls)
     * returns table of virtual path to global modpaths, where mods have been installed
       The difference with `core.get_modpath` is that no mods should be installed in these
+<<<<<<< HEAD
       directories by Minetest -- they might be read-only.
+=======
+      directories by Luanti -- they might be read-only.
+>>>>>>> 5.10.0
 
       Ex:
 
@@ -381,7 +416,11 @@ Settings
 * `core.settings:save()` -> nil, save all settings to config file
 
 For a complete list of methods of the `Settings` object see
+<<<<<<< HEAD
 [lua_api.md](https://github.com/teamacedia/cloakv4/blob/master/doc/lua_api.md)
+=======
+[lua_api.md](https://github.com/minetest/minetest/blob/master/doc/lua_api.md)
+>>>>>>> 5.10.0
 
 
 Worlds

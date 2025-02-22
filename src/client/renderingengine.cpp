@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -20,6 +21,16 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include <optional>
 #include <irrlicht.h>
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+
+#include <optional>
+#include <irrlicht.h>
+#include "IMeshCache.h"
+>>>>>>> 5.10.0
 #include "fontengine.h"
 #include "client.h"
 #include "clouds.h"
@@ -27,22 +38,33 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "guiscalingfilter.h"
 #include "localplayer.h"
 #include "client/hud.h"
+<<<<<<< HEAD
+=======
+#include "client/texturesource.h"
+>>>>>>> 5.10.0
 #include "camera.h"
 #include "minimap.h"
 #include "clientmap.h"
 #include "renderingengine.h"
 #include "render/core.h"
 #include "render/factory.h"
+<<<<<<< HEAD
 #include "inputhandler.h"
 #include "gettext.h"
 #include "filesys.h"
 #include "../gui/guiSkin.h"
+=======
+#include "filesys.h"
+>>>>>>> 5.10.0
 #include "irrlicht_changes/static_text.h"
 #include "irr_ptr.h"
 
 RenderingEngine *RenderingEngine::s_singleton = nullptr;
 const video::SColor RenderingEngine::MENU_SKY_COLOR = video::SColor(255, 140, 186, 250);
+<<<<<<< HEAD
 const float RenderingEngine::BASE_BLOOM_STRENGTH = 1.0f;
+=======
+>>>>>>> 5.10.0
 
 /* Helper classes */
 
@@ -126,6 +148,7 @@ IShaderConstantSetter *FogShaderConstantSetterFactory::create()
 
 /* Other helpers */
 
+<<<<<<< HEAD
 static gui::GUISkin *createSkin(gui::IGUIEnvironment *environment,
 		gui::EGUI_SKIN_TYPE type, video::IVideoDriver *driver)
 {
@@ -147,6 +170,8 @@ static gui::GUISkin *createSkin(gui::IGUIEnvironment *environment,
 	return skin;
 }
 
+=======
+>>>>>>> 5.10.0
 static std::optional<video::E_DRIVER_TYPE> chooseVideoDriver()
 {
 	auto &&configured_name = g_settings->get("video_driver");
@@ -195,7 +220,11 @@ static irr::IrrlichtDevice *createDevice(SIrrlichtCreationParameters params, std
 
 /* RenderingEngine class */
 
+<<<<<<< HEAD
 RenderingEngine::RenderingEngine(IEventReceiver *receiver)
+=======
+RenderingEngine::RenderingEngine(MyEventReceiver *receiver)
+>>>>>>> 5.10.0
 {
 	sanity_check(!s_singleton);
 
@@ -248,12 +277,18 @@ RenderingEngine::RenderingEngine(IEventReceiver *receiver)
 	// This changes the minimum allowed number of vertices in a VBO. Default is 500.
 	driver->setMinHardwareBufferVertexCount(4);
 
+<<<<<<< HEAD
 	s_singleton = this;
 
 	auto skin = createSkin(m_device->getGUIEnvironment(),
 			gui::EGST_WINDOWS_METALLIC, driver);
 	m_device->getGUIEnvironment()->setSkin(skin);
 	skin->drop();
+=======
+	m_receiver = receiver;
+
+	s_singleton = this;
+>>>>>>> 5.10.0
 
 	g_settings->registerChangedCallback("fullscreen", settingChangedCallback, this);
 	g_settings->registerChangedCallback("window_maximized", settingChangedCallback, this);
@@ -263,8 +298,12 @@ RenderingEngine::~RenderingEngine()
 {
 	sanity_check(s_singleton == this);
 
+<<<<<<< HEAD
 	g_settings->deregisterChangedCallback("fullscreen", settingChangedCallback, this);
 	g_settings->deregisterChangedCallback("window_maximized", settingChangedCallback, this);
+=======
+	g_settings->deregisterAllChangedCallbacks(this);
+>>>>>>> 5.10.0
 
 	core.reset();
 	m_device->closeDevice();
@@ -328,6 +367,7 @@ bool RenderingEngine::setWindowIcon()
 	return m_device->setWindowIcon(img.get());
 }
 
+<<<<<<< HEAD
 inline std::string get_background()
 {
 	if (g_settings->get("background") == "sky") {
@@ -340,6 +380,8 @@ inline std::string get_background()
 
 	return "menu_bg.png";
 }
+=======
+>>>>>>> 5.10.0
 /*
 	Draws a screen with a single text on it.
 	Text will be removed when the screen is drawn the next time.
@@ -347,7 +389,11 @@ inline std::string get_background()
 */
 void RenderingEngine::draw_load_screen(const std::wstring &text,
 		gui::IGUIEnvironment *guienv, ITextureSource *tsrc, float dtime,
+<<<<<<< HEAD
 		int percent, bool sky)
+=======
+		int percent, float *indef_pos)
+>>>>>>> 5.10.0
 {
 	v2u32 screensize = getWindowSize();
 
@@ -361,6 +407,7 @@ void RenderingEngine::draw_load_screen(const std::wstring &text,
 
 	auto *driver = get_video_driver();
 
+<<<<<<< HEAD
 	if (sky) {
 		driver->beginScene(true, true, RenderingEngine::MENU_SKY_COLOR);
 		if (g_settings->getBool("menu_clouds")) {
@@ -426,6 +473,24 @@ void RenderingEngine::draw_load_screen(const std::wstring &text,
 
 	// draw progress bar
 	if ((percent >= 0) && (percent <= 100)) {
+=======
+	driver->setFog(RenderingEngine::MENU_SKY_COLOR);
+	driver->beginScene(true, true, RenderingEngine::MENU_SKY_COLOR);
+	if (g_settings->getBool("menu_clouds")) {
+		g_menuclouds->step(dtime * 3);
+		g_menucloudsmgr->drawAll();
+	}
+
+	int percent_min = 0;
+	int percent_max = percent;
+	if (indef_pos) {
+		*indef_pos = fmodf(*indef_pos + (dtime * 50.0f), 140.0f);
+		percent_max = std::min((int) *indef_pos, 100);
+		percent_min = std::max((int) *indef_pos - 40, 0);
+	}
+	// draw progress bar
+	if ((percent_min >= 0) && (percent_max <= 100)) {
+>>>>>>> 5.10.0
 		video::ITexture *progress_img = tsrc->getTexture("progress_bar.png");
 		video::ITexture *progress_img_bg =
 				tsrc->getTexture("progress_bar_bg.png");
@@ -456,11 +521,19 @@ void RenderingEngine::draw_load_screen(const std::wstring &text,
 					0, 0, true);
 
 			draw2DImageFilterScaled(get_video_driver(), progress_img,
+<<<<<<< HEAD
 					core::rect<s32>(img_pos.X, img_pos.Y,
 							img_pos.X + (percent * imgW) / 100,
 							img_pos.Y + imgH),
 					core::rect<s32>(0, 0,
 							(percent * img_size.Width) / 100,
+=======
+					core::rect<s32>(img_pos.X + (percent_min * imgW) / 100, img_pos.Y,
+							img_pos.X + (percent_max * imgW) / 100,
+							img_pos.Y + imgH),
+					core::rect<s32>(percent_min * img_size.Width / 100, 0,
+							percent_max * img_size.Width / 100,
+>>>>>>> 5.10.0
 							img_size.Height),
 					0, 0, true);
 		}
@@ -508,12 +581,15 @@ void RenderingEngine::draw_scene(video::SColor skycolor, bool show_hud,
 	core->draw(skycolor, show_hud, draw_wield_tool, draw_crosshair);
 }
 
+<<<<<<< HEAD
 void RenderingEngine::draw_HUD(video::SColor skycolor, bool show_hud,
 		bool draw_wield_tool, bool draw_crosshair)
 {
 	core->draw_HUD(skycolor, show_hud, draw_wield_tool, draw_crosshair);
 }
 
+=======
+>>>>>>> 5.10.0
 const VideoDriverInfo &RenderingEngine::getVideoDriverInfo(irr::video::E_DRIVER_TYPE type)
 {
 	static const std::unordered_map<int, VideoDriverInfo> driver_info_map = {

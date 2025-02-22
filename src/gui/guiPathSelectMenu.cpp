@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  Minetest
  Copyright (C) 2013 sapier
@@ -16,6 +17,11 @@
  with this program; if not, write to the Free Software Foundation, Inc.,
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 sapier
+>>>>>>> 5.10.0
 
 #include "guiPathSelectMenu.h"
 #include "guiFormSpecMenu.h" //required because of TextDest only !!!

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2013-2020 Minetest core developers & community
+>>>>>>> 5.10.0
 
 #include "player_sao.h"
 #include "nodedef.h"
@@ -340,6 +347,12 @@ std::string PlayerSAO::generateUpdatePhysicsOverrideCommand() const
 	writeF32(os, phys.liquid_sink);
 	writeF32(os, phys.acceleration_default);
 	writeF32(os, phys.acceleration_air);
+<<<<<<< HEAD
+=======
+	writeF32(os, phys.speed_fast);
+	writeF32(os, phys.acceleration_fast);
+	writeF32(os, phys.speed_walk);
+>>>>>>> 5.10.0
 	return os.str();
 }
 
@@ -501,7 +514,11 @@ u32 PlayerSAO::punch(v3f dir,
 	} else {
 		actionstream << "(none)";
 	}
+<<<<<<< HEAD
 	actionstream << " puched " <<
+=======
+	actionstream << " punched " <<
+>>>>>>> 5.10.0
 			getDescription() << " (id=" << m_id << ", hp=" << m_hp <<
 			"), damage=" << (old_hp - (s32)getHP()) <<
 			(damage_handled ? " (handled by Lua)" : "") << std::endl;
@@ -516,12 +533,22 @@ void PlayerSAO::rightClick(ServerActiveObject *clicker)
 
 void PlayerSAO::setHP(s32 target_hp, const PlayerHPChangeReason &reason, bool from_client)
 {
+<<<<<<< HEAD
 	target_hp = rangelim(target_hp, 0, U16_MAX);
 
 	if (target_hp == m_hp)
 		return; // Nothing to do
 
 	s32 hp_change = m_env->getScriptIface()->on_player_hpchange(this, target_hp - (s32)m_hp, reason);
+=======
+	if (target_hp == m_hp || (m_hp == 0 && target_hp < 0))
+		return; // Nothing to do
+
+	// Protect against overflow.
+	s32 hp_change = std::max<s64>((s64)target_hp - (s64)m_hp, S32_MIN);
+
+	hp_change = m_env->getScriptIface()->on_player_hpchange(this, hp_change, reason);
+>>>>>>> 5.10.0
 	hp_change = std::min<s32>(hp_change, U16_MAX); // Protect against overflow
 
 	s32 hp = (s32)m_hp + hp_change;
@@ -555,6 +582,24 @@ void PlayerSAO::setBreath(const u16 breath, bool send)
 		m_env->getGameDef()->SendPlayerBreath(this);
 }
 
+<<<<<<< HEAD
+=======
+void PlayerSAO::respawn()
+{
+	infostream << "PlayerSAO::respawn(): Player " << m_player->getName()
+			<< " respawns" << std::endl;
+
+	setHP(m_prop.hp_max, PlayerHPChangeReason(PlayerHPChangeReason::RESPAWN));
+	setBreath(m_prop.breath_max);
+
+	bool repositioned = m_env->getScriptIface()->on_respawnplayer(this);
+	if (!repositioned) {
+		// setPos will send the new position to client
+		setPos(m_env->getGameDef()->findSpawnPos());
+	}
+}
+
+>>>>>>> 5.10.0
 Inventory *PlayerSAO::getInventory() const
 {
 	return m_player ? &m_player->inventory : nullptr;
@@ -627,9 +672,18 @@ void PlayerSAO::setMaxSpeedOverride(const v3f &vel)
 
 bool PlayerSAO::checkMovementCheat()
 {
+<<<<<<< HEAD
 	if (m_is_singleplayer ||
 			isAttached() ||
 			g_settings->getBool("disable_anticheat")) {
+=======
+	static thread_local const u32 anticheat_flags =
+		g_settings->getFlagStr("anticheat_flags", flagdesc_anticheat, nullptr);
+
+	if (m_is_singleplayer ||
+			isAttached() ||
+			!(anticheat_flags & AC_MOVEMENT)) {
+>>>>>>> 5.10.0
 		m_last_good_position = m_base_position;
 		return false;
 	}
@@ -641,7 +695,11 @@ bool PlayerSAO::checkMovementCheat()
 		NOTE: Actually the server should handle player physics like the
 		client does and compare player's position to what is calculated
 		on our side. This is required when eg. players fly due to an
+<<<<<<< HEAD
 		explosion. Altough a node-based alternative might be possible
+=======
+		explosion. Although a node-based alternative might be possible
+>>>>>>> 5.10.0
 		too, and much more lightweight.
 	*/
 
@@ -656,6 +714,7 @@ bool PlayerSAO::checkMovementCheat()
 	float player_max_walk = 0; // horizontal movement
 	float player_max_jump = 0; // vertical upwards movement
 
+<<<<<<< HEAD
 	float speed_walk   = m_player->movement_speed_walk;
 	float speed_fast   = m_player->movement_speed_fast;
 	float speed_crouch = m_player->movement_speed_crouch * m_player->physics_override.speed_crouch;
@@ -664,6 +723,17 @@ bool PlayerSAO::checkMovementCheat()
 	speed_fast   *= m_player->physics_override.speed;
 	speed_crouch *= m_player->physics_override.speed;
 	speed_climb  *= m_player->physics_override.speed;
+=======
+	float speed_walk = m_player->movement_speed_walk * m_player->physics_override.speed_walk;
+	float speed_fast = m_player->movement_speed_fast * m_player->physics_override.speed_fast;
+	float speed_crouch = m_player->movement_speed_crouch * m_player->physics_override.speed_crouch;
+	float speed_climb = m_player->movement_speed_climb * m_player->physics_override.speed_climb;
+
+	speed_walk *= m_player->physics_override.speed;
+	speed_fast *= m_player->physics_override.speed;
+	speed_crouch *= m_player->physics_override.speed;
+	speed_climb *= m_player->physics_override.speed;
+>>>>>>> 5.10.0
 
 	// Get permissible max. speed
 	if (m_privs.count("fast") != 0) {
@@ -709,6 +779,14 @@ bool PlayerSAO::checkMovementCheat()
 		required_time = MYMAX(required_time, d_vert / s);
 	}
 
+<<<<<<< HEAD
+=======
+	static thread_local float anticheat_movement_tolerance =
+		std::max(g_settings->getFloat("anticheat_movement_tolerance"), 1.0f);
+
+	required_time /= anticheat_movement_tolerance;
+
+>>>>>>> 5.10.0
 	if (m_move_pool.grab(required_time)) {
 		m_last_good_position = m_base_position;
 	} else {

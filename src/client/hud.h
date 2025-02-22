@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
+// Copyright (C) 2017 red-001 <red-001@outlook.ie>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -24,6 +31,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <IGUIFont.h>
 #include <SMaterial.h>
 #include <SMeshBuffer.h>
+<<<<<<< HEAD
+=======
+#include "irr_ptr.h"
+>>>>>>> 5.10.0
 #include "irr_aabb3d.h"
 #include "../hud.h"
 
@@ -152,7 +163,11 @@ private:
 	video::SMaterial m_selection_material;
 	video::SMaterial m_block_bounds_material;
 
+<<<<<<< HEAD
 	scene::SMeshBuffer m_rotation_mesh_buffer;
+=======
+	irr_ptr<scene::SMeshBuffer> m_rotation_mesh_buffer;
+>>>>>>> 5.10.0
 
 	enum
 	{

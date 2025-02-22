@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2022-3 rubenwardy <rw@rubenwardy.com>
@@ -16,10 +17,19 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2022-3 rubenwardy <rw@rubenwardy.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include "irrlichttypes_bloated.h"
+<<<<<<< HEAD
+=======
+#include "config.h"
+>>>>>>> 5.10.0
 
 
 struct ClientDynamicInfo
@@ -38,10 +48,18 @@ public:
 				touch_controls == other.touch_controls;
 	}
 
+<<<<<<< HEAD
 #ifndef SERVER
 	static ClientDynamicInfo getCurrent();
 
 private:
 	static v2f32 calculateMaxFSSize(v2u32 render_target_size, f32 gui_scaling);
+=======
+#if CHECK_CLIENT_BUILD()
+	static ClientDynamicInfo getCurrent();
+
+private:
+	static v2f32 calculateMaxFSSize(v2u32 render_target_size, f32 density, f32 gui_scaling);
+>>>>>>> 5.10.0
 #endif
 };

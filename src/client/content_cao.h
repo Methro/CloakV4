@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -99,7 +105,11 @@ private:
 	v2s16 m_tx_basepos;
 	bool m_initial_tx_basepos_set = false;
 	bool m_tx_select_horiz_by_yawpitch = false;
+<<<<<<< HEAD
 	v2s32 m_animation_range;
+=======
+	v2f m_animation_range;
+>>>>>>> 5.10.0
 	float m_animation_speed = 15.0f;
 	float m_animation_blend = 0.0f;
 	bool m_animation_loop = true;
@@ -166,18 +176,24 @@ public:
 
 	const v3f getPosition() const override final;
 
+<<<<<<< HEAD
 	inline const v3f getAcceleration() const { return m_acceleration; }
 
 	inline u16 getHp() const { return m_hp; }
 
+=======
+>>>>>>> 5.10.0
 	const v3f getVelocity() const override final { return m_velocity; }
 
 	inline const v3f &getRotation() const { return m_rotation; }
 
 	bool isImmortal() const;
 
+<<<<<<< HEAD
 	float m_waiting_for_reattach;
 
+=======
+>>>>>>> 5.10.0
 	inline const ObjectProperties &getProperties() const { return m_prop; }
 
 	inline const std::string &getName() const { return m_name; }
@@ -231,8 +247,11 @@ public:
 		m_is_visible = toset;
 	}
 
+<<<<<<< HEAD
 	bool hasMovedRecently();
 
+=======
+>>>>>>> 5.10.0
 	void setChildrenVisible(bool toset);
 	void setAttachment(object_t parent_id, const std::string &bone, v3f position,
 			v3f rotation, bool force_visible) override;
@@ -242,7 +261,10 @@ public:
 	void addAttachmentChild(object_t child_id) override;
 	void removeAttachmentChild(object_t child_id) override;
 	ClientActiveObject *getParent() const override;
+<<<<<<< HEAD
 	int getParentId() const { return m_attachment_parent_id; }
+=======
+>>>>>>> 5.10.0
 	const std::unordered_set<object_t> &getAttachmentChildIds() const override
 	{ return m_attachment_child_ids; }
 	void updateAttachments() override;
@@ -290,8 +312,11 @@ public:
 	bool directReportPunch(v3f dir, const ItemStack *punchitem=NULL,
 			float time_from_last_punch=1000000) override;
 
+<<<<<<< HEAD
 	bool canAttack(int threshold = 100);
 
+=======
+>>>>>>> 5.10.0
 	std::string debugInfoText() override;
 
 	std::string infoText() override
@@ -299,9 +324,13 @@ public:
 		return m_prop.infotext;
 	}
 
+<<<<<<< HEAD
     void setProperties(ObjectProperties newprops);
 
 	void updateMeshCulling();
 
     std::vector<std::string> nametag_images = {};
+=======
+	void updateMeshCulling();
+>>>>>>> 5.10.0
 };

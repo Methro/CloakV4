@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 project(minetest)
+=======
+project(luanti)
+>>>>>>> 5.10.0
 
 INCLUDE(CheckTypeSize)
 INCLUDE(CheckIncludeFiles)
@@ -6,12 +10,20 @@ INCLUDE(CheckLibraryExists)
 
 check_type_size(int SIZEOF_INT BUILTIN_TYPES_ONLY LANGUAGE CXX)
 if(SIZEOF_INT LESS 4)
+<<<<<<< HEAD
 	message(FATAL_ERROR "Minetest will not work with int less than 32 bits wide.")
+=======
+	message(FATAL_ERROR "${PROJECT_NAME_CAPITALIZED} will not work with int less than 32 bits wide.")
+>>>>>>> 5.10.0
 endif()
 
 check_type_size(size_t SIZEOF_SIZE_T LANGUAGE CXX)
 if(SIZEOF_SIZE_T LESS 4)
+<<<<<<< HEAD
 	message(FATAL_ERROR "Minetest will not work with size_t less than 32 bits wide.")
+=======
+	message(FATAL_ERROR "${PROJECT_NAME_CAPITALIZED} will not work with size_t less than 32 bits wide.")
+>>>>>>> 5.10.0
 endif()
 
 # Add custom SemiDebug build mode
@@ -379,6 +391,7 @@ add_custom_target(GenerateVersion
 add_subdirectory(threading)
 add_subdirectory(content)
 add_subdirectory(database)
+<<<<<<< HEAD
 add_subdirectory(gui)
 add_subdirectory(mapgen)
 add_subdirectory(network)
@@ -398,10 +411,25 @@ set(common_SRCS
 	clientdynamicinfo.cpp
 	collision.cpp
 	content_mapnode.cpp
+=======
+add_subdirectory(mapgen)
+add_subdirectory(network)
+add_subdirectory(script)
+add_subdirectory(util)
+add_subdirectory(server)
+
+# Source files that are identical between server & client builds.
+# This means they don't use or include anything that depends on the
+# CHECK_CLIENT_BUILD() macro. If you wrongly add something here there will be
+# a compiler error and you need to instead add it to client_SRCS or common_SRCS.
+set(independent_SRCS
+	chat.cpp
+>>>>>>> 5.10.0
 	content_nodemeta.cpp
 	convert_json.cpp
 	craftdef.cpp
 	debug.cpp
+<<<<<<< HEAD
 	defaultsettings.cpp
 	emerge.cpp
 	environment.cpp
@@ -427,20 +455,75 @@ set(common_SRCS
 	modchannels.cpp
 	nameidmapping.cpp
 	nodedef.cpp
+=======
+	face_position_cache.cpp
+	gettext_plural_form.cpp
+	httpfetch.cpp
+	hud.cpp
+	inventory.cpp
+	itemstackmetadata.cpp
+	lighting.cpp
+	log.cpp
+	metadata.cpp
+	modchannels.cpp
+	nameidmapping.cpp
+>>>>>>> 5.10.0
 	nodemetadata.cpp
 	nodetimer.cpp
 	noise.cpp
 	objdef.cpp
 	object_properties.cpp
 	particles.cpp
+<<<<<<< HEAD
 	pathfinder.cpp
 	player.cpp
 	porting.cpp
 	profiler.cpp
+=======
+	profiler.cpp
+	serialization.cpp
+	settings.cpp
+	staticobject.cpp
+	terminal_chat_console.cpp
+	texture_override.cpp
+	tileanimation.cpp
+	tool.cpp
+	${common_network_SRCS}
+	${content_SRCS}
+	${database_SRCS}
+	${threading_SRCS}
+	${util_SRCS}
+)
+
+# /!\ Consider carefully before adding files here /!\
+set(common_SRCS
+	clientdynamicinfo.cpp
+	collision.cpp
+	content_mapnode.cpp
+	defaultsettings.cpp
+	emerge.cpp
+	environment.cpp
+	filesys.cpp
+	gettext.cpp
+	inventorymanager.cpp
+	itemdef.cpp
+	light.cpp
+	main.cpp
+	map_settings_manager.cpp
+	map.cpp
+	mapblock.cpp
+	mapnode.cpp
+	mapsector.cpp
+	nodedef.cpp
+	pathfinder.cpp
+	player.cpp
+	porting.cpp
+>>>>>>> 5.10.0
 	raycast.cpp
 	reflowscan.cpp
 	remoteplayer.cpp
 	rollback_interface.cpp
+<<<<<<< HEAD
 	serialization.cpp
 	server.cpp
 	serverenvironment.cpp
@@ -451,15 +534,27 @@ set(common_SRCS
 	texture_override.cpp
 	tileanimation.cpp
 	tool.cpp
+=======
+	server.cpp
+	serverenvironment.cpp
+	servermap.cpp
+>>>>>>> 5.10.0
 	translation.cpp
 	version.cpp
 	voxel.cpp
 	voxelalgorithms.cpp
+<<<<<<< HEAD
 	hud.cpp
 	${common_network_SRCS}
 	${JTHREAD_SRCS}
 	${common_SCRIPT_SRCS}
 	${UTIL_SRCS}
+=======
+	${common_SCRIPT_SRCS}
+	${common_server_SRCS}
+	${mapgen_SRCS}
+	${server_network_SRCS}
+>>>>>>> 5.10.0
 )
 
 if(ANDROID)
@@ -467,10 +562,18 @@ if(ANDROID)
 endif()
 
 if(BUILD_UNITTESTS)
+<<<<<<< HEAD
+=======
+	add_subdirectory(unittest)
+>>>>>>> 5.10.0
 	set(common_SRCS ${common_SRCS} ${UNITTEST_SRCS})
 endif()
 
 if(BUILD_BENCHMARKS)
+<<<<<<< HEAD
+=======
+	add_subdirectory(benchmark)
+>>>>>>> 5.10.0
 	set(common_SRCS ${common_SRCS} ${BENCHMARK_SRCS})
 endif()
 
@@ -481,7 +584,11 @@ endif()
 # This gives us the icon and file version information
 if(WIN32)
 	set(WINRESOURCE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../misc/winresource.rc")
+<<<<<<< HEAD
 	set(MINETEST_EXE_MANIFEST_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../misc/minetest.exe.manifest")
+=======
+	set(EXE_MANIFEST_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../misc/luanti.exe.manifest")
+>>>>>>> 5.10.0
 	if(MINGW)
 		if(NOT CMAKE_RC_COMPILER)
 			set(CMAKE_RC_COMPILER "windres.exe")
@@ -491,10 +598,17 @@ if(WIN32)
 			-i${WINRESOURCE_FILE}
 			-o ${CMAKE_CURRENT_BINARY_DIR}/winresource_rc.o
 			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+<<<<<<< HEAD
 			DEPENDS ${WINRESOURCE_FILE} ${MINETEST_EXE_MANIFEST_FILE})
 		SET(extra_windows_SRCS ${CMAKE_CURRENT_BINARY_DIR}/winresource_rc.o)
 	else(MINGW) # Probably MSVC
 		set(extra_windows_SRCS ${WINRESOURCE_FILE} ${MINETEST_EXE_MANIFEST_FILE})
+=======
+			DEPENDS ${WINRESOURCE_FILE} ${EXE_MANIFEST_FILE})
+		SET(extra_windows_SRCS ${CMAKE_CURRENT_BINARY_DIR}/winresource_rc.o)
+	else(MINGW) # Probably MSVC
+		set(extra_windows_SRCS ${WINRESOURCE_FILE} ${EXE_MANIFEST_FILE})
+>>>>>>> 5.10.0
 	endif(MINGW)
 endif()
 
@@ -502,6 +616,11 @@ endif()
 # Client sources
 if (BUILD_CLIENT)
 	add_subdirectory(client)
+<<<<<<< HEAD
+=======
+	add_subdirectory(gui)
+	add_subdirectory(irrlicht_changes)
+>>>>>>> 5.10.0
 endif(BUILD_CLIENT)
 
 set(client_SRCS
@@ -521,6 +640,7 @@ if(BUILD_BENCHMARKS)
 	set(client_SRCS ${client_SRCS} ${BENCHMARK_CLIENT_SRCS})
 endif()
 
+<<<<<<< HEAD
 list(SORT client_SRCS)
 
 # Server sources
@@ -528,6 +648,13 @@ set(server_SRCS
 	${common_SRCS}
 )
 list(SORT server_SRCS)
+=======
+# Server sources
+# (nothing here because a client always comes with a server)
+set(server_SRCS
+	${common_SRCS}
+)
+>>>>>>> 5.10.0
 
 # Avoid source_group on broken CMake version.
 # see issue #7074 #7075
@@ -549,7 +676,11 @@ include_directories(SYSTEM
 	${GMP_INCLUDE_DIR}
 	${JSON_INCLUDE_DIR}
 	${LUA_BIT_INCLUDE_DIR}
+<<<<<<< HEAD
 	# on Android, Minetest depends on SDL2 directly
+=======
+	# on Android, Luanti depends on SDL2 directly
+>>>>>>> 5.10.0
 	# on other platforms, only IrrlichtMt depends on SDL2
 	"$<$<PLATFORM_ID:Android>:${SDL2_INCLUDE_DIRS}>"
 )
@@ -571,11 +702,16 @@ endif()
 
 
 # When cross-compiling assume the user doesn't want to run the executable anyway,
+<<<<<<< HEAD
 # otherwise place it in <source dir>/bin/ since Minetest can only run from there.
+=======
+# otherwise place it in <source dir>/bin/ since Luanti can only run from there.
+>>>>>>> 5.10.0
 if(NOT CMAKE_CROSSCOMPILING)
 	set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
 endif()
 
+<<<<<<< HEAD
 if(BUILD_CLIENT)
 	if(ANDROID)
 		add_library(${PROJECT_NAME} SHARED ${client_SRCS})
@@ -583,6 +719,86 @@ if(BUILD_CLIENT)
 		add_executable(${PROJECT_NAME} ${client_SRCS} ${extra_windows_SRCS})
 	endif()
 	add_dependencies(${PROJECT_NAME} GenerateVersion)
+=======
+# shared object target
+add_library(EngineCommon OBJECT
+	${independent_SRCS}
+)
+add_dependencies(EngineCommon GenerateVersion)
+target_link_libraries(EngineCommon
+	sha256
+)
+get_target_property(
+	IRRLICHT_INCLUDES IrrlichtMt::IrrlichtMt INTERFACE_INCLUDE_DIRECTORIES)
+target_include_directories(EngineCommon PRIVATE ${IRRLICHT_INCLUDES})
+if(PRECOMPILE_HEADERS)
+	target_precompile_headers(EngineCommon PRIVATE ${PRECOMPILED_HEADERS_LIST})
+endif()
+
+if(APPLE)
+	# Configure the Info.plist file
+	configure_file(
+		"${CMAKE_SOURCE_DIR}/misc/macos/Info.plist.in"
+		"${CMAKE_BINARY_DIR}/Info.plist"
+	)
+endif()
+
+if(BUILD_CLIENT)
+	# client target
+	if(ANDROID)
+		add_library(${PROJECT_NAME} SHARED)
+	else()
+		add_executable(${PROJECT_NAME})
+	endif()
+
+
+	if(CMAKE_GENERATOR STREQUAL "Xcode")
+		# File with used entitlements
+		set(XCODE_CODE_SIGN_ENTITLEMENTS "${CMAKE_SOURCE_DIR}/misc/macos/entitlements/release.entitlements" CACHE FILEPATH "Path to entitlements file to be used with Xcode signing")
+
+		set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/build")
+		set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/build")
+
+		target_sources(${PROJECT_NAME} PUBLIC ${client_RESOURCES})
+
+		add_dependencies(${PROJECT_NAME} translations)
+
+		set_target_properties(${PROJECT_NAME} PROPERTIES
+			MACOSX_BUNDLE TRUE
+			MACOSX_BUNDLE_INFO_PLIST "${CMAKE_BINARY_DIR}/Info.plist"
+			RESOURCE "${client_RESOURCES}"
+			XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.luanti.luanti"
+			XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME "YES"
+			XCODE_ATTRIBUTE_INSTALL_PATH "/Applications"
+			XCODE_ATTRIBUTE_SKIP_INSTALL "NO"
+			XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym"
+			XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES"
+			XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "$(inherited)"
+			XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS "${XCODE_CODE_SIGN_ENTITLEMENTS}"
+		)
+
+		# Prinv env variables to file, for debugging purposes
+		#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		#	COMMAND ${CMAKE_COMMAND} -E env bash ${CMAKE_SOURCE_DIR}/util/xcode/capture_env.sh ${CMAKE_BINARY_DIR}/post_env.log
+		#)
+
+		add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/util/xcode/install_resources.cmake
+				-DTARGET_DIR=$<TARGET_FILE_DIR:${PROJECT_NAME}>
+				-DBINARY_DIR=${CMAKE_BINARY_DIR}
+				-DPROJECT_NAME=${PROJECT_NAME}
+			COMMENT "Checking INSTALL_ROOT and copying resources"
+		)
+	endif()
+
+	list(SORT client_SRCS)
+	target_sources(${PROJECT_NAME} PRIVATE
+		$<TARGET_OBJECTS:EngineCommon>
+		${client_SRCS}
+		${extra_windows_SRCS}
+	)
+
+>>>>>>> 5.10.0
 	target_link_libraries(
 		${PROJECT_NAME}
 		${ZLIB_LIBRARIES}
@@ -597,10 +813,18 @@ if(BUILD_CLIENT)
 		sha256
 		${FREETYPE_LIBRARY}
 		${PLATFORM_LIBS}
+<<<<<<< HEAD
 		# on Android, Minetest depends on SDL2 directly
 		# on other platforms, only IrrlichtMt depends on SDL2
 		"$<$<PLATFORM_ID:Android>:${SDL2_LIBRARIES}>"
 	)
+=======
+		# on Android, Luanti depends on SDL2 directly
+		# on other platforms, only IrrlichtMt depends on SDL2
+		"$<$<PLATFORM_ID:Android>:${SDL2_LIBRARIES}>"
+	)
+	target_compile_definitions(${PROJECT_NAME} PRIVATE "MT_BUILDTARGET=1")
+>>>>>>> 5.10.0
 	if(NOT USE_LUAJIT)
 		set_target_properties(${PROJECT_NAME} PROPERTIES
 			# This is necessary for dynamic Lua modules
@@ -648,6 +872,12 @@ if(BUILD_CLIENT)
 	if(BUILD_UNITTESTS OR BUILD_BENCHMARKS)
 		target_link_libraries(${PROJECT_NAME} Catch2::Catch2)
 	endif()
+<<<<<<< HEAD
+=======
+	if(BUILD_WITH_TRACY)
+		target_link_libraries(${PROJECT_NAME} Tracy::TracyClient)
+	endif()
+>>>>>>> 5.10.0
 
 	if(PRECOMPILE_HEADERS)
 		target_precompile_headers(${PROJECT_NAME} PRIVATE ${PRECOMPILED_HEADERS_LIST})
@@ -656,12 +886,27 @@ endif(BUILD_CLIENT)
 
 
 if(BUILD_SERVER)
+<<<<<<< HEAD
 	add_executable(${PROJECT_NAME}server ${server_SRCS} ${extra_windows_SRCS})
 	add_dependencies(${PROJECT_NAME}server GenerateVersion)
 
 	get_target_property(
 		IRRLICHT_INCLUDES IrrlichtMt::IrrlichtMt INTERFACE_INCLUDE_DIRECTORIES)
 	# Doesn't work without PRIVATE/PUBLIC/INTERFACE mode specified.
+=======
+	# server target
+	add_executable(${PROJECT_NAME}server)
+	list(SORT server_SRCS)
+	target_sources(${PROJECT_NAME}server PRIVATE
+		$<TARGET_OBJECTS:EngineCommon>
+		${server_SRCS}
+		${extra_windows_SRCS}
+	)
+
+	# don't link the irrlicht library
+	get_target_property(
+		IRRLICHT_INCLUDES IrrlichtMt::IrrlichtMt INTERFACE_INCLUDE_DIRECTORIES)
+>>>>>>> 5.10.0
 	target_include_directories(${PROJECT_NAME}server PRIVATE ${IRRLICHT_INCLUDES})
 	target_link_libraries(
 		${PROJECT_NAME}server
@@ -675,8 +920,12 @@ if(BUILD_SERVER)
 		${GMP_LIBRARY}
 		${PLATFORM_LIBS}
 	)
+<<<<<<< HEAD
 	set_target_properties(${PROJECT_NAME}server PROPERTIES
 		COMPILE_DEFINITIONS "SERVER")
+=======
+	target_compile_definitions(${PROJECT_NAME}server PRIVATE "MT_BUILDTARGET=2")
+>>>>>>> 5.10.0
 	if(NOT USE_LUAJIT)
 		set_target_properties(${PROJECT_NAME}server PROPERTIES
 			# This is necessary for dynamic Lua modules
@@ -715,6 +964,12 @@ if(BUILD_SERVER)
 	if(BUILD_UNITTESTS OR BUILD_BENCHMARKS)
 		target_link_libraries(${PROJECT_NAME}server Catch2::Catch2)
 	endif()
+<<<<<<< HEAD
+=======
+	if(BUILD_WITH_TRACY)
+		target_link_libraries(${PROJECT_NAME}server Tracy::TracyClient)
+	endif()
+>>>>>>> 5.10.0
 
 	if(PRECOMPILE_HEADERS)
 		target_precompile_headers(${PROJECT_NAME}server PRIVATE ${PRECOMPILED_HEADERS_LIST})
@@ -771,7 +1026,11 @@ elseif(NOT MSVC)
 	check_c_source_compiles("#include <lua.h>\nint main(){return sizeof(lua_atccall);}" HAVE_ATCCALL)
 	if(NOT HAVE_ATCCALL)
 		string(CONCAT explanation_msg
+<<<<<<< HEAD
 			"It looks like you're trying to build Minetest using a system-wide "
+=======
+			"It looks like you're trying to build ${PROJECT_NAME_CAPITALIZED} using a system-wide "
+>>>>>>> 5.10.0
 			"Lua installation. This is no longer supported because PUC Lua "
 			"cannot interoperate with C++ correctly. Read src/unittest/test_lua.cpp "
 			" for technical details.")
@@ -814,8 +1073,12 @@ if(MSVC)
 	endif()
 else()
 	# GCC or compatible compilers such as Clang
+<<<<<<< HEAD
 	set(WARNING_FLAGS "-Wall -Wextra")
 	set(WARNING_FLAGS "${WARNING_FLAGS} -Wno-unused-parameter")
+=======
+	set(WARNING_FLAGS "-Wall -Wextra -Wno-unused-parameter -Werror=vla")
+>>>>>>> 5.10.0
 	if(WARN_ALL)
 		set(RELEASE_WARNING_FLAGS "${WARNING_FLAGS}")
 	else()
@@ -945,6 +1208,17 @@ if(WIN32)
 	endif()
 endif()
 
+<<<<<<< HEAD
+=======
+macro(CreateLegacyAlias _cmake_target _old_path _new_name)
+	add_custom_target("${_cmake_target}" ALL
+		COMMAND "${CMAKE_COMMAND}" -E create_symlink "${_new_name}" "${_old_path}"
+		WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+	add_dependencies("${_cmake_target}" "${_new_name}")
+	install(PROGRAMS "${_old_path}" DESTINATION ${BINDIR})
+endmacro()
+
+>>>>>>> 5.10.0
 if(BUILD_CLIENT AND NOT ANDROID)
 	install(TARGETS ${PROJECT_NAME}
 		RUNTIME DESTINATION ${BINDIR}
@@ -952,6 +1226,12 @@ if(BUILD_CLIENT AND NOT ANDROID)
 		ARCHIVE DESTINATION ${BINDIR}
 		BUNDLE DESTINATION .
 	)
+<<<<<<< HEAD
+=======
+	if(UNIX)
+		CreateLegacyAlias(minetest_alias "${EXECUTABLE_OUTPUT_PATH}/minetest" ${PROJECT_NAME})
+	endif()
+>>>>>>> 5.10.0
 
 	if(APPLE)
 		install(CODE "
@@ -975,6 +1255,12 @@ endif()
 
 if(BUILD_SERVER)
 	install(TARGETS ${PROJECT_NAME}server DESTINATION ${BINDIR})
+<<<<<<< HEAD
+=======
+	if(UNIX)
+		CreateLegacyAlias(minetestserver_alias "${EXECUTABLE_OUTPUT_PATH}/minetestserver" ${PROJECT_NAME}server)
+	endif()
+>>>>>>> 5.10.0
 endif()
 
 if (ANDROID)

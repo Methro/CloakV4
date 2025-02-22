@@ -1,5 +1,9 @@
 _G.core = {}
 dofile("builtin/common/math.lua")
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 describe("math", function()
 	it("round()", function()
 		assert.equal(0, math.round(0))
@@ -12,4 +16,8 @@ describe("math", function()
 		assert.equal(0, math.round(0.49999999999999994))
 		assert.equal(0, math.round(-0.49999999999999994))
 	end)
+<<<<<<< HEAD
 end)
+=======
+end)
+>>>>>>> 5.10.0

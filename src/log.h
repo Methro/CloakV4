@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -193,6 +194,14 @@ public:
 	void logRaw(LogLevel lev, std::string_view line);
 };
 #endif
+=======
+// SPDX-License-Identifier: LGPL-2.1-or-later
+
+#pragma once
+
+#include "util/basic_macros.h"
+#include "util/stream.h"
+>>>>>>> 5.10.0
 
 /*
  * LogTarget
@@ -221,22 +230,75 @@ class StreamProxy {
 public:
 	StreamProxy(std::ostream *os) : m_os(os) { }
 
+<<<<<<< HEAD
 	template<typename T>
 	StreamProxy& operator<<(T&& arg) {
 		if (m_os) {
+=======
+	static void fix_stream_state(std::ostream &os);
+
+	template<typename T>
+	StreamProxy& operator<<(T&& arg)
+	{
+		if (m_os) {
+			if (!m_os->good())
+				fix_stream_state(*m_os);
+>>>>>>> 5.10.0
 			*m_os << std::forward<T>(arg);
 		}
 		return *this;
 	}
 
+<<<<<<< HEAD
 	StreamProxy& operator<<(std::ostream& (*manip)(std::ostream&)) {
 		if (m_os) {
+=======
+	StreamProxy& operator<<(std::ostream& (*manip)(std::ostream&))
+	{
+		if (m_os) {
+			if (!m_os->good())
+				fix_stream_state(*m_os);
+>>>>>>> 5.10.0
 			*m_os << manip;
 		}
 		return *this;
 	}
 
 private:
+<<<<<<< HEAD
+=======
+	template<typename T>
+	StreamProxy& emit_with_null_check(T&& arg)
+	{
+		// These calls explicitly use the templated version of operator<<,
+		// so that they won't use the overloads created by ADD_NULL_CHECK.
+		if (arg == nullptr)
+			return this->operator<< <const char*> ("(null)");
+		else
+			return this->operator<< <T>(std::forward<T>(arg));
+	}
+
+public:
+	// Add specific overrides for operator<< which check for NULL string
+	// pointers. This is undefined behavior in the C++ spec, so emit "(null)"
+	// instead. These are method overloads, rather than template specializations.
+#define ADD_NULL_CHECK(_type) \
+	StreamProxy& operator<<(_type arg) \
+	{ \
+		return emit_with_null_check(std::forward<_type>(arg)); \
+	}
+
+	ADD_NULL_CHECK(char*)
+	ADD_NULL_CHECK(unsigned char*)
+	ADD_NULL_CHECK(signed char*)
+	ADD_NULL_CHECK(const char*)
+	ADD_NULL_CHECK(const unsigned char*)
+	ADD_NULL_CHECK(const signed char*)
+
+#undef ADD_NULL_CHECK
+
+private:
+>>>>>>> 5.10.0
 	std::ostream *m_os;
 };
 
@@ -325,6 +387,7 @@ private:
 
 };
 
+<<<<<<< HEAD
 #ifdef __ANDROID__
 extern AndroidLogOutput stdout_output;
 extern AndroidLogOutput stderr_output;
@@ -335,6 +398,8 @@ extern StreamLogOutput stderr_output;
 
 extern Logger g_logger;
 
+=======
+>>>>>>> 5.10.0
 /*
  * By making the streams thread_local, each thread has its own
  * private buffer. Two or more threads can write to the same stream

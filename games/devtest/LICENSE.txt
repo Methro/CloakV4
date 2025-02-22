@@ -1,4 +1,8 @@
 License information for Development Test
 ----------------------------------------
 
+<<<<<<< HEAD
 The same license as for Minetest applies.
+=======
+The same license as for Luanti applies.
+>>>>>>> 5.10.0

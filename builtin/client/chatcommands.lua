@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/client/chatcommands.lua
 
+=======
+>>>>>>> 5.10.0
 core.register_on_sending_chat_message(function(message)
 	if message:sub(1,2) == ".." then
 		return false
@@ -41,6 +44,7 @@ core.register_on_sending_chat_message(function(message)
 	return true
 end)
 
+<<<<<<< HEAD
 core.register_chatcommand("say", {
 	description = "Send raw text",
 	func = function(text)
@@ -70,6 +74,9 @@ core.register_chatcommand("wielded", {
 })
 
 core.register_chatcommand("players", {
+=======
+core.register_chatcommand("list_players", {
+>>>>>>> 5.10.0
 	description = core.gettext("List online players"),
 	func = function(param)
 		local player_names = core.get_player_names()
@@ -82,6 +89,7 @@ core.register_chatcommand("players", {
 	end
 })
 
+<<<<<<< HEAD
 core.register_chatcommand("kill", {
 	description = "Kill yourself",
 	func = function()
@@ -153,6 +161,8 @@ core.register_chatcommand("break", {
 })
 
 
+=======
+>>>>>>> 5.10.0
 core.register_chatcommand("disconnect", {
 	description = core.gettext("Exit to main menu"),
 	func = function(param)
@@ -168,6 +178,7 @@ core.register_chatcommand("clear_chat_queue", {
 	end,
 })
 
+<<<<<<< HEAD
 core.register_chatcommand("setyaw", {
 	params = "<yaw>",
 	description = "Set your yaw",
@@ -206,3 +217,8 @@ core.register_player_list_command("friend", "Configure Friends.", "friends")
 core.register_player_list_command("enemy", "Configure Enemies.", "enemies")
 core.register_player_list_command("staff", "Configure Staff.", "staff")
 core.register_player_list_command("ally", "Configure Allies.", "allies")
+=======
+function core.run_server_chatcommand(cmd, param)
+	core.send_chat_message("/" .. cmd .. " " .. param)
+end
+>>>>>>> 5.10.0

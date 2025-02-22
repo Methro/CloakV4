@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2017 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2017 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include <algorithm>
 #include <stack>
@@ -77,11 +83,19 @@ ABMWithState::ABMWithState(ActiveBlockModifier *abm_):
 	LBMManager
 */
 
+<<<<<<< HEAD
 void LBMContentMapping::deleteContents()
 {
 	for (auto &it : lbm_list) {
 		delete it;
 	}
+=======
+LBMContentMapping::~LBMContentMapping()
+{
+	map.clear();
+	for (auto &it : lbm_list)
+		delete it;
+>>>>>>> 5.10.0
 }
 
 void LBMContentMapping::addLBM(LoadingBlockModifierDef *lbm_def, IGameDef *gamedef)
@@ -90,6 +104,7 @@ void LBMContentMapping::addLBM(LoadingBlockModifierDef *lbm_def, IGameDef *gamed
 	// Unknown names get added to the global NameIdMapping.
 	const NodeDefManager *nodedef = gamedef->ndef();
 
+<<<<<<< HEAD
 	lbm_list.push_back(lbm_def);
 
 	for (const std::string &nodeTrigger: lbm_def->trigger_contents) {
@@ -100,11 +115,26 @@ void LBMContentMapping::addLBM(LoadingBlockModifierDef *lbm_def, IGameDef *gamed
 			if (c_id == CONTENT_IGNORE) {
 				// Seems it can't be allocated.
 				warningstream << "Could not internalize node name \"" << nodeTrigger
+=======
+	FATAL_ERROR_IF(CONTAINS(lbm_list, lbm_def), "Same LBM registered twice");
+	lbm_list.push_back(lbm_def);
+
+	std::vector<content_t> c_ids;
+
+	for (const auto &node : lbm_def->trigger_contents) {
+		bool found = nodedef->getIds(node, c_ids);
+		if (!found) {
+			content_t c_id = gamedef->allocateUnknownNodeId(node);
+			if (c_id == CONTENT_IGNORE) {
+				// Seems it can't be allocated.
+				warningstream << "Could not internalize node name \"" << node
+>>>>>>> 5.10.0
 					<< "\" while loading LBM \"" << lbm_def->name << "\"." << std::endl;
 				continue;
 			}
 			c_ids.push_back(c_id);
 		}
+<<<<<<< HEAD
 
 		for (content_t c_id : c_ids) {
 			map[c_id].push_back(lbm_def);
@@ -113,6 +143,17 @@ void LBMContentMapping::addLBM(LoadingBlockModifierDef *lbm_def, IGameDef *gamed
 }
 
 const std::vector<LoadingBlockModifierDef *> *
+=======
+	}
+
+	SORT_AND_UNIQUE(c_ids);
+
+	for (content_t c_id : c_ids)
+		map[c_id].push_back(lbm_def);
+}
+
+const LBMContentMapping::lbm_vector *
+>>>>>>> 5.10.0
 LBMContentMapping::lookup(content_t c) const
 {
 	lbm_map::const_iterator it = map.find(c);
@@ -130,9 +171,13 @@ LBMManager::~LBMManager()
 		delete m_lbm_def.second;
 	}
 
+<<<<<<< HEAD
 	for (auto &it : m_lbm_lookup) {
 		(it.second).deleteContents();
 	}
+=======
+	m_lbm_lookup.clear();
+>>>>>>> 5.10.0
 }
 
 void LBMManager::addLBMDef(LoadingBlockModifierDef *lbm_def)
@@ -236,7 +281,11 @@ std::string LBMManager::createIntroductionTimesString()
 	std::ostringstream oss;
 	for (const auto &it : m_lbm_lookup) {
 		u32 time = it.first;
+<<<<<<< HEAD
 		const std::vector<LoadingBlockModifierDef *> &lbm_list = it.second.lbm_list;
+=======
+		auto &lbm_list = it.second.getList();
+>>>>>>> 5.10.0
 		for (const auto &lbm_def : lbm_list) {
 			// Don't add if the LBM runs at every load,
 			// then introducement time is hardcoded
@@ -255,6 +304,7 @@ void LBMManager::applyLBMs(ServerEnvironment *env, MapBlock *block,
 	// Precondition, we need m_lbm_lookup to be initialized
 	FATAL_ERROR_IF(!m_query_mode,
 		"attempted to query on non fully set up LBMManager");
+<<<<<<< HEAD
 	v3s16 pos_of_block = block->getPosRelative();
 	v3s16 pos;
 	MapNode n;
@@ -265,21 +315,51 @@ void LBMManager::applyLBMs(ServerEnvironment *env, MapBlock *block,
 		// penalty on each call
 		content_t previous_c = CONTENT_IGNORE;
 		const std::vector<LoadingBlockModifierDef *> *lbm_list = nullptr;
+=======
+
+	// Collect a list of all LBMs and associated positions
+	struct LBMToRun {
+		std::unordered_set<v3s16> p; // node positions
+		std::unordered_set<LoadingBlockModifierDef*> l;
+	};
+	std::unordered_map<content_t, LBMToRun> to_run;
+
+	// Note: the iteration count of this outer loop is typically very low, so it's ok.
+	for (auto it = getLBMsIntroducedAfter(stamp); it != m_lbm_lookup.end(); ++it) {
+		v3s16 pos;
+		content_t c;
+
+		// Cache previous lookups since it has a high performance penalty.
+		content_t previous_c = CONTENT_IGNORE;
+		const LBMContentMapping::lbm_vector *lbm_list = nullptr;
+		LBMToRun *batch = nullptr;
+>>>>>>> 5.10.0
 
 		for (pos.Z = 0; pos.Z < MAP_BLOCKSIZE; pos.Z++)
 		for (pos.Y = 0; pos.Y < MAP_BLOCKSIZE; pos.Y++)
 		for (pos.X = 0; pos.X < MAP_BLOCKSIZE; pos.X++) {
+<<<<<<< HEAD
 			n = block->getNodeNoCheck(pos);
 			c = n.getContent();
 
 			// If content_t are not matching perform an LBM lookup
 			if (previous_c != c) {
 				lbm_list = it->second.lookup(c);
+=======
+			c = block->getNodeNoCheck(pos).getContent();
+
+			bool c_changed = false;
+			if (previous_c != c) {
+				c_changed = true;
+				lbm_list = it->second.lookup(c);
+				batch = &to_run[c];
+>>>>>>> 5.10.0
 				previous_c = c;
 			}
 
 			if (!lbm_list)
 				continue;
+<<<<<<< HEAD
 			for (auto lbmdef : *lbm_list) {
 				lbmdef->trigger(env, pos + pos_of_block, n, dtime_s);
 				if (block->isOrphan())
@@ -290,6 +370,43 @@ void LBMManager::applyLBMs(ServerEnvironment *env, MapBlock *block,
 			}
 		}
 	}
+=======
+			batch->p.insert(pos);
+			if (c_changed) {
+				batch->l.insert(lbm_list->begin(), lbm_list->end());
+			} else {
+				// we were here before so the list must be filled
+				assert(!batch->l.empty());
+			}
+		}
+	}
+
+	// Actually run them
+	bool first = true;
+	for (auto &[c, batch] : to_run) {
+		for (auto &lbm_def : batch.l) {
+			if (!first) {
+				// The fun part: since any LBM call can change the nodes inside of he
+				// block, we have to recheck the positions to see if the wanted node
+				// is still there.
+				// Note that we don't rescan the whole block, we don't want to include new changes.
+				for (auto it2 = batch.p.begin(); it2 != batch.p.end(); ) {
+					if (block->getNodeNoCheck(*it2).getContent() != c)
+						it2 = batch.p.erase(it2);
+					else
+						++it2;
+				}
+			}
+			first = false;
+
+			if (batch.p.empty())
+				break;
+			lbm_def->trigger(env, block, batch.p, dtime_s);
+			if (block->isOrphan())
+				return;
+		}
+	}
+>>>>>>> 5.10.0
 }
 
 /*
@@ -792,11 +909,18 @@ void ServerEnvironment::loadDefaultMeta()
 struct ActiveABM
 {
 	ActiveBlockModifier *abm;
+<<<<<<< HEAD
 	int chance;
 	std::vector<content_t> required_neighbors;
 	bool check_required_neighbors; // false if required_neighbors is known to be empty
 	s16 min_y;
 	s16 max_y;
+=======
+	std::vector<content_t> required_neighbors;
+	std::vector<content_t> without_neighbors;
+	int chance;
+	s16 min_y, max_y;
+>>>>>>> 5.10.0
 };
 
 #define CONTENT_TYPE_CACHE_MAX 64
@@ -812,16 +936,27 @@ public:
 		bool use_timers):
 		m_env(env)
 	{
+<<<<<<< HEAD
 		if(dtime_s < 0.001)
+=======
+		if (dtime_s < 0.001f)
+>>>>>>> 5.10.0
 			return;
 		const NodeDefManager *ndef = env->getGameDef()->ndef();
 		for (ABMWithState &abmws : abms) {
 			ActiveBlockModifier *abm = abmws.abm;
 			float trigger_interval = abm->getTriggerInterval();
+<<<<<<< HEAD
 			if(trigger_interval < 0.001)
 				trigger_interval = 0.001;
 			float actual_interval = dtime_s;
 			if(use_timers){
+=======
+			if (trigger_interval < 0.001f)
+				trigger_interval = 0.001f;
+			float actual_interval = dtime_s;
+			if (use_timers) {
+>>>>>>> 5.10.0
 				abmws.timer += dtime_s;
 				if(abmws.timer < trigger_interval)
 					continue;
@@ -831,6 +966,10 @@ public:
 			float chance = abm->getTriggerChance();
 			if (chance == 0)
 				chance = 1;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 			ActiveABM aabm;
 			aabm.abm = abm;
 			if (abm->getSimpleCatchUp()) {
@@ -848,6 +987,7 @@ public:
 			aabm.max_y = abm->getMaxY();
 
 			// Trigger neighbors
+<<<<<<< HEAD
 			const std::vector<std::string> &required_neighbors_s =
 				abm->getRequiredNeighbors();
 			for (const std::string &required_neighbor_s : required_neighbors_s) {
@@ -867,6 +1007,27 @@ public:
 						m_aabms[c] = new std::vector<ActiveABM>;
 					m_aabms[c]->push_back(aabm);
 				}
+=======
+			for (const auto &s : abm->getRequiredNeighbors())
+				ndef->getIds(s, aabm.required_neighbors);
+			SORT_AND_UNIQUE(aabm.required_neighbors);
+
+			for (const auto &s : abm->getWithoutNeighbors())
+				ndef->getIds(s, aabm.without_neighbors);
+			SORT_AND_UNIQUE(aabm.without_neighbors);
+
+			// Trigger contents
+			std::vector<content_t> ids;
+			for (const auto &s : abm->getTriggerContents())
+				ndef->getIds(s, ids);
+			SORT_AND_UNIQUE(ids);
+			for (content_t c : ids) {
+				if (c >= m_aabms.size())
+					m_aabms.resize(c + 256, nullptr);
+				if (!m_aabms[c])
+					m_aabms[c] = new std::vector<ActiveABM>;
+				m_aabms[c]->push_back(aabm);
+>>>>>>> 5.10.0
 			}
 		}
 	}
@@ -967,8 +1128,16 @@ public:
 					continue;
 
 				// Check neighbors
+<<<<<<< HEAD
 				if (aabm.check_required_neighbors) {
 					v3s16 p1;
+=======
+				const bool check_required_neighbors = !aabm.required_neighbors.empty();
+				const bool check_without_neighbors = !aabm.without_neighbors.empty();
+				if (check_required_neighbors || check_without_neighbors) {
+					v3s16 p1;
+					bool have_required = false;
+>>>>>>> 5.10.0
 					for(p1.X = p0.X-1; p1.X <= p0.X+1; p1.X++)
 					for(p1.Y = p0.Y-1; p1.Y <= p0.Y+1; p1.Y++)
 					for(p1.Z = p0.Z-1; p1.Z <= p0.Z+1; p1.Z++)
@@ -986,12 +1155,34 @@ public:
 							MapNode n = map->getNode(p1 + block->getPosRelative());
 							c = n.getContent();
 						}
+<<<<<<< HEAD
 						if (CONTAINS(aabm.required_neighbors, c))
 							goto neighbor_found;
 					}
 					// No required neighbor found
 					continue;
 				}
+=======
+						if (check_required_neighbors && !have_required) {
+							if (CONTAINS(aabm.required_neighbors, c)) {
+								if (!check_without_neighbors)
+									goto neighbor_found;
+								have_required = true;
+							}
+						}
+						if (check_without_neighbors) {
+							if (CONTAINS(aabm.without_neighbors, c))
+								goto neighbor_invalid;
+						}
+					}
+					if (have_required || !check_required_neighbors)
+						goto neighbor_found;
+					// No required neighbor found
+					neighbor_invalid:
+					continue;
+				}
+
+>>>>>>> 5.10.0
 				neighbor_found:
 
 				abms_run++;
@@ -1905,7 +2096,11 @@ u16 ServerEnvironment::addActiveObjectRaw(std::unique_ptr<ServerActiveObject> ob
 	}
 
 	// Register reference in scripting api (must be done before post-init)
+<<<<<<< HEAD
 	m_script->addObjectReference(dynamic_cast<ActiveObject *>(object));
+=======
+	m_script->addObjectReference(object);
+>>>>>>> 5.10.0
 	// Post-initialize object
 	// Note that this can change the value of isStaticAllowed() in case of LuaEntitySAO
 	object->addedToEnvironment(dtime_s);
@@ -2324,7 +2519,11 @@ void ServerEnvironment::processActiveObjectRemove(ServerActiveObject *obj)
 	// Tell the object about removal
 	obj->removingFromEnvironment();
 	// Deregister in scripting api
+<<<<<<< HEAD
 	m_script->removeObjectReference(dynamic_cast<ActiveObject *>(obj));
+=======
+	m_script->removeObjectReference(obj);
+>>>>>>> 5.10.0
 }
 
 PlayerDatabase *ServerEnvironment::openPlayerDatabase(const std::string &name,

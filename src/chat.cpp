@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "chat.h"
 
@@ -25,6 +31,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "config.h"
 #include "debug.h"
+<<<<<<< HEAD
+=======
+#include "settings.h"
+>>>>>>> 5.10.0
 #include "util/strfnd.h"
 #include "util/string.h"
 #include "util/numeric.h"

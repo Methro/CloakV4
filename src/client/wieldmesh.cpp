@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2014 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2014 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "wieldmesh.h"
 #include "settings.h"
@@ -29,6 +35,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "mapblock_mesh.h"
 #include "client/meshgen/collector.h"
 #include "client/tile.h"
+<<<<<<< HEAD
+=======
+#include "client/texturesource.h"
+>>>>>>> 5.10.0
 #include "log.h"
 #include "util/numeric.h"
 #include <map>
@@ -194,10 +204,16 @@ private:
 static ExtrusionMeshCache *g_extrusion_mesh_cache = nullptr;
 
 
+<<<<<<< HEAD
 WieldMeshSceneNode::WieldMeshSceneNode(scene::ISceneManager *mgr, s32 id, bool lighting):
 	scene::ISceneNode(mgr->getRootSceneNode(), mgr, id),
 	m_material_type(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF),
 	m_lighting(lighting)
+=======
+WieldMeshSceneNode::WieldMeshSceneNode(scene::ISceneManager *mgr, s32 id):
+	scene::ISceneNode(mgr->getRootSceneNode(), mgr, id),
+	m_material_type(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF)
+>>>>>>> 5.10.0
 {
 	m_enable_shaders = g_settings->getBool("enable_shaders");
 	m_anisotropic_filter = g_settings->getBool("anisotropic_filter");
@@ -306,9 +322,12 @@ void WieldMeshSceneNode::setExtruded(const std::string &imagename,
 		});
 		// mipmaps cause "thin black line" artifacts
 		material.UseMipMaps = false;
+<<<<<<< HEAD
 		if (m_enable_shaders) {
 			material.setTexture(2, tsrc->getShaderFlagsTexture(false));
 		}
+=======
+>>>>>>> 5.10.0
 	}
 }
 
@@ -343,7 +362,10 @@ static scene::SMesh *createSpecialNodeMesh(Client *client, MapNode n,
 			if (p.layer.material_flags & MATERIAL_FLAG_ANIMATION) {
 				const FrameSpec &frame = (*p.layer.frames)[0];
 				p.layer.texture = frame.texture;
+<<<<<<< HEAD
 				p.layer.normal_texture = frame.normal_texture;
+=======
+>>>>>>> 5.10.0
 			}
 			for (video::S3DVertex &v : p.vertices) {
 				v.Color.setAlpha(255);
@@ -394,8 +416,12 @@ void WieldMeshSceneNode::setItem(const ItemStack &item, Client *client, bool che
 		// overlay is white, if present
 		m_colors.emplace_back(true, video::SColor(0xFFFFFFFF));
 		// initialize the color
+<<<<<<< HEAD
 		if (!m_lighting)
 			setColor(video::SColor(0xFFFFFFFF));
+=======
+		setColor(video::SColor(0xFFFFFFFF));
+>>>>>>> 5.10.0
 		return;
 	}
 
@@ -472,8 +498,12 @@ void WieldMeshSceneNode::setItem(const ItemStack &item, Client *client, bool che
 		}
 
 		// initialize the color
+<<<<<<< HEAD
 		if (!m_lighting)
 			setColor(video::SColor(0xFFFFFFFF));
+=======
+		setColor(video::SColor(0xFFFFFFFF));
+>>>>>>> 5.10.0
 		return;
 	} else {
 		const std::string inventory_image = item.getInventoryImage(idef);
@@ -489,8 +519,12 @@ void WieldMeshSceneNode::setItem(const ItemStack &item, Client *client, bool che
 		m_colors.emplace_back(true, video::SColor(0xFFFFFFFF));
 
 		// initialize the color
+<<<<<<< HEAD
 		if (!m_lighting)
 			setColor(video::SColor(0xFFFFFFFF));
+=======
+		setColor(video::SColor(0xFFFFFFFF));
+>>>>>>> 5.10.0
 		return;
 	}
 
@@ -500,7 +534,10 @@ void WieldMeshSceneNode::setItem(const ItemStack &item, Client *client, bool che
 
 void WieldMeshSceneNode::setColor(video::SColor c)
 {
+<<<<<<< HEAD
 	assert(!m_lighting);
+=======
+>>>>>>> 5.10.0
 	scene::IMesh *mesh = m_meshnode->getMesh();
 	if (!mesh)
 		return;
@@ -539,7 +576,11 @@ void WieldMeshSceneNode::setNodeLightColor(video::SColor color)
 	if (m_enable_shaders) {
 		for (u32 i = 0; i < m_meshnode->getMaterialCount(); ++i) {
 			video::SMaterial &material = m_meshnode->getMaterial(i);
+<<<<<<< HEAD
 			material.EmissiveColor = color;
+=======
+			material.ColorParam = color;
+>>>>>>> 5.10.0
 		}
 	} else {
 		setColor(color);
@@ -569,11 +610,14 @@ void WieldMeshSceneNode::changeToMesh(scene::IMesh *mesh)
 			mesh->setHardwareMappingHint(scene::EHM_DYNAMIC);
 	}
 
+<<<<<<< HEAD
 	m_meshnode->forEachMaterial([this] (auto &mat) {
 		mat.Lighting = m_lighting;
 		// need to normalize normals when lighting is enabled (because of setScale())
 		mat.NormalizeNormals = m_lighting;
 	});
+=======
+>>>>>>> 5.10.0
 	m_meshnode->setVisible(true);
 }
 
@@ -671,7 +715,10 @@ void getItemMesh(Client *client, const ItemStack &item, ItemMesh *result)
 				tex.MagFilter = video::ETMAGF_NEAREST;
 			});
 			material.BackfaceCulling = cull_backface;
+<<<<<<< HEAD
 			material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 		}
 
 		rotateMeshXZby(mesh, -45);
@@ -724,7 +771,10 @@ scene::SMesh *getExtrudedMesh(ITextureSource *tsrc,
 			tex.MagFilter = video::ETMAGF_NEAREST;
 		});
 		material.BackfaceCulling = true;
+<<<<<<< HEAD
 		material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 		material.MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL;
 		material.MaterialTypeParam = 0.5f;
 	}
@@ -772,6 +822,7 @@ void postProcessNodeMesh(scene::SMesh *mesh, const ContentFeatures &f,
 			} else {
 				material.setTexture(0, layer->texture);
 			}
+<<<<<<< HEAD
 			if (use_shaders) {
 				if (layer->normal_texture) {
 					if (layer->animation_frame_count > 1) {
@@ -782,6 +833,8 @@ void postProcessNodeMesh(scene::SMesh *mesh, const ContentFeatures &f,
 				}
 				material.setTexture(2, layer->flags_texture);
 			}
+=======
+>>>>>>> 5.10.0
 
 			if (apply_scale && tile->world_aligned) {
 				u32 n = buf->getVertexCount();

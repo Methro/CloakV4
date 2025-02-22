@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2015 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
@@ -21,6 +22,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "client/client.h"
 
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2015 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+
+#include "client/client.h"
+
+#include "irr_v2d.h"
+>>>>>>> 5.10.0
 #include "util/base64.h"
 #include "client/camera.h"
 #include "client/mesh_generator_thread.h"
@@ -37,7 +47,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "client/clientevent.h"
 #include "client/sound.h"
 #include "client/localplayer.h"
+<<<<<<< HEAD
 #include "client/content_cao.h"
+=======
+>>>>>>> 5.10.0
 #include "network/clientopcodes.h"
 #include "network/connection.h"
 #include "network/networkpacket.h"
@@ -81,11 +94,19 @@ void Client::handleCommand_Hello(NetworkPacket* pkt)
 
 	u8 serialization_ver;
 	u16 proto_ver;
+<<<<<<< HEAD
 	u16 compression_mode;
 	u32 auth_mechs;
 	std::string username_legacy; // for case insensitivity
 	*pkt >> serialization_ver >> compression_mode >> proto_ver
 		>> auth_mechs >> username_legacy;
+=======
+	u16 unused_compression_mode;
+	u32 auth_mechs;
+	std::string unused;
+	*pkt >> serialization_ver >> unused_compression_mode >> proto_ver
+		>> auth_mechs >> unused;
+>>>>>>> 5.10.0
 
 	// Chose an auth method we support
 	AuthMechanism chosen_auth_mechanism = choseAuthMech(auth_mechs);
@@ -94,7 +115,10 @@ void Client::handleCommand_Hello(NetworkPacket* pkt)
 			<< "serialization_ver=" << (u32)serialization_ver
 			<< ", auth_mechs=" << auth_mechs
 			<< ", proto_ver=" << proto_ver
+<<<<<<< HEAD
 			<< ", compression_mode=" << compression_mode
+=======
+>>>>>>> 5.10.0
 			<< ". Doing auth with mech " << chosen_auth_mechanism << std::endl;
 
 	if (!ser_ver_supported(serialization_ver)) {
@@ -106,10 +130,13 @@ void Client::handleCommand_Hello(NetworkPacket* pkt)
 	m_server_ser_ver = serialization_ver;
 	m_proto_ver = proto_ver;
 
+<<<<<<< HEAD
 	//TODO verify that username_legacy matches sent username, only
 	// differs in casing (make both uppercase and compare)
 	// This is only necessary though when we actually want to add casing support
 
+=======
+>>>>>>> 5.10.0
 	if (m_chosen_auth_mech != AUTH_MECHANISM_NONE) {
 		// we received a TOCLIENT_HELLO while auth was already going on
 		errorstream << "Client: TOCLIENT_HELLO while auth was already going on"
@@ -162,7 +189,11 @@ void Client::handleCommand_AuthAccept(NetworkPacket* pkt)
 	// Set player position
 	LocalPlayer *player = m_env.getLocalPlayer();
 	assert(player != NULL);
+<<<<<<< HEAD
 	player->setLegitPosition(playerpos);
+=======
+	player->setPosition(playerpos);
+>>>>>>> 5.10.0
 
 	infostream << "Client: received map seed: " << m_map_seed << std::endl;
 	infostream << "Client: received recommended send interval "
@@ -212,7 +243,10 @@ void Client::handleCommand_AccessDenied(NetworkPacket* pkt)
 	// to be processed even if the serialization format has
 	// not been agreed yet, the same as TOCLIENT_INIT.
 	m_access_denied = true;
+<<<<<<< HEAD
 	m_access_denied_reason = "Unknown";
+=======
+>>>>>>> 5.10.0
 
 	if (pkt->getCommand() != TOCLIENT_ACCESS_DENIED) {
 		// Legacy code from 0.4.12 and older but is still used
@@ -231,6 +265,7 @@ void Client::handleCommand_AccessDenied(NetworkPacket* pkt)
 	u8 denyCode;
 	*pkt >> denyCode;
 
+<<<<<<< HEAD
 	if (denyCode == SERVER_ACCESSDENIED_SHUTDOWN ||
 			denyCode == SERVER_ACCESSDENIED_CRASH) {
 		*pkt >> m_access_denied_reason;
@@ -254,6 +289,25 @@ void Client::handleCommand_AccessDenied(NetworkPacket* pkt)
 		*pkt >> m_access_denied_reason;
 		if (m_access_denied_reason.empty())
 			m_access_denied_reason = "Unknown";
+=======
+	if (pkt->getRemainingBytes() > 0)
+		*pkt >> m_access_denied_reason;
+
+	if (m_access_denied_reason.empty()) {
+		if (denyCode >= SERVER_ACCESSDENIED_MAX) {
+			m_access_denied_reason = gettext("Unknown disconnect reason.");
+		} else if (denyCode != SERVER_ACCESSDENIED_CUSTOM_STRING) {
+			m_access_denied_reason = gettext(accessDeniedStrings[denyCode]);
+		}
+	}
+
+	if (denyCode == SERVER_ACCESSDENIED_TOO_MANY_USERS) {
+		m_access_denied_reconnect = true;
+	} else if (pkt->getRemainingBytes() > 0) {
+		u8 reconnect;
+		*pkt >> reconnect;
+		m_access_denied_reconnect = reconnect & 1;
+>>>>>>> 5.10.0
 	}
 }
 
@@ -358,11 +412,14 @@ void Client::handleCommand_BlockData(NetworkPacket* pkt)
 		Add it to mesh update queue and set it to be acknowledged after update.
 	*/
 	addUpdateMeshTaskWithEdge(p, true);
+<<<<<<< HEAD
 
 	// do this at the end so it doesn't delay other tasks
 	//std::cout << p.X << ", " << p.Y << ", " << p.Z << "\n";
 	if (modsLoaded())
 		m_script->on_block_data(p);
+=======
+>>>>>>> 5.10.0
 }
 
 void Client::handleCommand_Inventory(NetworkPacket* pkt)
@@ -497,8 +554,11 @@ void Client::handleCommand_ActiveObjectRemoveAdd(NetworkPacket* pkt)
 			m_env.removeActiveObject(id);
 			// Object-attached sounds MUST NOT be removed here because they might
 			// have started to play immediately before the entity was removed.
+<<<<<<< HEAD
 			if (modsLoaded())
 				m_script->on_remove_active_object(id);
+=======
+>>>>>>> 5.10.0
 		}
 
 		// Read added objects
@@ -507,8 +567,11 @@ void Client::handleCommand_ActiveObjectRemoveAdd(NetworkPacket* pkt)
 		for (u16 i = 0; i < added_count; i++) {
 			*pkt >> id >> type;
 			m_env.addActiveObject(id, type, pkt->readLongString());
+<<<<<<< HEAD
 			if (modsLoaded())
 				m_script->on_add_active_object(id, type);
+=======
+>>>>>>> 5.10.0
 		}
 	} catch (PacketError &e) {
 		infostream << "handleCommand_ActiveObjectRemoveAdd: " << e.what()
@@ -645,7 +708,11 @@ void Client::handleCommand_MovePlayer(NetworkPacket* pkt)
 
 	*pkt >> pos >> pitch >> yaw;
 
+<<<<<<< HEAD
 	player->setLegitPosition(pos);
+=======
+	player->setPosition(pos);
+>>>>>>> 5.10.0
 
 	infostream << "Client got TOCLIENT_MOVE_PLAYER"
 			<< " pos=(" << pos.X << "," << pos.Y << "," << pos.Z << ")"
@@ -659,10 +726,13 @@ void Client::handleCommand_MovePlayer(NetworkPacket* pkt)
 		it would just force the pitch and yaw values to whatever
 		the camera points to.
 	*/
+<<<<<<< HEAD
 
     if (g_settings->getBool("no_force_rotate"))
 		return;
 
+=======
+>>>>>>> 5.10.0
 	ClientEvent *event = new ClientEvent();
 	event->type = CE_PLAYER_FORCE_MOVE;
 	event->player_force_move.pitch = pitch;
@@ -681,6 +751,7 @@ void Client::handleCommand_MovePlayerRel(NetworkPacket *pkt)
 	player->addPosition(added_pos);
 }
 
+<<<<<<< HEAD
 void Client::handleCommand_DeathScreen(NetworkPacket* pkt)
 {
 	bool set_camera_point_target;
@@ -695,6 +766,12 @@ void Client::handleCommand_DeathScreen(NetworkPacket* pkt)
 	event->deathscreen.camera_point_target_x   = camera_point_target.X;
 	event->deathscreen.camera_point_target_y   = camera_point_target.Y;
 	event->deathscreen.camera_point_target_z   = camera_point_target.Z;
+=======
+void Client::handleCommand_DeathScreenLegacy(NetworkPacket* pkt)
+{
+	ClientEvent *event = new ClientEvent();
+	event->type = CE_DEATHSCREEN_LEGACY;
+>>>>>>> 5.10.0
 	m_client_event_queue.push(event);
 }
 
@@ -1035,9 +1112,12 @@ void Client::handleCommand_ShowFormSpec(NetworkPacket* pkt)
 
 void Client::handleCommand_SpawnParticle(NetworkPacket* pkt)
 {
+<<<<<<< HEAD
 	if (g_settings->getBool("norender.particles")) {
 		return;
 	}
+=======
+>>>>>>> 5.10.0
 	std::string datastring(pkt->getString(0), pkt->getSize());
 	std::istringstream is(datastring, std::ios_base::binary);
 
@@ -1048,17 +1128,23 @@ void Client::handleCommand_SpawnParticle(NetworkPacket* pkt)
 	event->type           = CE_SPAWN_PARTICLE;
 	event->spawn_particle = new ParticleParameters(p);
 
+<<<<<<< HEAD
 	if (m_mods_loaded && m_script->on_spawn_particle(*event->spawn_particle))
 		return;
 
+=======
+>>>>>>> 5.10.0
 	m_client_event_queue.push(event);
 }
 
 void Client::handleCommand_AddParticleSpawner(NetworkPacket* pkt)
 {
+<<<<<<< HEAD
 	if (g_settings->getBool("norender.particle_spawners")) {
 		return;
 	}
+=======
+>>>>>>> 5.10.0
 	std::string datastring(pkt->getString(0), pkt->getSize());
 	std::istringstream is(datastring, std::ios_base::binary);
 
@@ -1247,6 +1333,7 @@ void Client::handleCommand_HudAdd(NetworkPacket* pkt)
 	event->hudadd->text2     = text2;
 	event->hudadd->style     = style;
 	m_client_event_queue.push(event);
+<<<<<<< HEAD
 
 	/*
     std::cout << "server_id: " << server_id << "\n"
@@ -1266,6 +1353,8 @@ void Client::handleCommand_HudAdd(NetworkPacket* pkt)
               << "text2: " << text2 << "\n"
               << "style: " << style << "\n";
     */
+=======
+>>>>>>> 5.10.0
 }
 
 void Client::handleCommand_HudRemove(NetworkPacket* pkt)
@@ -1348,6 +1437,7 @@ void Client::handleCommand_HudSetFlags(NetworkPacket* pkt)
 	player->hud_flags &= ~mask;
 	player->hud_flags |= flags;
 
+<<<<<<< HEAD
 	if (g_settings->getBool("hud_flags_bypass"))
 		player->hud_flags = HUD_FLAG_HOTBAR_VISIBLE        | HUD_FLAG_HEALTHBAR_VISIBLE |
 							HUD_FLAG_CROSSHAIR_VISIBLE     | HUD_FLAG_WIELDITEM_VISIBLE |
@@ -1355,6 +1445,8 @@ void Client::handleCommand_HudSetFlags(NetworkPacket* pkt)
 							HUD_FLAG_MINIMAP_RADAR_VISIBLE | HUD_FLAG_BASIC_DEBUG       |
 							HUD_FLAG_CHAT_VISIBLE;
 
+=======
+>>>>>>> 5.10.0
 	bool m_minimap_radar_disabled_by_server = !(player->hud_flags & HUD_FLAG_MINIMAP_RADAR_VISIBLE);
 
 	// Not so satisying code to keep compatibility with old fixed mode system
@@ -1539,6 +1631,10 @@ void Client::handleCommand_CloudParams(NetworkPacket* pkt)
 	f32 density;
 	video::SColor color_bright;
 	video::SColor color_ambient;
+<<<<<<< HEAD
+=======
+	video::SColor color_shadow = video::SColor(255, 204, 204, 204);
+>>>>>>> 5.10.0
 	f32 height;
 	f32 thickness;
 	v2f speed;
@@ -1546,6 +1642,13 @@ void Client::handleCommand_CloudParams(NetworkPacket* pkt)
 	*pkt >> density >> color_bright >> color_ambient
 			>> height >> thickness >> speed;
 
+<<<<<<< HEAD
+=======
+	if (pkt->getRemainingBytes() >= 4) {
+		*pkt >> color_shadow;
+	}
+
+>>>>>>> 5.10.0
 	ClientEvent *event = new ClientEvent();
 	event->type                       = CE_CLOUD_PARAMS;
 	event->cloud_params.density       = density;
@@ -1554,6 +1657,10 @@ void Client::handleCommand_CloudParams(NetworkPacket* pkt)
 	// we avoid using new() and delete() for no good reason
 	event->cloud_params.color_bright  = color_bright.color;
 	event->cloud_params.color_ambient = color_ambient.color;
+<<<<<<< HEAD
+=======
+	event->cloud_params.color_shadow = color_shadow.color;
+>>>>>>> 5.10.0
 	event->cloud_params.height        = height;
 	event->cloud_params.thickness     = thickness;
 	// same here: deconstruct to skip constructor
@@ -1583,10 +1690,23 @@ void Client::handleCommand_LocalPlayerAnimations(NetworkPacket* pkt)
 	LocalPlayer *player = m_env.getLocalPlayer();
 	assert(player != NULL);
 
+<<<<<<< HEAD
 	*pkt >> player->local_animations[0];
 	*pkt >> player->local_animations[1];
 	*pkt >> player->local_animations[2];
 	*pkt >> player->local_animations[3];
+=======
+	for (int i = 0; i < 4; ++i) {
+		if (getProtoVersion() >= 46) {
+			*pkt >> player->local_animations[i];
+		} else {
+			v2s32 local_animation;
+			*pkt >> local_animation;
+			player->local_animations[i] = v2f::from(local_animation);
+		}
+	}
+
+>>>>>>> 5.10.0
 	*pkt >> player->local_animation_speed;
 
 	player->last_animation = LocalPlayerAnimation::NO_ANIM;
@@ -1619,6 +1739,7 @@ void Client::handleCommand_UpdatePlayerList(NetworkPacket* pkt)
 		case PLAYER_LIST_INIT:
 		case PLAYER_LIST_ADD:
 			m_env.addPlayerName(name);
+<<<<<<< HEAD
 			if (modsLoaded())
 				m_script->on_player_join(name);
 			continue;
@@ -1626,6 +1747,11 @@ void Client::handleCommand_UpdatePlayerList(NetworkPacket* pkt)
 			m_env.removePlayerName(name);
 			if (modsLoaded())
 				m_script->on_player_leave(name);
+=======
+			continue;
+		case PLAYER_LIST_REMOVE:
+			m_env.removePlayerName(name);
+>>>>>>> 5.10.0
 			continue;
 		}
 	}
@@ -1684,9 +1810,12 @@ void Client::handleCommand_CSMRestrictionFlags(NetworkPacket *pkt)
 
 void Client::handleCommand_PlayerSpeed(NetworkPacket *pkt)
 {
+<<<<<<< HEAD
 	if (g_settings->getBool("antiknockback"))
 		return;
 
+=======
+>>>>>>> 5.10.0
 	v3f added_vel;
 
 	*pkt >> added_vel;
@@ -1891,4 +2020,14 @@ void Client::handleCommand_SetLighting(NetworkPacket *pkt)
 	}
 	if (pkt->getRemainingBytes() >= 4)
 		*pkt >> lighting.volumetric_light_strength;
+<<<<<<< HEAD
+=======
+	if (pkt->getRemainingBytes() >= 4)
+		*pkt >> lighting.shadow_tint;
+	if (pkt->getRemainingBytes() >= 12) {
+		*pkt >> lighting.bloom_intensity
+				>> lighting.bloom_strength_factor
+				>> lighting.bloom_radius;
+	}
+>>>>>>> 5.10.0
 }

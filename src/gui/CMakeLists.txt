@@ -1,6 +1,9 @@
 set(gui_SRCS
+<<<<<<< HEAD
 	${CMAKE_CURRENT_SOURCE_DIR}/cheatMenu.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NewMenu.cpp
+=======
+>>>>>>> 5.10.0
 	${CMAKE_CURRENT_SOURCE_DIR}/guiAnimatedImage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/guiBackgroundImage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/guiBox.cpp
@@ -21,12 +24,19 @@ set(gui_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/guiScene.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/guiScrollBar.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/guiScrollContainer.cpp
+<<<<<<< HEAD
 	${CMAKE_CURRENT_SOURCE_DIR}/guiSkin.cpp
+=======
+>>>>>>> 5.10.0
 	${CMAKE_CURRENT_SOURCE_DIR}/guiTable.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/guiHyperText.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/guiVolumeChange.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modalMenu.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/profilergraph.cpp
+<<<<<<< HEAD
 	${CMAKE_CURRENT_SOURCE_DIR}/touchscreengui.cpp
+=======
+	${CMAKE_CURRENT_SOURCE_DIR}/touchcontrols.cpp
+>>>>>>> 5.10.0
 	PARENT_SCOPE
 )

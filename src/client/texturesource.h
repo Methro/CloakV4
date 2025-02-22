@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,11 +17,19 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include "irrlichttypes.h"
+<<<<<<< HEAD
 #include <ITexture.h>
+=======
+>>>>>>> 5.10.0
 #include <SColor.h>
 #include <string>
 #include <vector>
@@ -72,7 +81,10 @@ public:
 	virtual bool isKnownSourceImage(const std::string &name)=0;
 	virtual video::ITexture* getNormalTexture(const std::string &name)=0;
 	virtual video::SColor getTextureAverageColor(const std::string &name)=0;
+<<<<<<< HEAD
 	virtual video::ITexture *getShaderFlagsTexture(bool normalmap_present)=0;
+=======
+>>>>>>> 5.10.0
 };
 
 class IWritableTextureSource : public ITextureSource
@@ -94,7 +106,10 @@ public:
 	virtual void rebuildImagesAndTextures()=0;
 	virtual video::ITexture* getNormalTexture(const std::string &name)=0;
 	virtual video::SColor getTextureAverageColor(const std::string &name)=0;
+<<<<<<< HEAD
 	virtual video::ITexture *getShaderFlagsTexture(bool normalmap_present)=0;
+=======
+>>>>>>> 5.10.0
 };
 
 IWritableTextureSource *createTextureSource();

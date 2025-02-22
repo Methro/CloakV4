@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -24,8 +31,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "mapnode.h"
 #include "util/string.h"
 #include "util/pointedthing.h"
+<<<<<<< HEAD
 #include "client/content_cao.h"
 #include "particles.h"
+=======
+>>>>>>> 5.10.0
 
 #ifdef _CRT_MSVCP_CURRENT
 #include <cstdint>
@@ -51,7 +61,10 @@ public:
 
 	void on_damage_taken(int32_t damage_amount);
 	void on_hp_modification(int32_t newhp);
+<<<<<<< HEAD
 	void on_death();
+=======
+>>>>>>> 5.10.0
 	void environment_step(float dtime);
 	void on_formspec_input(const std::string &formname, const StringMap &fields);
 
@@ -59,6 +72,7 @@ public:
 	bool on_punchnode(v3s16 p, MapNode node);
 	bool on_placenode(const PointedThing &pointed, const ItemDefinition &item);
 	bool on_item_use(const ItemStack &item, const PointedThing &pointed);
+<<<<<<< HEAD
     bool on_recieve_physics_override(float speed, float jump, float gravity, bool sneak, bool sneak_glitch, bool new_move, float speed_climb, float speed_crouch, float liquid_fluidity, 
 									 float liquid_fluidity_smooth, float liquid_sink, float acceleration_default, float acceleration_air);
     bool on_spawn_particle(struct ParticleParameters param);
@@ -79,5 +93,10 @@ public:
 
 	v3f get_send_speed(v3f speed);
 
+=======
+
+	bool on_inventory_open(Inventory *inventory);
+
+>>>>>>> 5.10.0
 	void setEnv(ClientEnvironment *env);
 };

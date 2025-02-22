@@ -4,7 +4,11 @@
 install_linux_deps() {
 	local pkgs=(
 		cmake gettext postgresql
+<<<<<<< HEAD
 		libpng-dev libjpeg-dev libgl1-mesa-dev libsdl2-dev
+=======
+		libpng-dev libjpeg-dev libgl1-mesa-dev libxi-dev libfreetype-dev
+>>>>>>> 5.10.0
 		libsqlite3-dev libhiredis-dev libogg-dev libgmp-dev libvorbis-dev
 		libopenal-dev libpq-dev libleveldb-dev libcurl4-openssl-dev libzstd-dev
 	)
@@ -12,11 +16,24 @@ install_linux_deps() {
 	sudo apt-get update
 	sudo apt-get install -y --no-install-recommends "${pkgs[@]}" "$@"
 
+<<<<<<< HEAD
 	sudo systemctl start postgresql.service
 	sudo -u postgres psql <<<"
 		CREATE USER minetest WITH PASSWORD 'minetest';
 		CREATE DATABASE minetest;
 	"
+=======
+	# set up Postgres for unit tests
+	if [ -n "$MINETEST_POSTGRESQL_CONNECT_STRING" ]; then
+		sudo systemctl start postgresql.service
+		sudo -u postgres psql <<<"
+			CREATE USER minetest WITH PASSWORD 'minetest';
+			CREATE DATABASE minetest;
+			\c minetest
+			GRANT ALL ON SCHEMA public TO minetest;
+		"
+	fi
+>>>>>>> 5.10.0
 }
 
 # macOS build only

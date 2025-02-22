@@ -4,10 +4,16 @@
 
 #include "CImageWriterPNG.h"
 
+<<<<<<< HEAD
 #include "CImageLoaderPNG.h"
 #include "CColorConverter.h"
 #include "IWriteFile.h"
 #include "irrString.h"
+=======
+#include "CColorConverter.h"
+#include "IWriteFile.h"
+#include "coreutil.h"
+>>>>>>> 5.10.0
 #include "os.h" // for logging
 
 #include <png.h> // use system lib png

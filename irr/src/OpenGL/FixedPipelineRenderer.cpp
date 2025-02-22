@@ -4,6 +4,10 @@
 // For conditions of distribution and use, see copyright notice in Irrlicht.h
 
 #include "FixedPipelineRenderer.h"
+<<<<<<< HEAD
+=======
+#include "os.h"
+>>>>>>> 5.10.0
 
 #include "IVideoDriver.h"
 
@@ -15,15 +19,22 @@ namespace video
 // Base callback
 
 COpenGL3MaterialBaseCB::COpenGL3MaterialBaseCB() :
+<<<<<<< HEAD
 		FirstUpdateBase(true), WVPMatrixID(-1), WVMatrixID(-1), NMatrixID(-1),
 		FogEnableID(-1), FogTypeID(-1), FogColorID(-1), FogStartID(-1),
 		FogEndID(-1), FogDensityID(-1), ThicknessID(-1), LightEnable(false), MaterialAmbient(SColorf(0.f, 0.f, 0.f)), MaterialDiffuse(SColorf(0.f, 0.f, 0.f)), MaterialEmissive(SColorf(0.f, 0.f, 0.f)), MaterialSpecular(SColorf(0.f, 0.f, 0.f)),
 		MaterialShininess(0.f), FogEnable(0), FogType(1), FogColor(SColorf(0.f, 0.f, 0.f, 1.f)), FogStart(0.f), FogEnd(0.f), FogDensity(0.f), Thickness(1.f)
+=======
+		FirstUpdateBase(true), WVPMatrixID(-1), WVMatrixID(-1),
+		FogEnableID(-1), FogTypeID(-1), FogColorID(-1), FogStartID(-1),
+		FogEndID(-1), FogDensityID(-1), ThicknessID(-1), Thickness(1.f), FogEnable(false)
+>>>>>>> 5.10.0
 {
 }
 
 void COpenGL3MaterialBaseCB::OnSetMaterial(const SMaterial &material)
 {
+<<<<<<< HEAD
 	LightEnable = material.Lighting;
 	MaterialAmbient = SColorf(material.AmbientColor);
 	MaterialDiffuse = SColorf(material.DiffuseColor);
@@ -33,6 +44,9 @@ void COpenGL3MaterialBaseCB::OnSetMaterial(const SMaterial &material)
 
 	FogEnable = material.FogEnable ? 1 : 0;
 
+=======
+	FogEnable = material.FogEnable;
+>>>>>>> 5.10.0
 	Thickness = (material.Thickness > 0.f) ? material.Thickness : 1.f;
 }
 
@@ -43,7 +57,10 @@ void COpenGL3MaterialBaseCB::OnSetConstants(IMaterialRendererServices *services,
 	if (FirstUpdateBase) {
 		WVPMatrixID = services->getVertexShaderConstantID("uWVPMatrix");
 		WVMatrixID = services->getVertexShaderConstantID("uWVMatrix");
+<<<<<<< HEAD
 		NMatrixID = services->getVertexShaderConstantID("uNMatrix");
+=======
+>>>>>>> 5.10.0
 
 		FogEnableID = services->getVertexShaderConstantID("uFogEnable");
 		FogTypeID = services->getVertexShaderConstantID("uFogType");
@@ -56,6 +73,7 @@ void COpenGL3MaterialBaseCB::OnSetConstants(IMaterialRendererServices *services,
 		FirstUpdateBase = false;
 	}
 
+<<<<<<< HEAD
 	const core::matrix4 W = driver->getTransform(ETS_WORLD);
 	const core::matrix4 V = driver->getTransform(ETS_VIEW);
 	const core::matrix4 P = driver->getTransform(ETS_PROJECTION);
@@ -70,10 +88,25 @@ void COpenGL3MaterialBaseCB::OnSetConstants(IMaterialRendererServices *services,
 	services->setPixelShaderConstant(NMatrixID, Matrix.getTransposed().pointer(), 16);
 
 	services->setPixelShaderConstant(FogEnableID, &FogEnable, 1);
+=======
+	const core::matrix4 &W = driver->getTransform(ETS_WORLD);
+	const core::matrix4 &V = driver->getTransform(ETS_VIEW);
+	const core::matrix4 &P = driver->getTransform(ETS_PROJECTION);
+
+	core::matrix4 Matrix = V * W;
+	services->setPixelShaderConstant(WVMatrixID, Matrix.pointer(), 16);
+
+	Matrix = P * Matrix;
+	services->setPixelShaderConstant(WVPMatrixID, Matrix.pointer(), 16);
+
+	s32 TempEnable = FogEnable ? 1 : 0;
+	services->setPixelShaderConstant(FogEnableID, &TempEnable, 1);
+>>>>>>> 5.10.0
 
 	if (FogEnable) {
 		SColor TempColor(0);
 		E_FOG_TYPE TempType = EFT_FOG_LINEAR;
+<<<<<<< HEAD
 		bool TempPerFragment = false;
 		bool TempRange = false;
 
@@ -81,6 +114,15 @@ void COpenGL3MaterialBaseCB::OnSetConstants(IMaterialRendererServices *services,
 
 		FogType = (s32)TempType;
 		FogColor = SColorf(TempColor);
+=======
+		f32 FogStart, FogEnd, FogDensity;
+		bool unused = false;
+
+		driver->getFog(TempColor, TempType, FogStart, FogEnd, FogDensity, unused, unused);
+
+		s32 FogType = (s32)TempType;
+		SColorf FogColor(TempColor);
+>>>>>>> 5.10.0
 
 		services->setPixelShaderConstant(FogTypeID, &FogType, 1);
 		services->setPixelShaderConstant(FogColorID, reinterpret_cast<f32 *>(&FogColor), 4);

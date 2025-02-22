@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 sapier
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 sapier
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -116,6 +122,11 @@ private:
 
 	static int l_get_active_irrlicht_device(lua_State *L);
 
+<<<<<<< HEAD
+=======
+	static int l_irrlicht_device_supports_touch(lua_State *L);
+
+>>>>>>> 5.10.0
 	//filesystem
 
 	static int l_get_mainmenu_path(lua_State *L);
@@ -159,9 +170,19 @@ private:
 
 	static int l_get_max_supp_proto(lua_State *L);
 
+<<<<<<< HEAD
 	// other
 	static int l_open_url(lua_State *L);
 
+=======
+	static int l_get_formspec_version(lua_State  *L);
+
+	// other
+	static int l_open_url(lua_State *L);
+
+	static int l_open_url_dialog(lua_State *L);
+
+>>>>>>> 5.10.0
 	static int l_open_dir(lua_State *L);
 
 	static int l_share_file(lua_State *L);

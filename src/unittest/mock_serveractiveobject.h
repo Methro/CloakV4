@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2022 Minetest core developers & community
@@ -16,13 +17,22 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2022 Minetest core developers & community
+>>>>>>> 5.10.0
 
 #include <server/serveractiveobject.h>
 
 class MockServerActiveObject : public ServerActiveObject
 {
 public:
+<<<<<<< HEAD
 	MockServerActiveObject(ServerEnvironment *env = nullptr, const v3f &p = v3f()) :
+=======
+	MockServerActiveObject(ServerEnvironment *env = nullptr, v3f p = v3f()) :
+>>>>>>> 5.10.0
 		ServerActiveObject(env, p) {}
 
 	virtual ActiveObjectType getType() const { return ACTIVEOBJECT_TYPE_TEST; }

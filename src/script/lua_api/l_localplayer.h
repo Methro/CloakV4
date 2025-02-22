@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2017 Dumbeldor, Vincent Glize <vincent.glize@live.fr>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2017 Dumbeldor, Vincent Glize <vincent.glize@live.fr>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -34,12 +40,15 @@ private:
 	// get_velocity(self)
 	static int l_get_velocity(lua_State *L);
 
+<<<<<<< HEAD
 	// get_yaw(self)
 	static int l_get_yaw(lua_State *L);
 
 	// get_pitch(self)
 	static int l_get_pitch(lua_State *L);
 
+=======
+>>>>>>> 5.10.0
 	// get_hp(self)
 	static int l_get_hp(lua_State *L);
 
@@ -60,7 +69,10 @@ private:
 	static int l_swimming_vertical(lua_State *L);
 
 	static int l_get_physics_override(lua_State *L);
+<<<<<<< HEAD
     static int l_set_physics_override(lua_State *L);
+=======
+>>>>>>> 5.10.0
 
 	static int l_get_override_pos(lua_State *L);
 
@@ -100,6 +112,7 @@ private:
 	static int l_hud_change(lua_State *L);
 	// hud_get(self, id)
 	static int l_hud_get(lua_State *L);
+<<<<<<< HEAD
 
 	// get_object(self)
 	static int l_get_object(lua_State *L);
@@ -107,11 +120,14 @@ private:
 	// get_hotbar_size(self)
 	static int l_get_hotbar_size(lua_State *L);
 
+=======
+>>>>>>> 5.10.0
 	// hud_get_all(self)
 	static int l_hud_get_all(lua_State *L);
 
 	static int l_get_move_resistance(lua_State *L);
 
+<<<<<<< HEAD
 	// set_pos(self, pos)
 	static int l_set_pos(lua_State *L);
 
@@ -148,6 +164,8 @@ private:
 	// get_hotbar_length(self)
 	static int l_get_hotbar_length(lua_State *L);
 
+=======
+>>>>>>> 5.10.0
 	static LocalPlayer *getobject(LuaLocalPlayer *ref);
 	static LocalPlayer *getobject(lua_State *L, int narg);
 

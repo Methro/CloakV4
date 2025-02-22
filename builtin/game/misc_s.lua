@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 -- Minetest: builtin/misc_s.lua
+=======
+>>>>>>> 5.10.0
 -- The distinction of what goes here is a bit tricky, basically it's everything
 -- that does not (directly or indirectly) need access to ServerEnvironment,
 -- Server or writable access to IGameDef on the engine side.
@@ -25,11 +28,16 @@ end
 
 
 function core.get_item_group(name, group)
+<<<<<<< HEAD
 	if not core.registered_items[name] or not
 			core.registered_items[name].groups[group] then
 		return 0
 	end
 	return core.registered_items[name].groups[group]
+=======
+	local def = core.registered_items[name]
+	return def and def.groups[group] or 0
+>>>>>>> 5.10.0
 end
 
 

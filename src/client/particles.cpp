@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "particles.h"
 #include <cmath>
@@ -25,6 +31,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "client/content_cao.h"
 #include "client/clientevent.h"
 #include "client/renderingengine.h"
+<<<<<<< HEAD
+=======
+#include "client/texturesource.h"
+>>>>>>> 5.10.0
 #include "util/numeric.h"
 #include "light.h"
 #include "localplayer.h"
@@ -357,16 +367,28 @@ void ParticleSpawner::spawnParticle(ClientEnvironment *env, float radius,
 
 	if (attached_absolute_pos_rot_matrix) {
 		// Apply attachment rotation
+<<<<<<< HEAD
 		attached_absolute_pos_rot_matrix->rotateVect(pp.vel);
 		attached_absolute_pos_rot_matrix->rotateVect(pp.acc);
+=======
+		pp.vel = attached_absolute_pos_rot_matrix->rotateAndScaleVect(pp.vel);
+		pp.acc = attached_absolute_pos_rot_matrix->rotateAndScaleVect(pp.acc);
+>>>>>>> 5.10.0
 	}
 
 	if (attractor_obj)
 		attractor_origin += attractor_obj->getPosition() / BS;
 	if (attractor_direction_obj) {
 		auto *attractor_absolute_pos_rot_matrix = attractor_direction_obj->getAbsolutePosRotMatrix();
+<<<<<<< HEAD
 		if (attractor_absolute_pos_rot_matrix)
 			attractor_absolute_pos_rot_matrix->rotateVect(attractor_direction);
+=======
+		if (attractor_absolute_pos_rot_matrix) {
+			attractor_direction = attractor_absolute_pos_rot_matrix
+					->rotateAndScaleVect(attractor_direction);
+		}
+>>>>>>> 5.10.0
 	}
 
 	pp.expirationtime = r_exp.pickWithin();
@@ -989,7 +1011,10 @@ video::SMaterial ParticleManager::getMaterialForParticle(const ClientParticleTex
 	video::SMaterial material;
 
 	// Texture
+<<<<<<< HEAD
 	material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 	material.BackfaceCulling = false;
 	material.FogEnable = true;
 	material.forEachTexture([] (auto &tex) {

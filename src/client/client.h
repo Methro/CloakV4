@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -35,9 +41,16 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "gameparams.h"
 #include "script/common/c_types.h" // LuaError
 #include "util/numeric.h"
+<<<<<<< HEAD
 #include "settings.h"
 
 #ifdef SERVER
+=======
+#include "util/string.h" // StringMap
+#include "config.h"
+
+#if !IS_CLIENT_BUILD
+>>>>>>> 5.10.0
 #error Do not include in server builds
 #endif
 
@@ -195,7 +208,11 @@ public:
 	void handleCommand_Breath(NetworkPacket* pkt);
 	void handleCommand_MovePlayer(NetworkPacket* pkt);
 	void handleCommand_MovePlayerRel(NetworkPacket* pkt);
+<<<<<<< HEAD
 	void handleCommand_DeathScreen(NetworkPacket* pkt);
+=======
+	void handleCommand_DeathScreenLegacy(NetworkPacket* pkt);
+>>>>>>> 5.10.0
 	void handleCommand_AnnounceMedia(NetworkPacket* pkt);
 	void handleCommand_Media(NetworkPacket* pkt);
 	void handleCommand_NodeDef(NetworkPacket* pkt);
@@ -239,7 +256,10 @@ public:
 	void Send(NetworkPacket* pkt);
 
 	void interact(InteractAction action, const PointedThing &pointed);
+<<<<<<< HEAD
 	void interact(InteractAction action, const PointedThing &pointed, const u16 index);
+=======
+>>>>>>> 5.10.0
 
 	void sendNodemetaFields(v3s16 p, const std::string &formname,
 		const StringMap &fields);
@@ -251,14 +271,21 @@ public:
 	void sendChangePassword(const std::string &oldpassword,
 		const std::string &newpassword);
 	void sendDamage(u16 damage);
+<<<<<<< HEAD
 	void sendRespawn();
+=======
+	void sendRespawnLegacy();
+>>>>>>> 5.10.0
 	void sendReady();
 	void sendHaveMedia(const std::vector<u32> &tokens);
 	void sendUpdateClientInfo(const ClientDynamicInfo &info);
 
+<<<<<<< HEAD
 	void sendPlayerPos(v3f pos);
 	void sendPlayerPos();
 
+=======
+>>>>>>> 5.10.0
 	ClientEnvironment& getEnv() { return m_env; }
 	ITextureSource *tsrc() { return getTextureSource(); }
 	ISoundManager *sound() { return getSoundManager(); }
@@ -277,10 +304,13 @@ public:
 	v3s16 CSMClampPos(v3s16 pos);
 
 	void addNode(v3s16 p, MapNode n, bool remove_metadata = true);
+<<<<<<< HEAD
 	std::vector<std::pair<v3s16, MapNode>> getAllLoadedNodes();
 	std::vector<std::pair<v3s16, MapNode>> getNodesAtBlockPos(v3s16 blockPos);
 
 	void updateAllMapBlocks();
+=======
+>>>>>>> 5.10.0
 
 	void setPlayerControl(PlayerControl &control);
 
@@ -309,7 +339,11 @@ public:
 	u16 getHP();
 
 	bool checkPrivilege(const std::string &priv) const
+<<<<<<< HEAD
 	{ return g_settings->getBool("priv_bypass") ? true : (m_privileges.count(priv) != 0); }
+=======
+	{ return (m_privileges.count(priv) != 0); }
+>>>>>>> 5.10.0
 
 	const std::unordered_set<std::string> &getPrivilegeList() const
 	{ return m_privileges; }
@@ -433,12 +467,20 @@ public:
 
 	inline u64 getCSMRestrictionFlags() const
 	{
+<<<<<<< HEAD
 		return 0; //m_csm_restriction_flags;
+=======
+		return m_csm_restriction_flags;
+>>>>>>> 5.10.0
 	}
 
 	inline bool checkCSMRestrictionFlag(CSMRestrictionFlags flag) const
 	{
+<<<<<<< HEAD
 		return false; //m_csm_restriction_flags & flag;
+=======
+		return m_csm_restriction_flags & flag;
+>>>>>>> 5.10.0
 	}
 
 	bool joinModChannel(const std::string &channel) override;
@@ -449,10 +491,13 @@ public:
 
 	const std::string &getFormspecPrepend() const;
 
+<<<<<<< HEAD
 	void setWieldIndex(u16 index);
 	void setBestHotbarItemForHit(u16 objectId);
 	void setBestHotbarItemForBreak(v3s16 nodepos);
 
+=======
+>>>>>>> 5.10.0
 	inline MeshGrid getMeshGrid()
 	{
 		return m_mesh_grid;
@@ -473,6 +518,11 @@ private:
 
 	void ReceiveAll();
 
+<<<<<<< HEAD
+=======
+	void sendPlayerPos();
+
+>>>>>>> 5.10.0
 	void deleteAuthData();
 	// helper method shared with clientpackethandler
 	static AuthMechanism choseAuthMech(const u32 mechs);

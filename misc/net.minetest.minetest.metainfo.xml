@@ -2,7 +2,11 @@
 <component type="desktop-application">
     <id>net.minetest.minetest</id>
 
+<<<<<<< HEAD
     <name>Minetest</name>
+=======
+    <name>Luanti</name>
+>>>>>>> 5.10.0
     <summary>Block-based multiplayer game platform</summary>
     <summary xml:lang="de">Blockbasierte Mehrspieler-Spieleplattform</summary>
     <summary xml:lang="fr">Plate-forme de jeu multijoueurs à base de blocs</summary>
@@ -11,7 +15,11 @@
     <project_license>LGPL-2.1+ AND CC-BY-SA-3.0 AND MIT AND Apache-2.0</project_license>
 
     <developer id="net.minetest">
+<<<<<<< HEAD
         <name>Minetest Team</name>
+=======
+        <name>Luanti Team</name>
+>>>>>>> 5.10.0
     </developer>
 
     <supports>
@@ -34,6 +42,7 @@
 
     <description>
         <p>
+<<<<<<< HEAD
             Minetest is a block-based sandbox game platform.
         </p>
         <p xml:lang="de">
@@ -41,6 +50,15 @@
         </p>
         <p xml:lang="fr">
             Minetest est une plateforme de jeu de type bac à sable à base de blocs.
+=======
+            Luanti is a block-based sandbox game platform.
+        </p>
+        <p xml:lang="de">
+            Luanti ist eine blockbasierte Sandbox-Spielplattform.
+        </p>
+        <p xml:lang="fr">
+            Luanti est une plateforme de jeu de type bac à sable à base de blocs.
+>>>>>>> 5.10.0
         </p>
         <p>
             Players can create and destroy various types of blocks in a
@@ -58,6 +76,7 @@
             formes possibles, sur des serveurs multijoueurs ou en solo.
         </p>
         <p>
+<<<<<<< HEAD
             Minetest is designed to be simple, stable, and portable.
             It is lightweight enough to run on fairly old hardware.
         </p>
@@ -77,6 +96,27 @@
         </p>
         <p xml:lang="fr">
             Minetest offre de nombreuses fonctionnalités, notamment :
+=======
+            Luanti is designed to be simple, stable, and portable.
+            It is lightweight enough to run on fairly old hardware.
+        </p>
+        <p xml:lang="de">
+            Luanti wurde entworfen, um einfach, stabil und portabel zu sein.
+            Es ist leichtgewichtig genug, um auf relativ alter Hardware zu laufen.
+        </p>
+        <p xml:lang="fr">
+            Luanti est conçu pour être simple, stable et portable.
+            Il est suffisamment léger pour fonctionner sur du matériel relativement ancien.
+        </p>
+        <p>
+            Luanti has many features, including:
+        </p>
+        <p xml:lang="de">
+            Luanti besitzt viele Features, unter anderem:
+        </p>
+        <p xml:lang="fr">
+            Luanti offre de nombreuses fonctionnalités, notamment :
+>>>>>>> 5.10.0
         </p>
         <ul>
             <li>Ability to walk around, dig, and build in a near-infinite voxel world</li>
@@ -113,7 +153,11 @@
         </screenshot>
     </screenshots>
 
+<<<<<<< HEAD
     <icon type="stock">minetest</icon>
+=======
+    <icon type="stock">luanti</icon>
+>>>>>>> 5.10.0
 
     <categories>
         <category>Game</category>
@@ -141,14 +185,25 @@
     <url type="contribute">https://www.minetest.net/get-involved</url>
 
     <provides>
+<<<<<<< HEAD
         <binary>minetest</binary>
     </provides>
 
     <translation type="gettext">minetest</translation>
+=======
+        <binary>luanti</binary>
+    </provides>
+
+    <translation type="gettext">luanti</translation>
+>>>>>>> 5.10.0
 
     <update_contact>celeron55@gmail.com</update_contact>
 
     <releases>
+<<<<<<< HEAD
         <release date="2023-12-04" version="5.8.0"/>
+=======
+        <release date="2024-11-10" version="5.10.0"/>
+>>>>>>> 5.10.0
     </releases>
 </component>

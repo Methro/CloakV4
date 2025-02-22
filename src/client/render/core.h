@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -22,6 +23,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "irrlichttypes_extrabloated.h"
 #include "pipeline.h"
 #include "script/lua_api/l_cheats.h"
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 numzero, Lobachevskiy Vitaliy <numzer0@yandex.ru>
+
+#pragma once
+#include "irrlichttypes_extrabloated.h"
+>>>>>>> 5.10.0
 
 namespace irr
 {
@@ -49,6 +59,7 @@ protected:
 	v2f virtual_size_scale;
 	v2u32 virtual_size { 0, 0 };
 
+<<<<<<< HEAD
 	bool draw_entity_esp;
 	bool draw_entity_tracers;
 	bool draw_player_esp;
@@ -63,6 +74,8 @@ protected:
 	video::SColor allied_esp_color;
 	video::SColor staff_esp_color;
 
+=======
+>>>>>>> 5.10.0
 public:
 	RenderingCore(IrrlichtDevice *device, Client *client, Hud *hud,
 			ShadowRenderer *shadow_renderer, RenderPipeline *pipeline,
@@ -76,6 +89,7 @@ public:
 
 	void draw(video::SColor _skycolor, bool _show_hud,
 			bool _draw_wield_tool, bool _draw_crosshair);
+<<<<<<< HEAD
 	void draw_HUD(video::SColor _skycolor, bool _show_hud,
 			bool _draw_wield_tool, bool _draw_crosshair);
 	void drawTracersAndESP();
@@ -94,3 +108,10 @@ public:
 
 	static std::map<std::string, std::vector<int>> ESPplayersNames;
 };
+=======
+
+	v2u32 getVirtualSize() const;
+
+	ShadowRenderer *get_shadow_renderer() { return shadow_renderer; };
+};
+>>>>>>> 5.10.0

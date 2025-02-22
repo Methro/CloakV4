@@ -46,6 +46,7 @@ public:
 
 	struct SHWBufferLink_opengl : public SHWBufferLink
 	{
+<<<<<<< HEAD
 		SHWBufferLink_opengl(const scene::IMeshBuffer *meshBuffer) :
 				SHWBufferLink(meshBuffer), vbo_verticesID(0), vbo_indicesID(0), vbo_verticesSize(0), vbo_indicesSize(0)
 		{
@@ -56,6 +57,13 @@ public:
 
 		u32 vbo_verticesSize; // tmp
 		u32 vbo_indicesSize;  // tmp
+=======
+		SHWBufferLink_opengl(const scene::IVertexBuffer *vb) : SHWBufferLink(vb) {}
+		SHWBufferLink_opengl(const scene::IIndexBuffer *ib) : SHWBufferLink(ib) {}
+
+		GLuint vbo_ID = 0;
+		u32 vbo_Size = 0;
+>>>>>>> 5.10.0
 	};
 
 	bool updateVertexHardwareBuffer(SHWBufferLink_opengl *HWBuffer);
@@ -64,14 +72,28 @@ public:
 	//! updates hardware buffer if needed
 	bool updateHardwareBuffer(SHWBufferLink *HWBuffer) override;
 
+<<<<<<< HEAD
 	//! Create hardware buffer from mesh
 	SHWBufferLink *createHardwareBuffer(const scene::IMeshBuffer *mb) override;
+=======
+	//! Create hardware buffer from vertex buffer
+	SHWBufferLink *createHardwareBuffer(const scene::IVertexBuffer *vb) override;
+
+	//! Create hardware buffer from index buffer
+	SHWBufferLink *createHardwareBuffer(const scene::IIndexBuffer *ib) override;
+>>>>>>> 5.10.0
 
 	//! Delete hardware buffer (only some drivers can)
 	void deleteHardwareBuffer(SHWBufferLink *HWBuffer) override;
 
+<<<<<<< HEAD
 	//! Draw hardware buffer
 	void drawHardwareBuffer(SHWBufferLink *HWBuffer) override;
+=======
+	void drawBuffers(const scene::IVertexBuffer *vb,
+		const scene::IIndexBuffer *ib, u32 primCount,
+		scene::E_PRIMITIVE_TYPE pType = scene::EPT_TRIANGLES) override;
+>>>>>>> 5.10.0
 
 	IRenderTarget *addRenderTarget() override;
 
@@ -291,10 +313,14 @@ protected:
 		LockRenderStateMode = false;
 	}
 
+<<<<<<< HEAD
 	void draw2D3DVertexPrimitiveList(const void *vertices,
 			u32 vertexCount, const void *indexList, u32 primitiveCount,
 			E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType,
 			E_INDEX_TYPE iType, bool is3D);
+=======
+	bool updateHardwareBuffer(SHWBufferLink_opengl *b, const void *buffer, size_t bufferSize, scene::E_HARDWARE_MAPPING hint);
+>>>>>>> 5.10.0
 
 	void createMaterialRenderers();
 

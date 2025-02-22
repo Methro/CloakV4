@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "cpp_api/s_env.h"
 #include "cpp_api/s_internal.h"
@@ -25,8 +31,115 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "mapgen/mapgen.h"
 #include "lua_api/l_env.h"
 #include "server.h"
+<<<<<<< HEAD
 #include "script/common/c_content.h"
 
+=======
+#include "scripting_server.h"
+#include "script/common/c_content.h"
+
+/*
+	LuaABM & LuaLBM
+*/
+
+class LuaABM : public ActiveBlockModifier {
+private:
+	const int m_id;
+
+	std::vector<std::string> m_trigger_contents;
+	std::vector<std::string> m_required_neighbors;
+	std::vector<std::string> m_without_neighbors;
+	float m_trigger_interval;
+	u32 m_trigger_chance;
+	bool m_simple_catch_up;
+	s16 m_min_y;
+	s16 m_max_y;
+public:
+	LuaABM(int id,
+			const std::vector<std::string> &trigger_contents,
+			const std::vector<std::string> &required_neighbors,
+			const std::vector<std::string> &without_neighbors,
+			float trigger_interval, u32 trigger_chance, bool simple_catch_up,
+			s16 min_y, s16 max_y):
+		m_id(id),
+		m_trigger_contents(trigger_contents),
+		m_required_neighbors(required_neighbors),
+		m_without_neighbors(without_neighbors),
+		m_trigger_interval(trigger_interval),
+		m_trigger_chance(trigger_chance),
+		m_simple_catch_up(simple_catch_up),
+		m_min_y(min_y),
+		m_max_y(max_y)
+	{
+	}
+	virtual const std::vector<std::string> &getTriggerContents() const
+	{
+		return m_trigger_contents;
+	}
+	virtual const std::vector<std::string> &getRequiredNeighbors() const
+	{
+		return m_required_neighbors;
+	}
+	virtual const std::vector<std::string> &getWithoutNeighbors() const
+	{
+		return m_without_neighbors;
+	}
+	virtual float getTriggerInterval()
+	{
+		return m_trigger_interval;
+	}
+	virtual u32 getTriggerChance()
+	{
+		return m_trigger_chance;
+	}
+	virtual bool getSimpleCatchUp()
+	{
+		return m_simple_catch_up;
+	}
+	virtual s16 getMinY()
+	{
+		return m_min_y;
+	}
+	virtual s16 getMaxY()
+	{
+		return m_max_y;
+	}
+
+	virtual void trigger(ServerEnvironment *env, v3s16 p, MapNode n,
+			u32 active_object_count, u32 active_object_count_wider)
+	{
+		auto *script = env->getScriptIface();
+		script->triggerABM(m_id, p, n, active_object_count, active_object_count_wider);
+	}
+};
+
+class LuaLBM : public LoadingBlockModifierDef
+{
+private:
+	int m_id;
+public:
+	LuaLBM(int id,
+			const std::vector<std::string> &trigger_contents,
+			const std::string &name, bool run_at_every_load):
+		m_id(id)
+	{
+		this->run_at_every_load = run_at_every_load;
+		this->trigger_contents = trigger_contents;
+		this->name = name;
+	}
+
+	virtual void trigger(ServerEnvironment *env, MapBlock *block,
+		const std::unordered_set<v3s16> &positions, float dtime_s)
+	{
+		auto *script = env->getScriptIface();
+		script->triggerLBM(m_id, block, positions, dtime_s);
+	}
+};
+
+/*
+	ScriptApiEnv
+*/
+>>>>>>> 5.10.0
 
 void ScriptApiEnv::environment_OnGenerated(v3s16 minp, v3s16 maxp,
 	u32 blockseed)
@@ -46,7 +159,10 @@ void ScriptApiEnv::environment_OnGenerated(v3s16 minp, v3s16 maxp,
 void ScriptApiEnv::environment_Step(float dtime)
 {
 	SCRIPTAPI_PRECHECKHEADER
+<<<<<<< HEAD
 	//infostream << "scriptapi_environment_step" << std::endl;
+=======
+>>>>>>> 5.10.0
 
 	// Get core.registered_globalsteps
 	lua_getglobal(L, "core");
@@ -63,8 +179,13 @@ void ScriptApiEnv::player_event(ServerActiveObject *player, const std::string &t
 	if (player == NULL)
 		return;
 
+<<<<<<< HEAD
 	// Get minetest.registered_playerevents
 	lua_getglobal(L, "minetest");
+=======
+	// Get core.registered_playerevents
+	lua_getglobal(L, "core");
+>>>>>>> 5.10.0
 	lua_getfield(L, -1, "registered_playerevents");
 
 	// Call callbacks
@@ -76,12 +197,49 @@ void ScriptApiEnv::player_event(ServerActiveObject *player, const std::string &t
 void ScriptApiEnv::initializeEnvironment(ServerEnvironment *env)
 {
 	SCRIPTAPI_PRECHECKHEADER
+<<<<<<< HEAD
 	verbosestream << "ScriptApiEnv: Environment initialized" << std::endl;
 	setEnv(env);
 
 	/*
 		Add {Loading,Active}BlockModifiers to environment
 	*/
+=======
+
+	assert(env);
+	verbosestream << "ScriptApiEnv: Environment initialized" << std::endl;
+	setEnv(env);
+
+	readABMs();
+	readLBMs();
+}
+
+// Reads a single or a list of node names into a vector
+bool ScriptApiEnv::read_nodenames(lua_State *L, int idx, std::vector<std::string> &to)
+{
+	if (lua_istable(L, idx)) {
+		const int table = idx < 0 ? (lua_gettop(L) + idx + 1) : idx;
+		lua_pushnil(L);
+		while (lua_next(L, table)) {
+			// key at index -2 and value at index -1
+			luaL_checktype(L, -1, LUA_TSTRING);
+			to.emplace_back(readParam<std::string>(L, -1));
+			// removes value, keeps key for next iteration
+			lua_pop(L, 1);
+		}
+	} else if (lua_isstring(L, idx)) {
+		to.emplace_back(readParam<std::string>(L, idx));
+	} else {
+		return false;
+	}
+	return true;
+}
+
+void ScriptApiEnv::readABMs()
+{
+	SCRIPTAPI_PRECHECKHEADER
+	auto *env = reinterpret_cast<ServerEnvironment*>(getEnv());
+>>>>>>> 5.10.0
 
 	// Get core.registered_abms
 	lua_getglobal(L, "core");
@@ -100,6 +258,7 @@ void ScriptApiEnv::initializeEnvironment(ServerEnvironment *env)
 
 		std::vector<std::string> trigger_contents;
 		lua_getfield(L, current_abm, "nodenames");
+<<<<<<< HEAD
 		if (lua_istable(L, -1)) {
 			int table = lua_gettop(L);
 			lua_pushnil(L);
@@ -113,10 +272,14 @@ void ScriptApiEnv::initializeEnvironment(ServerEnvironment *env)
 		} else if (lua_isstring(L, -1)) {
 			trigger_contents.emplace_back(readParam<std::string>(L, -1));
 		}
+=======
+		read_nodenames(L, -1, trigger_contents);
+>>>>>>> 5.10.0
 		lua_pop(L, 1);
 
 		std::vector<std::string> required_neighbors;
 		lua_getfield(L, current_abm, "neighbors");
+<<<<<<< HEAD
 		if (lua_istable(L, -1)) {
 			int table = lua_gettop(L);
 			lua_pushnil(L);
@@ -130,6 +293,14 @@ void ScriptApiEnv::initializeEnvironment(ServerEnvironment *env)
 		} else if (lua_isstring(L, -1)) {
 			required_neighbors.emplace_back(readParam<std::string>(L, -1));
 		}
+=======
+		read_nodenames(L, -1, required_neighbors);
+		lua_pop(L, 1);
+
+		std::vector<std::string> without_neighbors;
+		lua_getfield(L, current_abm, "without_neighbors");
+		read_nodenames(L, -1, without_neighbors);
+>>>>>>> 5.10.0
 		lua_pop(L, 1);
 
 		float trigger_interval = 10.0;
@@ -151,8 +322,14 @@ void ScriptApiEnv::initializeEnvironment(ServerEnvironment *env)
 		luaL_checktype(L, current_abm + 1, LUA_TFUNCTION);
 		lua_pop(L, 1);
 
+<<<<<<< HEAD
 		LuaABM *abm = new LuaABM(L, id, trigger_contents, required_neighbors,
 			trigger_interval, trigger_chance, simple_catch_up, min_y, max_y);
+=======
+		LuaABM *abm = new LuaABM(id, trigger_contents, required_neighbors,
+			without_neighbors, trigger_interval, trigger_chance,
+			simple_catch_up, min_y, max_y);
+>>>>>>> 5.10.0
 
 		env->addActiveBlockModifier(abm);
 
@@ -160,6 +337,15 @@ void ScriptApiEnv::initializeEnvironment(ServerEnvironment *env)
 		lua_pop(L, 1);
 	}
 	lua_pop(L, 1);
+<<<<<<< HEAD
+=======
+}
+
+void ScriptApiEnv::readLBMs()
+{
+	SCRIPTAPI_PRECHECKHEADER
+	auto *env = reinterpret_cast<ServerEnvironment*>(getEnv());
+>>>>>>> 5.10.0
 
 	// Get core.registered_lbms
 	lua_getglobal(L, "core");
@@ -177,6 +363,7 @@ void ScriptApiEnv::initializeEnvironment(ServerEnvironment *env)
 		int id = lua_tonumber(L, -2);
 		int current_lbm = lua_gettop(L);
 
+<<<<<<< HEAD
 		std::set<std::string> trigger_contents;
 		lua_getfield(L, current_lbm, "nodenames");
 		if (lua_istable(L, -1)) {
@@ -192,6 +379,11 @@ void ScriptApiEnv::initializeEnvironment(ServerEnvironment *env)
 		} else if (lua_isstring(L, -1)) {
 			trigger_contents.insert(readParam<std::string>(L, -1));
 		}
+=======
+		std::vector<std::string> trigger_contents;
+		lua_getfield(L, current_lbm, "nodenames");
+		read_nodenames(L, -1, trigger_contents);
+>>>>>>> 5.10.0
 		lua_pop(L, 1);
 
 		std::string name;
@@ -200,11 +392,15 @@ void ScriptApiEnv::initializeEnvironment(ServerEnvironment *env)
 		bool run_at_every_load = getboolfield_default(L, current_lbm,
 			"run_at_every_load", false);
 
+<<<<<<< HEAD
 		lua_getfield(L, current_lbm, "action");
 		luaL_checktype(L, current_lbm + 1, LUA_TFUNCTION);
 		lua_pop(L, 1);
 
 		LuaLBM *lbm = new LuaLBM(L, id, trigger_contents, name,
+=======
+		LuaLBM *lbm = new LuaLBM(id, trigger_contents, name,
+>>>>>>> 5.10.0
 			run_at_every_load);
 
 		env->addLoadingBlockModifierDef(lbm);
@@ -288,7 +484,11 @@ void ScriptApiEnv::on_liquid_transformed(
 	int index = 1;
 	lua_createtable(L, list.size(), 0);
 	lua_createtable(L, list.size(), 0);
+<<<<<<< HEAD
 	for(std::pair<v3s16, MapNode> p : list) {
+=======
+	for(auto &p : list) {
+>>>>>>> 5.10.0
 		lua_pushnumber(L, index);
 		push_v3s16(L, p.first);
 		lua_rawset(L, -4);
@@ -332,3 +532,76 @@ bool ScriptApiEnv::has_on_mapblocks_changed()
 	luaL_checktype(L, -1, LUA_TTABLE);
 	return lua_objlen(L, -1) > 0;
 }
+<<<<<<< HEAD
+=======
+
+void ScriptApiEnv::triggerABM(int id, v3s16 p, MapNode n,
+		u32 active_object_count, u32 active_object_count_wider)
+{
+	SCRIPTAPI_PRECHECKHEADER
+
+	int error_handler = PUSH_ERROR_HANDLER(L);
+
+	// Get registered_abms
+	lua_getglobal(L, "core");
+	lua_getfield(L, -1, "registered_abms");
+	luaL_checktype(L, -1, LUA_TTABLE);
+	lua_remove(L, -2); // Remove core
+
+	// Get registered_abms[m_id]
+	lua_pushinteger(L, id);
+	lua_gettable(L, -2);
+	FATAL_ERROR_IF(lua_isnil(L, -1), "Entry with given id not found in registered_abms table");
+	lua_remove(L, -2); // Remove registered_abms
+
+	setOriginFromTable(-1);
+
+	// Call action
+	luaL_checktype(L, -1, LUA_TTABLE);
+	lua_getfield(L, -1, "action");
+	luaL_checktype(L, -1, LUA_TFUNCTION);
+	lua_remove(L, -2); // Remove registered_abms[m_id]
+	push_v3s16(L, p);
+	pushnode(L, n);
+	lua_pushnumber(L, active_object_count);
+	lua_pushnumber(L, active_object_count_wider);
+
+	int result = lua_pcall(L, 4, 0, error_handler);
+	if (result)
+		scriptError(result, "LuaABM::trigger");
+
+	lua_pop(L, 1); // Pop error handler
+}
+
+void ScriptApiEnv::triggerLBM(int id, MapBlock *block,
+		const std::unordered_set<v3s16> &positions, float dtime_s)
+{
+	SCRIPTAPI_PRECHECKHEADER
+
+	int error_handler = PUSH_ERROR_HANDLER(L);
+
+	const v3s16 pos_of_block = block->getPosRelative();
+
+	// Get core.run_lbm
+	lua_getglobal(L, "core");
+	lua_getfield(L, -1, "run_lbm");
+	luaL_checktype(L, -1, LUA_TFUNCTION);
+	lua_remove(L, -2); // Remove core
+
+	// Call it
+	lua_pushinteger(L, id);
+	lua_createtable(L, positions.size(), 0);
+	int i = 1;
+	for (auto &p : positions) {
+		push_v3s16(L, pos_of_block + p);
+		lua_rawseti(L, -2, i++);
+	}
+	lua_pushnumber(L, dtime_s);
+
+	int result = lua_pcall(L, 3, 0, error_handler);
+	if (result)
+		scriptError(result, "LuaLBM::trigger");
+
+	lua_pop(L, 1); // Pop error handler
+}
+>>>>>>> 5.10.0

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "socket.h"
 
@@ -50,9 +56,12 @@ typedef int socklen_t;
 #define SOCKET_ERR_STR(e) strerror(e)
 #endif
 
+<<<<<<< HEAD
 // Set to true to enable verbose debug output
 bool socket_enable_debug_output = false; // yuck
 
+=======
+>>>>>>> 5.10.0
 static bool g_sockets_initialized = false;
 
 // Initialize sockets
@@ -104,12 +113,15 @@ bool UDPSocket::init(bool ipv6, bool noExceptions)
 	m_addr_family = ipv6 ? AF_INET6 : AF_INET;
 	m_handle = socket(m_addr_family, SOCK_DGRAM, IPPROTO_UDP);
 
+<<<<<<< HEAD
 	if (socket_enable_debug_output) {
 		tracestream << "UDPSocket(" << (int)m_handle
 			<< ")::UDPSocket(): ipv6 = " << (ipv6 ? "true" : "false")
 			<< std::endl;
 	}
 
+=======
+>>>>>>> 5.10.0
 	if (m_handle < 0) {
 		if (noExceptions) {
 			return false;
@@ -135,11 +147,14 @@ bool UDPSocket::init(bool ipv6, bool noExceptions)
 
 UDPSocket::~UDPSocket()
 {
+<<<<<<< HEAD
 	if (socket_enable_debug_output) {
 		tracestream << "UDPSocket( " << (int)m_handle << ")::~UDPSocket()"
 			<< std::endl;
 	}
 
+=======
+>>>>>>> 5.10.0
 	if (m_handle >= 0) {
 #ifdef _WIN32
 		closesocket(m_handle);
@@ -151,12 +166,15 @@ UDPSocket::~UDPSocket()
 
 void UDPSocket::Bind(Address addr)
 {
+<<<<<<< HEAD
 	if (socket_enable_debug_output) {
 		tracestream << "UDPSocket(" << (int)m_handle
 			<< ")::Bind(): " << addr.serializeString() << ":"
 			<< addr.getPort() << std::endl;
 	}
 
+=======
+>>>>>>> 5.10.0
 	if (addr.getFamily() != m_addr_family) {
 		const char *errmsg =
 				"Socket and bind address families do not match";
@@ -202,6 +220,7 @@ void UDPSocket::Send(const Address &destination, const void *data, int size)
 	if (INTERNET_SIMULATOR)
 		dumping_packet = myrand() % INTERNET_SIMULATOR_PACKET_LOSS == 0;
 
+<<<<<<< HEAD
 	if (socket_enable_debug_output) {
 		// Print packet destination and size
 		tracestream << (int)m_handle << " -> ";
@@ -226,6 +245,8 @@ void UDPSocket::Send(const Address &destination, const void *data, int size)
 		tracestream << std::endl;
 	}
 
+=======
+>>>>>>> 5.10.0
 	if (dumping_packet) {
 		// Lol let's forget it
 		tracestream << "UDPSocket::Send(): INTERNET_SIMULATOR: dumping packet."
@@ -302,6 +323,7 @@ int UDPSocket::Receive(Address &sender, void *data, int size)
 		sender = Address(address_ip, address_port);
 	}
 
+<<<<<<< HEAD
 	if (socket_enable_debug_output) {
 		// Print packet sender and size
 		tracestream << (int)m_handle << " <- ";
@@ -322,6 +344,8 @@ int UDPSocket::Receive(Address &sender, void *data, int size)
 		tracestream << std::endl;
 	}
 
+=======
+>>>>>>> 5.10.0
 	return received;
 }
 

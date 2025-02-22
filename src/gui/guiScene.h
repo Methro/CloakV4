@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2020 Jean-Patrick Guerrero <jeanpatrick.guerrero@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2020 Jean-Patrick Guerrero <jeanpatrick.guerrero@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -36,7 +42,11 @@ public:
 	scene::IAnimatedMeshSceneNode *setMesh(scene::IAnimatedMesh *mesh = nullptr);
 	void setTexture(u32 idx, video::ITexture *texture);
 	void setBackgroundColor(const video::SColor &color) noexcept { m_bgcolor = color; };
+<<<<<<< HEAD
 	void setFrameLoop(s32 begin, s32 end);
+=======
+	void setFrameLoop(f32 begin, f32 end);
+>>>>>>> 5.10.0
 	void setAnimationSpeed(f32 speed);
 	void enableMouseControl(bool enable) noexcept { m_mouse_ctrl = enable; };
 	void setRotation(v2f rot) noexcept { m_custom_rot = rot; };

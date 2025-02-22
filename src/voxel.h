@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -59,7 +65,11 @@ class VoxelArea
 {
 public:
 	// Starts as zero sized
+<<<<<<< HEAD
 	VoxelArea() = default;
+=======
+	constexpr VoxelArea() = default;
+>>>>>>> 5.10.0
 
 	VoxelArea(const v3s16 &min_edge, const v3s16 &max_edge):
 		MinEdge(min_edge),
@@ -129,12 +139,20 @@ public:
 		return m_cache_extent;
 	}
 
+<<<<<<< HEAD
 	/* Because MaxEdge and MinEdge are included in the voxel area an empty extent
 	 * is not represented by (0, 0, 0), but instead (-1, -1, -1)
 	 */
 	bool hasEmptyExtent() const
 	{
 		return MaxEdge - MinEdge == v3s16(-1, -1, -1);
+=======
+	/// @note `getVolume() == 0` and `getEmptyExtent()` are not identical.
+	bool hasEmptyExtent() const
+	{
+		// FIXME: shouldn't this actually be a component-wise check?
+		return m_cache_extent == v3s16(0,0,0);
+>>>>>>> 5.10.0
 	}
 
 	s32 getVolume() const
@@ -208,6 +226,7 @@ public:
 		return ret;
 	}
 
+<<<<<<< HEAD
 	/*
 		Returns 0-6 non-overlapping areas that can be added to
 		a to make up this area.
@@ -225,66 +244,117 @@ public:
 		{
 			VoxelArea b = *this;
 			if(b.getVolume() != 0)
+=======
+	/**
+		Returns 0-6 non-overlapping areas that can be added to
+		`a` to make up this area.
+
+		@tparam C container that has push_back
+		@param a area inside *this
+	*/
+	template <typename C>
+	void diff(const VoxelArea &a, C &result) const
+	{
+		// If a is an empty area, return the current area as a whole
+		if(a.hasEmptyExtent())
+		{
+			VoxelArea b = *this;
+			if (b.getVolume() != 0)
+>>>>>>> 5.10.0
 				result.push_back(b);
 			return;
 		}
 
 		assert(contains(a));	// pre-condition
 
+<<<<<<< HEAD
+=======
+		const auto &take = [&result] (v3s16 min, v3s16 max) {
+			VoxelArea b(min, max);
+			if (b.getVolume() != 0)
+				result.push_back(b);
+		};
+
+>>>>>>> 5.10.0
 		// Take back area, XY inclusive
 		{
 			v3s16 min(MinEdge.X, MinEdge.Y, a.MaxEdge.Z+1);
 			v3s16 max(MaxEdge.X, MaxEdge.Y, MaxEdge.Z);
+<<<<<<< HEAD
 			VoxelArea b(min, max);
 			if(b.getVolume() != 0)
 				result.push_back(b);
+=======
+			take(min, max);
+>>>>>>> 5.10.0
 		}
 
 		// Take front area, XY inclusive
 		{
 			v3s16 min(MinEdge.X, MinEdge.Y, MinEdge.Z);
 			v3s16 max(MaxEdge.X, MaxEdge.Y, a.MinEdge.Z-1);
+<<<<<<< HEAD
 			VoxelArea b(min, max);
 			if(b.getVolume() != 0)
 				result.push_back(b);
+=======
+			take(min, max);
+>>>>>>> 5.10.0
 		}
 
 		// Take top area, X inclusive
 		{
 			v3s16 min(MinEdge.X, a.MaxEdge.Y+1, a.MinEdge.Z);
 			v3s16 max(MaxEdge.X, MaxEdge.Y, a.MaxEdge.Z);
+<<<<<<< HEAD
 			VoxelArea b(min, max);
 			if(b.getVolume() != 0)
 				result.push_back(b);
+=======
+			take(min, max);
+>>>>>>> 5.10.0
 		}
 
 		// Take bottom area, X inclusive
 		{
 			v3s16 min(MinEdge.X, MinEdge.Y, a.MinEdge.Z);
 			v3s16 max(MaxEdge.X, a.MinEdge.Y-1, a.MaxEdge.Z);
+<<<<<<< HEAD
 			VoxelArea b(min, max);
 			if(b.getVolume() != 0)
 				result.push_back(b);
+=======
+			take(min, max);
+>>>>>>> 5.10.0
 		}
 
 		// Take left area, non-inclusive
 		{
 			v3s16 min(MinEdge.X, a.MinEdge.Y, a.MinEdge.Z);
 			v3s16 max(a.MinEdge.X-1, a.MaxEdge.Y, a.MaxEdge.Z);
+<<<<<<< HEAD
 			VoxelArea b(min, max);
 			if(b.getVolume() != 0)
 				result.push_back(b);
+=======
+			take(min, max);
+>>>>>>> 5.10.0
 		}
 
 		// Take right area, non-inclusive
 		{
 			v3s16 min(a.MaxEdge.X+1, a.MinEdge.Y, a.MinEdge.Z);
 			v3s16 max(MaxEdge.X, a.MaxEdge.Y, a.MaxEdge.Z);
+<<<<<<< HEAD
 			VoxelArea b(min, max);
 			if(b.getVolume() != 0)
 				result.push_back(b);
 		}
 
+=======
+			take(min, max);
+		}
+>>>>>>> 5.10.0
 	}
 
 	/*
@@ -344,18 +414,37 @@ public:
 			<< "=" << getVolume();
 	}
 
+<<<<<<< HEAD
 	// Edges are inclusive
 	v3s16 MinEdge = v3s16(1,1,1);
 	v3s16 MaxEdge;
+=======
+	/// Minimum edge of the area (inclusive)
+	/// @warning read-only!
+	v3s16 MinEdge = v3s16(1,1,1);
+	/// Maximum edge of the area (inclusive)
+	/// @warning read-only!
+	v3s16 MaxEdge;
+
+>>>>>>> 5.10.0
 private:
 	void cacheExtent()
 	{
 		m_cache_extent = MaxEdge - MinEdge + v3s16(1,1,1);
+<<<<<<< HEAD
+=======
+		// If positions were sorted correctly this must always hold.
+		// Note that this still permits empty areas (where MinEdge = MaxEdge + 1).
+		assert(m_cache_extent.X >= 0);
+		assert(m_cache_extent.Y >= 0);
+		assert(m_cache_extent.Z >= 0);
+>>>>>>> 5.10.0
 	}
 
 	v3s16 m_cache_extent = v3s16(0,0,0);
 };
 
+<<<<<<< HEAD
 // unused
 #define VOXELFLAG_UNUSED   (1 << 0)
 // no data about that node
@@ -368,6 +457,15 @@ private:
 #define VOXELFLAG_CHECKED3 (1 << 4)
 // Algorithm-dependent
 #define VOXELFLAG_CHECKED4 (1 << 5)
+=======
+enum : u8 {
+	VOXELFLAG_NO_DATA  = 1 << 0, // no data about that node
+	VOXELFLAG_CHECKED1 = 1 << 1, // Algorithm-dependent
+	VOXELFLAG_CHECKED2 = 1 << 2, // Algorithm-dependent
+	VOXELFLAG_CHECKED3 = 1 << 3, // Algorithm-dependent
+	VOXELFLAG_CHECKED4 = 1 << 4, // Algorithm-dependent
+};
+>>>>>>> 5.10.0
 
 enum VoxelPrintMode
 {
@@ -392,23 +490,34 @@ public:
 		VoxelArea voxel_area(p);
 		addArea(voxel_area);
 
+<<<<<<< HEAD
 		if (m_flags[m_area.index(p)] & VOXELFLAG_NO_DATA) {
 			/*dstream<<"EXCEPT: VoxelManipulator::getNode(): "
 					<<"p=("<<p.X<<","<<p.Y<<","<<p.Z<<")"
 					<<", index="<<m_area.index(p)
 					<<", flags="<<(int)m_flags[m_area.index(p)]
 					<<" is inexistent"<<std::endl;*/
+=======
+		const s32 index = m_area.index(p);
+
+		if (m_flags[index] & VOXELFLAG_NO_DATA) {
+>>>>>>> 5.10.0
 			throw InvalidPositionException
 			("VoxelManipulator: getNode: inexistent");
 		}
 
+<<<<<<< HEAD
 		return m_data[m_area.index(p)];
+=======
+		return m_data[index];
+>>>>>>> 5.10.0
 	}
 	MapNode getNodeNoEx(const v3s16 &p)
 	{
 		VoxelArea voxel_area(p);
 		addArea(voxel_area);
 
+<<<<<<< HEAD
 		if (m_flags[m_area.index(p)] & VOXELFLAG_NO_DATA) {
 			return {CONTENT_IGNORE};
 		}
@@ -422,6 +531,24 @@ public:
 		if (m_flags[m_area.index(p)] & VOXELFLAG_NO_DATA)
 			return {CONTENT_IGNORE};
 		return m_data[m_area.index(p)];
+=======
+		const s32 index = m_area.index(p);
+
+		if (m_flags[index] & VOXELFLAG_NO_DATA) {
+			return {CONTENT_IGNORE};
+		}
+
+		return m_data[index];
+	}
+	MapNode getNodeNoExNoEmerge(const v3s16 &p) const
+	{
+		if (!m_area.contains(p))
+			return {CONTENT_IGNORE};
+		const s32 index = m_area.index(p);
+		if (m_flags[index] & VOXELFLAG_NO_DATA)
+			return {CONTENT_IGNORE};
+		return m_data[index];
+>>>>>>> 5.10.0
 	}
 	// Stuff explodes if non-emerged area is touched with this.
 	// Emerge first, and check VOXELFLAG_NO_DATA if appropriate.
@@ -430,7 +557,11 @@ public:
 		return m_data[m_area.index(p)];
 	}
 
+<<<<<<< HEAD
 	const MapNode & getNodeRefUnsafeCheckFlags(const v3s16 &p)
+=======
+	const MapNode & getNodeRefUnsafeCheckFlags(const v3s16 &p) const
+>>>>>>> 5.10.0
 	{
 		s32 index = m_area.index(p);
 
@@ -456,6 +587,7 @@ public:
 		VoxelArea voxel_area(p);
 		addArea(voxel_area);
 
+<<<<<<< HEAD
 		m_data[m_area.index(p)] = n;
 		m_flags[m_area.index(p)] &= ~VOXELFLAG_NO_DATA;
 	}
@@ -463,6 +595,12 @@ public:
 	void setNodeNoRef(const v3s16 &p, const MapNode &n)
 	{
 		setNode(p, n);
+=======
+		const s32 index = m_area.index(p);
+
+		m_data[index] = n;
+		m_flags[index] &= ~VOXELFLAG_NO_DATA;
+>>>>>>> 5.10.0
 	}
 
 	/*
@@ -486,10 +624,20 @@ public:
 	virtual void clear();
 
 	void print(std::ostream &o, const NodeDefManager *nodemgr,
+<<<<<<< HEAD
 			VoxelPrintMode mode=VOXELPRINT_MATERIAL);
 
 	void addArea(const VoxelArea &area);
 
+=======
+			VoxelPrintMode mode=VOXELPRINT_MATERIAL) const;
+
+	void addArea(const VoxelArea &area);
+
+	void setFlags(const VoxelArea &area, u8 flag);
+	void clearFlags(const VoxelArea &area, u8 flag);
+
+>>>>>>> 5.10.0
 	/*
 		Copy data and set flags to 0
 		dst_area.getExtent() <= src_area.getExtent()
@@ -499,6 +647,7 @@ public:
 
 	// Copy data
 	void copyTo(MapNode *dst, const VoxelArea& dst_area,
+<<<<<<< HEAD
 			v3s16 dst_pos, v3s16 from_pos, const v3s16 &size);
 
 	/*
@@ -506,6 +655,9 @@ public:
 	*/
 
 	void clearFlag(u8 flag);
+=======
+			v3s16 dst_pos, v3s16 from_pos, const v3s16 &size) const;
+>>>>>>> 5.10.0
 
 	/*
 		Member variables
@@ -513,13 +665,21 @@ public:
 
 	/*
 		The area that is stored in m_data.
+<<<<<<< HEAD
 		addInternalBox should not be used if getExtent() == v3s16(0,0,0)
 		MaxEdge is 1 higher than maximum allowed position
+=======
+		MaxEdge is 1 higher than maximum allowed position.
+>>>>>>> 5.10.0
 	*/
 	VoxelArea m_area;
 
 	/*
+<<<<<<< HEAD
 		nullptr if data size is 0 (extent (0,0,0))
+=======
+		nullptr if data size is 0 (empty extent)
+>>>>>>> 5.10.0
 		Data is stored as [z*h*w + y*h + x]
 	*/
 	MapNode *m_data = nullptr;

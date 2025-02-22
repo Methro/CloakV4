@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/deprecated.lua
 
+=======
+>>>>>>> 5.10.0
 --
 -- EnvRef
 --
@@ -35,9 +38,15 @@ local settings = core.settings
 
 local function setting_proxy(name)
 	return function(...)
+<<<<<<< HEAD
 		core.log("deprecated", "WARNING: minetest.setting_* "..
 			"functions are deprecated.  "..
 			"Use methods on the minetest.settings object.")
+=======
+		core.log("deprecated", "WARNING: core.setting_* "..
+			"functions are deprecated.  "..
+			"Use methods on the core.settings object.")
+>>>>>>> 5.10.0
 		return settings[name](settings, ...)
 	end
 end

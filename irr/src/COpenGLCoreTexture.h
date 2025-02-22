@@ -297,6 +297,10 @@ public:
 					delete[] tmpBuffer;
 				}
 #elif defined(IRR_COMPILE_GLES2_COMMON)
+<<<<<<< HEAD
+=======
+				// TODO: revive this code
+>>>>>>> 5.10.0
 				COpenGLCoreTexture *tmpTexture = new COpenGLCoreTexture("OGL_CORE_LOCK_TEXTURE", Size, ETT_2D, ColorFormat, Driver);
 
 				GLuint tmpFBO = 0;

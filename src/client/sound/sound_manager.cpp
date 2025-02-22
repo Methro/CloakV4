@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2022 DS
@@ -21,14 +22,31 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2022 DS
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2011 Sebastian 'Bahamada' Rühl
+// Copyright (C) 2011 Cyriaque 'Cisoun' Skrapits <cysoun@gmail.com>
+// Copyright (C) 2011 Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+>>>>>>> 5.10.0
 
 #include "sound_manager.h"
 
 #include "sound_singleton.h"
 #include "util/numeric.h" // myrand()
+<<<<<<< HEAD
 #include "filesys.h"
 #include "porting.h"
 #include "settings.h"
+=======
+#include "util/tracy_wrapper.h"
+#include "filesys.h"
+#include "porting.h"
+
+#include <limits>
+>>>>>>> 5.10.0
 
 namespace sound {
 
@@ -194,10 +212,13 @@ void OpenALSoundManager::playSoundGeneric(sound_handle_t id, const std::string &
 		bool loop, f32 volume, f32 fade, f32 pitch, bool use_local_fallback,
 		f32 start_time, const std::optional<std::pair<v3f, v3f>> &pos_vel_opt)
 {
+<<<<<<< HEAD
 	if (g_settings->getBool("silence")) {
 		return;
 	}
 
+=======
+>>>>>>> 5.10.0
 	assert(id != 0);
 
 	if (group_name.empty()) {
@@ -352,6 +373,16 @@ void OpenALSoundManager::updateListener(const v3f &pos_, const v3f &vel_,
 
 void OpenALSoundManager::setListenerGain(f32 gain)
 {
+<<<<<<< HEAD
+=======
+#if defined(__APPLE__)
+	/* macOS OpenAL implementation ignore setting AL_GAIN to zero
+	 * so we use smallest possible value
+	 */
+	if (gain == 0.0f)
+		gain = std::numeric_limits<f32>::min();
+#endif
+>>>>>>> 5.10.0
 	alListenerf(AL_GAIN, gain);
 }
 
@@ -497,6 +528,11 @@ void *OpenALSoundManager::run()
 
 	u64 t_step_start = porting::getTimeMs();
 	while (true) {
+<<<<<<< HEAD
+=======
+		auto framemarker = FrameMarker("OpenALSoundManager::run()-frame").started();
+
+>>>>>>> 5.10.0
 		auto get_time_since_last_step = [&] {
 			return (f32)(porting::getTimeMs() - t_step_start);
 		};

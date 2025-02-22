@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "filesys.h"
 #include "util/string.h"
@@ -26,14 +32,26 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <cerrno>
 #include <fstream>
 #include <atomic>
+<<<<<<< HEAD
 #include "log.h"
 #include "config.h"
 #include "porting.h"
 #ifndef SERVER
+=======
+#include <memory>
+#include "log.h"
+#include "config.h"
+#include "porting.h"
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 #include "irr_ptr.h"
 #include <IFileArchive.h>
 #include <IFileSystem.h>
 #endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 #ifdef __linux__
 #include <fcntl.h>
 #include <sys/ioctl.h>
@@ -42,6 +60,22 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #endif
 #endif
 
+<<<<<<< HEAD
+=======
+#ifdef _WIN32
+#include <windows.h>
+#include <shlwapi.h>
+#include <io.h>
+#include <direct.h>
+#else
+#include <sys/types.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#endif
+
+>>>>>>> 5.10.0
 // Error from last OS call as string
 #ifdef _WIN32
 #define LAST_OS_ERROR() porting::ConvertError(GetLastError())
@@ -58,11 +92,14 @@ namespace fs
  * Windows *
  ***********/
 
+<<<<<<< HEAD
 #include <windows.h>
 #include <shlwapi.h>
 #include <io.h>
 #include <direct.h>
 
+=======
+>>>>>>> 5.10.0
 std::vector<DirListNode> GetDirListing(const std::string &pathstring)
 {
 	std::vector<DirListNode> listing;
@@ -272,12 +309,15 @@ bool CopyFileContents(const std::string &source, const std::string &target)
  * POSIX *
  *********/
 
+<<<<<<< HEAD
 #include <sys/types.h>
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
+=======
+>>>>>>> 5.10.0
 std::vector<DirListNode> GetDirListing(const std::string &pathstring)
 {
 	std::vector<DirListNode> listing;
@@ -380,6 +420,7 @@ bool RecursiveDelete(const std::string &path)
 		Execute the 'rm' command directly, by fork() and execve()
 	*/
 
+<<<<<<< HEAD
 	infostream<<"Removing \""<<path<<"\""<<std::endl;
 
 	pid_t child_pid = fork();
@@ -415,6 +456,43 @@ bool RecursiveDelete(const std::string &path)
 			tpid = wait(&child_status);
 		}while(tpid != child_pid);
 		return (child_status == 0);
+=======
+	infostream << "Removing \"" << path << "\"" << std::endl;
+
+	assert(IsPathAbsolute(path));
+
+	const pid_t child_pid = fork();
+
+	if (child_pid == -1) {
+		errorstream << "fork errno: " << errno << ": " << strerror(errno)
+			<< std::endl;
+		return false;
+	}
+
+	if (child_pid == 0) {
+		// Child
+		std::array<const char*, 4> argv = {
+			"rm",
+			"-rf",
+			path.c_str(),
+			nullptr
+		};
+
+		execvp(argv[0], const_cast<char**>(argv.data()));
+
+		// note: use cerr because our logging won't flush in forked process
+		std::cerr << "exec errno: " << errno << ": " << strerror(errno)
+			<< std::endl;
+		_exit(1);
+	} else {
+		// Parent
+		int status;
+		pid_t tpid;
+		do
+			tpid = waitpid(child_pid, &status, 0);
+		while (tpid != child_pid);
+		return WIFEXITED(status) && WEXITSTATUS(status) == 0;
+>>>>>>> 5.10.0
 	}
 }
 
@@ -941,6 +1019,7 @@ bool safeWriteToFile(const std::string &path, std::string_view content)
 	return true;
 }
 
+<<<<<<< HEAD
 bool safeAppendToFile(const std::string &path, std::string_view content)
 {
 	std::string tmp_file = path + ".~mt";
@@ -1007,6 +1086,9 @@ bool safeAppendToFile(const std::string &path, std::string_view content)
 
 
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 bool extractZipFile(io::IFileSystem *fs, const char *filename, const std::string &destination)
 {
 	// Be careful here not to touch the global file hierarchy in Irrlicht

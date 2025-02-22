@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 PilzAdam <pilzadam@minetest.net>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 PilzAdam <pilzadam@minetest.net>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -35,9 +41,12 @@ private:
 	// get(self, key) -> value
 	static int l_get(lua_State *L);
 
+<<<<<<< HEAD
 	// get_json(self, key) -> table
 	static int l_get_json(lua_State *L);
 
+=======
+>>>>>>> 5.10.0
 	// get_bool(self, key) -> boolean
 	static int l_get_bool(lua_State *L);
 
@@ -50,9 +59,12 @@ private:
 	// set(self, key, value)
 	static int l_set(lua_State *L);
 
+<<<<<<< HEAD
 	// set_json(self, key, value)
 	static int l_set_json(lua_State *L);
 
+=======
+>>>>>>> 5.10.0
 	// set_bool(self, key, value)
 	static int l_set_bool(lua_State *L);
 

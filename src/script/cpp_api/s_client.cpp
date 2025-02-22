@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -19,12 +20,22 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include <iostream>
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+
+>>>>>>> 5.10.0
 #include "s_client.h"
 #include "s_internal.h"
 #include "client/client.h"
 #include "common/c_converter.h"
 #include "common/c_content.h"
+<<<<<<< HEAD
 #include "lua_api/l_clientobject.h"
+=======
+>>>>>>> 5.10.0
 #include "lua_api/l_item.h"
 #include "itemdef.h"
 #include "s_item.h"
@@ -127,6 +138,7 @@ void ScriptApiClient::on_hp_modification(int32_t newhp)
 	}
 }
 
+<<<<<<< HEAD
 void ScriptApiClient::on_death()
 {
 	SCRIPTAPI_PRECHECKHEADER
@@ -142,6 +154,8 @@ void ScriptApiClient::on_death()
 	}
 }
 
+=======
+>>>>>>> 5.10.0
 void ScriptApiClient::environment_step(float dtime)
 {
 	SCRIPTAPI_PRECHECKHEADER
@@ -274,6 +288,7 @@ bool ScriptApiClient::on_item_use(const ItemStack &item, const PointedThing &poi
 	return readParam<bool>(L, -1);
 }
 
+<<<<<<< HEAD
 
 bool ScriptApiClient::on_spawn_particle(struct ParticleParameters param)
 {
@@ -367,6 +382,8 @@ bool ScriptApiClient::on_object_add(s16 id)
 
 
 
+=======
+>>>>>>> 5.10.0
 bool ScriptApiClient::on_inventory_open(Inventory *inventory)
 {
 	SCRIPTAPI_PRECHECKHEADER
@@ -385,6 +402,7 @@ bool ScriptApiClient::on_inventory_open(Inventory *inventory)
 	return readParam<bool>(L, -1);
 }
 
+<<<<<<< HEAD
 bool ScriptApiClient::on_block_data(v3s16 pos)
 {
 	SCRIPTAPI_PRECHECKHEADER
@@ -595,6 +613,8 @@ v3f ScriptApiClient::get_send_speed(v3f speed)
 	return speed;
 }
 
+=======
+>>>>>>> 5.10.0
 void ScriptApiClient::setEnv(ClientEnvironment *env)
 {
 	ScriptApiBase::setEnv(env);

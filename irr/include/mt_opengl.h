@@ -6,7 +6,10 @@
 #include <string>
 #include <unordered_set>
 #include "IrrCompileConfig.h" // for IRRLICHT_API
+<<<<<<< HEAD
 #include "irrTypes.h"
+=======
+>>>>>>> 5.10.0
 #include "IContextManager.h"
 #include <KHR/khrplatform.h>
 

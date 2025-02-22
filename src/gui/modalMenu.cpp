@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2018 stujones11, Stuart Jones <stujones111@gmail.com>
+>>>>>>> 5.10.0
 
 #include <cstdlib>
 #include <IEventReceiver.h>
@@ -28,7 +35,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "gui/guiInventoryList.h"
 #include "porting.h"
 #include "settings.h"
+<<<<<<< HEAD
 #include "touchscreengui.h"
+=======
+#include "touchcontrols.h"
+>>>>>>> 5.10.0
 
 PointerAction PointerAction::fromEvent(const SEvent &event) {
 	switch (event.EventType) {
@@ -111,8 +122,13 @@ void GUIModalMenu::quitMenu()
 	Environment->removeFocus(this);
 	m_menumgr->deletingMenu(this);
 	this->remove();
+<<<<<<< HEAD
 	if (g_touchscreengui)
 		g_touchscreengui->show();
+=======
+	if (g_touchcontrols)
+		g_touchcontrols->show();
+>>>>>>> 5.10.0
 }
 
 static bool isChild(gui::IGUIElement *tocheck, gui::IGUIElement *parent)
@@ -187,6 +203,10 @@ bool GUIModalMenu::simulateMouseEvent(ETOUCH_INPUT_EVENT touch_event, bool secon
 	mouse_event.EventType = EET_MOUSE_INPUT_EVENT;
 	mouse_event.MouseInput.X = m_pointer.X;
 	mouse_event.MouseInput.Y = m_pointer.Y;
+<<<<<<< HEAD
+=======
+	mouse_event.MouseInput.Simulated = true;
+>>>>>>> 5.10.0
 	switch (touch_event) {
 	case ETIE_PRESSED_DOWN:
 		mouse_event.MouseInput.Event = EMIE_LMOUSE_PRESSED_DOWN;
@@ -210,7 +230,10 @@ bool GUIModalMenu::simulateMouseEvent(ETOUCH_INPUT_EVENT touch_event, bool secon
 	}
 
 	bool retval;
+<<<<<<< HEAD
 	m_simulated_mouse = true;
+=======
+>>>>>>> 5.10.0
 	do {
 		if (preprocessEvent(mouse_event)) {
 			retval = true;
@@ -222,7 +245,10 @@ bool GUIModalMenu::simulateMouseEvent(ETOUCH_INPUT_EVENT touch_event, bool secon
 		}
 		retval = target->OnEvent(mouse_event);
 	} while (false);
+<<<<<<< HEAD
 	m_simulated_mouse = false;
+=======
+>>>>>>> 5.10.0
 
 	if (!retval && !second_try)
 		return simulateMouseEvent(touch_event, true);
@@ -307,6 +333,7 @@ bool GUIModalMenu::preprocessEvent(const SEvent &event)
 
 			s32 selected_idx = dropdown->getSelected();
 			s32 option_size = dropdown->getItemCount();
+<<<<<<< HEAD
 			std::string list_of_options[option_size];
 
 			for (s32 i = 0; i < option_size; i++) {
@@ -314,6 +341,15 @@ bool GUIModalMenu::preprocessEvent(const SEvent &event)
 			}
 
 			porting::showComboBoxDialog(list_of_options, option_size, selected_idx);
+=======
+			std::vector<std::string> list_of_options;
+
+			for (s32 i = 0; i < option_size; i++) {
+				list_of_options.push_back(wide_to_utf8(dropdown->getItem(i)));
+			}
+
+			porting::showComboBoxDialog(list_of_options.data(), option_size, selected_idx);
+>>>>>>> 5.10.0
 			return true; // Prevent the Irrlicht dropdown from opening.
 		}
 	}
@@ -330,7 +366,10 @@ bool GUIModalMenu::preprocessEvent(const SEvent &event)
 		holder.grab(this); // keep this alive until return (it might be dropped downstream [?])
 
 		if (event.TouchInput.touchedCount == 1) {
+<<<<<<< HEAD
 			m_pointer_type = PointerType::Touch;
+=======
+>>>>>>> 5.10.0
 			m_pointer = v2s32(event.TouchInput.X, event.TouchInput.Y);
 
 			gui::IGUIElement *hovered = Environment->getRootGUIElement()->getElementFromPoint(core::position2d<s32>(m_pointer));
@@ -373,9 +412,14 @@ bool GUIModalMenu::preprocessEvent(const SEvent &event)
 	}
 
 	if (event.EventType == EET_MOUSE_INPUT_EVENT) {
+<<<<<<< HEAD
 		if (!m_simulated_mouse) {
 			// Only set the pointer type to mouse if this is a real mouse event.
 			m_pointer_type = PointerType::Mouse;
+=======
+		if (!event.MouseInput.Simulated) {
+			// Only process if this is a real mouse event.
+>>>>>>> 5.10.0
 			m_pointer = v2s32(event.MouseInput.X, event.MouseInput.Y);
 			m_touch_hovered.reset();
 		}
@@ -410,4 +454,8 @@ GUIModalMenu::ScalingInfo GUIModalMenu::getScalingInfo(v2u32 screensize, v2u32 b
 		screensize.X / 2 + w / 2,
 		screensize.Y / 2 + h / 2
 	)};
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5.10.0

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2023 Vitaliy Lobachevskiy
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2023 Vitaliy Lobachevskiy
+>>>>>>> 5.10.0
 
 #include "test.h"
 
@@ -191,14 +197,22 @@ void TestMapblockMeshGenerator::testSimpleNode()
 
 	MeshCollector col{{}};
 	MapblockMeshGenerator mg{&data, &col, nullptr};
+<<<<<<< HEAD
 	std::set<content_t> xraySet;
 	mg.generate(xraySet);
+=======
+	mg.generate();
+>>>>>>> 5.10.0
 	UASSERTEQ(std::size_t, col.prebuffers[0].size(), 1);
 	UASSERTEQ(std::size_t, col.prebuffers[1].size(), 0);
 
 	auto &&buf = col.prebuffers[0][0];
 	UASSERTEQ(u32, buf.layer.texture_id, 42);
+<<<<<<< HEAD
 	//UASSERT(checkMeshEqual(buf.vertices, buf.indices, {quad::xn, quad::xp, quad::yn, quad::yp, quad::zn, quad::zp}));
+=======
+	UASSERT(checkMeshEqual(buf.vertices, buf.indices, {quad::xn, quad::xp, quad::yn, quad::yp, quad::zn, quad::zp}));
+>>>>>>> 5.10.0
 }
 
 void TestMapblockMeshGenerator::testSurroundedNode()
@@ -214,14 +228,22 @@ void TestMapblockMeshGenerator::testSurroundedNode()
 
 	MeshCollector col{{}};
 	MapblockMeshGenerator mg{&data, &col, nullptr};
+<<<<<<< HEAD
 	std::set<content_t> xraySet;
 	mg.generate(xraySet);
+=======
+	mg.generate();
+>>>>>>> 5.10.0
 	UASSERTEQ(std::size_t, col.prebuffers[0].size(), 1);
 	UASSERTEQ(std::size_t, col.prebuffers[1].size(), 0);
 
 	auto &&buf = col.prebuffers[0][0];
 	UASSERTEQ(u32, buf.layer.texture_id, 42);
+<<<<<<< HEAD
 	//UASSERT(checkMeshEqual(buf.vertices, buf.indices, {quad::xn, quad::yn, quad::yp, quad::zn, quad::zp}));
+=======
+	UASSERT(checkMeshEqual(buf.vertices, buf.indices, {quad::xn, quad::yn, quad::yp, quad::zn, quad::zp}));
+>>>>>>> 5.10.0
 }
 
 void TestMapblockMeshGenerator::testInterliquidSame()
@@ -236,14 +258,22 @@ void TestMapblockMeshGenerator::testInterliquidSame()
 
 	MeshCollector col{{}};
 	MapblockMeshGenerator mg{&data, &col, nullptr};
+<<<<<<< HEAD
 	std::set<content_t> xraySet;
 	mg.generate(xraySet);
+=======
+	mg.generate();
+>>>>>>> 5.10.0
 	UASSERTEQ(std::size_t, col.prebuffers[0].size(), 1);
 	UASSERTEQ(std::size_t, col.prebuffers[1].size(), 0);
 
 	auto &&buf = col.prebuffers[0][0];
 	UASSERTEQ(u32, buf.layer.texture_id, 42);
+<<<<<<< HEAD
 	//UASSERT(checkMeshEqual(buf.vertices, buf.indices, {quad::xn, quad::yn, quad::yp, quad::zn, quad::zp}));
+=======
+	UASSERT(checkMeshEqual(buf.vertices, buf.indices, {quad::xn, quad::yn, quad::yp, quad::zn, quad::zp}));
+>>>>>>> 5.10.0
 }
 
 void TestMapblockMeshGenerator::testInterliquidDifferent()
@@ -259,14 +289,22 @@ void TestMapblockMeshGenerator::testInterliquidDifferent()
 
 	MeshCollector col{{}};
 	MapblockMeshGenerator mg{&data, &col, nullptr};
+<<<<<<< HEAD
 	std::set<content_t> xraySet;
 	mg.generate(xraySet);
+=======
+	mg.generate();
+>>>>>>> 5.10.0
 	UASSERTEQ(std::size_t, col.prebuffers[0].size(), 1);
 	UASSERTEQ(std::size_t, col.prebuffers[1].size(), 0);
 
 	auto &&buf = col.prebuffers[0][0];
 	UASSERTEQ(u32, buf.layer.texture_id, 42);
+<<<<<<< HEAD
 	//UASSERT(checkMeshEqual(buf.vertices, buf.indices, {quad::xn, quad::xp, quad::yn, quad::yp, quad::zn, quad::zp}));
+=======
+	UASSERT(checkMeshEqual(buf.vertices, buf.indices, {quad::xn, quad::xp, quad::yn, quad::yp, quad::zn, quad::zp}));
+>>>>>>> 5.10.0
 }
 
 }

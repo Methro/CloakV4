@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -57,7 +63,14 @@ public:
 	{
 		return m_privatevars.count(name) != 0;
 	}
+<<<<<<< HEAD
 	void markPrivate(const std::string &name, bool set);
+=======
+
+	/// Marks a key as private.
+	/// @return metadata modified?
+	bool markPrivate(const std::string &name, bool set);
+>>>>>>> 5.10.0
 
 private:
 	int countNonPrivate() const;

@@ -18,7 +18,11 @@ local phasearmor = {
 }
 local max_phase = 12
 
+<<<<<<< HEAD
 minetest.register_entity("testentities:armorball", {
+=======
+core.register_entity("testentities:armorball", {
+>>>>>>> 5.10.0
 	initial_properties = {
 		hp_max = 20,
 		physical = false,
@@ -33,7 +37,11 @@ minetest.register_entity("testentities:armorball", {
 	_phase = 7,
 
 	on_activate = function(self, staticdata)
+<<<<<<< HEAD
 		minetest.log("action", "[testentities] armorball.on_activate")
+=======
+		core.log("action", "[testentities] armorball.on_activate")
+>>>>>>> 5.10.0
 		self.object:set_armor_groups(phasearmor[self._phase])
 		self.object:set_sprite({x=0, y=self._phase})
 	end,
@@ -56,6 +64,10 @@ minetest.register_entity("testentities:armorball", {
 		if not name then
 			return
 		end
+<<<<<<< HEAD
 		minetest.chat_send_player(name, "time_from_last_punch="..string.format("%.3f", time_from_last_punch).."; damage="..tostring(damage))
+=======
+		core.chat_send_player(name, "time_from_last_punch="..string.format("%.3f", time_from_last_punch).."; damage="..tostring(damage))
+>>>>>>> 5.10.0
 	end,
 })

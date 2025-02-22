@@ -10,6 +10,10 @@
 
 #include "IVideoDriver.h"
 #include "IFileSystem.h"
+<<<<<<< HEAD
+=======
+#include "coreutil.h"
+>>>>>>> 5.10.0
 #include "os.h"
 
 #include <algorithm>
@@ -259,6 +263,7 @@ bool CB3DMeshFileLoader::readChunkMESH(CSkinnedMesh::SJoint *inJoint)
 			if (!NormalsInFile) {
 				s32 i;
 
+<<<<<<< HEAD
 				for (i = 0; i < (s32)meshBuffer->Indices.size(); i += 3) {
 					core::plane3df p(meshBuffer->getVertex(meshBuffer->Indices[i + 0])->Pos,
 							meshBuffer->getVertex(meshBuffer->Indices[i + 1])->Pos,
@@ -267,6 +272,17 @@ bool CB3DMeshFileLoader::readChunkMESH(CSkinnedMesh::SJoint *inJoint)
 					meshBuffer->getVertex(meshBuffer->Indices[i + 0])->Normal += p.Normal;
 					meshBuffer->getVertex(meshBuffer->Indices[i + 1])->Normal += p.Normal;
 					meshBuffer->getVertex(meshBuffer->Indices[i + 2])->Normal += p.Normal;
+=======
+				auto &indices = meshBuffer->Indices->Data;
+				for (i = 0; i < (s32)indices.size(); i += 3) {
+					core::plane3df p(meshBuffer->getVertex(indices[i + 0])->Pos,
+							meshBuffer->getVertex(indices[i + 1])->Pos,
+							meshBuffer->getVertex(indices[i + 2])->Pos);
+
+					meshBuffer->getVertex(indices[i + 0])->Normal += p.Normal;
+					meshBuffer->getVertex(indices[i + 1])->Normal += p.Normal;
+					meshBuffer->getVertex(indices[i + 2])->Normal += p.Normal;
+>>>>>>> 5.10.0
 				}
 
 				for (i = 0; i < (s32)meshBuffer->getVertexCount(); ++i) {
@@ -388,7 +404,12 @@ bool CB3DMeshFileLoader::readChunkVRTS(CSkinnedMesh::SJoint *inJoint)
 
 		// Transform the Vertex position by nested node...
 		inJoint->GlobalMatrix.transformVect(Vertex.Pos);
+<<<<<<< HEAD
 		inJoint->GlobalMatrix.rotateVect(Vertex.Normal);
+=======
+		Vertex.Normal = inJoint->GlobalMatrix.rotateAndScaleVect(Vertex.Normal);
+		Vertex.Normal.normalize(); // renormalize: normal might have been skewed by scaling
+>>>>>>> 5.10.0
 
 		// Add it...
 		BaseVertices.push_back(Vertex);
@@ -433,7 +454,11 @@ bool CB3DMeshFileLoader::readChunkTRIS(scene::SSkinMeshBuffer *meshBuffer, u32 m
 	}
 
 	const s32 memoryNeeded = B3dStack.getLast().length / sizeof(s32);
+<<<<<<< HEAD
 	meshBuffer->Indices.reserve(memoryNeeded + meshBuffer->Indices.size() + 1);
+=======
+	meshBuffer->Indices->Data.reserve(memoryNeeded + meshBuffer->Indices->Data.size() + 1);
+>>>>>>> 5.10.0
 
 	while ((B3dStack.getLast().startposition + B3dStack.getLast().length) > B3DFile->getPos()) // this chunk repeats
 	{
@@ -471,9 +496,15 @@ bool CB3DMeshFileLoader::readChunkTRIS(scene::SSkinMeshBuffer *meshBuffer, u32 m
 
 				// Add the vertex to the meshbuffer:
 				if (meshBuffer->VertexType == video::EVT_STANDARD)
+<<<<<<< HEAD
 					meshBuffer->Vertices_Standard.push_back(BaseVertices[vertex_id[i]]);
 				else
 					meshBuffer->Vertices_2TCoords.push_back(BaseVertices[vertex_id[i]]);
+=======
+					meshBuffer->Vertices_Standard->Data.push_back(BaseVertices[vertex_id[i]]);
+				else
+					meshBuffer->Vertices_2TCoords->Data.push_back(BaseVertices[vertex_id[i]]);
+>>>>>>> 5.10.0
 
 				// create vertex id to meshbuffer index link:
 				AnimatedVertices_VertexID[vertex_id[i]] = meshBuffer->getVertexCount() - 1;
@@ -484,7 +515,12 @@ bool CB3DMeshFileLoader::readChunkTRIS(scene::SSkinMeshBuffer *meshBuffer, u32 m
 					video::S3DVertex *Vertex = meshBuffer->getVertex(meshBuffer->getVertexCount() - 1);
 
 					if (!HasVertexColors)
+<<<<<<< HEAD
 						Vertex->Color = B3dMaterial->Material.DiffuseColor;
+=======
+						Vertex->Color = video::SColorf(B3dMaterial->red, B3dMaterial->green,
+								B3dMaterial->blue, B3dMaterial->alpha).toSColor();
+>>>>>>> 5.10.0
 					else if (Vertex->Color.getAlpha() == 255)
 						Vertex->Color.setAlpha((s32)(B3dMaterial->alpha * 255.0f));
 
@@ -504,9 +540,15 @@ bool CB3DMeshFileLoader::readChunkTRIS(scene::SSkinMeshBuffer *meshBuffer, u32 m
 			}
 		}
 
+<<<<<<< HEAD
 		meshBuffer->Indices.push_back(AnimatedVertices_VertexID[vertex_id[0]]);
 		meshBuffer->Indices.push_back(AnimatedVertices_VertexID[vertex_id[1]]);
 		meshBuffer->Indices.push_back(AnimatedVertices_VertexID[vertex_id[2]]);
+=======
+		meshBuffer->Indices->Data.push_back(AnimatedVertices_VertexID[vertex_id[0]]);
+		meshBuffer->Indices->Data.push_back(AnimatedVertices_VertexID[vertex_id[1]]);
+		meshBuffer->Indices->Data.push_back(AnimatedVertices_VertexID[vertex_id[2]]);
+>>>>>>> 5.10.0
 	}
 
 	B3dStack.erase(B3dStack.size() - 1);
@@ -889,6 +931,7 @@ bool CB3DMeshFileLoader::readChunkBRUS()
 			}
 		}
 
+<<<<<<< HEAD
 		B3dMaterial.Material.DiffuseColor = video::SColorf(B3dMaterial.red, B3dMaterial.green, B3dMaterial.blue, B3dMaterial.alpha).toSColor();
 		B3dMaterial.Material.ColorMaterial = video::ECM_NONE;
 
@@ -906,6 +949,10 @@ bool CB3DMeshFileLoader::readChunkBRUS()
 		if (B3dMaterial.fx & 4) // flatshaded
 			B3dMaterial.Material.GouraudShading = false;
 
+=======
+		//------ Material fx ------
+
+>>>>>>> 5.10.0
 		if (B3dMaterial.fx & 16) // disable backface culling
 			B3dMaterial.Material.BackfaceCulling = false;
 
@@ -913,8 +960,11 @@ bool CB3DMeshFileLoader::readChunkBRUS()
 			B3dMaterial.Material.MaterialType = video::EMT_TRANSPARENT_VERTEX_ALPHA;
 			B3dMaterial.Material.ZWriteEnable = video::EZW_OFF;
 		}
+<<<<<<< HEAD
 
 		B3dMaterial.Material.Shininess = B3dMaterial.shininess;
+=======
+>>>>>>> 5.10.0
 	}
 
 	B3dStack.erase(B3dStack.size() - 1);

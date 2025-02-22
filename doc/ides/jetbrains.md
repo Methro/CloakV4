@@ -8,7 +8,11 @@ The IDE will open the folder and display the open project wizard:
 
 ![Open Project Wizard](images/jetbrains_open_project_wizard_profiles.png)
 
+<<<<<<< HEAD
 CLion try to determine a base configuration, but Minetest define it's own presets for easier setup. So you need to
+=======
+CLion try to determine a base configuration, but Luanti define it's own presets for easier setup. So you need to
+>>>>>>> 5.10.0
 delete the `Debug` profile with the `-` sign and close the dialog.
 
 You should notice a notification telling you 4 presets have been loaded in the bottom right corner.
@@ -61,7 +65,11 @@ Then, the process is roughly similar to Linux, you just need to pick `Visual Stu
 
 
 
+<<<<<<< HEAD
 [Vcpkg](https://vcpkg.io) is the recommended way of installing Minetest dependencies.
+=======
+[Vcpkg](https://vcpkg.io) is the recommended way of installing Luanti dependencies.
+>>>>>>> 5.10.0
 
 You need to let CLion know about a `vcpkg` installation to let the bundled CMake use the dependencies seamlessly and get
 IDE integration. (Require CLion 2023 or later)
@@ -70,7 +78,11 @@ Go to `View > Tool Windows > Vcpkg` and click the add button. I will open a popu
 installation. By default it will download a new one that you can use to install your dependencies, but if you already
 have one installed or you do not plan on using CLion only then install Vcpkg by hand and select your installation
 directory. Don't forget to check `Add vcpkg installation to existing CMake profiles`. If you haven't already installed
+<<<<<<< HEAD
 Minetest dependencies in your vcpkg installation, you can do it right from CLion's Vcpkg tool window.
+=======
+Luanti dependencies in your vcpkg installation, you can do it right from CLion's Vcpkg tool window.
+>>>>>>> 5.10.0
 
 ![Jetbrains Vcpkg](images/jetbrains_vcpkg.png)
 

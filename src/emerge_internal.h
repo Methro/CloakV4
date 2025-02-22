@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -40,7 +46,11 @@ class EmergeScripting;
 class EmergeThread : public Thread {
 public:
 	bool enable_mapgen_debug_info;
+<<<<<<< HEAD
 	int id;
+=======
+	const int id; // Index of this thread
+>>>>>>> 5.10.0
 
 	EmergeThread(Server *server, int ethreadid);
 	~EmergeThread() = default;
@@ -49,7 +59,11 @@ public:
 	void signal();
 
 	// Requires queue mutex held
+<<<<<<< HEAD
 	bool pushBlock(const v3s16 &pos);
+=======
+	bool pushBlock(v3s16 pos);
+>>>>>>> 5.10.0
 
 	void cancelPendingItems();
 
@@ -59,7 +73,11 @@ public:
 protected:
 
 	void runCompletionCallbacks(
+<<<<<<< HEAD
 		const v3s16 &pos, EmergeAction action,
+=======
+		v3s16 pos, EmergeAction action,
+>>>>>>> 5.10.0
 		const EmergeCallbackList &callbacks);
 
 private:
@@ -79,8 +97,25 @@ private:
 
 	bool popBlockEmerge(v3s16 *pos, BlockEmergeData *bedata);
 
+<<<<<<< HEAD
 	EmergeAction getBlockOrStartGen(
 		const v3s16 &pos, bool allow_gen, MapBlock **block, BlockMakeData *data);
+=======
+	/**
+	 * Try to get a block from memory and decide what to do.
+	 *
+	 * @param pos block position
+	 * @param from_db serialized block data, optional
+	 *                (for second call after EMERGE_FROM_DISK was returned)
+	 * @param allow_gen allow invoking mapgen?
+	 * @param block output pointer for block
+	 * @param data info for mapgen
+	 * @return what to do for this block
+	 */
+	EmergeAction getBlockOrStartGen(v3s16 pos, bool allow_gen,
+		const std::string *from_db,  MapBlock **block, BlockMakeData *data);
+
+>>>>>>> 5.10.0
 	MapBlock *finishGen(v3s16 pos, BlockMakeData *bmdata,
 		std::map<v3s16, MapBlock *> *modified_blocks);
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  Minetest
  Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -18,6 +19,13 @@
  with this program; if not, write to the Free Software Foundation, Inc.,
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2013 Ciaran Gultnieks <ciaran@ciarang.com>
+// Copyright (C) 2013 teddydestodes <derkomtur@schattengang.net>
+>>>>>>> 5.10.0
 
 #pragma once
 

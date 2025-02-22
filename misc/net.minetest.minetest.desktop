@@ -1,4 +1,5 @@
 [Desktop Entry]
+<<<<<<< HEAD
 Name=Minetest
 GenericName=Minetest
 Comment=Block-based multiplayer game platform
@@ -6,6 +7,15 @@ Comment[de]=Blockbasierte Mehrspieler-Spieleplattform
 Comment[fr]=Plate-forme de jeu multijoueurs à base de blocs
 Exec=minetest
 Icon=minetest
+=======
+Name=Luanti
+GenericName=Luanti
+Comment=Block-based multiplayer game platform
+Comment[de]=Blockbasierte Mehrspieler-Spieleplattform
+Comment[fr]=Plate-forme de jeu multijoueurs à base de blocs
+Exec=luanti
+Icon=luanti
+>>>>>>> 5.10.0
 Terminal=false
 PrefersNonDefaultGPU=true
 Type=Application

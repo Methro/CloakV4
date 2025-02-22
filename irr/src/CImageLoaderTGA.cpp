@@ -5,10 +5,17 @@
 #include "CImageLoaderTGA.h"
 
 #include "IReadFile.h"
+<<<<<<< HEAD
 #include "os.h"
 #include "CColorConverter.h"
 #include "CImage.h"
 #include "irrString.h"
+=======
+#include "coreutil.h"
+#include "os.h"
+#include "CColorConverter.h"
+#include "CImage.h"
+>>>>>>> 5.10.0
 
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
@@ -181,6 +188,7 @@ IImage *CImageLoaderTGA::loadImage(io::IReadFile *file) const
 						header.ImageWidth, header.ImageHeight,
 						0, 0, (header.ImageDescriptor & 0x20) == 0);
 		} else {
+<<<<<<< HEAD
 			switch (header.ColorMapEntrySize) {
 			case 16:
 				image = new CImage(ECF_A1R5G5B5, core::dimension2d<u32>(header.ImageWidth, header.ImageHeight));
@@ -202,6 +210,18 @@ IImage *CImageLoaderTGA::loadImage(io::IReadFile *file) const
 							(header.ImageDescriptor & 0x20) == 0);
 				break;
 			}
+=======
+			// Colormap is converted to A8R8G8B8 at this point – thus the code can handle all color formats.
+			// This wastes some texture memory, but is less of a third of the code that does this optimally.
+			// If you want to refactor this: The possible color formats here are A1R5G5B5, B8G8R8, B8G8R8A8.
+			image = new CImage(ECF_A8R8G8B8, core::dimension2d<u32>(header.ImageWidth, header.ImageHeight));
+			if (image)
+				CColorConverter::convert8BitTo32Bit((u8 *)data,
+						(u8 *)image->getData(),
+						header.ImageWidth, header.ImageHeight,
+						(u8 *)palette, 0,
+						(header.ImageDescriptor & 0x20) == 0);
+>>>>>>> 5.10.0
 		}
 	} break;
 	case 16:

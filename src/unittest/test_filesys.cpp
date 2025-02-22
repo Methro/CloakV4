@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "test.h"
 
@@ -42,6 +48,10 @@ public:
 	void testSafeWriteToFile();
 	void testCopyFileContents();
 	void testNonExist();
+<<<<<<< HEAD
+=======
+	void testRecursiveDelete();
+>>>>>>> 5.10.0
 };
 
 static TestFileSys g_test_instance;
@@ -56,6 +66,10 @@ void TestFileSys::runTests(IGameDef *gamedef)
 	TEST(testSafeWriteToFile);
 	TEST(testCopyFileContents);
 	TEST(testNonExist);
+<<<<<<< HEAD
+=======
+	TEST(testRecursiveDelete);
+>>>>>>> 5.10.0
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -338,3 +352,35 @@ void TestFileSys::testNonExist()
 	auto ifs = open_ifstream(path.c_str(), false);
 	UASSERT(!ifs.good());
 }
+<<<<<<< HEAD
+=======
+
+void TestFileSys::testRecursiveDelete()
+{
+	std::string dirs[2];
+	dirs[0] = getTestTempDirectory() + DIR_DELIM "a";
+	dirs[1] = dirs[0] + DIR_DELIM "b";
+
+	std::string files[2] = {
+		dirs[0] + DIR_DELIM "file1",
+		dirs[1] + DIR_DELIM "file2"
+	};
+
+	for (auto &it : dirs)
+		fs::CreateDir(it);
+	for (auto &it : files)
+		open_ofstream(it.c_str(), false).close();
+
+	for (auto &it : dirs)
+		UASSERT(fs::IsDir(it));
+	for (auto &it : files)
+		UASSERT(fs::IsFile(it));
+
+	UASSERT(fs::RecursiveDelete(dirs[0]));
+
+	for (auto &it : dirs)
+		UASSERT(!fs::IsDir(it));
+	for (auto &it : files)
+		UASSERT(!fs::IsFile(it));
+}
+>>>>>>> 5.10.0

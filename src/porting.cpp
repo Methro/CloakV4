@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 /*
 	Random portability stuff
@@ -73,13 +79,21 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "filesys.h"
 #include "log.h"
 #include "util/string.h"
+<<<<<<< HEAD
+=======
+#include "util/tracy_wrapper.h"
+>>>>>>> 5.10.0
 #include <vector>
 #include <cstdarg>
 #include <cstdio>
 #include <signal.h>
 #include <atomic>
 
+<<<<<<< HEAD
 #if !defined(SERVER) && defined(_WIN32)
+=======
+#if CHECK_CLIENT_BUILD() && defined(_WIN32)
+>>>>>>> 5.10.0
 // On Windows export some driver-specific variables to encourage Minetest to be
 // executed on the discrete GPU in case of systems with two. Portability is fun.
 extern "C" {
@@ -463,7 +477,12 @@ bool setSystemPaths()
 		// Use "C:\Users\<user>\AppData\Roaming\<PROJECT_NAME_C>"
 		len = GetEnvironmentVariable("APPDATA", buf, sizeof(buf));
 		FATAL_ERROR_IF(len == 0 || len > sizeof(buf), "Failed to get APPDATA");
+<<<<<<< HEAD
 		path_user = std::string(buf) + DIR_DELIM + PROJECT_NAME_C;
+=======
+		// TODO: Luanti with migration
+		path_user = std::string(buf) + DIR_DELIM + "Minetest";
+>>>>>>> 5.10.0
 	} else {
 		path_user = std::string(buf);
 	}
@@ -528,8 +547,14 @@ bool setSystemPaths()
 	if (minetest_user_path && minetest_user_path[0] != '\0') {
 		path_user = std::string(minetest_user_path);
 	} else {
+<<<<<<< HEAD
 		path_user = std::string(getHomeOrFail()) + DIR_DELIM "."
 			+ PROJECT_NAME;
+=======
+		// TODO: luanti with migration
+		path_user = std::string(getHomeOrFail()) + DIR_DELIM "."
+			+ "minetest";
+>>>>>>> 5.10.0
 	}
 
 	return true;
@@ -556,9 +581,16 @@ bool setSystemPaths()
 	if (minetest_user_path && minetest_user_path[0] != '\0') {
 		path_user = std::string(minetest_user_path);
 	} else {
+<<<<<<< HEAD
 		path_user = std::string(getHomeOrFail())
 			+ "/Library/Application Support/"
 			+ PROJECT_NAME;
+=======
+		// TODO: luanti with migration
+		path_user = std::string(getHomeOrFail())
+			+ "/Library/Application Support/"
+			+ "minetest";
+>>>>>>> 5.10.0
 	}
 	return true;
 }
@@ -573,8 +605,14 @@ bool setSystemPaths()
 	if (minetest_user_path && minetest_user_path[0] != '\0') {
 		path_user = std::string(minetest_user_path);
 	} else {
+<<<<<<< HEAD
 		path_user  = std::string(getHomeOrFail()) + DIR_DELIM "."
 			+ lowercase(PROJECT_NAME);
+=======
+		// TODO: luanti with migration
+		path_user  = std::string(getHomeOrFail()) + DIR_DELIM "."
+			+ "minetest";
+>>>>>>> 5.10.0
 	}
 	return true;
 }
@@ -680,11 +718,21 @@ void initializePaths()
 	const char *cache_dir = getenv("XDG_CACHE_HOME");
 	const char *home_dir = getenv("HOME");
 	if (cache_dir && cache_dir[0] != '\0') {
+<<<<<<< HEAD
 		path_cache = std::string(cache_dir) + DIR_DELIM + PROJECT_NAME;
 	} else if (home_dir) {
 		// Then try $HOME/.cache/PROJECT_NAME
 		path_cache = std::string(home_dir) + DIR_DELIM + ".cache"
 			+ DIR_DELIM + PROJECT_NAME;
+=======
+		// TODO: luanti with migration
+		path_cache = std::string(cache_dir) + DIR_DELIM + "minetest";
+	} else if (home_dir) {
+		// Then try $HOME/.cache/PROJECT_NAME
+		// TODO: luanti with migration
+		path_cache = std::string(home_dir) + DIR_DELIM + ".cache"
+			+ DIR_DELIM + "minetest";
+>>>>>>> 5.10.0
 	} else {
 		// If neither works, use $PATH_USER/cache
 		path_cache = path_user + DIR_DELIM + "cache";
@@ -940,7 +988,11 @@ double perf_freq = get_perf_freq();
  * This appears to be a combination of unfortunate allocation order/fragmentation
  * and the fact that glibc does not call madvise(MADV_DONTNEED) on its own.
  * Some other allocators were also affected, jemalloc and musl libc were not.
+<<<<<<< HEAD
  * read more: <https://forum.minetest.net/viewtopic.php?t=30509>
+=======
+ * read more: <https://forum.luanti.org/viewtopic.php?t=30509>
+>>>>>>> 5.10.0
  *
  * As a workaround we track freed memory coarsely and call malloc_trim() once a
  * certain amount is reached.
@@ -960,6 +1012,11 @@ void TrackFreedMemory(size_t amount)
 
 void TriggerMemoryTrim()
 {
+<<<<<<< HEAD
+=======
+	ZoneScoped;
+
+>>>>>>> 5.10.0
 	constexpr auto MO = std::memory_order_relaxed;
 	if (memory_freed.load(MO) >= MEMORY_TRIM_THRESHOLD) {
 		// Synchronize call

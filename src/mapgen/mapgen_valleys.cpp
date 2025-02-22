@@ -1,9 +1,15 @@
 /*
+<<<<<<< HEAD
 Minetest
+=======
+Luanti
+SPDX-License-Identifier: LGPL-2.1-or-later
+>>>>>>> 5.10.0
 Copyright (C) 2016-2019 Duane Robertson <duane@duanerobertson.com>
 Copyright (C) 2016-2019 paramat
 
 Based on Valleys Mapgen by Gael de Sailly
+<<<<<<< HEAD
 (https://forum.minetest.net/viewtopic.php?f=9&t=11430)
 and mapgen_v7, mapgen_flat by kwolekr and paramat.
 
@@ -22,6 +28,12 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+=======
+(https://forum.luanti.org/viewtopic.php?f=9&t=11430)
+and mapgen_v7, mapgen_flat by kwolekr and paramat.
+
+Licensing changed by permission of Gael de Sailly.
+>>>>>>> 5.10.0
 */
 
 

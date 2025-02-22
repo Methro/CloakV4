@@ -7,7 +7,11 @@
 #    ../minetest.conf
 #    ../../minetest.conf
 #    Any other path can be chosen by passing the path as a parameter
+<<<<<<< HEAD
 #    to the program, eg. "minetest.exe --config ../minetest.conf.example".
+=======
+#    to the program, eg. "luanti.exe --config ../minetest.conf.example".
+>>>>>>> 5.10.0
 
 #    Further documentation:
 #    https://wiki.minetest.net/
@@ -85,9 +89,17 @@
 
 ## Touchscreen
 
+<<<<<<< HEAD
 #    Enables touchscreen mode, allowing you to play the game with a touchscreen.
 #    type: bool
 # enable_touch = true
+=======
+#    Enables the touchscreen controls, allowing you to play the game with a touchscreen.
+#    "auto" means that the touchscreen controls will be enabled and disabled
+#    automatically depending on the last used input method.
+#    type: enum values: auto, true, false
+# touch_controls = auto
+>>>>>>> 5.10.0
 
 #    Touchscreen sensitivity multiplier.
 #    type: float min: 0.001 max: 10
@@ -123,7 +135,11 @@
 #    Easy to use and well-known from other games that shall not be named.
 #
 #    * long_tap
+<<<<<<< HEAD
 #    Known from the classic Minetest mobile controls.
+=======
+#    Known from the classic Luanti mobile controls.
+>>>>>>> 5.10.0
 #    Combat is more or less impossible.
 #    type: enum values: short_tap, long_tap
 # touch_punch_gesture = short_tap
@@ -190,6 +206,7 @@
 #    type: int min: 1 max: 8
 # undersampling = 1
 
+<<<<<<< HEAD
 ### Graphics Effects
 
 #    Allows liquids to be translucent.
@@ -221,6 +238,8 @@
 #    type: bool
 # enable_particles = true
 
+=======
+>>>>>>> 5.10.0
 ### 3D
 
 #    3D support.
@@ -347,6 +366,13 @@
 #    type: bool
 # enable_3d_clouds = true
 
+<<<<<<< HEAD
+=======
+#    Use smooth cloud shading.
+#    type: bool
+# soft_clouds = false
+
+>>>>>>> 5.10.0
 ### Filtering and Antialiasing
 
 #    Use mipmaps when scaling textures. May slightly increase performance,
@@ -411,12 +437,44 @@
 #    type: bool
 # enable_raytraced_culling = true
 
+<<<<<<< HEAD
 ## Shaders
 
 #    Shaders allow advanced visual effects and may increase performance on some video
 #    cards.
 #    type: bool
 # enable_shaders = true
+=======
+## Effects
+
+#    Allows liquids to be translucent.
+#    type: bool
+# translucent_liquids = true
+
+#    Leaves style:
+#    -   Fancy:  all faces visible
+#    -   Simple: only outer faces
+#    -   Opaque: disable transparency
+#    type: enum values: fancy, simple, opaque
+# leaves_style = fancy
+
+#    Connects glass if supported by node.
+#    type: bool
+# connected_glass = false
+
+#    Enable smooth lighting with simple ambient occlusion.
+#    type: bool
+# smooth_lighting = true
+
+#    Enables tradeoffs that reduce CPU load or increase rendering performance
+#    at the expense of minor visual glitches that do not impact game playability.
+#    type: bool
+# performance_tradeoffs = false
+
+#    Adds particles when digging a node.
+#    type: bool
+# enable_particles = true
+>>>>>>> 5.10.0
 
 ### Waving Nodes
 
@@ -547,13 +605,17 @@
 #    type: bool
 # debanding = true
 
+<<<<<<< HEAD
 ### Bloom
 
+=======
+>>>>>>> 5.10.0
 #    Set to true to enable bloom effect.
 #    Bright colors will bleed over the neighboring objects.
 #    type: bool
 # enable_bloom = false
 
+<<<<<<< HEAD
 #    Set to true to render debugging breakdown of the bloom effect.
 #    In debug mode, the screen is split into 4 quadrants:
 #    top-left - processed base image, top-right - final image
@@ -581,6 +643,25 @@
 #    Set to true to enable volumetric lighting effect (a.k.a. "Godrays").
 #    type: bool
 # enable_volumetric_lighting = false
+=======
+#    Set to true to enable volumetric lighting effect (a.k.a. "Godrays").
+#    type: bool
+# enable_volumetric_lighting = false
+
+### Other Effects
+
+#    Simulate translucency when looking at foliage in the sunlight.
+#    type: bool
+# enable_translucent_foliage = false
+
+#    Apply specular shading to nodes.
+#    type: bool
+# enable_node_specular = false
+
+#    When enabled, liquid reflections are simulated.
+#    type: bool
+# enable_water_reflections = false
+>>>>>>> 5.10.0
 
 ## Audio
 
@@ -609,6 +690,14 @@
 
 ### GUI
 
+<<<<<<< HEAD
+=======
+#    When enabled, the GUI is optimized to be more usable on touchscreens.
+#    Whether this is enabled by default depends on your hardware form-factor.
+#    type: bool
+# touch_gui = false
+
+>>>>>>> 5.10.0
 #    Scale GUI by a user specified value.
 #    Use a nearest-neighbor-anti-alias filter to scale the GUI.
 #    This will smooth over some of the rough edges, and blend
@@ -617,6 +706,13 @@
 #    type: float min: 0.5 max: 20
 # gui_scaling = 1.0
 
+<<<<<<< HEAD
+=======
+#    Enables smooth scrolling.
+#    type: bool
+# smooth_scrolling = true
+
+>>>>>>> 5.10.0
 #    Enables animation of inventory items.
 #    type: bool
 # inventory_items_animations = false
@@ -665,6 +761,22 @@
 #    type: bool
 # show_nametag_backgrounds = true
 
+<<<<<<< HEAD
+=======
+#    Whether to show the client debug info (has the same effect as hitting F5).
+#    type: bool
+# show_debug = false
+
+#    Radius to use when the block bounds HUD feature is set to near blocks.
+#    type: int min: 0 max: 1000
+# show_block_bounds_radius_near = 4
+
+#    Maximum proportion of current window to be used for hotbar.
+#    Useful if there's something to be displayed right or left of hotbar.
+#    type: float min: 0.001 max: 1
+# hud_hotbar_max_width = 1.0
+
+>>>>>>> 5.10.0
 ### Chat
 
 #    Maximum number of recent chat messages to show
@@ -683,11 +795,14 @@
 #    type: int min: 0 max: 255
 # console_alpha = 200
 
+<<<<<<< HEAD
 #    Maximum proportion of current window to be used for hotbar.
 #    Useful if there's something to be displayed right or left of hotbar.
 #    type: float min: 0.001 max: 1
 # hud_hotbar_max_width = 1.0
 
+=======
+>>>>>>> 5.10.0
 #    Clickable weblinks (middle-click or Ctrl+left-click) enabled in chat console output.
 #    type: bool
 # clickable_chat_weblinks = true
@@ -707,7 +822,11 @@
 #    type: string
 # contentdb_url = https://content.minetest.net
 
+<<<<<<< HEAD
 #    If enabled and you have ContentDB packages installed, Minetest may contact ContentDB to
+=======
+#    If enabled and you have ContentDB packages installed, Luanti may contact ContentDB to
+>>>>>>> 5.10.0
 #    check for package updates when opening the mainmenu.
 #    type: bool
 # contentdb_enable_updates_indicator = true
@@ -716,7 +835,11 @@
 #    "nonfree" can be used to hide packages which do not qualify as 'free software',
 #    as defined by the Free Software Foundation.
 #    You can also specify content ratings.
+<<<<<<< HEAD
 #    These flags are independent from Minetest versions,
+=======
+#    These flags are independent from Luanti versions,
+>>>>>>> 5.10.0
 #    so see a full list at https://content.minetest.net/help/content_flags/
 #    type: string
 # contentdb_flag_blacklist = nonfree, desktop_default
@@ -745,7 +868,11 @@
 #    type: bool
 # enable_split_login_register = true
 
+<<<<<<< HEAD
 #    URL to JSON file which provides information about the newest Minetest release.
+=======
+#    URL to JSON file which provides information about the newest Luanti release.
+>>>>>>> 5.10.0
 #    If this is empty the engine will never check for updates.
 #    type: string
 # update_information_url = https://www.minetest.net/release_info.json
@@ -762,7 +889,11 @@
 
 #    Name of the server, to be displayed when players join and in the serverlist.
 #    type: string
+<<<<<<< HEAD
 # server_name = Minetest server
+=======
+# server_name = Luanti server
+>>>>>>> 5.10.0
 
 #    Description of server, to be displayed when players join and in the serverlist.
 #    type: string
@@ -780,6 +911,13 @@
 #    type: bool
 # server_announce = false
 
+<<<<<<< HEAD
+=======
+#    Send names of online players to the serverlist. If disabled only the player count is revealed.
+#    type: bool
+# server_announce_send_players = true
+
+>>>>>>> 5.10.0
 #    Announce to this serverlist.
 #    type: string
 # serverlist_url = servers.minetest.net
@@ -817,7 +955,11 @@
 #    Older clients are compatible in the sense that they will not crash when connecting
 #    to new servers, but they may not support all new features that you are expecting.
 #    This allows for more fine-grained control than strict_protocol_version_checking.
+<<<<<<< HEAD
 #    Minetest still enforces its own internal minimum, and enabling
+=======
+#    Luanti still enforces its own internal minimum, and enabling
+>>>>>>> 5.10.0
 #    strict_protocol_version_checking will effectively override this.
 #    type: int min: 1 max: 65535
 # protocol_version_min = 1
@@ -854,9 +996,21 @@
 #    type: string
 # basic_privs = interact, shout
 
+<<<<<<< HEAD
 #    If enabled, disable cheat prevention in multiplayer.
 #    type: bool
 # disable_anticheat = false
+=======
+#    Server anticheat configuration.
+#    Flags are positive. Uncheck the flag to disable corresponding anticheat module.
+#    type: flags possible values: digging, interaction, movement
+# anticheat_flags = digging,interaction,movement
+
+#    Tolerance of movement cheat detector.
+#    Increase the value if players experience stuttery movement.
+#    type: float min: 1
+# anticheat_movement_tolerance = 1.0
+>>>>>>> 5.10.0
 
 #    If enabled, actions are recorded for rollback.
 #    This option is only read when server starts.
@@ -1013,7 +1167,11 @@
 #    Global map generation attributes.
 #    In Mapgen v6 the 'decorations' flag controls all decorations except trees
 #    and jungle grass, in all other mapgens this flag controls all decorations.
+<<<<<<< HEAD
 #    type: flags possible values: caves, dungeons, light, decorations, biomes, ores, nocaves, nodungeons, nolight, nodecorations, nobiomes, noores
+=======
+#    type: flags possible values: caves, dungeons, light, decorations, biomes, ores
+>>>>>>> 5.10.0
 # mg_flags = caves,dungeons,light,decorations,biomes,ores
 
 ## Biome API
@@ -1073,7 +1231,11 @@
 ## Mapgen V5
 
 #    Map generation attributes specific to Mapgen v5.
+<<<<<<< HEAD
 #    type: flags possible values: caverns, nocaverns
+=======
+#    type: flags possible values: caverns
+>>>>>>> 5.10.0
 # mgv5_spflags = caverns
 
 #    Controls width of tunnels, a smaller value creates wider tunnels.
@@ -1240,7 +1402,11 @@
 #    When the 'snowbiomes' flag is enabled jungles are automatically enabled and
 #    the 'jungles' flag is ignored.
 #    The 'temples' flag disables generation of desert temples. Normal dungeons will appear instead.
+<<<<<<< HEAD
 #    type: flags possible values: jungles, biomeblend, mudflow, snowbiomes, flat, trees, temples, nojungles, nobiomeblend, nomudflow, nosnowbiomes, noflat, notrees, notemples
+=======
+#    type: flags possible values: jungles, biomeblend, mudflow, snowbiomes, flat, trees, temples
+>>>>>>> 5.10.0
 # mgv6_spflags = jungles,biomeblend,mudflow,snowbiomes,noflat,trees,temples
 
 #    Deserts occur when np_biome exceeds this value.
@@ -1411,7 +1577,11 @@
 #    'ridges': Rivers.
 #    'floatlands': Floating land masses in the atmosphere.
 #    'caverns': Giant caves deep underground.
+<<<<<<< HEAD
 #    type: flags possible values: mountains, ridges, floatlands, caverns, nomountains, noridges, nofloatlands, nocaverns
+=======
+#    type: flags possible values: mountains, ridges, floatlands, caverns
+>>>>>>> 5.10.0
 # mgv7_spflags = mountains,ridges,nofloatlands,caverns
 
 #    Y of mountain density gradient zero level. Used to shift mountains vertically.
@@ -1705,7 +1875,11 @@
 ## Mapgen Carpathian
 
 #    Map generation attributes specific to Mapgen Carpathian.
+<<<<<<< HEAD
 #    type: flags possible values: caverns, rivers, nocaverns, norivers
+=======
+#    type: flags possible values: caverns, rivers
+>>>>>>> 5.10.0
 # mgcarpathian_spflags = caverns,norivers
 
 #    Defines the base ground level.
@@ -2001,7 +2175,11 @@
 
 #    Map generation attributes specific to Mapgen Flat.
 #    Occasional lakes and hills can be added to the flat world.
+<<<<<<< HEAD
 #    type: flags possible values: lakes, hills, caverns, nolakes, nohills, nocaverns
+=======
+#    type: flags possible values: lakes, hills, caverns
+>>>>>>> 5.10.0
 # mgflat_spflags = nolakes,nohills,nocaverns
 
 #    Y of flat ground.
@@ -2163,7 +2341,11 @@
 #    Map generation attributes specific to Mapgen Fractal.
 #    'terrain' enables the generation of non-fractal terrain:
 #    ocean, islands and underground.
+<<<<<<< HEAD
 #    type: flags possible values: terrain, noterrain
+=======
+#    type: flags possible values: terrain
+>>>>>>> 5.10.0
 # mgfractal_spflags = terrain
 
 #    Controls width of tunnels, a smaller value creates wider tunnels.
@@ -2366,7 +2548,11 @@
 #    'vary_river_depth': If enabled, low humidity and high heat causes rivers
 #    to become shallower and occasionally dry.
 #    'altitude_dry': Reduces humidity with altitude.
+<<<<<<< HEAD
 #    type: flags possible values: altitude_chill, humid_rivers, vary_river_depth, altitude_dry, noaltitude_chill, nohumid_rivers, novary_river_depth, noaltitude_dry
+=======
+#    type: flags possible values: altitude_chill, humid_rivers, vary_river_depth, altitude_dry
+>>>>>>> 5.10.0
 # mgvalleys_spflags = altitude_chill,humid_rivers,vary_river_depth,altitude_dry
 
 #    The vertical distance over which heat drops by 20 if 'altitude_chill' is
@@ -2687,7 +2873,11 @@
 # instrument.chatcommand = true
 
 #    Instrument global callback functions on registration.
+<<<<<<< HEAD
 #    (anything you pass to a minetest.register_*() function)
+=======
+#    (anything you pass to a core.register_*() function)
+>>>>>>> 5.10.0
 #    type: bool
 # instrument.global_callback = true
 
@@ -2724,6 +2914,13 @@
 
 ### Graphics
 
+<<<<<<< HEAD
+=======
+#    Shaders are a fundamental part of rendering and enable advanced visual effects.
+#    type: bool
+# enable_shaders = true
+
+>>>>>>> 5.10.0
 #    Path to shader directory. If no path is defined, default location will be used.
 #    type: path
 # shader_path =
@@ -2731,12 +2928,21 @@
 #    The rendering back-end.
 #    Note: A restart is required after changing this!
 #    OpenGL is the default for desktop, and OGLES2 for Android.
+<<<<<<< HEAD
 #    Shaders are supported by everything but OGLES1.
 #    type: enum values: , opengl, opengl3, ogles1, ogles2
 # video_driver =
 
 #    Distance in nodes at which transparency depth sorting is enabled
 #    Use this to limit the performance impact of transparency depth sorting
+=======
+#    type: enum values: , opengl, opengl3, ogles2
+# video_driver =
+
+#    Distance in nodes at which transparency depth sorting is enabled.
+#    Use this to limit the performance impact of transparency depth sorting.
+#    Set to 0 to disable it entirely.
+>>>>>>> 5.10.0
 #    type: int min: 0 max: 128
 # transparency_sorting_distance = 16
 
@@ -2750,6 +2956,10 @@
 # desynchronize_mapblock_texture_animation = false
 
 #    Enables caching of facedir rotated meshes.
+<<<<<<< HEAD
+=======
+#    This is only effective with shaders disabled.
+>>>>>>> 5.10.0
 #    type: bool
 # enable_mesh_cache = false
 
@@ -2759,7 +2969,11 @@
 # mesh_generation_interval = 0
 
 #    Number of threads to use for mesh generation.
+<<<<<<< HEAD
 #    Value of 0 (default) will let Minetest autodetect the number of available threads.
+=======
+#    Value of 0 (default) will let Luanti autodetect the number of available threads.
+>>>>>>> 5.10.0
 #    type: int min: 0 max: 8
 # mesh_generation_threads = 0
 
@@ -2810,6 +3024,16 @@
 #    type: bool
 # opengl_debug = false
 
+<<<<<<< HEAD
+=======
+#    Set to true to render debugging breakdown of the bloom effect.
+#    In debug mode, the screen is split into 4 quadrants:
+#    top-left - processed base image, top-right - final image
+#    bottom-left - raw base image, bottom-right - bloom texture.
+#    type: bool
+# enable_bloom_debug = false
+
+>>>>>>> 5.10.0
 ### Sound
 
 #    Comma-separated list of AL and ALC extensions that should not be used.
@@ -2920,7 +3144,11 @@
 ### Networking
 
 #    Prometheus listener address.
+<<<<<<< HEAD
 #    If Minetest is compiled with ENABLE_PROMETHEUS option enabled,
+=======
+#    If Luanti is compiled with ENABLE_PROMETHEUS option enabled,
+>>>>>>> 5.10.0
 #    enable metrics listener for Prometheus on that address.
 #    Metrics can be fetched on http://127.0.0.1:30000/metrics
 #    type: string
@@ -2940,10 +3168,13 @@
 #    type: int min: -1 max: 2147483647
 # client_mapblock_limit = 7500
 
+<<<<<<< HEAD
 #    Whether to show the client debug info (has the same effect as hitting F5).
 #    type: bool
 # show_debug = false
 
+=======
+>>>>>>> 5.10.0
 #    Maximum number of blocks that are simultaneously sent per client.
 #    The maximum total count is calculated dynamically:
 #    max_total = ceil((#clients + max_users) * per_client / 4)
@@ -2955,9 +3186,14 @@
 #    type: float min: 0
 # full_block_send_enable_min_time_from_building = 2.0
 
+<<<<<<< HEAD
 #    Maximum number of packets sent per send step, if you have a slow connection
 #    try reducing it, but don't reduce it to a number below double of targeted
 #    client number.
+=======
+#    Maximum number of packets sent per send step in the low-level networking code.
+#    You generally don't need to change this, however busy servers may benefit from a higher number.
+>>>>>>> 5.10.0
 #    type: int min: 1 max: 65535
 # max_packets_per_iteration = 1024
 
@@ -2998,6 +3234,11 @@
 #    Length of a server tick (the interval at which everything is generally updated),
 #    stated in seconds.
 #    Does not apply to sessions hosted from the client menu.
+<<<<<<< HEAD
+=======
+#    This is a lower bound, i.e. server steps may not be shorter than this, but
+#    they are often longer.
+>>>>>>> 5.10.0
 #    type: float min: 0 max: 1
 # dedicated_server_step = 0.09
 
@@ -3174,7 +3415,11 @@
 #    type: float min: 0.5 max: 5
 # display_density_factor = 1
 
+<<<<<<< HEAD
 #    Windows systems only: Start Minetest with the command line window in the background.
+=======
+#    Windows systems only: Start Luanti with the command line window in the background.
+>>>>>>> 5.10.0
 #    Contains the same information as the file debug.txt (default name).
 #    type: bool
 # enable_console = false

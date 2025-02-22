@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,12 +17,23 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include "irrlichttypes_bloated.h"
+<<<<<<< HEAD
 
 #ifndef SERVER
+=======
+#include "config.h" // IS_CLIENT_BUILD
+
+#if IS_CLIENT_BUILD
+>>>>>>> 5.10.0
 #include <IMesh.h>
 #include <IImage.h>
 #include <IMeshSceneNode.h>

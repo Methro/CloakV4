@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,10 +17,19 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include "irrlichttypes_extrabloated.h"
+<<<<<<< HEAD
+=======
+#include "irr_ptr.h"
+>>>>>>> 5.10.0
 #include "util/numeric.h"
 #include "client/tile.h"
 #include "voxel.h"
@@ -144,14 +154,18 @@ private:
  *
  * Attach alternate `Indices` to an existing mesh buffer, to make it possible to use different
  * indices with the same vertex buffer.
+<<<<<<< HEAD
  *
  * Irrlicht does not currently support this: `CMeshBuffer` ties together a single vertex buffer
  * and a single index buffer. There's no way to share these between mesh buffers.
  *
+=======
+>>>>>>> 5.10.0
  */
 class PartialMeshBuffer
 {
 public:
+<<<<<<< HEAD
 	PartialMeshBuffer(scene::SMeshBuffer *buffer, std::vector<u16> &&vertex_indexes) :
 			m_buffer(buffer), m_vertex_indexes(std::move(vertex_indexes))
 	{}
@@ -164,6 +178,22 @@ public:
 private:
 	scene::SMeshBuffer *m_buffer;
 	mutable std::vector<u16> m_vertex_indexes;
+=======
+	PartialMeshBuffer(scene::SMeshBuffer *buffer, std::vector<u16> &&vertex_indices) :
+			m_buffer(buffer), m_indices(make_irr<scene::SIndexBuffer>())
+	{
+		m_indices->Data = std::move(vertex_indices);
+		m_indices->setHardwareMappingHint(scene::EHM_STATIC);
+	}
+
+	auto *getBuffer() const { return m_buffer; }
+
+	void draw(video::IVideoDriver *driver) const;
+
+private:
+	scene::SMeshBuffer *m_buffer;
+	irr_ptr<scene::SIndexBuffer> m_indices;
+>>>>>>> 5.10.0
 };
 
 /*
@@ -194,12 +224,20 @@ public:
 
 	scene::IMesh *getMesh()
 	{
+<<<<<<< HEAD
 		return m_mesh[0];
+=======
+		return m_mesh[0].get();
+>>>>>>> 5.10.0
 	}
 
 	scene::IMesh *getMesh(u8 layer)
 	{
+<<<<<<< HEAD
 		return m_mesh[layer];
+=======
+		return m_mesh[layer].get();
+>>>>>>> 5.10.0
 	}
 
 	std::vector<MinimapMapblock*> moveMinimapMapblocks()
@@ -236,9 +274,12 @@ public:
 		return this->m_transparent_buffers;
 	}
 
+<<<<<<< HEAD
 	std::set<v3s16> esp_nodes;
 	std::set<v3s16> tunnel_esp_nodes;
 
+=======
+>>>>>>> 5.10.0
 private:
 	struct AnimationInfo {
 		int frame; // last animation frame
@@ -246,7 +287,11 @@ private:
 		TileLayer tile;
 	};
 
+<<<<<<< HEAD
 	scene::IMesh *m_mesh[MAX_TILE_LAYERS];
+=======
+	irr_ptr<scene::IMesh> m_mesh[MAX_TILE_LAYERS];
+>>>>>>> 5.10.0
 	std::vector<MinimapMapblock*> m_minimap_mapblocks;
 	ITextureSource *m_tsrc;
 	IShaderSource *m_shdrsrc;

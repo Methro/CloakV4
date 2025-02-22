@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2021 Liso <anlismon@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2021 Liso <anlismon@gmail.com>
+>>>>>>> 5.10.0
 
 #include "shadowsScreenQuad.h"
 #include <IVideoDriver.h>
@@ -23,7 +29,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 shadowScreenQuad::shadowScreenQuad()
 {
 	Material.Wireframe = false;
+<<<<<<< HEAD
 	Material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 
 	video::SColor color(0x0);
 	Vertices[0] = video::S3DVertex(

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2015 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
@@ -22,6 +23,19 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "util/pointer.h"
 #include "networkprotocol.h"
 #include <SColor.h>
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2015 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+
+#pragma once
+
+#include "util/pointer.h" // Buffer<T>
+#include "irrlichttypes_bloated.h"
+#include "networkprotocol.h"
+#include <SColor.h>
+#include <vector>
+>>>>>>> 5.10.0
 
 class NetworkPacket
 {

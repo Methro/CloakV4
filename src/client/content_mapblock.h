@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -63,7 +69,11 @@ class MapblockMeshGenerator
 public:
 	MapblockMeshGenerator(MeshMakeData *input, MeshCollector *output,
 			scene::IMeshManipulator *mm);
+<<<<<<< HEAD
 	void generate(std::set<content_t> xraySet);
+=======
+	void generate();
+>>>>>>> 5.10.0
 	void renderSingle(content_t node, u8 param2 = 0x00);
 
 private:
@@ -134,6 +144,10 @@ private:
 		f32 corner_levels[2][2];
 	};
 	LiquidData cur_liquid;
+<<<<<<< HEAD
+=======
+	bool smooth_liquids = false;
+>>>>>>> 5.10.0
 
 	void prepareLiquidNodeDrawing();
 	void getLiquidNeighborhood();
@@ -172,7 +186,11 @@ private:
 		float offset_h, float offset_v = 0.0);
 
 // drawtypes
+<<<<<<< HEAD
 	void drawSolidNode(std::set<content_t> xraySet);
+=======
+	void drawSolidNode();
+>>>>>>> 5.10.0
 	void drawLiquidNode();
 	void drawGlasslikeNode();
 	void drawGlasslikeFramedNode();
@@ -190,5 +208,8 @@ private:
 // common
 	void errorUnknownDrawtype();
 	void drawNode();
+<<<<<<< HEAD
 	void drawNode(std::set<content_t> xraySet);
+=======
+>>>>>>> 5.10.0
 };

@@ -6,6 +6,10 @@ set(common_SCRIPT_LUA_API_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/l_env.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/l_http.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/l_inventory.cpp
+<<<<<<< HEAD
+=======
+	${CMAKE_CURRENT_SOURCE_DIR}/l_ipc.cpp
+>>>>>>> 5.10.0
 	${CMAKE_CURRENT_SOURCE_DIR}/l_item.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/l_itemstackmeta.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/l_mapgen.cpp
@@ -23,7 +27,10 @@ set(common_SCRIPT_LUA_API_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/l_storage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/l_util.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/l_vmanip.cpp
+<<<<<<< HEAD
 	${CMAKE_CURRENT_SOURCE_DIR}/l_cheats.cpp
+=======
+>>>>>>> 5.10.0
 	PARENT_SCOPE)
 
 set(client_SCRIPT_LUA_API_SRCS
@@ -36,6 +43,9 @@ set(client_SCRIPT_LUA_API_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/l_minimap.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/l_particles_local.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/l_storage.cpp
+<<<<<<< HEAD
 	${CMAKE_CURRENT_SOURCE_DIR}/l_clientobject.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/l_inventoryaction.cpp
+=======
+>>>>>>> 5.10.0
 	PARENT_SCOPE)

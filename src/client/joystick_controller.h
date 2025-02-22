@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2016 est31, <MTest31@outlook.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2016 est31, <MTest31@outlook.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -155,6 +161,14 @@ public:
 	float getMovementDirection();
 	float getMovementSpeed();
 
+<<<<<<< HEAD
+=======
+	u8 getJoystickId() const
+	{
+		return m_joystick_id;
+	}
+
+>>>>>>> 5.10.0
 	f32 doubling_dtime;
 
 private:

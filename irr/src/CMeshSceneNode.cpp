@@ -115,7 +115,10 @@ void CMeshSceneNode::render()
 	// for debug purposes only:
 	if (DebugDataVisible && PassCount == 1) {
 		video::SMaterial m;
+<<<<<<< HEAD
 		m.Lighting = false;
+=======
+>>>>>>> 5.10.0
 		m.AntiAliasing = 0;
 		driver->setMaterial(m);
 

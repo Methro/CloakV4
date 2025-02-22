@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include <iomanip>
 #include <cerrno>
@@ -739,18 +745,31 @@ void Channel::UpdateTimers(float dtime)
 	if (packet_loss_counter > 1.0f) {
 		packet_loss_counter -= 1.0f;
 
+<<<<<<< HEAD
 		unsigned int packet_loss = 11; /* use a neutral value for initialization */
 		unsigned int packets_successful = 0;
 		//unsigned int packet_too_late = 0;
+=======
+		unsigned int packet_loss;
+		unsigned int packets_successful;
+		unsigned int packet_too_late;
+>>>>>>> 5.10.0
 
 		bool reasonable_amount_of_data_transmitted = false;
 
 		{
 			MutexAutoLock internal(m_internal_mutex);
 			packet_loss = current_packet_loss;
+<<<<<<< HEAD
 			//packet_too_late = current_packet_too_late;
 			packets_successful = current_packet_successful;
 
+=======
+			packet_too_late = current_packet_too_late;
+			packets_successful = current_packet_successful;
+
+			// has half the window even been used?
+>>>>>>> 5.10.0
 			if (current_bytes_transfered > (unsigned int) (m_window_size*512/2)) {
 				reasonable_amount_of_data_transmitted = true;
 			}
@@ -759,6 +778,14 @@ void Channel::UpdateTimers(float dtime)
 			current_packet_successful = 0;
 		}
 
+<<<<<<< HEAD
+=======
+		// Packets too late means either packet duplication along the way
+		// or we were too fast in resending it (which should be self-regulating).
+		// Count this a signal of congestion, like packet loss.
+		packet_loss = std::min(packet_loss + packet_too_late, packets_successful);
+
+>>>>>>> 5.10.0
 		/* dynamic window size */
 		float successful_to_lost_ratio = 0.0f;
 		bool done = false;
@@ -989,6 +1016,7 @@ bool UDPPeer::isTimedOut(float timeout, std::string &reason)
 
 void UDPPeer::reportRTT(float rtt)
 {
+<<<<<<< HEAD
 	if (rtt < 0.0) {
 		return;
 	}
@@ -996,12 +1024,33 @@ void UDPPeer::reportRTT(float rtt)
 
 	// use this value to decide the resend timeout
 	float timeout = getStat(AVG_RTT) * RESEND_TIMEOUT_FACTOR;
+=======
+	if (rtt < 0)
+		return;
+	RTTStatistics(rtt,"rudp",MAX_RELIABLE_WINDOW_SIZE*10);
+
+	// use this value to decide the resend timeout
+	const float rtt_stat = getStat(AVG_RTT);
+	if (rtt_stat < 0)
+		return;
+	float timeout = rtt_stat * RESEND_TIMEOUT_FACTOR;
+>>>>>>> 5.10.0
 	if (timeout < RESEND_TIMEOUT_MIN)
 		timeout = RESEND_TIMEOUT_MIN;
 	if (timeout > RESEND_TIMEOUT_MAX)
 		timeout = RESEND_TIMEOUT_MAX;
 
+<<<<<<< HEAD
 	setResendTimeout(timeout);
+=======
+	float timeout_old = getResendTimeout();
+	setResendTimeout(timeout);
+
+	if (std::abs(timeout - timeout_old) >= 0.001f) {
+		dout_con << m_connection->getDesc() << " set resend timeout " << timeout
+			<< " (rtt=" << rtt_stat << ") for peer id: " << id << std::endl;
+	}
+>>>>>>> 5.10.0
 }
 
 bool UDPPeer::Ping(float dtime,SharedBuffer<u8>& data)
@@ -1121,7 +1170,11 @@ bool UDPPeer::processReliableSendCommand(
 	u16 packets_available = toadd.size();
 	/* we didn't get a single sequence number no need to fill queue */
 	if (!have_initial_sequence_number) {
+<<<<<<< HEAD
 		LOG(derr_con << m_connection->getDesc() << "Ran out of sequence numbers!" << std::endl);
+=======
+		dout_con << m_connection->getDesc() << " No sequence numbers available!" << std::endl;
+>>>>>>> 5.10.0
 		return false;
 	}
 

@@ -6,9 +6,13 @@
 
 #include "IReferenceCounted.h"
 #include "IImage.h"
+<<<<<<< HEAD
 #include "ITexture.h"
 #include "path.h"
 #include "irrArray.h"
+=======
+#include "path.h"
+>>>>>>> 5.10.0
 
 namespace irr
 {

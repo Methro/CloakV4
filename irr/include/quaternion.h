@@ -277,7 +277,12 @@ inline quaternion &quaternion::operator=(const matrix4 &m)
 		}
 	}
 
+<<<<<<< HEAD
 	return normalize();
+=======
+	normalize();
+	return *this;
+>>>>>>> 5.10.0
 }
 #endif
 

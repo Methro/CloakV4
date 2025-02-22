@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2018 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -18,6 +19,13 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2018 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2013-2018 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
+// Copyright (C) 2015-2018 paramat
+>>>>>>> 5.10.0
 
 #include <cmath>
 #include "mapgen.h"
@@ -649,8 +657,11 @@ void MapgenBasic::generateBiomes()
 
 	noise_filler_depth->perlinMap2D(node_min.X, node_min.Z);
 
+<<<<<<< HEAD
 	s16 *biome_transitions = biomegen->getBiomeTransitions();
 
+=======
+>>>>>>> 5.10.0
 	for (s16 z = node_min.Z; z <= node_max.Z; z++)
 	for (s16 x = node_min.X; x <= node_max.X; x++, index++) {
 		Biome *biome = NULL;
@@ -661,8 +672,12 @@ void MapgenBasic::generateBiomes()
 		u16 depth_riverbed = 0;
 		u32 vi = vm->m_area.index(x, node_max.Y, z);
 
+<<<<<<< HEAD
 		int cur_biome_depth = 0;
 		s16 biome_y_min = biome_transitions[cur_biome_depth];
+=======
+		s16 biome_y_min = biomegen->getNextTransitionY(node_max.Y);
+>>>>>>> 5.10.0
 
 		// Check node at base of mapchunk above, either a node of a previously
 		// generated mapchunk or if not, a node of overgenerated base terrain.
@@ -695,6 +710,7 @@ void MapgenBasic::generateBiomes()
 				if (!biome || y < biome_y_min) {
 					// (Re)calculate biome
 					biome = biomegen->getBiomeAtIndex(index, v3s16(x, y, z));
+<<<<<<< HEAD
 
 					// Finding the height of the next biome
 					// On first iteration this may loop a couple times after than it should just run once
@@ -704,6 +720,9 @@ void MapgenBasic::generateBiomes()
 
 					/*if (x == node_min.X && z == node_min.Z)
 						printf("Map: check @ %i -> %s -> again at %i\n", y, biome->name.c_str(), biome_y_min);*/
+=======
+					biome_y_min = biomegen->getNextTransitionY(y);
+>>>>>>> 5.10.0
 				}
 
 				// Add biome to biomemap at first stone surface detected

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 --Minetest
+=======
+--Luanti
+>>>>>>> 5.10.0
 --Copyright (C) 2013 sapier
 --
 --This program is free software; you can redistribute it and/or modify
@@ -100,6 +104,7 @@ local function load_texture_packs(txtpath, retval)
 	end
 end
 
+<<<<<<< HEAD
 function get_mods(path, virtual_path, retval, modpack)
 	local mods = core.get_dir_list(path, true)
 
@@ -162,6 +167,8 @@ function get_mods(path, virtual_path, retval, modpack)
 	end
 end
 
+=======
+>>>>>>> 5.10.0
 --modmanager implementation
 pkgmgr = {}
 
@@ -686,6 +693,7 @@ function pkgmgr.install_dir(expected_type, path, basename, targetpath)
 end
 
 --------------------------------------------------------------------------------
+<<<<<<< HEAD
 function pkgmgr.prepareclientmodlist(data)
 	local retval = {}
 
@@ -733,6 +741,8 @@ function pkgmgr.prepareclientmodlist(data)
 	return retval
 end
 
+=======
+>>>>>>> 5.10.0
 function pkgmgr.preparemodlist(data)
 	local retval = {}
 
@@ -863,6 +873,7 @@ function pkgmgr.reload_global_mods()
 end
 
 --------------------------------------------------------------------------------
+<<<<<<< HEAD
 function pkgmgr.refresh_globals()
 	local function is_equal(element,uid) --uid match
 		if element.name == uid then
@@ -880,6 +891,8 @@ function pkgmgr.refresh_globals()
 end
 
 --------------------------------------------------------------------------------
+=======
+>>>>>>> 5.10.0
 function pkgmgr.find_by_gameid(gameid)
 	for i, game in ipairs(pkgmgr.games) do
 		if game.id == gameid then
@@ -966,7 +979,11 @@ function pkgmgr.get_contentdb_id(content)
 		return content.author:lower() .. "/" .. content.name
 	end
 
+<<<<<<< HEAD
 	-- Until Minetest 5.8.0, Minetest Game was bundled with Minetest.
+=======
+	-- Until version 5.8.0, Minetest Game was bundled with the engine.
+>>>>>>> 5.10.0
 	-- Unfortunately, the bundled MTG was not versioned (missing "release"
 	-- field in game.conf).
 	-- Therefore, we consider any installation of MTG that is not versioned,

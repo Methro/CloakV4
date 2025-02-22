@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 rootProject.name = "Minetest"
+=======
+rootProject.name = "Luanti"
+>>>>>>> 5.10.0
 include ':app', ':native'

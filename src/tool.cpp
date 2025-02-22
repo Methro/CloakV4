@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "tool.h"
 #include "itemdef.h"
@@ -489,6 +495,7 @@ PunchDamageResult getPunchDamage(
 	{
 		if (do_hit && punchitem) {
 			if (itemgroup_get(armor_groups, "punch_operable") &&
+<<<<<<< HEAD
 					(toolcap == NULL || punchitem->name.empty())) {
 				do_hit = false;
 			}
@@ -498,6 +505,15 @@ PunchDamageResult getPunchDamage(
 			if(itemgroup_get(armor_groups, "immortal")) {
 				do_hit = false;
 			}
+=======
+					(toolcap == NULL || punchitem->name.empty()))
+				do_hit = false;
+		}
+
+		if (do_hit) {
+			if(itemgroup_get(armor_groups, "immortal"))
+				do_hit = false;
+>>>>>>> 5.10.0
 		}
 	}
 
@@ -515,6 +531,7 @@ PunchDamageResult getPunchDamage(
 	return result;
 }
 
+<<<<<<< HEAD
 // modified to check for fleshy instead of immortal. bc mineclonia
 PunchDamageResult getPunchDamageFleshy(
 		const ItemGroupList &armor_groups,
@@ -554,6 +571,8 @@ PunchDamageResult getPunchDamageFleshy(
 }
 
 
+=======
+>>>>>>> 5.10.0
 f32 getToolRange(const ItemStack &wielded_item, const ItemStack &hand_item,
 		const IItemDefManager *itemdef_manager)
 {

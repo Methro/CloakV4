@@ -45,6 +45,10 @@ public:
 	s32 getSmallStep() const { return small_step; }
 	s32 getPos() const;
 	s32 getTargetPos() const;
+<<<<<<< HEAD
+=======
+	bool isHorizontal() const { return is_horizontal; }
+>>>>>>> 5.10.0
 
 	void setMax(const s32 &max);
 	void setMin(const s32 &min);

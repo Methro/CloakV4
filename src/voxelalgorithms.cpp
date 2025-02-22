@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include <array>
 
@@ -943,6 +949,7 @@ bool propagate_block_sunlight(Map *map, const NodeDefManager *ndef,
  * The areas do not overlap.
  * Compatible with type 'direction'.
  */
+<<<<<<< HEAD
 const VoxelArea block_pad[] = {
 	VoxelArea(v3s16(15, 0, 0), v3s16(15, 15, 15)), //X+
 	VoxelArea(v3s16(1, 15, 0), v3s16(14, 15, 15)), //Y+
@@ -951,6 +958,20 @@ const VoxelArea block_pad[] = {
 	VoxelArea(v3s16(1, 0, 0), v3s16(14, 0, 15)),   //Y-
 	VoxelArea(v3s16(0, 0, 0), v3s16(0, 15, 15))    //X-
 };
+=======
+#define B_1 (MAP_BLOCKSIZE - 1)
+#define B_2 (MAP_BLOCKSIZE - 2)
+const static VoxelArea block_pad[] = {
+	VoxelArea({B_1, 0, 0}, {B_1, B_1, B_1}), //X+
+	VoxelArea({1, B_1, 0}, {B_2, B_1, B_1}), //Y+
+	VoxelArea({1, 1, B_1}, {B_2, B_2, B_1}), //Z+
+	VoxelArea({1, 1, 0},   {B_2, B_2, 0}),   //Z-
+	VoxelArea({1, 0, 0},   {B_2, 0, B_1}),   //Y-
+	VoxelArea({0, 0, 0},   {0, B_1, B_1})    //X-
+};
+#undef B_1
+#undef B_2
+>>>>>>> 5.10.0
 
 /*!
  * The common part of bulk light updates - it is always executed.

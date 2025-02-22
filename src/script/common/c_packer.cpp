@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2022 sfan5 <sfan5@live.de>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2022 sfan5 <sfan5@live.de>
+>>>>>>> 5.10.0
 
 #include <cstdio>
 #include <cstring>
@@ -507,6 +513,10 @@ PackedValue *script_pack(lua_State *L, int idx)
 
 void script_unpack(lua_State *L, PackedValue *pv)
 {
+<<<<<<< HEAD
+=======
+	assert(pv);
+>>>>>>> 5.10.0
 	// table that tracks objects for keep_ref / PUSHREF (key = instr index)
 	lua_newtable(L);
 	const int top = lua_gettop(L);

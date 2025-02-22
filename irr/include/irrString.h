@@ -173,6 +173,7 @@ public:
 			return *this;
 		}
 
+<<<<<<< HEAD
 		// no longer allowed!
 		_IRR_DEBUG_BREAK_IF((void *)c == (void *)c_str());
 
@@ -180,6 +181,26 @@ public:
 		str.resize(len);
 		for (u32 l = 0; l < len; ++l)
 			str[l] = (T)c[l];
+=======
+		if constexpr (sizeof(T) != sizeof(B)) {
+			_IRR_DEBUG_BREAK_IF(
+				(uintptr_t)c >= (uintptr_t)(str.data()) &&
+				(uintptr_t)c <  (uintptr_t)(str.data() + str.size()));
+		}
+
+		if ((void *)c == (void *)c_str())
+			return *this;
+
+		u32 len = calclen(c);
+		// In case `c` is a pointer to our own buffer, we may not resize first
+		// or it can become invalid.
+		if (len > str.size())
+			str.resize(len);
+		for (u32 l = 0; l < len; ++l)
+			str[l] = static_cast<T>(c[l]);
+		if (len < str.size())
+			str.resize(len);
+>>>>>>> 5.10.0
 
 		return *this;
 	}

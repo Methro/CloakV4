@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,16 +17,31 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "texturesource.h"
 
 #include <IVideoDriver.h>
+<<<<<<< HEAD
 #include "util/thread.h"
 #include "imagefilters.h"
 #include "guiscalingfilter.h"
 #include "renderingengine.h"
 #include "texturepaths.h"
 #include "imagesource.h"
+=======
+#include "guiscalingfilter.h"
+#include "imagefilters.h"
+#include "imagesource.h"
+#include "renderingengine.h"
+#include "settings.h"
+#include "texturepaths.h"
+#include "util/thread.h"
+>>>>>>> 5.10.0
 
 
 // Stores internal information about a texture.
@@ -39,7 +55,11 @@ struct TextureInfo
 };
 
 // TextureSource
+<<<<<<< HEAD
 class TextureSource : public IWritableTextureSource
+=======
+class TextureSource final : public IWritableTextureSource
+>>>>>>> 5.10.0
 {
 public:
 	TextureSource();
@@ -137,7 +157,10 @@ public:
 
 	video::ITexture* getNormalTexture(const std::string &name);
 	video::SColor getTextureAverageColor(const std::string &name);
+<<<<<<< HEAD
 	video::ITexture *getShaderFlagsTexture(bool normamap_present);
+=======
+>>>>>>> 5.10.0
 
 private:
 
@@ -541,6 +564,7 @@ video::SColor TextureSource::getTextureAverageColor(const std::string &name)
 
 	return c;
 }
+<<<<<<< HEAD
 
 
 video::ITexture *TextureSource::getShaderFlagsTexture(bool normalmap_present)
@@ -563,3 +587,5 @@ video::ITexture *TextureSource::getShaderFlagsTexture(bool normalmap_present)
 	return getTexture(tname);
 
 }
+=======
+>>>>>>> 5.10.0

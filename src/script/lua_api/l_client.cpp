@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -19,6 +20,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include <iostream>
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #include "l_client.h"
 #include "chatmessage.h"
@@ -36,9 +43,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "map.h"
 #include "util/string.h"
 #include "nodedef.h"
+<<<<<<< HEAD
 #include "l_clientobject.h"
 #include "client/keycode.h"
 #include "client/game.h"
+=======
+
+#define checkCSMRestrictionFlag(flag) \
+	( getClient(L)->checkCSMRestrictionFlag(CSMRestrictionFlags::flag) )
+>>>>>>> 5.10.0
 
 // Not the same as FlagDesc, which contains an `u32 flag`
 struct CSMFlagDesc {
@@ -109,6 +122,14 @@ int ModApiClient::l_send_chat_message(lua_State *L)
 	if (!lua_isstring(L, 1))
 		return 0;
 
+<<<<<<< HEAD
+=======
+	// If server disabled this API, discard
+
+	if (checkCSMRestrictionFlag(CSM_RF_CHAT_MESSAGES))
+		return 0;
+
+>>>>>>> 5.10.0
 	std::string message = luaL_checkstring(L, 1);
 	getClient(L)->sendChatMessage(utf8_to_wide(message));
 	return 0;
@@ -124,6 +145,11 @@ int ModApiClient::l_clear_out_chat_queue(lua_State *L)
 // get_player_names()
 int ModApiClient::l_get_player_names(lua_State *L)
 {
+<<<<<<< HEAD
+=======
+	if (checkCSMRestrictionFlag(CSM_RF_READ_PLAYERINFO))
+		return 0;
+>>>>>>> 5.10.0
 
 	auto plist = getClient(L)->getConnectedPlayerNames();
 	lua_createtable(L, plist.size(), 0);
@@ -152,6 +178,7 @@ int ModApiClient::l_show_formspec(lua_State *L)
 	return 1;
 }
 
+<<<<<<< HEAD
 // send_respawn()
 int ModApiClient::l_send_respawn(lua_State *L)
 {
@@ -159,6 +186,8 @@ int ModApiClient::l_send_respawn(lua_State *L)
 	return 0;
 }
 
+=======
+>>>>>>> 5.10.0
 // disconnect()
 int ModApiClient::l_disconnect(lua_State *L)
 {
@@ -201,6 +230,7 @@ int ModApiClient::l_get_node_or_nil(lua_State *L)
 	return 1;
 }
 
+<<<<<<< HEAD
 int iterator_func(lua_State *L) {
     std::vector<std::pair<v3s16, MapNode>> *nodes = reinterpret_cast<std::vector<std::pair<v3s16, MapNode>> *>(lua_touserdata(L, lua_upvalueindex(2)));
 
@@ -270,6 +300,9 @@ int ModApiClient::l_nodes_at_block_pos(lua_State *L){
 }
 
 // get_language()
+=======
+// get_langauge()
+>>>>>>> 5.10.0
 int ModApiClient::l_get_language(lua_State *L)
 {
 #ifdef _WIN32
@@ -316,8 +349,11 @@ int ModApiClient::l_get_server_info(lua_State *L)
 	lua_setfield(L, -2, "port");
 	lua_pushinteger(L, client->getProtoVersion());
 	lua_setfield(L, -2, "protocol_version");
+<<<<<<< HEAD
 	lua_pushinteger(L, client->getMapSeed());
 	lua_setfield(L, -2, "seed");
+=======
+>>>>>>> 5.10.0
 	return 1;
 }
 
@@ -330,6 +366,11 @@ int ModApiClient::l_get_item_def(lua_State *L)
 	IItemDefManager *idef = gdef->idef();
 	assert(idef);
 
+<<<<<<< HEAD
+=======
+	if (checkCSMRestrictionFlag(CSM_RF_READ_ITEMDEFS))
+		return 0;
+>>>>>>> 5.10.0
 
 	if (!lua_isstring(L, 1))
 		return 0;
@@ -356,6 +397,11 @@ int ModApiClient::l_get_node_def(lua_State *L)
 	if (!lua_isstring(L, 1))
 		return 0;
 
+<<<<<<< HEAD
+=======
+	if (checkCSMRestrictionFlag(CSM_RF_READ_NODEDEFS))
+		return 0;
+>>>>>>> 5.10.0
 
 	std::string name = readParam<std::string>(L, 1);
 	const ContentFeatures &cf = ndef->get(ndef->getId(name));
@@ -399,6 +445,7 @@ int ModApiClient::l_get_csm_restrictions(lua_State *L)
 	return 1;
 }
 
+<<<<<<< HEAD
 // send_damage(damage)
 int ModApiClient::l_send_damage(lua_State *L)
 {
@@ -1039,6 +1086,8 @@ int ModApiClient::l_on_client_initialize(lua_State* L)
 	return 1;
 }
 
+=======
+>>>>>>> 5.10.0
 void ModApiClient::Initialize(lua_State *L, int top)
 {
 	API_FCT(get_current_modname);
@@ -1049,7 +1098,10 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(clear_out_chat_queue);
 	API_FCT(get_player_names);
 	API_FCT(show_formspec);
+<<<<<<< HEAD
 	API_FCT(send_respawn);
+=======
+>>>>>>> 5.10.0
 	API_FCT(gettext);
 	API_FCT(get_node_or_nil);
 	API_FCT(disconnect);
@@ -1061,6 +1113,7 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(get_builtin_path);
 	API_FCT(get_language);
 	API_FCT(get_csm_restrictions);
+<<<<<<< HEAD
 
 	API_FCT(send_damage);
 	API_FCT(set_fast_speed);
@@ -1089,4 +1142,6 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(update_infotexts);
 	API_FCT(get_description);
 	API_FCT(on_client_initialize);
+=======
+>>>>>>> 5.10.0
 }

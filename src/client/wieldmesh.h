@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2014 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2014 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -104,7 +110,11 @@ struct ItemMesh
 class WieldMeshSceneNode : public scene::ISceneNode
 {
 public:
+<<<<<<< HEAD
 	WieldMeshSceneNode(scene::ISceneManager *mgr, s32 id = -1, bool lighting = false);
+=======
+	WieldMeshSceneNode(scene::ISceneManager *mgr, s32 id = -1);
+>>>>>>> 5.10.0
 	virtual ~WieldMeshSceneNode();
 
 	void setCube(const ContentFeatures &f, v3f wield_scale);
@@ -132,9 +142,12 @@ private:
 	scene::IMeshSceneNode *m_meshnode = nullptr;
 	video::E_MATERIAL_TYPE m_material_type;
 
+<<<<<<< HEAD
 	// True if SMaterial::Lighting should be enabled.
 	bool m_lighting;
 
+=======
+>>>>>>> 5.10.0
 	bool m_enable_shaders;
 	bool m_anisotropic_filter;
 	bool m_bilinear_filter;

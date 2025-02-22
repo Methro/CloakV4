@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -106,7 +112,11 @@ private:
 	// unban_player_or_ip()
 	static int l_unban_player_or_ip(lua_State *L);
 
+<<<<<<< HEAD
 	// disconnect_player(name, [reason]) -> success
+=======
+	// disconnect_player(name[, reason[, reconnect]]) -> success
+>>>>>>> 5.10.0
 	static int l_disconnect_player(lua_State *L);
 
 	// remove_player(name)

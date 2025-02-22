@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -18,6 +19,13 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2010-2013 blue42u, Jonathon Anderson <anderjon@umail.iu.edu>
+// Copyright (C) 2010-2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
+>>>>>>> 5.10.0
 
 #include "client/hud.h"
 #include <string>
@@ -39,7 +47,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "wieldmesh.h"
 #include "client/renderingengine.h"
 #include "client/minimap.h"
+<<<<<<< HEAD
 #include "gui/touchscreengui.h"
+=======
+#include "gui/touchcontrols.h"
+>>>>>>> 5.10.0
 #include "util/enriched_string.h"
 #include "irrlicht_changes/CGUITTFont.h"
 
@@ -61,6 +73,10 @@ Hud::Hud(Client *client, LocalPlayer *player,
 
 	readScalingSetting();
 	g_settings->registerChangedCallback("dpi_change_notifier", setting_changed_callback, this);
+<<<<<<< HEAD
+=======
+	g_settings->registerChangedCallback("display_density_factor", setting_changed_callback, this);
+>>>>>>> 5.10.0
 	g_settings->registerChangedCallback("hud_scaling", setting_changed_callback, this);
 
 	for (auto &hbar_color : hbar_colors)
@@ -99,7 +115,10 @@ Hud::Hud(Client *client, LocalPlayer *player,
 
 	// Initialize m_selection_material
 
+<<<<<<< HEAD
 	m_selection_material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 
 	if (g_settings->getBool("enable_shaders")) {
 		IShaderSource *shdrsrc = client->getShaderSource();
@@ -121,7 +140,10 @@ Hud::Hud(Client *client, LocalPlayer *player,
 	}
 
 	// Initialize m_block_bounds_material
+<<<<<<< HEAD
 	m_block_bounds_material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 	if (g_settings->getBool("enable_shaders")) {
 		IShaderSource *shdrsrc = client->getShaderSource();
 		auto shader_id = shdrsrc->getShader("default_shader", TILE_MATERIAL_ALPHA);
@@ -133,13 +155,23 @@ Hud::Hud(Client *client, LocalPlayer *player,
 			rangelim(g_settings->getS16("selectionbox_width"), 1, 5);
 
 	// Prepare mesh for compass drawing
+<<<<<<< HEAD
 	auto &b = m_rotation_mesh_buffer;
 	b.Vertices.resize(4);
 	b.Indices.resize(6);
+=======
+	m_rotation_mesh_buffer.reset(new scene::SMeshBuffer());
+	auto *b = m_rotation_mesh_buffer.get();
+	auto &vertices = b->Vertices->Data;
+	auto &indices = b->Indices->Data;
+	vertices.resize(4);
+	indices.resize(6);
+>>>>>>> 5.10.0
 
 	video::SColor white(255, 255, 255, 255);
 	v3f normal(0.f, 0.f, 1.f);
 
+<<<<<<< HEAD
 	b.Vertices[0] = video::S3DVertex(v3f(-1.f, -1.f, 0.f), normal, white, v2f(0.f, 1.f));
 	b.Vertices[1] = video::S3DVertex(v3f(-1.f,  1.f, 0.f), normal, white, v2f(0.f, 0.f));
 	b.Vertices[2] = video::S3DVertex(v3f( 1.f,  1.f, 0.f), normal, white, v2f(1.f, 0.f));
@@ -155,6 +187,22 @@ Hud::Hud(Client *client, LocalPlayer *player,
 	b.getMaterial().Lighting = false;
 	b.getMaterial().MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL;
 	b.setHardwareMappingHint(scene::EHM_STATIC);
+=======
+	vertices[0] = video::S3DVertex(v3f(-1.f, -1.f, 0.f), normal, white, v2f(0.f, 1.f));
+	vertices[1] = video::S3DVertex(v3f(-1.f,  1.f, 0.f), normal, white, v2f(0.f, 0.f));
+	vertices[2] = video::S3DVertex(v3f( 1.f,  1.f, 0.f), normal, white, v2f(1.f, 0.f));
+	vertices[3] = video::S3DVertex(v3f( 1.f, -1.f, 0.f), normal, white, v2f(1.f, 1.f));
+
+	indices[0] = 0;
+	indices[1] = 1;
+	indices[2] = 2;
+	indices[3] = 2;
+	indices[4] = 3;
+	indices[5] = 0;
+
+	b->getMaterial().MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL;
+	b->setHardwareMappingHint(scene::EHM_STATIC);
+>>>>>>> 5.10.0
 }
 
 void Hud::readScalingSetting()
@@ -169,8 +217,12 @@ void Hud::readScalingSetting()
 
 Hud::~Hud()
 {
+<<<<<<< HEAD
 	g_settings->deregisterChangedCallback("dpi_change_notifier", setting_changed_callback, this);
 	g_settings->deregisterChangedCallback("hud_scaling", setting_changed_callback, this);
+=======
+	g_settings->deregisterAllChangedCallbacks(this);
+>>>>>>> 5.10.0
 
 	if (m_selection_mesh)
 		m_selection_mesh->drop();
@@ -300,20 +352,33 @@ void Hud::drawItems(v2s32 screen_pos, v2s32 screen_offset, s32 itemcount, v2f al
 
 	// Draw items
 	core::rect<s32> imgrect(0, 0, m_hotbar_imagesize, m_hotbar_imagesize);
+<<<<<<< HEAD
 	const s32 list_size = mainlist ? mainlist->getSize() : 0;
 	for (s32 i = inv_offset; i < itemcount && i < list_size; i++) {
+=======
+	const s32 list_max = std::min(itemcount, (s32) (mainlist ? mainlist->getSize() : 0 ));
+	for (s32 i = inv_offset; i < list_max; i++) {
+>>>>>>> 5.10.0
 		s32 fullimglen = m_hotbar_imagesize + m_padding * 2;
 
 		v2s32 steppos;
 		switch (direction) {
 		case HUD_DIR_RIGHT_LEFT:
+<<<<<<< HEAD
 			steppos = v2s32(-(m_padding + (i - inv_offset) * fullimglen), m_padding);
+=======
+			steppos = v2s32(m_padding + (list_max - 1 - i - inv_offset) * fullimglen, m_padding);
+>>>>>>> 5.10.0
 			break;
 		case HUD_DIR_TOP_BOTTOM:
 			steppos = v2s32(m_padding, m_padding + (i - inv_offset) * fullimglen);
 			break;
 		case HUD_DIR_BOTTOM_TOP:
+<<<<<<< HEAD
 			steppos = v2s32(m_padding, -(m_padding + (i - inv_offset) * fullimglen));
+=======
+			steppos = v2s32(m_padding, m_padding + (list_max - 1 - i - inv_offset) * fullimglen);
+>>>>>>> 5.10.0
 			break;
 		default:
 			steppos = v2s32(m_padding + (i - inv_offset) * fullimglen, m_padding);
@@ -324,8 +389,13 @@ void Hud::drawItems(v2s32 screen_pos, v2s32 screen_offset, s32 itemcount, v2f al
 
 		drawItem(mainlist->getItem(i), item_rect, (i + 1) == selectitem);
 
+<<<<<<< HEAD
 		if (is_hotbar && g_touchscreengui)
 			g_touchscreengui->registerHotbarRect(i, item_rect);
+=======
+		if (is_hotbar && g_touchcontrols)
+			g_touchcontrols->registerHotbarRect(i, item_rect);
+>>>>>>> 5.10.0
 	}
 }
 
@@ -380,7 +450,11 @@ void Hud::drawLuaElements(const v3s16 &camera_offset)
 		elems.push_back(&minimap);
 	}
 	if (client->getProtoVersion() < 46 && player->hud_flags & HUD_FLAG_HOTBAR_VISIBLE) {
+<<<<<<< HEAD
 		hotbar = {HUD_ELEM_HOTBAR, v2f(0.5, 1), "", v2f(), "", 0 , 0, 0, v2f(-0.5, -1),
+=======
+		hotbar = {HUD_ELEM_HOTBAR, v2f(0.5, 1), "", v2f(), "", 0 , 0, 0, v2f(0, -1),
+>>>>>>> 5.10.0
 				v2f(0, -4), v3f(), v2s32(), 0, "", 0};
 		elems.push_back(&hotbar);
 	}
@@ -536,9 +610,15 @@ void Hud::drawLuaElements(const v3s16 &camera_offset)
 					return; // Avoid zero divides
 
 				// Angle according to camera view
+<<<<<<< HEAD
 				v3f fore(0.f, 0.f, 1.f);
 				scene::ICameraSceneNode *cam = client->getSceneManager()->getActiveCamera();
 				cam->getAbsoluteTransformation().rotateVect(fore);
+=======
+				scene::ICameraSceneNode *cam = client->getSceneManager()->getActiveCamera();
+				v3f fore = cam->getAbsoluteTransformation()
+						.rotateAndScaleVect(v3f(0.f, 0.f, 1.f));
+>>>>>>> 5.10.0
 				int angle = - fore.getHorizontalAngle().Y;
 
 				// Limit angle and ajust with given offset
@@ -656,10 +736,17 @@ void Hud::drawCompassRotate(HudElement *e, video::ITexture *texture,
 	driver->setTransform(video::ETS_VIEW, core::matrix4());
 	driver->setTransform(video::ETS_WORLD, Matrix);
 
+<<<<<<< HEAD
 	video::SMaterial &material = m_rotation_mesh_buffer.getMaterial();
 	material.TextureLayers[0].Texture = texture;
 	driver->setMaterial(material);
 	driver->drawMeshBuffer(&m_rotation_mesh_buffer);
+=======
+	auto &material = m_rotation_mesh_buffer->getMaterial();
+	material.TextureLayers[0].Texture = texture;
+	driver->setMaterial(material);
+	driver->drawMeshBuffer(m_rotation_mesh_buffer.get());
+>>>>>>> 5.10.0
 
 	driver->setTransform(video::ETS_WORLD, core::matrix4());
 	driver->setTransform(video::ETS_VIEW, oldViewMat);
@@ -804,8 +891,13 @@ void Hud::drawStatbar(v2s32 pos, u16 corner, u16 drawdir,
 }
 void Hud::drawHotbar(const v2s32 &pos, const v2f &offset, u16 dir, const v2f &align)
 {
+<<<<<<< HEAD
 	if (g_touchscreengui)
 		g_touchscreengui->resetHotbarRects();
+=======
+	if (g_touchcontrols)
+		g_touchcontrols->resetHotbarRects();
+>>>>>>> 5.10.0
 
 	InventoryList *mainlist = inventory->getList("main");
 	if (mainlist == NULL) {
@@ -816,8 +908,11 @@ void Hud::drawHotbar(const v2s32 &pos, const v2f &offset, u16 dir, const v2f &al
 	u16 playeritem = player->getWieldIndex();
 	v2s32 screen_offset(offset.X, offset.Y);
 
+<<<<<<< HEAD
 	v2s32 centerlowerpos(m_displaycenter.X, m_screensize.Y);
 
+=======
+>>>>>>> 5.10.0
 	s32 hotbar_itemcount = player->getMaxHotbarItemcount();
 	s32 width = hotbar_itemcount * (m_hotbar_imagesize + m_padding * 2);
 
@@ -827,6 +922,7 @@ void Hud::drawHotbar(const v2s32 &pos, const v2f &offset, u16 dir, const v2f &al
 		drawItems(pos, screen_offset, hotbar_itemcount, align, 0,
 			mainlist, playeritem + 1, dir, true);
 	} else {
+<<<<<<< HEAD
 		v2s32 firstpos = pos;
 		firstpos.X += width/4;
 
@@ -836,6 +932,13 @@ void Hud::drawHotbar(const v2s32 &pos, const v2f &offset, u16 dir, const v2f &al
 		drawItems(firstpos, screen_offset, hotbar_itemcount / 2, align, 0,
 			mainlist, playeritem + 1, dir, true);
 		drawItems(secondpos, screen_offset, hotbar_itemcount, align,
+=======
+		v2s32 upper_pos = pos - v2s32(0, m_hotbar_imagesize + m_padding);
+
+		drawItems(upper_pos, screen_offset, hotbar_itemcount / 2, align, 0,
+			mainlist, playeritem + 1, dir, true);
+		drawItems(pos, screen_offset, hotbar_itemcount, align,
+>>>>>>> 5.10.0
 			hotbar_itemcount / 2, mainlist, playeritem + 1, dir, true);
 	}
 }
@@ -1202,7 +1305,10 @@ void drawItemStack(
 
 			video::SMaterial &material = buf->getMaterial();
 			material.MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF;
+<<<<<<< HEAD
 			material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 			driver->setMaterial(material);
 			driver->drawMeshBuffer(buf);
 		}

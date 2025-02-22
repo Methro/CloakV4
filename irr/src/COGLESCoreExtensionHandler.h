@@ -24,6 +24,7 @@ public:
 	enum EOGLESFeatures
 	{
 		// If you update this enum also update the corresponding OGLESFeatureStrings string-array
+<<<<<<< HEAD
 		IRR_GL_APPLE_texture_2D_limited_npot,
 		IRR_GL_APPLE_texture_format_BGRA8888,
 		IRR_GL_EXT_blend_minmax,
@@ -51,12 +52,27 @@ public:
 		IRR_GL_OES_texture_half_float,
 		IRR_GL_OES_texture_mirrored_repeat,
 		IRR_GL_OES_texture_npot,
+=======
+		IRR_GL_APPLE_texture_format_BGRA8888,
+		IRR_GL_EXT_blend_minmax,
+		IRR_GL_EXT_texture_format_BGRA8888,
+		IRR_GL_EXT_texture_rg,
+		IRR_GL_OES_depth_texture,
+		IRR_GL_OES_element_index_uint,
+		IRR_GL_OES_packed_depth_stencil,
+		IRR_GL_OES_texture_float,
+		IRR_GL_OES_texture_half_float,
+>>>>>>> 5.10.0
 
 		IRR_OGLES_Feature_Count
 	};
 
 	COGLESCoreExtensionHandler() :
+<<<<<<< HEAD
 			Version(0), MaxAnisotropy(1), MaxIndices(0xffff),
+=======
+			MaxAnisotropy(1), MaxIndices(0xffff),
+>>>>>>> 5.10.0
 			MaxTextureSize(1), MaxTextureLODBias(0.f), StencilBuffer(false)
 	{
 		for (u32 i = 0; i < IRR_OGLES_Feature_Count; ++i)
@@ -81,16 +97,20 @@ public:
 			os::Printer::log(getFeatureString(i), FeatureAvailable[i] ? " true" : " false");
 	}
 
+<<<<<<< HEAD
 	bool queryGLESFeature(EOGLESFeatures feature) const
 	{
 		return FeatureAvailable[feature];
 	}
 
+=======
+>>>>>>> 5.10.0
 protected:
 	const char *getFeatureString(size_t index) const
 	{
 		// One for each EOGLESFeatures
 		static const char *const OGLESFeatureStrings[IRR_OGLES_Feature_Count] = {
+<<<<<<< HEAD
 				"GL_APPLE_texture_2D_limited_npot",
 				"GL_APPLE_texture_format_BGRA8888",
 				"GL_EXT_blend_minmax",
@@ -118,11 +138,23 @@ protected:
 				"GL_OES_texture_half_float",
 				"GL_OES_texture_mirrored_repeat",
 				"GL_OES_texture_npot",
+=======
+				"GL_APPLE_texture_format_BGRA8888",
+				"GL_EXT_blend_minmax",
+				"GL_EXT_texture_format_BGRA8888",
+				"GL_EXT_texture_rg",
+				"GL_OES_depth_texture",
+				"GL_OES_element_index_uint",
+				"GL_OES_packed_depth_stencil",
+				"GL_OES_texture_float",
+				"GL_OES_texture_half_float",
+>>>>>>> 5.10.0
 			};
 
 		return OGLESFeatureStrings[index];
 	}
 
+<<<<<<< HEAD
 	void getGLVersion()
 	{
 		Version = 0;
@@ -174,6 +206,10 @@ protected:
 	COpenGLCoreFeature Feature;
 
 	u16 Version;
+=======
+	COpenGLCoreFeature Feature;
+
+>>>>>>> 5.10.0
 	u8 MaxAnisotropy;
 	u32 MaxIndices;
 	u32 MaxTextureSize;

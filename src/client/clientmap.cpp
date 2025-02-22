@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "clientmap.h"
 #include "client.h"
@@ -31,6 +37,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "settings.h"
 #include "camera.h"               // CameraModes
 #include "util/basic_macros.h"
+<<<<<<< HEAD
+=======
+#include "util/tracy_wrapper.h"
+>>>>>>> 5.10.0
 #include "client/renderingengine.h"
 
 #include <queue>
@@ -139,8 +149,12 @@ void ClientMap::onSettingChanged(std::string_view name, bool all)
 
 ClientMap::~ClientMap()
 {
+<<<<<<< HEAD
 	for (const auto &name : ClientMap_settings)
 		g_settings->deregisterChangedCallback(name, on_settings_changed, this);
+=======
+	g_settings->deregisterAllChangedCallbacks(this);
+>>>>>>> 5.10.0
 }
 
 void ClientMap::updateCamera(v3f pos, v3f dir, f32 fov, v3s16 offset, video::SColor light_color)
@@ -714,6 +728,11 @@ void ClientMap::touchMapBlocks()
 
 void ClientMap::renderMap(video::IVideoDriver* driver, s32 pass)
 {
+<<<<<<< HEAD
+=======
+	ZoneScoped;
+
+>>>>>>> 5.10.0
 	bool is_transparent_pass = pass == scene::ESNRP_TRANSPARENT;
 
 	std::string prefix;
@@ -1012,8 +1031,12 @@ int ClientMap::getBackgroundBrightness(float max_d, u32 daylight_factor,
 		v3f z_dir = z_directions[i];
 		core::CMatrix4<f32> a;
 		a.buildRotateFromTo(v3f(0,1,0), z_dir);
+<<<<<<< HEAD
 		v3f dir = m_camera_direction;
 		a.rotateVect(dir);
+=======
+		v3f dir = a.rotateAndScaleVect(m_camera_direction);
+>>>>>>> 5.10.0
 		int br = 0;
 		float step = BS*1.5;
 		if(max_d > 35*BS)
@@ -1095,12 +1118,16 @@ void ClientMap::renderPostFx(CameraMode cam_mode)
 		// Draw a full-screen rectangle
 		video::IVideoDriver* driver = SceneManager->getVideoDriver();
 		v2u32 ss = driver->getScreenSize();
+<<<<<<< HEAD
 
 		int start_y = 0;
 		if (g_settings->getBool("small_post_effect_color"))
 			start_y = ss.Y-(ss.Y/10000);
 		core::rect<s32> rect(0, start_y, ss.X, ss.Y);
 
+=======
+		core::rect<s32> rect(0,0, ss.X, ss.Y);
+>>>>>>> 5.10.0
 		driver->draw2DRectangle(post_color, rect);
 	}
 }
@@ -1211,11 +1238,29 @@ void ClientMap::renderMapShadows(video::IVideoDriver *driver,
 	// Render all mesh buffers in order
 	drawcall_count += draw_order.size();
 
+<<<<<<< HEAD
+=======
+	bool translucent_foliage = g_settings->getBool("enable_translucent_foliage");
+
+	video::E_MATERIAL_TYPE leaves_material = video::EMT_SOLID;
+
+	// For translucent leaves, we want to use backface culling instead of frontface.
+	if (translucent_foliage) {
+		// this is the material leaves would use, compare to nodedef.cpp
+		auto* shdsrc = m_client->getShaderSource();
+		const u32 leaves_shader = shdsrc->getShader("nodes_shader", TILE_MATERIAL_WAVING_LEAVES, NDT_ALLFACES);
+		leaves_material = shdsrc->getShaderInfo(leaves_shader).material;
+	}
+
+>>>>>>> 5.10.0
 	for (auto &descriptor : draw_order) {
 		if (!descriptor.m_reuse_material) {
 			// override some material properties
 			video::SMaterial local_material = descriptor.getMaterial();
+<<<<<<< HEAD
 			local_material.MaterialType = material.MaterialType;
+=======
+>>>>>>> 5.10.0
 			// do not override culling if the original material renders both back
 			// and front faces in solid mode (e.g. plantlike)
 			// Transparent plants would still render shadows only from one side,
@@ -1224,8 +1269,17 @@ void ClientMap::renderMapShadows(video::IVideoDriver *driver,
 				local_material.BackfaceCulling = material.BackfaceCulling;
 				local_material.FrontfaceCulling = material.FrontfaceCulling;
 			}
+<<<<<<< HEAD
 			local_material.BlendOperation = material.BlendOperation;
 			local_material.Lighting = false;
+=======
+			if (local_material.MaterialType == leaves_material && translucent_foliage) {
+				local_material.BackfaceCulling = true;
+				local_material.FrontfaceCulling = false;
+			}
+			local_material.MaterialType = material.MaterialType;
+			local_material.BlendOperation = material.BlendOperation;
+>>>>>>> 5.10.0
 			driver->setMaterial(local_material);
 			++material_swaps;
 		}
@@ -1363,11 +1417,16 @@ video::SMaterial &ClientMap::DrawDescriptor::getMaterial()
 u32 ClientMap::DrawDescriptor::draw(video::IVideoDriver* driver)
 {
 	if (m_use_partial_buffer) {
+<<<<<<< HEAD
 		m_partial_buffer->beforeDraw();
 		driver->drawMeshBuffer(m_partial_buffer->getBuffer());
 		auto count = m_partial_buffer->getBuffer()->getVertexCount();
 		m_partial_buffer->afterDraw();
 		return count;
+=======
+		m_partial_buffer->draw(driver);
+		return m_partial_buffer->getBuffer()->getVertexCount();
+>>>>>>> 5.10.0
 	} else {
 		driver->drawMeshBuffer(m_buffer);
 		return m_buffer->getVertexCount();

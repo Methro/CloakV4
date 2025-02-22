@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2021 Liso <anlismon@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2021 Liso <anlismon@gmail.com>
+>>>>>>> 5.10.0
 
 #include "client/shadows/shadowsshadercallbacks.h"
 #include "client/renderingengine.h"
@@ -40,6 +46,12 @@ void ShadowConstantSetter::onSetConstants(video::IMaterialRendererServices *serv
 	f32 ShadowStrength = shadow->getShadowStrength();
 	m_shadow_strength.set(&ShadowStrength, services);
 
+<<<<<<< HEAD
+=======
+	video::SColor ShadowTint = shadow->getShadowTint();
+	m_shadow_tint.set(ShadowTint, services);
+
+>>>>>>> 5.10.0
 	f32 timeOfDay = shadow->getTimeOfDay();
 	m_time_of_day.set(&timeOfDay, services);
 

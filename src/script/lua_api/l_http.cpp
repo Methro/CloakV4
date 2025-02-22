@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "lua_api/l_internal.h"
 #include "common/c_converter.h"
@@ -222,7 +228,11 @@ void ModApiHttp::Initialize(lua_State *L, int top)
 #if USE_CURL
 
 	bool isMainmenu = false;
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	isMainmenu = ModApiBase::getGuiEngine(L) != nullptr;
 #endif
 
@@ -245,6 +255,9 @@ void ModApiHttp::InitializeAsync(lua_State *L, int top)
 {
 #if USE_CURL
 	API_FCT(get_http_api);
+<<<<<<< HEAD
 	API_FCT(request_http_api);
+=======
+>>>>>>> 5.10.0
 #endif
 }

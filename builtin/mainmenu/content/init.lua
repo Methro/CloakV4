@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 --Minetest
+=======
+--Luanti
+>>>>>>> 5.10.0
 --Copyright (C) 2023 rubenwardy
 --
 --This program is free software; you can redistribute it and/or modify
@@ -23,4 +27,8 @@ dofile(path .. DIR_DELIM .. "update_detector.lua")
 dofile(path .. DIR_DELIM .. "screenshots.lua")
 dofile(path .. DIR_DELIM .. "dlg_install.lua")
 dofile(path .. DIR_DELIM .. "dlg_overwrite.lua")
+<<<<<<< HEAD
+=======
+dofile(path .. DIR_DELIM .. "dlg_package.lua")
+>>>>>>> 5.10.0
 dofile(path .. DIR_DELIM .. "dlg_contentdb.lua")

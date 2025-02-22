@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,21 +18,38 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include <vector>
 #include <memory>
 #include <string>
+<<<<<<< HEAD
 #include "irrlichttypes_extrabloated.h"
 #include "debug.h"
+=======
+#include "client/inputhandler.h"
+#include "irrlichttypes_extrabloated.h"
+#include "debug.h"
+#include "config.h"
+>>>>>>> 5.10.0
 #include "client/shader.h"
 #include "client/render/core.h"
 // include the shadow mapper classes too
 #include "client/shadows/dynamicshadowsrender.h"
 #include <IVideoDriver.h>
 
+<<<<<<< HEAD
 #ifdef SERVER
+=======
+#if !IS_CLIENT_BUILD
+>>>>>>> 5.10.0
 #error Do not include in server builds
 #endif
 
@@ -81,9 +99,14 @@ class RenderingEngine
 {
 public:
 	static const video::SColor MENU_SKY_COLOR;
+<<<<<<< HEAD
 	static const float BASE_BLOOM_STRENGTH;
 
 	RenderingEngine(IEventReceiver *eventReceiver);
+=======
+
+	RenderingEngine(MyEventReceiver *eventReceiver);
+>>>>>>> 5.10.0
 	~RenderingEngine();
 
 	void setResizable(bool resize);
@@ -138,6 +161,7 @@ public:
 		return m_device->getGUIEnvironment();
 	}
 
+<<<<<<< HEAD
 	void draw_load_screen(const std::wstring &text,
 			gui::IGUIEnvironment *guienv, ITextureSource *tsrc,
 			float dtime = 0, int percent = 0, bool sky = true);
@@ -146,6 +170,16 @@ public:
 			bool draw_wield_tool, bool draw_crosshair);
 	void draw_HUD(video::SColor skycolor, bool show_hud,
 			bool draw_wield_tool, bool draw_crosshair);
+=======
+	// If "indef_pos" is given, the value of "percent" is ignored and an indefinite
+	// progress bar is drawn.
+	void draw_load_screen(const std::wstring &text,
+			gui::IGUIEnvironment *guienv, ITextureSource *tsrc,
+			float dtime = 0, int percent = 0, float *indef_pos = nullptr);
+
+	void draw_scene(video::SColor skycolor, bool show_hud,
+			bool draw_wield_tool, bool draw_crosshair);
+>>>>>>> 5.10.0
 
 	void initialize(Client *client, Hud *hud);
 	void finalize();
@@ -168,6 +202,15 @@ public:
 			const irr::core::dimension2d<u32> initial_screen_size,
 			const bool initial_window_maximized);
 
+<<<<<<< HEAD
+=======
+	static PointerType getLastPointerType()
+	{
+		sanity_check(s_singleton && s_singleton->m_receiver);
+		return s_singleton->m_receiver->getLastPointerType();
+	}
+
+>>>>>>> 5.10.0
 private:
 	static void settingChangedCallback(const std::string &name, void *data);
 	v2u32 _getWindowSize() const;
@@ -175,5 +218,9 @@ private:
 	std::unique_ptr<RenderingCore> core;
 	irr::IrrlichtDevice *m_device = nullptr;
 	irr::video::IVideoDriver *driver;
+<<<<<<< HEAD
+=======
+	MyEventReceiver *m_receiver = nullptr;
+>>>>>>> 5.10.0
 	static RenderingEngine *s_singleton;
 };

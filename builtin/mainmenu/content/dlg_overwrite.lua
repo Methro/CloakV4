@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 --Minetest
+=======
+--Luanti
+>>>>>>> 5.10.0
 --Copyright (C) 2018-24 rubenwardy
 --
 --This program is free software; you can redistribute it and/or modify

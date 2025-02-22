@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 --Minetest
+=======
+--Luanti
+>>>>>>> 5.10.0
 --Copyright (C) 2014 sapier
 --Copyright (C) 2023 Gregor Parzefall
 --
@@ -19,7 +23,11 @@
 
 local BASE_SPACING = 0.1
 local function get_scroll_btn_width()
+<<<<<<< HEAD
 	return core.settings:get_bool("enable_touch") and 0.8 or 0.5
+=======
+	return core.settings:get_bool("touch_gui") and 0.8 or 0.5
+>>>>>>> 5.10.0
 end
 
 local function buttonbar_formspec(self)
@@ -28,10 +36,15 @@ local function buttonbar_formspec(self)
 	end
 
 	local formspec = {
+<<<<<<< HEAD
 		"style_type[box;noclip=true]",
 		string.format("box[%f,%f;%f,%f;%s]", self.pos.x, self.pos.y, self.size.x,
 				self.size.y, self.bgcolor),
 		"style_type[box;noclip=false]",
+=======
+		string.format("box[%f,%f;%f,%f;%s]", self.pos.x, self.pos.y, self.size.x,
+				self.size.y, self.bgcolor),
+>>>>>>> 5.10.0
 	}
 
 	local btn_size = self.size.y - 2*BASE_SPACING
@@ -71,7 +84,11 @@ local function buttonbar_formspec(self)
 			y = self.pos.y + BASE_SPACING,
 		}
 
+<<<<<<< HEAD
 		table.insert(formspec, string.format("image_button[%f,%f;%f,%f;%s;%s;%s;true;false]tooltip[%s;%s]",
+=======
+		table.insert(formspec, string.format("image_button[%f,%f;%f,%f;%s;%s;%s;false;false]tooltip[%s;%s]",
+>>>>>>> 5.10.0
 				btn_pos.x, btn_pos.y, btn_size, btn_size, btn.image, btn.name,
 				btn.caption, btn.name, btn.tooltip))
 	end
@@ -86,9 +103,12 @@ local function buttonbar_formspec(self)
 			y = self.pos.y + BASE_SPACING,
 		}
 
+<<<<<<< HEAD
 		table.insert(formspec, string.format("style[%s,%s;noclip=true]",
 				self.btn_prev_name, self.btn_next_name))
 
+=======
+>>>>>>> 5.10.0
 		table.insert(formspec, string.format("button[%f,%f;%f,%f;%s;<]",
 				btn_prev_pos.x, btn_prev_pos.y, get_scroll_btn_width(), btn_size,
 				self.btn_prev_name))

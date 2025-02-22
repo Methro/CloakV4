@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "string.h"
 #include "serialize.h" // BYTE_ORDER
@@ -154,6 +160,19 @@ std::string wide_to_utf8(std::wstring_view input)
 	return out;
 }
 
+<<<<<<< HEAD
+=======
+void wide_add_codepoint(std::wstring &result, char32_t codepoint)
+{
+	if ((0xD800 <= codepoint && codepoint <= 0xDFFF) || (0x10FFFF < codepoint)) {
+		// Invalid codepoint, replace with unicode replacement character
+		result.push_back(0xFFFD);
+		return;
+	}
+	result.push_back(codepoint);
+}
+
+>>>>>>> 5.10.0
 #else // _WIN32
 
 std::wstring utf8_to_wide(std::string_view input)
@@ -180,6 +199,32 @@ std::string wide_to_utf8(std::wstring_view input)
 	return out;
 }
 
+<<<<<<< HEAD
+=======
+void wide_add_codepoint(std::wstring &result, char32_t codepoint)
+{
+	if (codepoint < 0x10000) {
+		if (0xD800 <= codepoint && codepoint <= 0xDFFF) {
+			// Invalid codepoint, part of a surrogate pair
+			// Replace with unicode replacement character
+			result.push_back(0xFFFD);
+			return;
+		}
+		result.push_back((wchar_t) codepoint);
+		return;
+	}
+	codepoint -= 0x10000;
+	if (codepoint >= 0x100000) {
+		// original codepoint was above 0x10FFFF, so invalid
+		// replace with unicode replacement character
+		result.push_back(0xFFFD);
+		return;
+	}
+	result.push_back((wchar_t) ((codepoint >> 10) | 0xD800));
+	result.push_back((wchar_t) ((codepoint & 0x3FF) | 0xDC00));
+}
+
+>>>>>>> 5.10.0
 #endif // _WIN32
 
 
@@ -668,13 +713,27 @@ std::string wrap_rows(std::string_view from, unsigned row_len, bool has_color_co
  * We get the argument "White", translated, and create a template string with "@1" instead of it.
  * We finally get the template "@1 Wool" that was used in the beginning, which we translate
  * before filling it again.
+<<<<<<< HEAD
+=======
+ *
+ * The \x1bT marking the beginning of a translated string allows two '@'-separated arguments:
+ * - The first one is the textdomain/context in which the string is to be translated. Most often,
+ *   this is the name of the mod which asked for the translation.
+ * - The second argument, if present, should be an integer; it is used to decide which plural form
+ *   to use, for languages containing several plural forms.
+>>>>>>> 5.10.0
  */
 
 static void translate_all(std::wstring_view s, size_t &i,
 		Translations *translations, std::wstring &res);
 
 static void translate_string(std::wstring_view s, Translations *translations,
+<<<<<<< HEAD
 		const std::wstring &textdomain, size_t &i, std::wstring &res)
+=======
+		const std::wstring &textdomain, size_t &i, std::wstring &res,
+		bool use_plural, unsigned long int number)
+>>>>>>> 5.10.0
 {
 	std::vector<std::wstring> args;
 	int arg_number = 1;
@@ -751,8 +810,22 @@ static void translate_string(std::wstring_view s, Translations *translations,
 	}
 
 	// Translate the template.
+<<<<<<< HEAD
 	const std::wstring &toutput = translations ?
 		translations->getTranslation(textdomain, output) : output;
+=======
+	std::wstring toutput;
+	if (translations != nullptr) {
+		if (use_plural)
+			toutput = translations->getPluralTranslation(
+					textdomain, output, number);
+		else
+			toutput = translations->getTranslation(
+					textdomain, output);
+	} else {
+		toutput = output;
+	}
+>>>>>>> 5.10.0
 
 	// Put back the arguments in the translated template.
 	size_t j = 0;
@@ -835,10 +908,44 @@ static void translate_all(std::wstring_view s, size_t &i,
 		} else if (parts[0] == L"T") {
 			// Beginning of translated string.
 			std::wstring textdomain;
+<<<<<<< HEAD
 			if (parts.size() > 1)
 				textdomain = parts[1];
 			std::wstring translated;
 			translate_string(s, translations, textdomain, i, translated);
+=======
+			bool use_plural = false;
+			unsigned long int number = 0;
+			if (parts.size() > 1)
+				textdomain = parts[1];
+			if (parts.size() > 2 && parts[2] != L"") {
+				// parts[2] should contain a number used for selecting
+				// the plural form.
+				// However, we can't blindly cast it to an unsigned long int,
+				// as it might be too large for that.
+				//
+				// We follow the advice of gettext and reduce integers larger than 1000000
+				// to something in the range [1000000, 2000000), with the same last 6 digits.
+				//
+				// https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+				constexpr unsigned long int max = 1000000;
+
+				use_plural = true;
+				number = 0;
+				for (char c : parts[2]) {
+					if (L'0' <= c && c <= L'9') {
+						number = (10 * number + (unsigned long int)(c - L'0'));
+						if (number >= 2 * max) number = (number % max) + max;
+					} else {
+						// Invalid number
+						use_plural = false;
+						break;
+					}
+				}
+			}
+			std::wstring translated;
+			translate_string(s, translations, textdomain, i, translated, use_plural, number);
+>>>>>>> 5.10.0
 			res.append(translated);
 		} else {
 			// Another escape sequence, such as colors. Preserve it.
@@ -856,6 +963,7 @@ std::wstring translate_string(std::wstring_view s, Translations *translations)
 	return res;
 }
 
+<<<<<<< HEAD
 // Translate string client side
 std::wstring translate_string(std::wstring_view s)
 {
@@ -864,6 +972,11 @@ std::wstring translate_string(std::wstring_view s)
 #else
 	return translate_string(s, g_client_translations);
 #endif
+=======
+std::wstring translate_string(std::wstring_view s)
+{
+	return translate_string(s, g_client_translations);
+>>>>>>> 5.10.0
 }
 
 static const std::array<std::wstring_view, 30> disallowed_dir_names = {
@@ -1023,6 +1136,7 @@ v3f str_to_v3f(std::string_view str)
 	value.Z = stof(f.next(")"));
 	return value;
 }
+<<<<<<< HEAD
 
 Json::Value str_to_json(std::string_view str) {
 	Json::CharReaderBuilder builder;
@@ -1046,3 +1160,5 @@ std::string toPaddedString(uint16_t num)
     ss << std::setw(4) << std::setfill('0') << num;
     return ss.str();
 }
+=======
+>>>>>>> 5.10.0

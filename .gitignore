@@ -3,7 +3,10 @@
 .cmake
 CMakeUserPresets.json
 Testing/*
+<<<<<<< HEAD
 .devcontainer/*
+=======
+>>>>>>> 5.10.0
 *.swp
 *.bak*
 *.orig
@@ -27,6 +30,10 @@ tags
 !tags/
 gtags.files
 .idea
+<<<<<<< HEAD
+=======
+.qtcreator/
+>>>>>>> 5.10.0
 # Codelite
 *.project
 # Visual Studio Code & plugins
@@ -63,7 +70,10 @@ AppDir
 !/games/devtest/mods/soundstuff/sounds/gitignored_sounds/custom_sounds_here.txt
 /cache
 /textures/*
+<<<<<<< HEAD
 !/textures/texture_packs_here.txt
+=======
+>>>>>>> 5.10.0
 !/textures/base/
 /screenshots
 /sounds
@@ -111,6 +121,11 @@ src/cmake_config_githash.h
 *.layout
 *.o
 *.a
+<<<<<<< HEAD
+=======
+*.dump
+*.dmp
+>>>>>>> 5.10.0
 *.ninja
 .ninja*
 *.gch
@@ -132,8 +147,11 @@ compile_commands.json
 *.sln
 .vs/
 
+<<<<<<< HEAD
 Find results
 
+=======
+>>>>>>> 5.10.0
 # Old irrlichtmt. Still ignored to make bisecting easier.
 lib/irrlichtmt
 

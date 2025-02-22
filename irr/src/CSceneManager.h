@@ -25,7 +25,11 @@ class IMeshCache;
 /*!
 	The Scene Manager manages scene nodes, mesh resources, cameras and all the other stuff.
 */
+<<<<<<< HEAD
 class CSceneManager : public ISceneManager, public ISceneNode
+=======
+class CSceneManager final : public ISceneManager, public ISceneNode
+>>>>>>> 5.10.0
 {
 public:
 	//! constructor

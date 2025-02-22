@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2022 x2048, Dmitry Kostenko <codeforsmile@gmail.com>
@@ -20,6 +21,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "irrlichttypes_extrabloated.h"
 #include "pipeline.h"
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2022 x2048, Dmitry Kostenko <codeforsmile@gmail.com>
+#pragma once
+
+#include "irrlichttypes_extrabloated.h"
+>>>>>>> 5.10.0
 #include <IrrlichtDevice.h> // used in all render/*.cpp
 #include <IVideoDriver.h> // used in all render/*.cpp
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -122,6 +128,15 @@ private:
 	// colorspec_to_bytes(colorspec)
 	static int l_colorspec_to_bytes(lua_State *L);
 
+<<<<<<< HEAD
+=======
+	// colorspec_to_table(colorspec)
+	static int l_colorspec_to_table(lua_State *L);
+
+	// time_to_day_night_ratio(time_of_day)
+	static int l_time_to_day_night_ratio(lua_State *L);
+
+>>>>>>> 5.10.0
 	// encode_png(w, h, data, level)
 	static int l_encode_png(lua_State *L);
 

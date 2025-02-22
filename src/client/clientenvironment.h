@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2017 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,15 +17,28 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2017 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include "environment.h"
 #include "util/numeric.h" // IntervalLimiter
 #include "activeobjectmgr.h" // client::ActiveObjectMgr
+<<<<<<< HEAD
 #include <set>
 
 #ifdef SERVER
+=======
+#include "irr_ptr.h"
+#include "config.h"
+#include <set>
+
+#if !IS_CLIENT_BUILD
+>>>>>>> 5.10.0
 #error Do not include in server builds
 #endif
 
@@ -66,7 +80,11 @@ typedef std::unordered_map<u16, ClientActiveObject*> ClientActiveObjectMap;
 class ClientEnvironment : public Environment
 {
 public:
+<<<<<<< HEAD
 	ClientEnvironment(ClientMap *map, ITextureSource *texturesource, Client *client);
+=======
+	ClientEnvironment(irr_ptr<ClientMap> map, ITextureSource *texturesource, Client *client);
+>>>>>>> 5.10.0
 	~ClientEnvironment();
 
 	Map & getMap();
@@ -127,10 +145,13 @@ public:
 	{
 		return m_ao_manager.getActiveObjects(origin, max_d, dest);
 	}
+<<<<<<< HEAD
 	void getAllActiveObjects(std::unordered_map<u16, ClientActiveObject*> &dest)
 	{
 		return m_ao_manager.getAllActiveObjects(dest);
 	}
+=======
+>>>>>>> 5.10.0
 
 	bool hasClientEnvEvents() const { return !m_client_event_queue.empty(); }
 
@@ -155,7 +176,11 @@ public:
 	u64 getFrameTimeDelta() const { return m_frame_dtime; }
 
 private:
+<<<<<<< HEAD
 	ClientMap *m_map;
+=======
+	irr_ptr<ClientMap> m_map;
+>>>>>>> 5.10.0
 	LocalPlayer *m_local_player = nullptr;
 	ITextureSource *m_texturesource;
 	Client *m_client;

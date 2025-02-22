@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /// Json-cpp amalgamated source (http://jsoncpp.sourceforge.net/).
+=======
+/// Json-cpp amalgamated source (https://github.com/open-source-parsers/jsoncpp/).
+>>>>>>> 5.10.0
 /// It is intended to be used with #include "json/json.h"
 
 // //////////////////////////////////////////////////////////////////////
@@ -250,6 +254,10 @@ Iter fixZerosInTheEnd(Iter begin, Iter end, unsigned int precision) {
 #endif // if !defined(JSON_IS_AMALGAMATION)
 #include <algorithm>
 #include <cassert>
+<<<<<<< HEAD
+=======
+#include <cmath>
+>>>>>>> 5.10.0
 #include <cstring>
 #include <iostream>
 #include <istream>
@@ -366,7 +374,11 @@ bool Reader::parse(const char* beginDoc, const char* endDoc, Value& root,
 
   bool successful = readValue();
   Token token;
+<<<<<<< HEAD
   skipCommentTokens(token);
+=======
+  readTokenSkippingComments(token);
+>>>>>>> 5.10.0
   if (collectComments_ && !commentsBefore_.empty())
     root.setComment(commentsBefore_, commentAfter);
   if (features_.strictRoot_) {
@@ -394,7 +406,11 @@ bool Reader::readValue() {
     throwRuntimeError("Exceeded stackLimit in readValue().");
 
   Token token;
+<<<<<<< HEAD
   skipCommentTokens(token);
+=======
+  readTokenSkippingComments(token);
+>>>>>>> 5.10.0
   bool successful = true;
 
   if (collectComments_ && !commentsBefore_.empty()) {
@@ -462,6 +478,7 @@ bool Reader::readValue() {
   return successful;
 }
 
+<<<<<<< HEAD
 void Reader::skipCommentTokens(Token& token) {
   if (features_.allowComments_) {
     do {
@@ -470,6 +487,16 @@ void Reader::skipCommentTokens(Token& token) {
   } else {
     readToken(token);
   }
+=======
+bool Reader::readTokenSkippingComments(Token& token) {
+  bool success = readToken(token);
+  if (features_.allowComments_) {
+    while (success && token.type_ == tokenComment) {
+      success = readToken(token);
+    }
+  }
+  return success;
+>>>>>>> 5.10.0
 }
 
 bool Reader::readToken(Token& token) {
@@ -683,12 +710,16 @@ bool Reader::readObject(Token& token) {
   Value init(objectValue);
   currentValue().swapPayload(init);
   currentValue().setOffsetStart(token.start_ - begin_);
+<<<<<<< HEAD
   while (readToken(tokenName)) {
     bool initialTokenOk = true;
     while (tokenName.type_ == tokenComment && initialTokenOk)
       initialTokenOk = readToken(tokenName);
     if (!initialTokenOk)
       break;
+=======
+  while (readTokenSkippingComments(tokenName)) {
+>>>>>>> 5.10.0
     if (tokenName.type_ == tokenObjectEnd && name.empty()) // empty object
       return true;
     name.clear();
@@ -717,6 +748,7 @@ bool Reader::readObject(Token& token) {
       return recoverFromError(tokenObjectEnd);
 
     Token comma;
+<<<<<<< HEAD
     if (!readToken(comma) ||
         (comma.type_ != tokenObjectEnd && comma.type_ != tokenArraySeparator &&
          comma.type_ != tokenComment)) {
@@ -726,6 +758,13 @@ bool Reader::readObject(Token& token) {
     bool finalizeTokenOk = true;
     while (comma.type_ == tokenComment && finalizeTokenOk)
       finalizeTokenOk = readToken(comma);
+=======
+    if (!readTokenSkippingComments(comma) ||
+        (comma.type_ != tokenObjectEnd && comma.type_ != tokenArraySeparator)) {
+      return addErrorAndRecover("Missing ',' or '}' in object declaration",
+                                comma, tokenObjectEnd);
+    }
+>>>>>>> 5.10.0
     if (comma.type_ == tokenObjectEnd)
       return true;
   }
@@ -755,10 +794,14 @@ bool Reader::readArray(Token& token) {
 
     Token currentToken;
     // Accept Comment after last item in the array.
+<<<<<<< HEAD
     ok = readToken(currentToken);
     while (currentToken.type_ == tokenComment && ok) {
       ok = readToken(currentToken);
     }
+=======
+    ok = readTokenSkippingComments(currentToken);
+>>>>>>> 5.10.0
     bool badTokenType = (currentToken.type_ != tokenArraySeparator &&
                          currentToken.type_ != tokenArrayEnd);
     if (!ok || badTokenType) {
@@ -836,11 +879,24 @@ bool Reader::decodeDouble(Token& token) {
 
 bool Reader::decodeDouble(Token& token, Value& decoded) {
   double value = 0;
+<<<<<<< HEAD
   String buffer(token.start_, token.end_);
   IStringStream is(buffer);
   if (!(is >> value))
     return addError(
         "'" + String(token.start_, token.end_) + "' is not a number.", token);
+=======
+  IStringStream is(String(token.start_, token.end_));
+  if (!(is >> value)) {
+    if (value == std::numeric_limits<double>::max())
+      value = std::numeric_limits<double>::infinity();
+    else if (value == std::numeric_limits<double>::lowest())
+      value = -std::numeric_limits<double>::infinity();
+    else if (!std::isinf(value))
+      return addError(
+          "'" + String(token.start_, token.end_) + "' is not a number.", token);
+  }
+>>>>>>> 5.10.0
   decoded = value;
   return true;
 }
@@ -1004,7 +1060,11 @@ void Reader::getLocationLineAndColumn(Location location, int& line,
   while (current < location && current != end_) {
     Char c = *current++;
     if (c == '\r') {
+<<<<<<< HEAD
       if (*current == '\n')
+=======
+      if (current != end_ && *current == '\n')
+>>>>>>> 5.10.0
         ++current;
       lastLineStart = current;
       ++line;
@@ -1121,17 +1181,24 @@ class OurReader {
 public:
   using Char = char;
   using Location = const Char*;
+<<<<<<< HEAD
   struct StructuredError {
     ptrdiff_t offset_start;
     ptrdiff_t offset_limit;
     String message;
   };
+=======
+>>>>>>> 5.10.0
 
   explicit OurReader(OurFeatures const& features);
   bool parse(const char* beginDoc, const char* endDoc, Value& root,
              bool collectComments = true);
   String getFormattedErrorMessages() const;
+<<<<<<< HEAD
   std::vector<StructuredError> getStructuredErrors() const;
+=======
+  std::vector<CharReader::StructuredError> getStructuredErrors() const;
+>>>>>>> 5.10.0
 
 private:
   OurReader(OurReader const&);      // no impl
@@ -1174,6 +1241,10 @@ private:
   using Errors = std::deque<ErrorInfo>;
 
   bool readToken(Token& token);
+<<<<<<< HEAD
+=======
+  bool readTokenSkippingComments(Token& token);
+>>>>>>> 5.10.0
   void skipSpaces();
   void skipBom(bool skipBom);
   bool match(const Char* pattern, int patternLength);
@@ -1207,7 +1278,10 @@ private:
                                 int& column) const;
   String getLocationLineAndColumn(Location location) const;
   void addComment(Location begin, Location end, CommentPlacement placement);
+<<<<<<< HEAD
   void skipCommentTokens(Token& token);
+=======
+>>>>>>> 5.10.0
 
   static String normalizeEOL(Location begin, Location end);
   static bool containsNewLine(Location begin, Location end);
@@ -1261,7 +1335,11 @@ bool OurReader::parse(const char* beginDoc, const char* endDoc, Value& root,
   bool successful = readValue();
   nodes_.pop();
   Token token;
+<<<<<<< HEAD
   skipCommentTokens(token);
+=======
+  readTokenSkippingComments(token);
+>>>>>>> 5.10.0
   if (features_.failIfExtra_ && (token.type_ != tokenEndOfStream)) {
     addError("Extra non-whitespace after JSON value.", token);
     return false;
@@ -1289,7 +1367,11 @@ bool OurReader::readValue() {
   if (nodes_.size() > features_.stackLimit_)
     throwRuntimeError("Exceeded stackLimit in readValue().");
   Token token;
+<<<<<<< HEAD
   skipCommentTokens(token);
+=======
+  readTokenSkippingComments(token);
+>>>>>>> 5.10.0
   bool successful = true;
 
   if (collectComments_ && !commentsBefore_.empty()) {
@@ -1376,6 +1458,7 @@ bool OurReader::readValue() {
   return successful;
 }
 
+<<<<<<< HEAD
 void OurReader::skipCommentTokens(Token& token) {
   if (features_.allowComments_) {
     do {
@@ -1384,6 +1467,16 @@ void OurReader::skipCommentTokens(Token& token) {
   } else {
     readToken(token);
   }
+=======
+bool OurReader::readTokenSkippingComments(Token& token) {
+  bool success = readToken(token);
+  if (features_.allowComments_) {
+    while (success && token.type_ == tokenComment) {
+      success = readToken(token);
+    }
+  }
+  return success;
+>>>>>>> 5.10.0
 }
 
 bool OurReader::readToken(Token& token) {
@@ -1680,12 +1773,16 @@ bool OurReader::readObject(Token& token) {
   Value init(objectValue);
   currentValue().swapPayload(init);
   currentValue().setOffsetStart(token.start_ - begin_);
+<<<<<<< HEAD
   while (readToken(tokenName)) {
     bool initialTokenOk = true;
     while (tokenName.type_ == tokenComment && initialTokenOk)
       initialTokenOk = readToken(tokenName);
     if (!initialTokenOk)
       break;
+=======
+  while (readTokenSkippingComments(tokenName)) {
+>>>>>>> 5.10.0
     if (tokenName.type_ == tokenObjectEnd &&
         (name.empty() ||
          features_.allowTrailingCommas_)) // empty object or trailing comma
@@ -1722,6 +1819,7 @@ bool OurReader::readObject(Token& token) {
       return recoverFromError(tokenObjectEnd);
 
     Token comma;
+<<<<<<< HEAD
     if (!readToken(comma) ||
         (comma.type_ != tokenObjectEnd && comma.type_ != tokenArraySeparator &&
          comma.type_ != tokenComment)) {
@@ -1731,6 +1829,13 @@ bool OurReader::readObject(Token& token) {
     bool finalizeTokenOk = true;
     while (comma.type_ == tokenComment && finalizeTokenOk)
       finalizeTokenOk = readToken(comma);
+=======
+    if (!readTokenSkippingComments(comma) ||
+        (comma.type_ != tokenObjectEnd && comma.type_ != tokenArraySeparator)) {
+      return addErrorAndRecover("Missing ',' or '}' in object declaration",
+                                comma, tokenObjectEnd);
+    }
+>>>>>>> 5.10.0
     if (comma.type_ == tokenObjectEnd)
       return true;
   }
@@ -1764,10 +1869,14 @@ bool OurReader::readArray(Token& token) {
 
     Token currentToken;
     // Accept Comment after last item in the array.
+<<<<<<< HEAD
     ok = readToken(currentToken);
     while (currentToken.type_ == tokenComment && ok) {
       ok = readToken(currentToken);
     }
+=======
+    ok = readTokenSkippingComments(currentToken);
+>>>>>>> 5.10.0
     bool badTokenType = (currentToken.type_ != tokenArraySeparator &&
                          currentToken.type_ != tokenArrayEnd);
     if (!ok || badTokenType) {
@@ -1845,7 +1954,11 @@ bool OurReader::decodeNumber(Token& token, Value& decoded) {
     const auto digit(static_cast<Value::UInt>(c - '0'));
     if (value >= threshold) {
       // We've hit or exceeded the max value divided by 10 (rounded down). If
+<<<<<<< HEAD
       // a) we've only just touched the limit, meaing value == threshold,
+=======
+      // a) we've only just touched the limit, meaning value == threshold,
+>>>>>>> 5.10.0
       // b) this is the last digit, or
       // c) it's small enough to fit in that rounding delta, we're okay.
       // Otherwise treat this number as a double to avoid overflow.
@@ -1882,11 +1995,23 @@ bool OurReader::decodeDouble(Token& token) {
 
 bool OurReader::decodeDouble(Token& token, Value& decoded) {
   double value = 0;
+<<<<<<< HEAD
   const String buffer(token.start_, token.end_);
   IStringStream is(buffer);
   if (!(is >> value)) {
     return addError(
         "'" + String(token.start_, token.end_) + "' is not a number.", token);
+=======
+  IStringStream is(String(token.start_, token.end_));
+  if (!(is >> value)) {
+    if (value == std::numeric_limits<double>::max())
+      value = std::numeric_limits<double>::infinity();
+    else if (value == std::numeric_limits<double>::lowest())
+      value = -std::numeric_limits<double>::infinity();
+    else if (!std::isinf(value))
+      return addError(
+          "'" + String(token.start_, token.end_) + "' is not a number.", token);
+>>>>>>> 5.10.0
   }
   decoded = value;
   return true;
@@ -2051,7 +2176,11 @@ void OurReader::getLocationLineAndColumn(Location location, int& line,
   while (current < location && current != end_) {
     Char c = *current++;
     if (c == '\r') {
+<<<<<<< HEAD
       if (*current == '\n')
+=======
+      if (current != end_ && *current == '\n')
+>>>>>>> 5.10.0
         ++current;
       lastLineStart = current;
       ++line;
@@ -2086,10 +2215,18 @@ String OurReader::getFormattedErrorMessages() const {
   return formattedMessage;
 }
 
+<<<<<<< HEAD
 std::vector<OurReader::StructuredError> OurReader::getStructuredErrors() const {
   std::vector<OurReader::StructuredError> allErrors;
   for (const auto& error : errors_) {
     OurReader::StructuredError structured;
+=======
+std::vector<CharReader::StructuredError>
+OurReader::getStructuredErrors() const {
+  std::vector<CharReader::StructuredError> allErrors;
+  for (const auto& error : errors_) {
+    CharReader::StructuredError structured;
+>>>>>>> 5.10.0
     structured.offset_start = error.token_.start_ - begin_;
     structured.offset_limit = error.token_.end_ - begin_;
     structured.message = error.message_;
@@ -2099,6 +2236,7 @@ std::vector<OurReader::StructuredError> OurReader::getStructuredErrors() const {
 }
 
 class OurCharReader : public CharReader {
+<<<<<<< HEAD
   bool const collectComments_;
   OurReader reader_;
 
@@ -2113,6 +2251,38 @@ public:
     }
     return ok;
   }
+=======
+
+public:
+  OurCharReader(bool collectComments, OurFeatures const& features)
+      : CharReader(
+            std::unique_ptr<OurImpl>(new OurImpl(collectComments, features))) {}
+
+protected:
+  class OurImpl : public Impl {
+  public:
+    OurImpl(bool collectComments, OurFeatures const& features)
+        : collectComments_(collectComments), reader_(features) {}
+
+    bool parse(char const* beginDoc, char const* endDoc, Value* root,
+               String* errs) override {
+      bool ok = reader_.parse(beginDoc, endDoc, *root, collectComments_);
+      if (errs) {
+        *errs = reader_.getFormattedErrorMessages();
+      }
+      return ok;
+    }
+
+    std::vector<CharReader::StructuredError>
+    getStructuredErrors() const override {
+      return reader_.getStructuredErrors();
+    }
+
+  private:
+    bool const collectComments_;
+    OurReader reader_;
+  };
+>>>>>>> 5.10.0
 };
 
 CharReaderBuilder::CharReaderBuilder() { setDefaults(&settings_); }
@@ -2201,6 +2371,35 @@ void CharReaderBuilder::setDefaults(Json::Value* settings) {
   (*settings)["skipBom"] = true;
   //! [CharReaderBuilderDefaults]
 }
+<<<<<<< HEAD
+=======
+// static
+void CharReaderBuilder::ecma404Mode(Json::Value* settings) {
+  //! [CharReaderBuilderECMA404Mode]
+  (*settings)["allowComments"] = false;
+  (*settings)["allowTrailingCommas"] = false;
+  (*settings)["strictRoot"] = false;
+  (*settings)["allowDroppedNullPlaceholders"] = false;
+  (*settings)["allowNumericKeys"] = false;
+  (*settings)["allowSingleQuotes"] = false;
+  (*settings)["stackLimit"] = 1000;
+  (*settings)["failIfExtra"] = true;
+  (*settings)["rejectDupKeys"] = false;
+  (*settings)["allowSpecialFloats"] = false;
+  (*settings)["skipBom"] = false;
+  //! [CharReaderBuilderECMA404Mode]
+}
+
+std::vector<CharReader::StructuredError>
+CharReader::getStructuredErrors() const {
+  return _impl->getStructuredErrors();
+}
+
+bool CharReader::parse(char const* beginDoc, char const* endDoc, Value* root,
+                       String* errs) {
+  return _impl->parse(beginDoc, endDoc, root, errs);
+}
+>>>>>>> 5.10.0
 
 //////////////////////////////////
 // global functions
@@ -2209,7 +2408,11 @@ bool parseFromStream(CharReader::Factory const& fact, IStream& sin, Value* root,
                      String* errs) {
   OStringStream ssin;
   ssin << sin.rdbuf();
+<<<<<<< HEAD
   String doc = ssin.str();
+=======
+  String doc = std::move(ssin).str();
+>>>>>>> 5.10.0
   char const* begin = doc.data();
   char const* end = begin + doc.size();
   // Note that we do not actually need a null-terminator.
@@ -2501,7 +2704,12 @@ template <typename T, typename U>
 static inline bool InRange(double d, T min, U max) {
   // The casts can lose precision, but we are looking only for
   // an approximate range. Might fail on edge cases though. ~cdunn
+<<<<<<< HEAD
   return d >= static_cast<double>(min) && d <= static_cast<double>(max);
+=======
+  return d >= static_cast<double>(min) && d <= static_cast<double>(max) &&
+         !(static_cast<U>(d) == min && d != static_cast<double>(min));
+>>>>>>> 5.10.0
 }
 #else  // if !defined(JSON_USE_INT64_DOUBLE_CONVERSION)
 static inline double integerToDouble(Json::UInt64 value) {
@@ -2515,7 +2723,12 @@ template <typename T> static inline double integerToDouble(T value) {
 
 template <typename T, typename U>
 static inline bool InRange(double d, T min, U max) {
+<<<<<<< HEAD
   return d >= integerToDouble(min) && d <= integerToDouble(max);
+=======
+  return d >= integerToDouble(min) && d <= integerToDouble(max) &&
+         !(static_cast<U>(d) == min && d != integerToDouble(min));
+>>>>>>> 5.10.0
 }
 #endif // if !defined(JSON_USE_INT64_DOUBLE_CONVERSION)
 
@@ -2577,7 +2790,11 @@ inline static void decodePrefixedString(bool isPrefixed, char const* prefixed,
 /** Free the string duplicated by
  * duplicateStringValue()/duplicateAndPrefixStringValue().
  */
+<<<<<<< HEAD
 #if JSONCPP_USING_SECURE_MEMORY
+=======
+#if JSONCPP_USE_SECURE_MEMORY
+>>>>>>> 5.10.0
 static inline void releasePrefixedStringValue(char* value) {
   unsigned length = 0;
   char const* valueDecoded;
@@ -2592,10 +2809,17 @@ static inline void releaseStringValue(char* value, unsigned length) {
   memset(value, 0, size);
   free(value);
 }
+<<<<<<< HEAD
 #else  // !JSONCPP_USING_SECURE_MEMORY
 static inline void releasePrefixedStringValue(char* value) { free(value); }
 static inline void releaseStringValue(char* value, unsigned) { free(value); }
 #endif // JSONCPP_USING_SECURE_MEMORY
+=======
+#else  // !JSONCPP_USE_SECURE_MEMORY
+static inline void releasePrefixedStringValue(char* value) { free(value); }
+static inline void releaseStringValue(char* value, unsigned) { free(value); }
+#endif // JSONCPP_USE_SECURE_MEMORY
+>>>>>>> 5.10.0
 
 } // namespace Json
 
@@ -3013,7 +3237,11 @@ const char* Value::asCString() const {
   return this_str;
 }
 
+<<<<<<< HEAD
 #if JSONCPP_USING_SECURE_MEMORY
+=======
+#if JSONCPP_USE_SECURE_MEMORY
+>>>>>>> 5.10.0
 unsigned Value::getCStringLength() const {
   JSON_ASSERT_MESSAGE(type() == stringValue,
                       "in Json::Value::asCString(): requires stringValue");
@@ -3119,6 +3347,14 @@ Value::Int64 Value::asInt64() const {
     JSON_ASSERT_MESSAGE(isInt64(), "LargestUInt out of Int64 range");
     return Int64(value_.uint_);
   case realValue:
+<<<<<<< HEAD
+=======
+    // If the double value is in proximity to minInt64, it will be rounded to
+    // minInt64. The correct value in this scenario is indeterminable
+    JSON_ASSERT_MESSAGE(
+        value_.real_ != minInt64,
+        "Double value is minInt64, precise value cannot be determined");
+>>>>>>> 5.10.0
     JSON_ASSERT_MESSAGE(InRange(value_.real_, minInt64, maxInt64),
                         "double out of Int64 range");
     return Int64(value_.real_);
@@ -3506,6 +3742,12 @@ Value const* Value::find(char const* begin, char const* end) const {
     return nullptr;
   return &(*it).second;
 }
+<<<<<<< HEAD
+=======
+Value const* Value::find(const String& key) const {
+  return find(key.data(), key.data() + key.length());
+}
+>>>>>>> 5.10.0
 Value* Value::demand(char const* begin, char const* end) {
   JSON_ASSERT_MESSAGE(type() == nullValue || type() == objectValue,
                       "in Json::Value::demand(begin, end): requires "
@@ -3519,7 +3761,11 @@ const Value& Value::operator[](const char* key) const {
   return *found;
 }
 Value const& Value::operator[](const String& key) const {
+<<<<<<< HEAD
   Value const* found = find(key.data(), key.data() + key.length());
+=======
+  Value const* found = find(key);
+>>>>>>> 5.10.0
   if (!found)
     return nullSingleton();
   return *found;
@@ -3619,7 +3865,11 @@ bool Value::removeIndex(ArrayIndex index, Value* removed) {
     return false;
   }
   if (removed)
+<<<<<<< HEAD
     *removed = it->second;
+=======
+    *removed = std::move(it->second);
+>>>>>>> 5.10.0
   ArrayIndex oldSize = size();
   // shift left all items left, into the place of the "removed"
   for (ArrayIndex i = index; i < (oldSize - 1); ++i) {
@@ -3722,8 +3972,17 @@ bool Value::isInt64() const {
     // Note that maxInt64 (= 2^63 - 1) is not exactly representable as a
     // double, so double(maxInt64) will be rounded up to 2^63. Therefore we
     // require the value to be strictly less than the limit.
+<<<<<<< HEAD
     return value_.real_ >= double(minInt64) &&
            value_.real_ < double(maxInt64) && IsIntegral(value_.real_);
+=======
+    // minInt64 is -2^63 which can be represented as a double, but since double
+    // values in its proximity are also rounded to -2^63, we require the value
+    // to be strictly greater than the limit to avoid returning 'true' for
+    // values that are not in the range
+    return value_.real_ > double(minInt64) && value_.real_ < double(maxInt64) &&
+           IsIntegral(value_.real_);
+>>>>>>> 5.10.0
   default:
     break;
   }
@@ -3761,7 +4020,15 @@ bool Value::isIntegral() const {
     // Note that maxUInt64 (= 2^64 - 1) is not exactly representable as a
     // double, so double(maxUInt64) will be rounded up to 2^64. Therefore we
     // require the value to be strictly less than the limit.
+<<<<<<< HEAD
     return value_.real_ >= double(minInt64) &&
+=======
+    // minInt64 is -2^63 which can be represented as a double, but since double
+    // values in its proximity are also rounded to -2^63, we require the value
+    // to be strictly greater than the limit to avoid returning 'true' for
+    // values that are not in the range
+    return value_.real_ > double(minInt64) &&
+>>>>>>> 5.10.0
            value_.real_ < maxUInt64AsDouble && IsIntegral(value_.real_);
 #else
     return value_.real_ >= minInt && value_.real_ <= maxUInt &&
@@ -3824,9 +4091,14 @@ void Value::setComment(String comment, CommentPlacement placement) {
     // Always discard trailing newline, to aid indentation.
     comment.pop_back();
   }
+<<<<<<< HEAD
   JSON_ASSERT(!comment.empty());
   JSON_ASSERT_MESSAGE(
       comment[0] == '\0' || comment[0] == '/',
+=======
+  JSON_ASSERT_MESSAGE(
+      comment.empty() || comment[0] == '/',
+>>>>>>> 5.10.0
       "in Json::Value::setComment(): Comments must start with /");
   comments_.set(placement, std::move(comment));
 }
@@ -4194,8 +4466,14 @@ String valueToString(double value, bool useSpecialFloats,
   if (!isfinite(value)) {
     static const char* const reps[2][3] = {{"NaN", "-Infinity", "Infinity"},
                                            {"null", "-1e+9999", "1e+9999"}};
+<<<<<<< HEAD
     return reps[useSpecialFloats ? 0 : 1]
                [isnan(value) ? 0 : (value < 0) ? 1 : 2];
+=======
+    return reps[useSpecialFloats ? 0 : 1][isnan(value)  ? 0
+                                          : (value < 0) ? 1
+                                                        : 2];
+>>>>>>> 5.10.0
   }
 
   String buffer(size_t(36), '\0');
@@ -4415,6 +4693,13 @@ String valueToQuotedString(const char* value) {
   return valueToQuotedStringN(value, strlen(value));
 }
 
+<<<<<<< HEAD
+=======
+String valueToQuotedString(const char* value, size_t length) {
+  return valueToQuotedStringN(value, length);
+}
+
+>>>>>>> 5.10.0
 // Class Writer
 // //////////////////////////////////////////////////////////////////
 Writer::~Writer() = default;
@@ -4552,7 +4837,11 @@ void StyledWriter::writeValue(const Value& value) {
         const String& name = *it;
         const Value& childValue = value[name];
         writeCommentBeforeValue(childValue);
+<<<<<<< HEAD
         writeWithIndent(valueToQuotedString(name.c_str()));
+=======
+        writeWithIndent(valueToQuotedString(name.c_str(), name.size()));
+>>>>>>> 5.10.0
         document_ += " : ";
         writeValue(childValue);
         if (++it == members.end()) {
@@ -4770,7 +5059,11 @@ void StyledStreamWriter::writeValue(const Value& value) {
         const String& name = *it;
         const Value& childValue = value[name];
         writeCommentBeforeValue(childValue);
+<<<<<<< HEAD
         writeWithIndent(valueToQuotedString(name.c_str()));
+=======
+        writeWithIndent(valueToQuotedString(name.c_str(), name.size()));
+>>>>>>> 5.10.0
         *document_ << " : ";
         writeValue(childValue);
         if (++it == members.end()) {
@@ -5308,7 +5601,11 @@ String writeString(StreamWriter::Factory const& factory, Value const& root) {
   OStringStream sout;
   StreamWriterPtr const writer(factory.newStreamWriter());
   writer->write(root, &sout);
+<<<<<<< HEAD
   return sout.str();
+=======
+  return std::move(sout).str();
+>>>>>>> 5.10.0
 }
 
 OStream& operator<<(OStream& sout, Value const& root) {

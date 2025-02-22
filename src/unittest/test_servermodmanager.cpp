@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2018 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2018 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #include "test.h"
 #include <algorithm>
@@ -122,7 +128,11 @@ void TestServerModManager::testGetMods()
 	ServerModManager sm(m_worlddir);
 	const auto &mods = sm.getMods();
 	// `ls ./games/devtest/mods | wc -l` + 1 (test mod)
+<<<<<<< HEAD
 	UASSERTEQ(std::size_t, mods.size(), 32 + 1);
+=======
+	UASSERTEQ(std::size_t, mods.size(), 34 + 1);
+>>>>>>> 5.10.0
 
 	// Ensure we found basenodes mod (part of devtest)
 	// and test_mod (for testing MINETEST_MOD_PATH).

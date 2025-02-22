@@ -6,30 +6,50 @@ local out = function(player, formname, fields, number)
 		snum = " "..number
 	end
 	local msg = "Formspec callback"..snum..": player="..player:get_player_name()..", formname=\""..tostring(formname).."\", fields="..dump(fields)
+<<<<<<< HEAD
 	minetest.chat_send_player(player:get_player_name(), msg)
 	minetest.log("action", msg)
 end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
+=======
+	core.chat_send_player(player:get_player_name(), msg)
+	core.log("action", msg)
+end
+
+core.register_on_player_receive_fields(function(player, formname, fields)
+>>>>>>> 5.10.0
 	if callback_test == 1 then
 		out(player, formname, fields)
 	elseif callback_test == 2 then
 		out(player, formname, fields, 1)
 	end
 end)
+<<<<<<< HEAD
 minetest.register_on_player_receive_fields(function(player, formname, fields)
+=======
+core.register_on_player_receive_fields(function(player, formname, fields)
+>>>>>>> 5.10.0
 	if callback_test == 2 then
 		out(player, formname, fields, 2)
 		return true -- Disable the first callback
 	end
 end)
+<<<<<<< HEAD
 minetest.register_on_player_receive_fields(function(player, formname, fields)
+=======
+core.register_on_player_receive_fields(function(player, formname, fields)
+>>>>>>> 5.10.0
 	if callback_test == 2 then
 		out(player, formname, fields, 3)
 	end
 end)
 
+<<<<<<< HEAD
 minetest.register_chatcommand("test_formspec_callbacks", {
+=======
+core.register_chatcommand("test_formspec_callbacks", {
+>>>>>>> 5.10.0
 	params = "[ 0 | 1 | 2 ]",
 	description = "Test: Change formspec callbacks testing mode",
 	func = function(name, param)
@@ -40,12 +60,21 @@ minetest.register_chatcommand("test_formspec_callbacks", {
 			callback_test = mode
 		end
 		if callback_test == 1 then
+<<<<<<< HEAD
 			minetest.chat_send_player(name, "Formspec callback test mode 1 enabled: Logging only")
 		elseif callback_test == 2 then
 			minetest.chat_send_player(name, "Formspec callback test mode 2 enabled: Three callbacks, disable pre-registered callbacks")
 		else
 			callback_test = 0
 			minetest.chat_send_player(name, "Formspec callback test disabled!")
+=======
+			core.chat_send_player(name, "Formspec callback test mode 1 enabled: Logging only")
+		elseif callback_test == 2 then
+			core.chat_send_player(name, "Formspec callback test mode 2 enabled: Three callbacks, disable pre-registered callbacks")
+		else
+			callback_test = 0
+			core.chat_send_player(name, "Formspec callback test disabled!")
+>>>>>>> 5.10.0
 		end
 	end
 })

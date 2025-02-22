@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -18,6 +19,13 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017-8 rubenwardy <rw@rubenwardy.com>
+// Copyright (C) 2017 raymoo
+>>>>>>> 5.10.0
 
 #include "lua_api/l_itemstackmeta.h"
 #include "lua_api/l_internal.h"
@@ -41,7 +49,11 @@ void ItemStackMetaRef::clearMeta()
 
 void ItemStackMetaRef::reportMetadataChange(const std::string *name)
 {
+<<<<<<< HEAD
 	// TODO
+=======
+	// nothing to do
+>>>>>>> 5.10.0
 }
 
 // Exported functions
@@ -89,7 +101,10 @@ ItemStackMetaRef::~ItemStackMetaRef()
 void ItemStackMetaRef::create(lua_State *L, LuaItemStack *istack)
 {
 	ItemStackMetaRef *o = new ItemStackMetaRef(istack);
+<<<<<<< HEAD
 	//infostream<<"NodeMetaRef::create: o="<<o<<std::endl;
+=======
+>>>>>>> 5.10.0
 	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
@@ -98,9 +113,12 @@ void ItemStackMetaRef::create(lua_State *L, LuaItemStack *istack)
 void ItemStackMetaRef::Register(lua_State *L)
 {
 	registerMetadataClass(L, className, methods);
+<<<<<<< HEAD
 
 	// Cannot be created from Lua
 	//lua_register(L, className, create_object);
+=======
+>>>>>>> 5.10.0
 }
 
 const char ItemStackMetaRef::className[] = "ItemStackMetaRef";

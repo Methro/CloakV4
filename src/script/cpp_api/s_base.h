@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -66,12 +72,19 @@ enum class ScriptingType: u8 {
 };
 
 class Server;
+<<<<<<< HEAD
 #ifndef SERVER
 class Client;
 class Game;
 #endif
 class EmergeThread;
 class ActiveObject;
+=======
+#if CHECK_CLIENT_BUILD()
+class Client;
+#endif
+class EmergeThread;
+>>>>>>> 5.10.0
 class IGameDef;
 class Environment;
 class GUIEngine;
@@ -93,7 +106,11 @@ public:
 	void loadMod(const std::string &script_path, const std::string &mod_name);
 	void loadScript(const std::string &script_path);
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	void loadModFromMemory(const std::string &mod_name);
 #endif
 
@@ -101,16 +118,26 @@ public:
 		RunCallbacksMode mode, const char *fxn);
 
 	/* object */
+<<<<<<< HEAD
 	void addObjectReference(ActiveObject *cobj);
 	void removeObjectReference(ActiveObject *cobj);
+=======
+	void addObjectReference(ServerActiveObject *cobj);
+	void removeObjectReference(ServerActiveObject *cobj);
+>>>>>>> 5.10.0
 
 	ScriptingType getType() { return m_type; }
 
 	IGameDef *getGameDef() { return m_gamedef; }
 	Server* getServer();
+<<<<<<< HEAD
 #ifndef SERVER
 	Client* getClient();
 	Game *getGame() { return m_game; }
+=======
+#if CHECK_CLIENT_BUILD()
+	Client* getClient();
+>>>>>>> 5.10.0
 #endif
 
 	// IMPORTANT: These cannot be used for any security-related uses, they exist
@@ -131,7 +158,11 @@ public:
 	// returns "" on error
 	static std::string getCurrentModName(lua_State *L);
 
+<<<<<<< HEAD
 #ifdef SERVER
+=======
+#if !CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	inline void clientOpenLibs(lua_State *L) { assert(false); }
 #else
 	void clientOpenLibs(lua_State *L);
@@ -171,14 +202,21 @@ protected:
 	void stackDump(std::ostream &o);
 
 	void setGameDef(IGameDef* gamedef) { m_gamedef = gamedef; }
+<<<<<<< HEAD
 #ifndef SERVER
 	void setGame(Game *game) { m_game = game; }
 #endif
+=======
+>>>>>>> 5.10.0
 
 	Environment* getEnv() { return m_environment; }
 	void setEnv(Environment* env) { m_environment = env; }
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	GUIEngine* getGuiEngine() { return m_guiengine; }
 	void setGuiEngine(GUIEngine* guiengine) { m_guiengine = guiengine; }
 #endif
@@ -204,11 +242,16 @@ private:
 	lua_State      *m_luastack = nullptr;
 
 	IGameDef       *m_gamedef = nullptr;
+<<<<<<< HEAD
 #ifndef SERVER
 	Game       	   *m_game = nullptr;
 #endif
 	Environment    *m_environment = nullptr;
 #ifndef SERVER
+=======
+	Environment    *m_environment = nullptr;
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	GUIEngine      *m_guiengine = nullptr;
 #endif
 	EmergeThread   *m_emerge = nullptr;

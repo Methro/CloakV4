@@ -5,8 +5,13 @@
 #pragma once
 
 #include "IReferenceCounted.h"
+<<<<<<< HEAD
 #include "coreutil.h"
 #include "EReadFileType.h"
+=======
+#include "EReadFileType.h"
+#include "path.h"
+>>>>>>> 5.10.0
 
 namespace irr
 {

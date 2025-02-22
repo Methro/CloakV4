@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Compiling Minetest
+=======
+# Compiling Luanti
+>>>>>>> 5.10.0
 
 - [Compiling on GNU/Linux](linux.md)
 - [Compiling on Windows](windows.md)
@@ -9,8 +13,13 @@
 
 General options and their default values:
 
+<<<<<<< HEAD
     BUILD_CLIENT=TRUE          - Build Minetest client
     BUILD_SERVER=FALSE         - Build Minetest server
+=======
+    BUILD_CLIENT=TRUE          - Build Luanti client
+    BUILD_SERVER=FALSE         - Build Luanti server
+>>>>>>> 5.10.0
     BUILD_UNITTESTS=TRUE       - Build unittest sources
     BUILD_BENCHMARKS=FALSE     - Build benchmark sources
     BUILD_DOCUMENTATION=TRUE   - Build doxygen documentation
@@ -22,6 +31,10 @@ General options and their default values:
         MinSizeRel             - Release build with -Os passed to compiler to make executable as small as possible
     PRECOMPILE_HEADERS=FALSE   - Precompile some headers (experimental; requires CMake 3.16 or later)
     PRECOMPILED_HEADERS_PATH=  - Path to a file listing all headers to precompile (default points to src/precompiled_headers.txt)
+<<<<<<< HEAD
+=======
+    USE_SDL2=TRUE              - Build with SDL2; Enables IrrlichtMt device SDL2
+>>>>>>> 5.10.0
     ENABLE_CURL=ON             - Build with cURL; Enables use of online mod repo, public serverlist and remote media fetching via http
     ENABLE_CURSES=ON           - Build with (n)curses; Enables a server side terminal (command line option: --terminal)
     ENABLE_GETTEXT=ON          - Build with Gettext; Allows using translations
@@ -37,12 +50,26 @@ General options and their default values:
     ENABLE_SYSTEM_JSONCPP=ON   - Use JsonCPP from system
     RUN_IN_PLACE=FALSE         - Create a portable install (worlds, settings etc. in current directory)
     ENABLE_UPDATE_CHECKER=TRUE - Whether to enable update checks by default
+<<<<<<< HEAD
     INSTALL_DEVTEST=FALSE      - Whether the Development Test game should be installed alongside Minetest
     USE_GPROF=FALSE            - Enable profiling using GProf
     VERSION_EXTRA=             - Text to append to version (e.g. VERSION_EXTRA=foobar -> Minetest 0.4.9-foobar)
 
 Library specific options:
 
+=======
+    INSTALL_DEVTEST=FALSE      - Whether the Development Test game should be installed alongside Luanti
+    USE_GPROF=FALSE            - Enable profiling using GProf
+    BUILD_WITH_TRACY=FALSE     - Fetch and build with the Tracy profiler client
+    FETCH_TRACY_GIT_TAG=master - Git tag for fetching Tracy client. Match with your server (gui) version
+    VERSION_EXTRA=             - Text to append to version (e.g. VERSION_EXTRA=foobar -> Luanti 5.10.0-foobar)
+
+Library specific options:
+
+    SDL2_DLL                        - Only if building with SDL2 on Windows; path to libSDL2.dll
+    SDL2_INCLUDE_DIRS               - Only if building with SDL2; directory where SDL.h is located
+    SDL2_LIBRARIES                  - Only if building with SDL2; path to libSDL2.a/libSDL2.so/libSDL2.lib
+>>>>>>> 5.10.0
     CURL_DLL                        - Only if building with cURL on Windows; path to libcurl.dll
     CURL_INCLUDE_DIR                - Only if building with cURL; directory where curl.h is located
     CURL_LIBRARY                    - Only if building with cURL; path to libcurl.a/libcurl.so/libcurl.lib

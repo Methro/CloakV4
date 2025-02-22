@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2014 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2014 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -42,7 +48,11 @@ void showTextInputDialog(const std::string &hint, const std::string &current, in
  * @param listSize Size of the list
  * @param selectedIdx Selected index
  */
+<<<<<<< HEAD
 void showComboBoxDialog(const std::string optionList[], s32 listSize, s32 selectedIdx);
+=======
+void showComboBoxDialog(const std::string *optionList, s32 listSize, s32 selectedIdx);
+>>>>>>> 5.10.0
 
 /**
  * Opens a share intent to the file at path
@@ -97,9 +107,14 @@ int getInputDialogSelection();
 
 bool hasPhysicalKeyboardAndroid();
 
+<<<<<<< HEAD
 #ifndef SERVER
 float getDisplayDensity();
 v2u32 getDisplaySize();
 #endif
+=======
+float getDisplayDensity();
+v2u32 getDisplaySize();
+>>>>>>> 5.10.0
 
 }

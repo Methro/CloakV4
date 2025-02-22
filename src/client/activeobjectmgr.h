@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2018 nerzhul, Loic BLOT <loic.blot@unix-experience.fr>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2018 nerzhul, Loic BLOT <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -38,7 +44,10 @@ public:
 
 	void getActiveObjects(const v3f &origin, f32 max_d,
 			std::vector<DistanceSortedActiveObject> &dest);
+<<<<<<< HEAD
 	void getAllActiveObjects(std::unordered_map<u16, ClientActiveObject*> &dest);
+=======
+>>>>>>> 5.10.0
 
 	/// Gets all CAOs whose selection boxes may intersect the @p shootline.
 	/// @note CAOs without a selection box are not returned.

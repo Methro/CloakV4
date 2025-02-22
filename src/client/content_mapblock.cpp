@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,12 +17,21 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include <cmath>
 #include "content_mapblock.h"
 #include "util/basic_macros.h"
 #include "util/numeric.h"
 #include "util/directiontables.h"
+<<<<<<< HEAD
+=======
+#include "util/tracy_wrapper.h"
+>>>>>>> 5.10.0
 #include "mapblock_mesh.h"
 #include "settings.h"
 #include "nodedef.h"
@@ -82,7 +92,12 @@ MapblockMeshGenerator::MapblockMeshGenerator(MeshMakeData *input, MeshCollector 
 	meshmanip(mm),
 	blockpos_nodes(data->m_blockpos * MAP_BLOCKSIZE),
 	enable_mesh_cache(g_settings->getBool("enable_mesh_cache") &&
+<<<<<<< HEAD
 			!data->m_smooth_lighting) // Mesh cache is not supported with smooth lighting
+=======
+			!data->m_smooth_lighting), // Mesh cache is not supported with smooth lighting
+	smooth_liquids(g_settings->getBool("enable_water_reflections"))
+>>>>>>> 5.10.0
 {
 }
 
@@ -407,7 +422,11 @@ void MapblockMeshGenerator::drawAutoLightedCuboid(aabb3f box, const f32 *txc,
 	}
 }
 
+<<<<<<< HEAD
 void MapblockMeshGenerator::drawSolidNode(std::set<content_t> xraySet)
+=======
+void MapblockMeshGenerator::drawSolidNode()
+>>>>>>> 5.10.0
 {
 	u8 faces = 0; // k-th bit will be set if k-th face is to be drawn.
 	static const v3s16 tile_dirs[6] = {
@@ -425,8 +444,11 @@ void MapblockMeshGenerator::drawSolidNode(std::set<content_t> xraySet)
 		v3s16 p2 = blockpos_nodes + cur_node.p + tile_dirs[face];
 		MapNode neighbor = data->m_vmanip.getNodeNoEx(p2);
 		content_t n2 = neighbor.getContent();
+<<<<<<< HEAD
 		if (xraySet.find(n2) != xraySet.end())
 			n2 = CONTENT_AIR;
+=======
+>>>>>>> 5.10.0
 		bool backface_culling = cur_node.f->drawtype == NDT_NORMAL;
 		if (n2 == n1)
 			continue;
@@ -718,7 +740,11 @@ void MapblockMeshGenerator::drawLiquidSides()
 			if (data->m_smooth_lighting)
 				cur_node.color = blendLightColor(pos);
 			pos += cur_node.origin;
+<<<<<<< HEAD
 			vertices[j] = video::S3DVertex(pos.X, pos.Y, pos.Z, 0, 0, 0, cur_node.color, vertex.u, v);
+=======
+			vertices[j] = video::S3DVertex(pos.X, pos.Y, pos.Z, face.dir.X, face.dir.Y, face.dir.Z, cur_node.color, vertex.u, v);
+>>>>>>> 5.10.0
 		};
 		collector->append(cur_liquid.tile, vertices, 4, quad_indices, 6);
 	}
@@ -741,6 +767,22 @@ void MapblockMeshGenerator::drawLiquidTop()
 	for (int i = 0; i < 4; i++) {
 		int u = corner_resolve[i][0];
 		int w = corner_resolve[i][1];
+<<<<<<< HEAD
+=======
+
+		if (smooth_liquids) {
+			int x = vertices[i].Pos.X > 0;
+			int z = vertices[i].Pos.Z > 0;
+
+			f32 dx = 0.5f * (cur_liquid.neighbors[z][x].level - cur_liquid.neighbors[z][x + 1].level +
+				cur_liquid.neighbors[z + 1][x].level - cur_liquid.neighbors[z + 1][x + 1].level);
+			f32 dz = 0.5f * (cur_liquid.neighbors[z][x].level - cur_liquid.neighbors[z + 1][x].level +
+				cur_liquid.neighbors[z][x + 1].level - cur_liquid.neighbors[z + 1][x + 1].level);
+
+			vertices[i].Normal = v3f(dx, 1., dz).normalize();
+		}
+
+>>>>>>> 5.10.0
 		vertices[i].Pos.Y += cur_liquid.corner_levels[w][u] * BS;
 		if (data->m_smooth_lighting)
 			vertices[i].Color = blendLightColor(vertices[i].Pos);
@@ -780,6 +822,13 @@ void MapblockMeshGenerator::drawLiquidTop()
 		vertex.TCoords += tcoord_center;
 
 		vertex.TCoords += tcoord_translate;
+<<<<<<< HEAD
+=======
+
+		if (!smooth_liquids) {
+			vertex.Normal = v3f(dx, 1., dz).normalize();
+		}
+>>>>>>> 5.10.0
 	}
 
 	std::swap(vertices[0].TCoords, vertices[2].TCoords);
@@ -999,6 +1048,7 @@ void MapblockMeshGenerator::drawGlasslikeFramedNode()
 	}
 }
 
+<<<<<<< HEAD
 void MapblockMeshGenerator::drawAllfacesNode()
 {
 	static const aabb3f box(-BS / 2, -BS / 2, -BS / 2, BS / 2, BS / 2, BS / 2);
@@ -1006,6 +1056,8 @@ void MapblockMeshGenerator::drawAllfacesNode()
 	drawAutoLightedCuboid(box);
 }
 
+=======
+>>>>>>> 5.10.0
 void MapblockMeshGenerator::drawTorchlikeNode()
 {
 	u8 wall = cur_node.n.getWallMounted(nodedef);
@@ -1254,8 +1306,12 @@ void MapblockMeshGenerator::drawPlantlikeNode()
 
 void MapblockMeshGenerator::drawPlantlikeRootedNode()
 {
+<<<<<<< HEAD
 	std::set<content_t> emptyXraySet;
 	drawSolidNode(emptyXraySet);
+=======
+	drawSolidNode();
+>>>>>>> 5.10.0
 	useTile(0, MATERIAL_FLAG_CRACK_OVERLAY, 0, true);
 	cur_node.origin += v3f(0.0, BS, 0.0);
 	cur_node.p.Y++;
@@ -1529,6 +1585,20 @@ namespace {
 	};
 }
 
+<<<<<<< HEAD
+=======
+void MapblockMeshGenerator::drawAllfacesNode()
+{
+	static const aabb3f box(-BS / 2, -BS / 2, -BS / 2, BS / 2, BS / 2, BS / 2);
+	TileSpec tiles[6];
+	for (int face = 0; face < 6; face++)
+		getTile(nodebox_tile_dirs[face], &tiles[face]);
+	if (data->m_smooth_lighting)
+		getSmoothLightFrame();
+	drawAutoLightedCuboid(box, nullptr, tiles, 6);
+}
+
+>>>>>>> 5.10.0
 void MapblockMeshGenerator::drawNodeboxNode()
 {
 	TileSpec tiles[6];
@@ -1718,18 +1788,25 @@ void MapblockMeshGenerator::errorUnknownDrawtype()
 
 void MapblockMeshGenerator::drawNode()
 {
+<<<<<<< HEAD
 	std::set<content_t> emptyXraySet;
 	drawNode(emptyXraySet);
 }
 
 void MapblockMeshGenerator::drawNode(std::set<content_t> xraySet)
 {
+=======
+>>>>>>> 5.10.0
 	switch (cur_node.f->drawtype) {
 		case NDT_AIRLIKE:  // Not drawn at all
 			return;
 		case NDT_LIQUID:
 		case NDT_NORMAL: // solid nodes don’t need the usual setup
+<<<<<<< HEAD
 			drawSolidNode(xraySet);
+=======
+			drawSolidNode();
+>>>>>>> 5.10.0
 			return;
 		default:
 			break;
@@ -1757,16 +1834,27 @@ void MapblockMeshGenerator::drawNode(std::set<content_t> xraySet)
 	}
 }
 
+<<<<<<< HEAD
 void MapblockMeshGenerator::generate(std::set<content_t> xraySet)
 {
+=======
+void MapblockMeshGenerator::generate()
+{
+	ZoneScoped;
+
+>>>>>>> 5.10.0
 	for (cur_node.p.Z = 0; cur_node.p.Z < data->side_length; cur_node.p.Z++)
 	for (cur_node.p.Y = 0; cur_node.p.Y < data->side_length; cur_node.p.Y++)
 	for (cur_node.p.X = 0; cur_node.p.X < data->side_length; cur_node.p.X++) {
 		cur_node.n = data->m_vmanip.getNodeNoEx(blockpos_nodes + cur_node.p);
 		cur_node.f = &nodedef->get(cur_node.n);
+<<<<<<< HEAD
 		content_t node_content = cur_node.n.getContent();
 		if (xraySet.empty() || xraySet.find(node_content) == xraySet.end())
 			drawNode(xraySet);
+=======
+		drawNode();
+>>>>>>> 5.10.0
 	}
 }
 

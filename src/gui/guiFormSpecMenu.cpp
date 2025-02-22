@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 
 #include <cstdlib>
@@ -316,7 +322,11 @@ void GUIFormSpecMenu::parseSize(parserData* data, const std::string &element)
 		data->invsize.Y = MYMAX(0, stof(parts[1]));
 
 		lockSize(false);
+<<<<<<< HEAD
 		if (!g_settings->getBool("enable_touch") && parts.size() == 3) {
+=======
+		if (!g_settings->getBool("touch_gui") && parts.size() == 3) {
+>>>>>>> 5.10.0
 			if (parts[2] == "true") {
 				lockSize(true,v2u32(800,600));
 			}
@@ -356,7 +366,11 @@ void GUIFormSpecMenu::parseContainerEnd(parserData* data, const std::string &)
 void GUIFormSpecMenu::parseScrollContainer(parserData *data, const std::string &element)
 {
 	std::vector<std::string> parts;
+<<<<<<< HEAD
 	if (!precheckElement("scroll_container start", element, 4, 5, parts))
+=======
+	if (!precheckElement("scroll_container start", element, 4, 6, parts))
+>>>>>>> 5.10.0
 		return;
 
 	std::vector<std::string> v_pos  = split(parts[0], ',');
@@ -367,6 +381,15 @@ void GUIFormSpecMenu::parseScrollContainer(parserData *data, const std::string &
 	if (parts.size() >= 5 && !parts[4].empty())
 		scroll_factor = stof(parts[4]);
 
+<<<<<<< HEAD
+=======
+	std::optional<s32> content_padding_px;
+	if (parts.size() >= 6 && !parts[5].empty()) {
+		std::vector<std::string> v_size = { parts[5], parts[5] };
+		content_padding_px = getRealCoordinateGeometry(v_size)[orientation == "vertical" ? 1 : 0];
+	}
+
+>>>>>>> 5.10.0
 	MY_CHECKPOS("scroll_container", 0);
 	MY_CHECKGEOM("scroll_container", 1);
 
@@ -405,6 +428,10 @@ void GUIFormSpecMenu::parseScrollContainer(parserData *data, const std::string &
 
 	GUIScrollContainer *mover = new GUIScrollContainer(Environment,
 			clipper, spec_mover.fid, rect_mover, orientation, scroll_factor);
+<<<<<<< HEAD
+=======
+	mover->setContentPadding(content_padding_px);
+>>>>>>> 5.10.0
 
 	data->current_parent = mover;
 
@@ -3133,6 +3160,7 @@ void GUIFormSpecMenu::regenerateGui(v2u32 screensize)
 			offset = v2s32(0,0);
 		}
 
+<<<<<<< HEAD
 		const double gui_scaling = g_settings->getFloat("gui_scaling", 0.5f, 42.0f);
 		const double screen_dpi = RenderingEngine::getDisplayDensity() * 96;
 
@@ -3185,6 +3213,9 @@ void GUIFormSpecMenu::regenerateGui(v2u32 screensize)
 			use_imgsize = std::min(prefer_imgsize,
 					std::min(fitx_imgsize, fity_imgsize));
 		}
+=======
+		double use_imgsize = calculateImgsize(mydata);
+>>>>>>> 5.10.0
 
 		// Everything else is scaled in proportion to the
 		// inventory image size.  The inventory slot spacing
@@ -3659,7 +3690,11 @@ void GUIFormSpecMenu::showTooltip(const std::wstring &text,
 	int tooltip_offset_x = m_btn_height;
 	int tooltip_offset_y = m_btn_height;
 
+<<<<<<< HEAD
 	if (m_pointer_type == PointerType::Touch) {
+=======
+	if (RenderingEngine::getLastPointerType() == PointerType::Touch) {
+>>>>>>> 5.10.0
 		tooltip_offset_x *= 3;
 		tooltip_offset_y  = 0;
 		if (m_pointer.X > (s32)screenSize.X / 2)
@@ -4027,10 +4062,16 @@ bool GUIFormSpecMenu::preprocessEvent(const SEvent& event)
 	}
 
 	if (event.EventType == irr::EET_JOYSTICK_INPUT_EVENT) {
+<<<<<<< HEAD
 		/* TODO add a check like:
 		if (event.JoystickEvent != joystick_we_listen_for)
 			return false;
 		*/
+=======
+		if (event.JoystickEvent.Joystick != m_joystick->getJoystickId())
+			return false;
+
+>>>>>>> 5.10.0
 		bool handled = m_joystick->handleEvent(event.JoystickEvent);
 		if (handled) {
 			if (m_joystick->wasKeyDown(KeyType::ESC)) {
@@ -4075,8 +4116,15 @@ bool GUIFormSpecMenu::OnEvent(const SEvent& event)
 			m_client->makeScreenshot();
 		}
 
+<<<<<<< HEAD
 		if (event.KeyInput.PressedDown && kp == getKeySetting("keymap_toggle_debug"))
 			m_show_debug = !m_show_debug;
+=======
+		if (event.KeyInput.PressedDown && kp == getKeySetting("keymap_toggle_debug")) {
+			if (!m_client || m_client->checkPrivilege("debug"))
+				m_show_debug = !m_show_debug;
+		}
+>>>>>>> 5.10.0
 
 		if (event.KeyInput.PressedDown &&
 			(event.KeyInput.Key==KEY_RETURN ||
@@ -5070,3 +5118,71 @@ std::array<StyleSpec, StyleSpec::NUM_STATES> GUIFormSpecMenu::getStyleForElement
 
 	return ret;
 }
+<<<<<<< HEAD
+=======
+
+double GUIFormSpecMenu::getFixedImgsize(double screen_dpi, double gui_scaling)
+{
+	// In fixed-size mode, inventory image size
+	// is 0.53 inch multiplied by the gui_scaling
+	// config parameter.  This magic size is chosen
+	// to make the main menu (15.5 inventory images
+	// wide, including border) just fit into the
+	// default window (800 pixels wide) at 96 DPI
+	// and default scaling (1.00).
+	return 0.5555 * screen_dpi * gui_scaling;
+}
+
+double GUIFormSpecMenu::getImgsize(v2u32 avail_screensize, double screen_dpi, double gui_scaling)
+{
+	double fixed_imgsize = getFixedImgsize(screen_dpi, gui_scaling);
+
+	s32 min_screen_dim = std::min(avail_screensize.X, avail_screensize.Y);
+	double prefer_imgsize = min_screen_dim / 15 * gui_scaling;
+	// Use the available space more effectively on small windows/screens.
+	// This is especially important for mobile platforms.
+	prefer_imgsize = std::max(prefer_imgsize, fixed_imgsize);
+	return prefer_imgsize;
+}
+
+double GUIFormSpecMenu::calculateImgsize(const parserData &data)
+{
+	// must stay in sync with ClientDynamicInfo::calculateMaxFSSize
+
+    const double screen_dpi = RenderingEngine::getDisplayDensity() * 96;
+	const double gui_scaling = g_settings->getFloat("gui_scaling", 0.5f, 42.0f);
+
+	// Fixed-size mode
+	if (m_lock)
+		return getFixedImgsize(screen_dpi, gui_scaling);
+
+	// Variables for the maximum imgsize that can fit in the screen.
+	double fitx_imgsize;
+	double fity_imgsize;
+
+	v2f padded_screensize(
+		data.screensize.X * (1.0f - data.padding.X * 2.0f),
+		data.screensize.Y * (1.0f - data.padding.Y * 2.0f)
+	);
+
+	if (data.real_coordinates) {
+		fitx_imgsize = padded_screensize.X / data.invsize.X;
+		fity_imgsize = padded_screensize.Y / data.invsize.Y;
+	} else {
+		// The maximum imgsize in the old coordinate system also needs to
+		// factor in padding and spacing along with 0.1 inventory slot spare
+		// and help text space, hence the magic numbers.
+		fitx_imgsize = padded_screensize.X /
+				((5.0 / 4.0) * (0.5 + data.invsize.X));
+		fity_imgsize = padded_screensize.Y /
+				((15.0 / 13.0) * (0.85 + data.invsize.Y));
+	}
+
+	double prefer_imgsize = getImgsize(v2u32(padded_screensize.X, padded_screensize.Y),
+			screen_dpi, gui_scaling);
+
+	// Try to use the preferred imgsize, but if that's bigger than the maximum
+	// size, use the maximum size.
+	return std::min(prefer_imgsize, std::min(fitx_imgsize, fity_imgsize));
+}
+>>>>>>> 5.10.0

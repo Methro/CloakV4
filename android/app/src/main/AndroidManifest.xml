@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
+<<<<<<< HEAD
 	package="net.minetest.minetest"
 	android:installLocation="auto">
+=======
+    android:installLocation="auto">
+>>>>>>> 5.10.0
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -44,9 +48,12 @@
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 			</intent-filter>
+<<<<<<< HEAD
 			<meta-data
 				android:name="android.app.lib_name"
 				android:value="minetest" />
+=======
+>>>>>>> 5.10.0
 		</activity>
 
 		<service

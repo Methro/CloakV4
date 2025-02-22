@@ -41,3 +41,7 @@
 #cmakedefine01 BUILD_UNITTESTS
 #cmakedefine01 BUILD_BENCHMARKS
 #cmakedefine01 USE_SDL2
+<<<<<<< HEAD
+=======
+#cmakedefine01 BUILD_WITH_TRACY
+>>>>>>> 5.10.0

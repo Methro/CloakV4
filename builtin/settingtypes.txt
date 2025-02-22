@@ -61,7 +61,11 @@
 #
 #    # This is a comment
 #    #
+<<<<<<< HEAD
 #    # Requires: shaders, enable_dynamic_shadows, !touchscreen_gui
+=======
+#    # Requires: shaders, enable_dynamic_shadows, !enable_waving_leaves
+>>>>>>> 5.10.0
 #    name (Readable name) type type_args
 #
 # A requirement can be the name of a boolean setting or an engine-defined value.
@@ -72,7 +76,11 @@
 #     * shaders_support (a video driver that supports shaders, may not be enabled)
 #     * shaders (both enable_shaders and shaders_support)
 #     * desktop / android
+<<<<<<< HEAD
 #     * touchscreen_gui / keyboard_mouse
+=======
+#     * touchscreen / keyboard_mouse
+>>>>>>> 5.10.0
 #     * opengl / gles
 # * You can negate any requirement by prepending with !
 #
@@ -82,6 +90,7 @@
 # There shouldn't be too much settings per category; settings that shouldn't be
 #  modified by the "average user" should be in (sub-)categories called "Advanced".
 
+<<<<<<< HEAD
 [CloakV4]
 
 [*Game]
@@ -117,6 +126,8 @@ allied_esp_color (Allied ESP color) string (0, 255, 0)
 staff_esp_color (Allied ESP color) string (0, 0, 255)
 
 enemy_esp_color (Enemy ESP color) string (255, 0, 0)
+=======
+>>>>>>> 5.10.0
 
 [Controls]
 
@@ -149,11 +160,19 @@ always_fly_fast (Always fly fast) bool true
 #    the place button.
 #
 #    Requires: keyboard_mouse
+<<<<<<< HEAD
 repeat_place_time (Place repetition interval) float 0.001
 
 #    The minimum time in seconds it takes between digging nodes when holding
 #    the dig button.
 repeat_dig_time (Minimum dig repetition interval) float 0.0
+=======
+repeat_place_time (Place repetition interval) float 0.25 0.16 2.0
+
+#    The minimum time in seconds it takes between digging nodes when holding
+#    the dig button.
+repeat_dig_time (Minimum dig repetition interval) float 0.0 0.0 2.0
+>>>>>>> 5.10.0
 
 #    Automatically jump up single-node obstacles.
 autojump (Automatic jumping) bool false
@@ -163,7 +182,10 @@ autojump (Automatic jumping) bool false
 #    On touchscreens, this only affects digging.
 safe_dig_and_place (Safe digging and placing) bool false
 
+<<<<<<< HEAD
 background (Change background) enum default default,ocean,tree,sky
+=======
+>>>>>>> 5.10.0
 [*Keyboard and Mouse]
 
 #    Invert vertical mouse movement.
@@ -188,6 +210,7 @@ invert_hotbar_mouse_wheel (Hotbar: Invert mouse wheel direction) bool false
 
 [*Touchscreen]
 
+<<<<<<< HEAD
 #    Enables touchscreen mode, allowing you to play the game with a touchscreen.
 #
 #    Requires: !android
@@ -196,34 +219,66 @@ enable_touch (Enable touchscreen) bool true
 #    Touchscreen sensitivity multiplier.
 #
 #    Requires: touchscreen_gui
+=======
+#    Enables the touchscreen controls, allowing you to play the game with a touchscreen.
+#    "auto" means that the touchscreen controls will be enabled and disabled
+#    automatically depending on the last used input method.
+#
+#    Requires: touch_support
+touch_controls (Touchscreen controls) enum auto auto,true,false
+
+#    Touchscreen sensitivity multiplier.
+#
+#    Requires: touchscreen
+>>>>>>> 5.10.0
 touchscreen_sensitivity (Touchscreen sensitivity) float 0.2 0.001 10.0
 
 #    The length in pixels after which a touch interaction is considered movement.
 #
+<<<<<<< HEAD
 #    Requires: touchscreen_gui
+=======
+#    Requires: touchscreen
+>>>>>>> 5.10.0
 touchscreen_threshold (Movement threshold) int 20 0 100
 
 #    The delay in milliseconds after which a touch interaction is considered a long tap.
 #
+<<<<<<< HEAD
 #    Requires: touchscreen_gui
+=======
+#    Requires: touchscreen
+>>>>>>> 5.10.0
 touch_long_tap_delay (Threshold for long taps) int 400 100 1000
 
 #    Use crosshair to select object instead of whole screen.
 #    If enabled, a crosshair will be shown and will be used for selecting object.
 #
+<<<<<<< HEAD
 #    Requires: touchscreen_gui
+=======
+#    Requires: touchscreen
+>>>>>>> 5.10.0
 touch_use_crosshair (Use crosshair for touch screen) bool false
 
 #    Fixes the position of virtual joystick.
 #    If disabled, virtual joystick will center to first-touch's position.
 #
+<<<<<<< HEAD
 #    Requires: touchscreen_gui
+=======
+#    Requires: touchscreen
+>>>>>>> 5.10.0
 fixed_virtual_joystick (Fixed virtual joystick) bool false
 
 #    Use virtual joystick to trigger "Aux1" button.
 #    If enabled, virtual joystick will also tap "Aux1" button when out of main circle.
 #
+<<<<<<< HEAD
 #    Requires: touchscreen_gui
+=======
+#    Requires: touchscreen
+>>>>>>> 5.10.0
 virtual_joystick_triggers_aux1 (Virtual joystick triggers Aux1 button) bool false
 
 #    The gesture for punching players/entities.
@@ -233,10 +288,17 @@ virtual_joystick_triggers_aux1 (Virtual joystick triggers Aux1 button) bool fals
 #      Easy to use and well-known from other games that shall not be named.
 #
 #    * long_tap
+<<<<<<< HEAD
 #      Known from the classic Minetest mobile controls.
 #      Combat is more or less impossible.
 #
 #    Requires: touchscreen_gui
+=======
+#      Known from the classic Luanti mobile controls.
+#      Combat is more or less impossible.
+#
+#    Requires: touchscreen
+>>>>>>> 5.10.0
 touch_punch_gesture (Punch gesture) enum short_tap short_tap,long_tap
 
 
@@ -301,6 +363,7 @@ viewing_range (Viewing range) int 190 20 4000
 #    Higher values result in a less detailed image.
 undersampling (Undersampling) int 1 1 8
 
+<<<<<<< HEAD
 [**Graphics Effects]
 
 #    Allows liquids to be translucent.
@@ -326,6 +389,8 @@ performance_tradeoffs (Tradeoffs for performance) bool false
 #    Adds particles when digging a node.
 enable_particles (Digging particles) bool true
 
+=======
+>>>>>>> 5.10.0
 [**3D]
 
 #    3D support.
@@ -442,6 +507,14 @@ enable_clouds (Clouds) bool true
 #    Requires: enable_clouds
 enable_3d_clouds (3D clouds) bool true
 
+<<<<<<< HEAD
+=======
+#   Use smooth cloud shading.
+#
+#   Requires: enable_3d_clouds, enable_clouds
+soft_clouds (Soft clouds) bool false
+
+>>>>>>> 5.10.0
 [**Filtering and Antialiasing]
 
 #    Use mipmaps when scaling textures. May slightly increase performance,
@@ -500,6 +573,7 @@ enable_raytraced_culling (Enable Raytraced Culling) bool true
 
 
 
+<<<<<<< HEAD
 [*Shaders]
 
 #    Shaders allow advanced visual effects and may increase performance on some video
@@ -507,6 +581,31 @@ enable_raytraced_culling (Enable Raytraced Culling) bool true
 #
 #    Requires: shaders_support
 enable_shaders (Shaders) bool true
+=======
+[*Effects]
+
+#    Allows liquids to be translucent.
+translucent_liquids (Translucent liquids) bool true
+
+#    Leaves style:
+#    -   Fancy:  all faces visible
+#    -   Simple: only outer faces
+#    -   Opaque: disable transparency
+leaves_style (Leaves style) enum fancy fancy,simple,opaque
+
+#    Connects glass if supported by node.
+connected_glass (Connect glass) bool false
+
+#    Enable smooth lighting with simple ambient occlusion.
+smooth_lighting (Smooth lighting) bool true
+
+#    Enables tradeoffs that reduce CPU load or increase rendering performance
+#    at the expense of minor visual glitches that do not impact game playability.
+performance_tradeoffs (Tradeoffs for performance) bool false
+
+#    Adds particles when digging a node.
+enable_particles (Digging particles) bool true
+>>>>>>> 5.10.0
 
 [**Waving Nodes]
 
@@ -659,14 +758,18 @@ exposure_compensation (Exposure compensation) float 0.0 -1.0 1.0
 #    Requires: shaders, enable_post_processing
 debanding (Enable Debanding) bool true
 
+<<<<<<< HEAD
 [**Bloom]
 
+=======
+>>>>>>> 5.10.0
 #    Set to true to enable bloom effect.
 #    Bright colors will bleed over the neighboring objects.
 #
 #    Requires: shaders, enable_post_processing
 enable_bloom (Enable Bloom) bool false
 
+<<<<<<< HEAD
 #    Set to true to render debugging breakdown of the bloom effect.
 #    In debug mode, the screen is split into 4 quadrants:
 #    top-left - processed base image, top-right - final image
@@ -699,6 +802,29 @@ bloom_radius (Bloom Radius) float 1 0.1 8
 #
 #    Requires: shaders, enable_post_processing, enable_bloom
 enable_volumetric_lighting (Volumetric lighting) bool false
+=======
+#    Set to true to enable volumetric lighting effect (a.k.a. "Godrays").
+#
+#    Requires: shaders, enable_post_processing, enable_bloom
+enable_volumetric_lighting (Volumetric lighting) bool false
+
+[**Other Effects]
+
+#   Simulate translucency when looking at foliage in the sunlight.
+#
+#   Requires: shaders, enable_dynamic_shadows
+enable_translucent_foliage (Translucent foliage) bool false
+
+#   Apply specular shading to nodes.
+#
+#   Requires: shaders, enable_dynamic_shadows
+enable_node_specular (Node specular) bool false
+
+#   When enabled, liquid reflections are simulated.
+#
+#   Requires: shaders, enable_waving_water, enable_dynamic_shadows
+enable_water_reflections (Liquid reflections) bool false
+>>>>>>> 5.10.0
 
 [*Audio]
 
@@ -723,6 +849,13 @@ language (Language) enum   ,be,bg,ca,cs,da,de,el,en,eo,es,et,eu,fi,fr,gd,gl,hu,i
 
 [**GUI]
 
+<<<<<<< HEAD
+=======
+#    When enabled, the GUI is optimized to be more usable on touchscreens.
+#    Whether this is enabled by default depends on your hardware form-factor.
+touch_gui (Optimize GUI for touchscreens) bool false
+
+>>>>>>> 5.10.0
 #    Scale GUI by a user specified value.
 #    Use a nearest-neighbor-anti-alias filter to scale the GUI.
 #    This will smooth over some of the rough edges, and blend
@@ -777,6 +910,13 @@ show_debug (Show debug info) bool false
 #    Radius to use when the block bounds HUD feature is set to near blocks.
 show_block_bounds_radius_near (Block bounds HUD radius) int 4 0 1000
 
+<<<<<<< HEAD
+=======
+#    Maximum proportion of current window to be used for hotbar.
+#    Useful if there's something to be displayed right or left of hotbar.
+hud_hotbar_max_width (Maximum hotbar width) float 1.0 0.001 1.0
+
+>>>>>>> 5.10.0
 [**Chat]
 
 #    Maximum number of recent chat messages to show
@@ -791,10 +931,13 @@ console_color (Console color) string (0,0,0)
 #    In-game chat console background alpha (opaqueness, between 0 and 255).
 console_alpha (Console alpha) int 200 0 255
 
+<<<<<<< HEAD
 #    Maximum proportion of current window to be used for hotbar.
 #    Useful if there's something to be displayed right or left of hotbar.
 hud_hotbar_max_width (Maximum hotbar width) float 1.0 0.001 1.0
 
+=======
+>>>>>>> 5.10.0
 #    Clickable weblinks (middle-click or Ctrl+left-click) enabled in chat console output.
 clickable_chat_weblinks (Chat weblinks) bool true
 
@@ -809,9 +952,15 @@ chat_font_size (Chat font size) int 0 0 72
 [**Content Repository]
 
 #    The URL for the content repository
+<<<<<<< HEAD
 contentdb_url (ContentDB URL) string https://content.minetest.net
 
 #    If enabled and you have ContentDB packages installed, Minetest may contact ContentDB to
+=======
+contentdb_url (ContentDB URL) string https://content.luanti.org
+
+#    If enabled and you have ContentDB packages installed, Luanti may contact ContentDB to
+>>>>>>> 5.10.0
 #    check for package updates when opening the mainmenu.
 contentdb_enable_updates_indicator (Enable updates available indicator on content tab) bool true
 
@@ -819,8 +968,13 @@ contentdb_enable_updates_indicator (Enable updates available indicator on conten
 #    "nonfree" can be used to hide packages which do not qualify as 'free software',
 #    as defined by the Free Software Foundation.
 #    You can also specify content ratings.
+<<<<<<< HEAD
 #    These flags are independent from Minetest versions,
 #    so see a full list at https://content.minetest.net/help/content_flags/
+=======
+#    These flags are independent from Luanti versions,
+#    so see a full list at https://content.luanti.org/help/content_flags/
+>>>>>>> 5.10.0
 contentdb_flag_blacklist (ContentDB Flag Blacklist) string nonfree, desktop_default
 
 #    Maximum number of concurrent downloads. Downloads exceeding this limit will be queued.
@@ -836,13 +990,21 @@ contentdb_max_concurrent_downloads (ContentDB Max Concurrent Downloads) int 3 1
 enable_local_map_saving (Saving map received from server) bool false
 
 #    URL to the server list displayed in the Multiplayer Tab.
+<<<<<<< HEAD
 serverlist_url (Serverlist URL) string servers.minetest.net
+=======
+serverlist_url (Serverlist URL) string servers.luanti.org
+>>>>>>> 5.10.0
 
 #    If enabled, account registration is separate from login in the UI.
 #    If disabled, new accounts will be registered automatically when logging in.
 enable_split_login_register (Enable split login/register) bool true
 
+<<<<<<< HEAD
 #    URL to JSON file which provides information about the newest Minetest release.
+=======
+#    URL to JSON file which provides information about the newest Luanti release.
+>>>>>>> 5.10.0
 #    If this is empty the engine will never check for updates.
 update_information_url (Update information URL) string https://www.minetest.net/release_info.json
 
@@ -856,16 +1018,27 @@ name (Admin name) string
 [**Serverlist and MOTD]
 
 #    Name of the server, to be displayed when players join and in the serverlist.
+<<<<<<< HEAD
 server_name (Server name) string Minetest server
+=======
+server_name (Server name) string Luanti server
+>>>>>>> 5.10.0
 
 #    Description of server, to be displayed when players join and in the serverlist.
 server_description (Server description) string mine here
 
 #    Domain name of server, to be displayed in the serverlist.
+<<<<<<< HEAD
 server_address (Server address) string game.minetest.net
 
 #    Homepage of server, to be displayed in the serverlist.
 server_url (Server URL) string https://minetest.net
+=======
+server_address (Server address) string game.example.net
+
+#    Homepage of server, to be displayed in the serverlist.
+server_url (Server URL) string https://game.example.net
+>>>>>>> 5.10.0
 
 #    Automatically report to the serverlist.
 server_announce (Announce server) bool false
@@ -874,7 +1047,11 @@ server_announce (Announce server) bool false
 server_announce_send_players (Send player names to the server list) bool true
 
 #    Announce to this serverlist.
+<<<<<<< HEAD
 serverlist_url (Serverlist URL) string servers.minetest.net
+=======
+serverlist_url (Serverlist URL) string servers.luanti.org
+>>>>>>> 5.10.0
 
 #    Message of the day displayed to players connecting.
 motd (Message of the day) string
@@ -903,7 +1080,11 @@ strict_protocol_version_checking (Strict protocol checking) bool false
 #    Older clients are compatible in the sense that they will not crash when connecting
 #    to new servers, but they may not support all new features that you are expecting.
 #    This allows for more fine-grained control than strict_protocol_version_checking.
+<<<<<<< HEAD
 #    Minetest still enforces its own internal minimum, and enabling
+=======
+#    Luanti still enforces its own internal minimum, and enabling
+>>>>>>> 5.10.0
 #    strict_protocol_version_checking will effectively override this.
 protocol_version_min (Protocol version minimum) int 1 1 65535
 
@@ -933,8 +1114,18 @@ default_privs (Default privileges) string interact, shout
 #    Privileges that players with basic_privs can grant
 basic_privs (Basic privileges) string interact, shout
 
+<<<<<<< HEAD
 #    If enabled, disable cheat prevention in multiplayer.
 disable_anticheat (Disable anticheat) bool false
+=======
+#    Server anticheat configuration.
+#    Flags are positive. Uncheck the flag to disable corresponding anticheat module.
+anticheat_flags (Anticheat flags) flags digging,interaction,movement digging,interaction,movement
+
+#    Tolerance of movement cheat detector.
+#    Increase the value if players experience stuttery movement.
+anticheat_movement_tolerance (Anticheat movement tolerance) float 1.0 1.0
+>>>>>>> 5.10.0
 
 #    If enabled, actions are recorded for rollback.
 #    This option is only read when server starts.
@@ -1062,7 +1253,11 @@ mapgen_limit (Map generation limit) int 31007 0 31007
 #    Global map generation attributes.
 #    In Mapgen v6 the 'decorations' flag controls all decorations except trees
 #    and jungle grass, in all other mapgens this flag controls all decorations.
+<<<<<<< HEAD
 mg_flags (Mapgen flags) flags caves,dungeons,light,decorations,biomes,ores caves,dungeons,light,decorations,biomes,ores,nocaves,nodungeons,nolight,nodecorations,nobiomes,noores
+=======
+mg_flags (Mapgen flags) flags caves,dungeons,light,decorations,biomes,ores caves,dungeons,light,decorations,biomes,ores
+>>>>>>> 5.10.0
 
 [*Biome API]
 
@@ -1081,7 +1276,11 @@ mg_biome_np_humidity_blend (Humidity blend noise) noise_params_2d 0, 1.5, (8, 8,
 [*Mapgen V5]
 
 #    Map generation attributes specific to Mapgen v5.
+<<<<<<< HEAD
 mgv5_spflags (Mapgen V5 specific flags) flags caverns caverns,nocaverns
+=======
+mgv5_spflags (Mapgen V5 specific flags) flags caverns caverns
+>>>>>>> 5.10.0
 
 #    Controls width of tunnels, a smaller value creates wider tunnels.
 #    Value >= 10.0 completely disables generation of tunnels and avoids the
@@ -1155,7 +1354,11 @@ mgv5_np_dungeons (Dungeon noise) noise_params_3d 0.9, 0.5, (500, 500, 500), 0, 2
 #    When the 'snowbiomes' flag is enabled jungles are automatically enabled and
 #    the 'jungles' flag is ignored.
 #    The 'temples' flag disables generation of desert temples. Normal dungeons will appear instead.
+<<<<<<< HEAD
 mgv6_spflags (Mapgen V6 specific flags) flags jungles,biomeblend,mudflow,snowbiomes,noflat,trees,temples jungles,biomeblend,mudflow,snowbiomes,flat,trees,temples,nojungles,nobiomeblend,nomudflow,nosnowbiomes,noflat,notrees,notemples
+=======
+mgv6_spflags (Mapgen V6 specific flags) flags jungles,biomeblend,mudflow,snowbiomes,noflat,trees,temples jungles,biomeblend,mudflow,snowbiomes,flat,trees,temples
+>>>>>>> 5.10.0
 
 #    Deserts occur when np_biome exceeds this value.
 #    When the 'snowbiomes' flag is enabled, this is ignored.
@@ -1211,7 +1414,11 @@ mgv6_np_apple_trees (Apple trees noise) noise_params_2d 0, 1, (100, 100, 100), 3
 #    'ridges': Rivers.
 #    'floatlands': Floating land masses in the atmosphere.
 #    'caverns': Giant caves deep underground.
+<<<<<<< HEAD
 mgv7_spflags (Mapgen V7 specific flags) flags mountains,ridges,nofloatlands,caverns mountains,ridges,floatlands,caverns,nomountains,noridges,nofloatlands,nocaverns
+=======
+mgv7_spflags (Mapgen V7 specific flags) flags mountains,ridges,nofloatlands,caverns mountains,ridges,floatlands,caverns
+>>>>>>> 5.10.0
 
 #    Y of mountain density gradient zero level. Used to shift mountains vertically.
 mgv7_mount_zero_level (Mountain zero level) int 0 -31000 31000
@@ -1345,7 +1552,11 @@ mgv7_np_dungeons (Dungeon noise) noise_params_3d 0.9, 0.5, (500, 500, 500), 0, 2
 [*Mapgen Carpathian]
 
 #    Map generation attributes specific to Mapgen Carpathian.
+<<<<<<< HEAD
 mgcarpathian_spflags (Mapgen Carpathian specific flags) flags caverns,norivers caverns,rivers,nocaverns,norivers
+=======
+mgcarpathian_spflags (Mapgen Carpathian specific flags) flags caverns,norivers caverns,rivers
+>>>>>>> 5.10.0
 
 #    Defines the base ground level.
 mgcarpathian_base_level (Base ground level) float 12.0
@@ -1454,7 +1665,11 @@ mgcarpathian_np_dungeons (Dungeon noise) noise_params_3d 0.9, 0.5, (500, 500, 50
 
 #    Map generation attributes specific to Mapgen Flat.
 #    Occasional lakes and hills can be added to the flat world.
+<<<<<<< HEAD
 mgflat_spflags (Mapgen Flat specific flags) flags nolakes,nohills,nocaverns lakes,hills,caverns,nolakes,nohills,nocaverns
+=======
+mgflat_spflags (Mapgen Flat specific flags) flags nolakes,nohills,nocaverns lakes,hills,caverns
+>>>>>>> 5.10.0
 
 #    Y of flat ground.
 mgflat_ground_level (Ground level) int 8 -31000 31000
@@ -1538,7 +1753,11 @@ mgflat_np_dungeons (Dungeon noise) noise_params_3d 0.9, 0.5, (500, 500, 500), 0,
 #    Map generation attributes specific to Mapgen Fractal.
 #    'terrain' enables the generation of non-fractal terrain:
 #    ocean, islands and underground.
+<<<<<<< HEAD
 mgfractal_spflags (Mapgen Fractal specific flags) flags terrain terrain,noterrain
+=======
+mgfractal_spflags (Mapgen Fractal specific flags) flags terrain terrain
+>>>>>>> 5.10.0
 
 #    Controls width of tunnels, a smaller value creates wider tunnels.
 #    Value >= 10.0 completely disables generation of tunnels and avoids the
@@ -1672,7 +1891,11 @@ mgfractal_np_dungeons (Dungeon noise) noise_params_3d 0.9, 0.5, (500, 500, 500),
 #    'vary_river_depth': If enabled, low humidity and high heat causes rivers
 #    to become shallower and occasionally dry.
 #    'altitude_dry': Reduces humidity with altitude.
+<<<<<<< HEAD
 mgvalleys_spflags (Mapgen Valleys specific flags) flags altitude_chill,humid_rivers,vary_river_depth,altitude_dry altitude_chill,humid_rivers,vary_river_depth,altitude_dry,noaltitude_chill,nohumid_rivers,novary_river_depth,noaltitude_dry
+=======
+mgvalleys_spflags (Mapgen Valleys specific flags) flags altitude_chill,humid_rivers,vary_river_depth,altitude_dry altitude_chill,humid_rivers,vary_river_depth,altitude_dry
+>>>>>>> 5.10.0
 
 #    The vertical distance over which heat drops by 20 if 'altitude_chill' is
 #    enabled. Also, the vertical distance over which humidity drops by 10 if
@@ -1847,7 +2070,11 @@ instrument.lbm (Loading Block Modifiers) bool true
 instrument.chatcommand (Chat commands) bool true
 
 #    Instrument global callback functions on registration.
+<<<<<<< HEAD
 #    (anything you pass to a minetest.register_*() function)
+=======
+#    (anything you pass to a core.register_*() function)
+>>>>>>> 5.10.0
 instrument.global_callback (Global callbacks) bool true
 
 #    Instrument builtin.
@@ -1879,6 +2106,14 @@ ignore_world_load_errors (Ignore world errors) bool false
 
 [**Graphics]
 
+<<<<<<< HEAD
+=======
+#    Shaders are a fundamental part of rendering and enable advanced visual effects.
+#
+#    Requires: shaders_support
+enable_shaders (Shaders) bool true
+
+>>>>>>> 5.10.0
 #    Path to shader directory. If no path is defined, default location will be used.
 #
 #    Requires: shaders
@@ -1902,6 +2137,10 @@ cloud_radius (Cloud radius) int 12 1 62
 desynchronize_mapblock_texture_animation (Desynchronize block animation) bool false
 
 #    Enables caching of facedir rotated meshes.
+<<<<<<< HEAD
+=======
+#    This is only effective with shaders disabled.
+>>>>>>> 5.10.0
 enable_mesh_cache (Mesh cache) bool false
 
 #    Delay between mesh updates on the client in ms. Increasing this will slow
@@ -1909,7 +2148,11 @@ enable_mesh_cache (Mesh cache) bool false
 mesh_generation_interval (Mapblock mesh generation delay) int 0 0 50
 
 #    Number of threads to use for mesh generation.
+<<<<<<< HEAD
 #    Value of 0 (default) will let Minetest autodetect the number of available threads.
+=======
+#    Value of 0 (default) will let Luanti autodetect the number of available threads.
+>>>>>>> 5.10.0
 mesh_generation_threads (Mapblock mesh generation threads) int 0 0 8
 
 #    True = 256
@@ -1953,6 +2196,17 @@ client_mesh_chunk (Client Mesh Chunksize) int 1 1 16
 #    Enables debug and error-checking in the OpenGL driver.
 opengl_debug (OpenGL debug) bool false
 
+<<<<<<< HEAD
+=======
+#    Set to true to render debugging breakdown of the bloom effect.
+#    In debug mode, the screen is split into 4 quadrants:
+#    top-left - processed base image, top-right - final image
+#    bottom-left - raw base image, bottom-right - bloom texture.
+#
+#    Requires: shaders, enable_post_processing, enable_bloom
+enable_bloom_debug (Enable Bloom Debug) bool false
+
+>>>>>>> 5.10.0
 [**Sound]
 #    Comma-separated list of AL and ALC extensions that should not be used.
 #    Useful for testing. See al_extensions.[h,cpp] for details.
@@ -2035,7 +2289,11 @@ lighting_boost_spread (Light curve boost spread) float 0.2 0.0 0.4
 [**Networking]
 
 #    Prometheus listener address.
+<<<<<<< HEAD
 #    If Minetest is compiled with ENABLE_PROMETHEUS option enabled,
+=======
+#    If Luanti is compiled with ENABLE_PROMETHEUS option enabled,
+>>>>>>> 5.10.0
 #    enable metrics listener for Prometheus on that address.
 #    Metrics can be fetched on http://127.0.0.1:30000/metrics
 prometheus_listener_address (Prometheus listener address) string 127.0.0.1:30000
@@ -2095,6 +2353,11 @@ ask_reconnect_on_crash (Ask to reconnect after crash) bool false
 #    Length of a server tick (the interval at which everything is generally updated),
 #    stated in seconds.
 #    Does not apply to sessions hosted from the client menu.
+<<<<<<< HEAD
+=======
+#    This is a lower bound, i.e. server steps may not be shorter than this, but
+#    they are often longer.
+>>>>>>> 5.10.0
 dedicated_server_step (Dedicated server step) float 0.09 0.0 1.0
 
 #    Whether players are shown to clients without any range limit.
@@ -2240,7 +2503,11 @@ curl_file_download_timeout (cURL file download timeout) int 300000 5000 21474836
 #    Adjust the detected display density, used for scaling UI elements.
 display_density_factor (Display Density Scaling Factor) float 1 0.5 5.0
 
+<<<<<<< HEAD
 #    Windows systems only: Start Minetest with the command line window in the background.
+=======
+#    Windows systems only: Start Luanti with the command line window in the background.
+>>>>>>> 5.10.0
 #    Contains the same information as the file debug.txt (default name).
 enable_console (Enable console window) bool false
 
@@ -2561,9 +2828,15 @@ keymap_toggle_chat (Chat toggle key) key KEY_F2
 keymap_console (Large chat console key) key KEY_F10
 
 #    Key for toggling the display of fog.
+<<<<<<< HEAD
 keymap_toggle_force_fog_off (Fog toggle key) key KEY_F3
 
 #    Key for toggling the camera update. Only used for development
+=======
+keymap_toggle_fog (Fog toggle key) key KEY_F3
+
+#    Key for toggling the camera update. Only usable with 'debug' privilege.
+>>>>>>> 5.10.0
 keymap_toggle_update_camera (Camera update toggle key) key
 
 #    Key for toggling the display of debug info.

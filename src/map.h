@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -141,8 +147,11 @@ public:
 	// Returns NULL if not found
 	MapBlock * getBlockNoCreateNoEx(v3s16 p);
 
+<<<<<<< HEAD
 	void listAllLoadedBlocks(std::vector<v3s16> &dst);
 
+=======
+>>>>>>> 5.10.0
 	/* Server overrides */
 	virtual MapBlock * emergeBlock(v3s16 p, bool create_blank=true)
 	{ return getBlockNoCreateNoEx(p); }
@@ -335,7 +344,11 @@ public:
 
 	// This is much faster with big chunks of generated data
 	void blitBackAll(std::map<v3s16, MapBlock*> * modified_blocks,
+<<<<<<< HEAD
 		bool overwrite_generated = true);
+=======
+		bool overwrite_generated = true) const;
+>>>>>>> 5.10.0
 
 	/*
 		Creates a copy of this VManip including contents, the copy will not be

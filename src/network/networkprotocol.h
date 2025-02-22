@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -248,6 +249,26 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 // See also formspec [Version History] in doc/lua_api.md
 #define FORMSPEC_API_VERSION 7
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+
+#pragma once
+
+#include "irrTypes.h"
+using namespace irr;
+
+extern const u16 LATEST_PROTOCOL_VERSION;
+
+// Server's supported network protocol range
+constexpr u16 SERVER_PROTOCOL_VERSION_MIN = 37;
+
+// Client's supported network protocol range
+constexpr u16 CLIENT_PROTOCOL_VERSION_MIN = 37;
+
+extern const u16 FORMSPEC_API_VERSION;
+>>>>>>> 5.10.0
 
 #define TEXTURENAME_ALLOWED_CHARS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.-"
 
@@ -260,10 +281,17 @@ enum ToClientCommand : u16
 		Sent after TOSERVER_INIT.
 
 		u8 deployed serialization version
+<<<<<<< HEAD
 		u16 deployed network compression mode
 		u16 deployed protocol version
 		u32 supported auth methods
 		std::string username that should be used for legacy hash (for proper casing)
+=======
+		u16 unused (network compression, never implemeneted)
+		u16 deployed protocol version
+		u32 supported auth methods
+		std::string unused (used to be username)
+>>>>>>> 5.10.0
 	*/
 	TOCLIENT_AUTH_ACCEPT = 0x03,
 	/*
@@ -391,10 +419,17 @@ enum ToClientCommand : u16
 		f32 transition_time
 	*/
 
+<<<<<<< HEAD
 	TOCLIENT_DEATHSCREEN = 0x37,
 	/*
 		u8 bool set camera point target
 		v3f1000 camera point target (to point the death cause or whatever)
+=======
+	TOCLIENT_DEATHSCREEN_LEGACY = 0x37,
+	/*
+		u8 bool unused
+		v3f1000 unused
+>>>>>>> 5.10.0
 	*/
 
 	TOCLIENT_MEDIA = 0x38,
@@ -914,7 +949,11 @@ enum ToServerCommand : u16
 		Sent first after connected.
 
 		u8 serialization version (=SER_FMT_VER_HIGHEST_READ)
+<<<<<<< HEAD
 		u16 supported network compression modes
+=======
+		u16 unused (supported network compression modes, never implemeneted)
+>>>>>>> 5.10.0
 		u16 minimum supported network protocol version
 		u16 maximum supported network protocol version
 		std::string player name
@@ -957,6 +996,11 @@ enum ToServerCommand : u16
 		[2+12+12+4+4+4] u8 fov*80
 		[2+12+12+4+4+4+1] u8 ceil(wanted_range / MAP_BLOCKSIZE)
 		[2+12+12+4+4+4+1+1] u8 camera_inverted (bool)
+<<<<<<< HEAD
+=======
+		[2+12+12+4+4+4+1+1+1] f32 movement_speed
+		[2+12+12+4+4+4+1+1+1+4] f32 movement_direction
+>>>>>>> 5.10.0
 
 	*/
 
@@ -1002,10 +1046,14 @@ enum ToServerCommand : u16
 		[2] u16 item
 	*/
 
+<<<<<<< HEAD
 	TOSERVER_RESPAWN = 0x38,
 	/*
 		u16 TOSERVER_RESPAWN
 	*/
+=======
+	TOSERVER_RESPAWN_LEGACY = 0x38,
+>>>>>>> 5.10.0
 
 	TOSERVER_INTERACT = 0x39,
 	/*
@@ -1149,10 +1197,13 @@ enum AccessDeniedCode : u8 {
 	SERVER_ACCESSDENIED_MAX,
 };
 
+<<<<<<< HEAD
 enum NetProtoCompressionMode {
 	NETPROTO_COMPRESSION_NONE = 0,
 };
 
+=======
+>>>>>>> 5.10.0
 enum PlayerListModifer : u8
 {
 	PLAYER_LIST_INIT,

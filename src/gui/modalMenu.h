@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -26,11 +32,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	#include <porting_android.h>
 #endif
 
+<<<<<<< HEAD
 enum class PointerType {
 	Mouse,
 	Touch,
 };
 
+=======
+>>>>>>> 5.10.0
 struct PointerAction {
 	v2s32 pos;
 	u64 time; // ms
@@ -74,14 +83,20 @@ public:
 	porting::AndroidDialogState getAndroidUIInputState();
 #endif
 
+<<<<<<< HEAD
 	PointerType getPointerType() { return m_pointer_type; };
 
+=======
+>>>>>>> 5.10.0
 protected:
 	virtual std::wstring getLabelByID(s32 id) = 0;
 	virtual std::string getNameByID(s32 id) = 0;
 
+<<<<<<< HEAD
 	// Stores the last known pointer type.
 	PointerType m_pointer_type = PointerType::Mouse;
+=======
+>>>>>>> 5.10.0
 	// Stores the last known pointer position.
 	// If the last input event was a mouse event, it's the cursor position.
 	// If the last input event was a touch event, it's the finger position.
@@ -100,12 +115,17 @@ protected:
 	};
 	ScalingInfo getScalingInfo(v2u32 screensize, v2u32 base_size);
 
+<<<<<<< HEAD
 
 	// This is set to true if the menu is currently processing a second-touch event.
 	bool m_second_touch = false;
 	// This is set to true if the menu is currently processing a mouse event
 	// that was synthesized by the menu itself from a touch event.
 	bool m_simulated_mouse = false;
+=======
+	// This is set to true if the menu is currently processing a second-touch event.
+	bool m_second_touch = false;
+>>>>>>> 5.10.0
 
 private:
 	IMenuManager *m_menumgr;

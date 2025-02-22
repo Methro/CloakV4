@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "camera.h"
 #include "debug.h"
@@ -35,6 +41,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "util/numeric.h"
 #include "constants.h"
 #include "fontengine.h"
+<<<<<<< HEAD
 #include "guiscalingfilter.h"
 #include "script/scripting_client.h"
 #include "gettext.h"
@@ -42,6 +49,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <IVideoDriver.h>
 
 
+=======
+#include "script/scripting_client.h"
+#include "gettext.h"
+#include <SViewFrustum.h>
+#include <IGUIFont.h>
+#include <IVideoDriver.h>
+
+>>>>>>> 5.10.0
 #define CAMERA_OFFSET_STEP 200
 #define WIELDMESH_OFFSET_X 55.0f
 #define WIELDMESH_OFFSET_Y -35.0f
@@ -65,7 +80,11 @@ Camera::Camera(MapDrawControl &draw_control, Client *client, RenderingEngine *re
 	// all other 3D scene nodes and before the GUI.
 	m_wieldmgr = smgr->createNewSceneManager();
 	m_wieldmgr->addCameraSceneNode();
+<<<<<<< HEAD
 	m_wieldnode = new WieldMeshSceneNode(m_wieldmgr, -1, false);
+=======
+	m_wieldnode = new WieldMeshSceneNode(m_wieldmgr, -1);
+>>>>>>> 5.10.0
 	m_wieldnode->setItem(ItemStack(), m_client);
 	m_wieldnode->drop(); // m_wieldmgr grabbed it
 
@@ -311,7 +330,11 @@ void Camera::update(LocalPlayer* player, f32 frametime, f32 tool_reload_ratio)
 	// mods expect the player head to be at the parent's position
 	// plus eye height.
 	if (player->getParent())
+<<<<<<< HEAD
 		player_position = player->getParent()->getPosition() + v3f(0,  g_settings->getBool("float_above_parent") ? BS : 0, 0);
+=======
+		player_position = player->getParent()->getPosition();
+>>>>>>> 5.10.0
 
 	// Smooth the camera movement after the player instantly moves upward due to stepheight.
 	// The smoothing usually continues until the camera position reaches the player position.
@@ -407,10 +430,18 @@ void Camera::update(LocalPlayer* player, f32 frametime, f32 tool_reload_ratio)
 
 	// Compute absolute camera position and target
 	m_headnode->getAbsoluteTransformation().transformVect(m_camera_position, rel_cam_pos);
+<<<<<<< HEAD
 	m_headnode->getAbsoluteTransformation().rotateVect(m_camera_direction, rel_cam_target - rel_cam_pos);
 
 	v3f abs_cam_up;
 	m_headnode->getAbsoluteTransformation().rotateVect(abs_cam_up, rel_cam_up);
+=======
+	m_camera_direction = m_headnode->getAbsoluteTransformation()
+			.rotateAndScaleVect(rel_cam_target - rel_cam_pos);
+
+	v3f abs_cam_up = m_headnode->getAbsoluteTransformation()
+			.rotateAndScaleVect(rel_cam_up);
+>>>>>>> 5.10.0
 
 	// Separate camera position for calculation
 	v3f my_cp = m_camera_position;
@@ -476,7 +507,11 @@ void Camera::update(LocalPlayer* player, f32 frametime, f32 tool_reload_ratio)
 	 * If not, check for zoom and set to zoom FOV.
 	 * Otherwise, default to m_cache_fov.
 	 */
+<<<<<<< HEAD
 	if (!g_settings->getBool("priv_bypass_extra") && m_fov_transition_active) {
+=======
+	if (m_fov_transition_active) {
+>>>>>>> 5.10.0
 		// Smooth FOV transition
 		// Dynamically calculate FOV delta based on frametimes
 		f32 delta = (frametime / m_transition_time) * m_fov_diff;
@@ -488,7 +523,11 @@ void Camera::update(LocalPlayer* player, f32 frametime, f32 tool_reload_ratio)
 			m_fov_transition_active = false;
 			m_curr_fov_degrees = m_target_fov_degrees;
 		}
+<<<<<<< HEAD
 	} else if (!g_settings->getBool("priv_bypass_extra") && m_server_sent_fov) {
+=======
+	} else if (m_server_sent_fov) {
+>>>>>>> 5.10.0
 		// Instantaneous FOV change
 		m_curr_fov_degrees = m_target_fov_degrees;
 	} else if (player->getPlayerControl().zoom && player->getZoomFOV() > 0.001f) {
@@ -498,12 +537,16 @@ void Camera::update(LocalPlayer* player, f32 frametime, f32 tool_reload_ratio)
 		// Set to client's selected FOV
 		m_curr_fov_degrees = m_cache_fov;
 	}
+<<<<<<< HEAD
 	
 	if (g_settings->getBool("fov_setting")) {
 		m_curr_fov_degrees = rangelim(g_settings->getFloat("fov.step"), 1.0f, 160.0f);
 	} else {
 		m_curr_fov_degrees = rangelim(m_curr_fov_degrees, 1.0f, 160.0f);
 	}
+=======
+	m_curr_fov_degrees = rangelim(m_curr_fov_degrees, 1.0f, 160.0f);
+>>>>>>> 5.10.0
 
 	// FOV and aspect ratio
 	const v2u32 &window_size = RenderingEngine::getWindowSize();
@@ -577,7 +620,11 @@ void Camera::update(LocalPlayer* player, f32 frametime, f32 tool_reload_ratio)
 	const bool climbing = movement_Y && player->is_climbing;
 	const bool flying = g_settings->getBool("free_move")
 		&& m_client->checkLocalPrivilege("fly");
+<<<<<<< HEAD
 	if ((walking || swimming || climbing) && !flying && !g_settings->getBool("nobob")) {
+=======
+	if ((walking || swimming || climbing) && !flying) {
+>>>>>>> 5.10.0
 		// Start animation
 		m_view_bobbing_state = 1;
 		m_view_bobbing_speed = MYMIN(speed.getLength(), 70);
@@ -678,6 +725,7 @@ void Camera::drawNametags()
 
 			auto bgcolor = nametag->getBgColor(m_show_nametag_backgrounds);
 			if (bgcolor.getAlpha() != 0) {
+<<<<<<< HEAD
 				core::rect<s32> bg_size(-2, 0, std::max(textsize.Width+2, (u32) nametag->images_dim.Width), textsize.Height + nametag->images_dim.Height);
 				driver->draw2DRectangle(bgcolor, bg_size + screen_pos);
 			}
@@ -696,10 +744,20 @@ void Camera::drawNametags()
 				image_pos += core::dimension2di(imgsize.Width, 0);
 			}
 
+=======
+				core::rect<s32> bg_size(-2, 0, textsize.Width + 2, textsize.Height);
+				driver->draw2DRectangle(bgcolor, bg_size + screen_pos);
+			}
+
+			font->draw(
+				translate_string(utf8_to_wide(nametag->text)).c_str(),
+				size + screen_pos, nametag->textcolor);
+>>>>>>> 5.10.0
 		}
 	}
 }
 
+<<<<<<< HEAD
 /// @brief 
 void Camera::drawHealthESP()
 {
@@ -806,6 +864,13 @@ Nametag *Camera::addNametag(scene::ISceneNode *parent_node,
 		const std::vector<std::string> &images)
 {
 	Nametag *nametag = new Nametag(parent_node, text, textcolor, bgcolor, pos, m_client->tsrc(), images);
+=======
+Nametag *Camera::addNametag(scene::ISceneNode *parent_node,
+		const std::string &text, video::SColor textcolor,
+		std::optional<video::SColor> bgcolor, const v3f &pos)
+{
+	Nametag *nametag = new Nametag(parent_node, text, textcolor, bgcolor, pos);
+>>>>>>> 5.10.0
 	m_nametags.push_back(nametag);
 	return nametag;
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,15 +17,28 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "nodedef.h"
 
 #include "itemdef.h"
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 #include "client/mesh.h"
 #include "client/shader.h"
 #include "client/client.h"
 #include "client/renderingengine.h"
+<<<<<<< HEAD
+=======
+#include "client/texturesource.h"
+>>>>>>> 5.10.0
 #include "client/tile.h"
 #include <IMeshManipulator.h>
 #endif
@@ -332,7 +346,11 @@ ContentFeatures::ContentFeatures()
 
 ContentFeatures::~ContentFeatures()
 {
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	for (u16 j = 0; j < 6; j++) {
 		delete tiles[j].layers[0].frames;
 		delete tiles[j].layers[1].frames;
@@ -347,7 +365,11 @@ void ContentFeatures::reset()
 	/*
 		Cached stuff
 	*/
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	solidness = 2;
 	visual_solidness = 0;
 	backface_culling = true;
@@ -370,11 +392,19 @@ void ContentFeatures::reset()
 	groups["dig_immediate"] = 2;
 	drawtype = NDT_NORMAL;
 	mesh.clear();
+<<<<<<< HEAD
 #ifndef SERVER
 	for (auto &i : mesh_ptr)
 		i = NULL;
 #endif
 	minimap_color = video::SColor(0, 0, 0, 0);
+=======
+#if CHECK_CLIENT_BUILD()
+	for (auto &i : mesh_ptr)
+		i = NULL;
+	minimap_color = video::SColor(0, 0, 0, 0);
+#endif
+>>>>>>> 5.10.0
 	visual_scale = 1.0;
 	for (auto &i : tiledef)
 		i = TileDef();
@@ -428,6 +458,7 @@ void ContentFeatures::reset()
 	post_effect_color_shaded = false;
 }
 
+<<<<<<< HEAD
 float getColorDistance(const irr::video::SColor& a, const irr::video::SColor& b) {
     return std::pow(a.getRed() - b.getRed(), 2) +
                      std::pow(a.getGreen() - b.getGreen(), 2) +
@@ -452,6 +483,8 @@ video::SColor ContentFeatures::getNodeEspColor() const {
     }
 }
 
+=======
+>>>>>>> 5.10.0
 void ContentFeatures::setAlphaFromLegacy(u8 legacy_alpha)
 {
 	switch (drawtype) {
@@ -710,7 +743,11 @@ void ContentFeatures::deSerialize(std::istream &is, u16 protocol_version)
 	} catch (SerializationError &e) {};
 }
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 static void fillTileAttribs(ITextureSource *tsrc, TileLayer *layer,
 		const TileSpec &tile, const TileDef &tiledef, video::SColor color,
 		u8 material_type, u32 shader_id, bool backface_culling,
@@ -736,8 +773,11 @@ static void fillTileAttribs(ITextureSource *tsrc, TileLayer *layer,
 	if (!tile.world_aligned)
 		layer->scale = 1;
 
+<<<<<<< HEAD
 	layer->flags_texture = tsrc->getShaderFlagsTexture(layer->normal_texture ? true : false);
 
+=======
+>>>>>>> 5.10.0
 	// Material flags
 	layer->material_flags = 0;
 	if (backface_culling)
@@ -777,18 +817,26 @@ static void fillTileAttribs(ITextureSource *tsrc, TileLayer *layer,
 
 		std::ostringstream os(std::ios::binary);
 		for (int i = 0; i < frame_count; i++) {
+<<<<<<< HEAD
 			FrameSpec frame;
 
+=======
+>>>>>>> 5.10.0
 			os.str("");
 			os << tiledef.name;
 			tiledef.animation.getTextureModifer(os,
 					layer->texture->getOriginalSize(), i);
 
+<<<<<<< HEAD
 			frame.texture = tsrc->getTextureForMesh(os.str(), &frame.texture_id);
 			if (layer->normal_texture)
 				frame.normal_texture = tsrc->getNormalTexture(os.str());
 			frame.flags_texture = layer->flags_texture;
 			(*layer->frames)[i] = frame;
+=======
+			FrameSpec &frame = (*layer->frames)[i];
+			frame.texture = tsrc->getTextureForMesh(os.str(), &frame.texture_id);
+>>>>>>> 5.10.0
 		}
 	}
 }
@@ -1057,7 +1105,11 @@ NodeDefManager::NodeDefManager()
 
 NodeDefManager::~NodeDefManager()
 {
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	for (ContentFeatures &f : m_content_features) {
 		for (auto &j : f.mesh_ptr) {
 			if (j)
@@ -1067,6 +1119,7 @@ NodeDefManager::~NodeDefManager()
 #endif
 }
 
+<<<<<<< HEAD
 void NodeDefManager::printESPColors() const
 {
     for (const ContentFeatures &feature : m_content_features)
@@ -1079,6 +1132,8 @@ void NodeDefManager::printESPColors() const
                   << (int)color.getBlue() << ")" << std::endl;
     }
 }
+=======
+>>>>>>> 5.10.0
 
 void NodeDefManager::clear()
 {
@@ -1522,7 +1577,11 @@ void NodeDefManager::applyTextureOverrides(const std::vector<TextureOverride> &o
 
 void NodeDefManager::updateTextures(IGameDef *gamedef, void *progress_callback_args)
 {
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	infostream << "NodeDefManager::updateTextures(): Updating "
 		"textures in node definitions" << std::endl;
 

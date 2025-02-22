@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "settings.h"
 #include "porting.h"
@@ -25,6 +31,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "porting.h"
 #include "mapgen/mapgen.h" // Mapgen::setDefaultSettings
 #include "util/string.h"
+<<<<<<< HEAD
+=======
+#include "server.h"
+>>>>>>> 5.10.0
 
 
 /*
@@ -92,12 +102,34 @@ void set_default_settings()
 	settings->setDefault("language", "");
 	settings->setDefault("name", "");
 	settings->setDefault("bind_address", "");
+<<<<<<< HEAD
 	settings->setDefault("serverlist_url", "servers.minetest.net");
+=======
+	settings->setDefault("serverlist_url", "servers.luanti.org");
+>>>>>>> 5.10.0
 
 	// Client
 	settings->setDefault("address", "");
 	settings->setDefault("enable_sound", "true");
+<<<<<<< HEAD
 	settings->setDefault("enable_touch", bool_to_cstr(has_touch));
+=======
+#if defined(__unix__) && !defined(__APPLE__) && !defined (__ANDROID__)
+	// On Linux+X11 (not Linux+Wayland or Linux+XWayland), I've encountered a bug
+	// where fake mouse events were generated from touch events if in relative
+	// mouse mode, resulting in the touchscreen controls being instantly disabled
+	// again and thus making them unusable.
+	// => We can't switch based on the last input method used.
+	// => Fall back to hardware detection.
+	settings->setDefault("touch_controls", bool_to_cstr(has_touch));
+#else
+	settings->setDefault("touch_controls", "auto");
+#endif
+	// Since GUI scaling shouldn't suddenly change during a session, we use
+	// hardware detection for "touch_gui" instead of switching based on the last
+	// input method used.
+	settings->setDefault("touch_gui", bool_to_cstr(has_touch));
+>>>>>>> 5.10.0
 	settings->setDefault("sound_volume", "0.8");
 	settings->setDefault("sound_volume_unfocused", "0.3");
 	settings->setDefault("mute_sound", "false");
@@ -120,7 +152,11 @@ void set_default_settings()
 	settings->setDefault("curl_file_download_timeout", "300000");
 	settings->setDefault("curl_verify_cert", "true");
 	settings->setDefault("enable_remote_media_server", "true");
+<<<<<<< HEAD
 	settings->setDefault("enable_client_modding", "true");
+=======
+	settings->setDefault("enable_client_modding", "false");
+>>>>>>> 5.10.0
 	settings->setDefault("max_out_chat_queue_size", "20");
 	settings->setDefault("pause_on_lost_focus", "false");
 	settings->setDefault("enable_split_login_register", "true");
@@ -128,6 +164,7 @@ void set_default_settings()
 	settings->setDefault("enable_raytraced_culling", "true");
 	settings->setDefault("chat_weblink_color", "#8888FF");
 
+<<<<<<< HEAD
 	// Cheat Menu
 	settings->setDefault("cheat_menu_font", "FM_HD");
 	settings->setDefault("cheat_menu_bg_color", "(10, 15, 20)"); //greyish
@@ -285,6 +322,8 @@ void set_default_settings()
 	settings->setDefault("XrayNodes", "false");
 	settings->setDefault("ESPNodes", "false");
 
+=======
+>>>>>>> 5.10.0
 	// Keymap
 	settings->setDefault("remote_port", "30000");
 	settings->setDefault("keymap_forward", "KEY_KEY_W");
@@ -306,6 +345,7 @@ void set_default_settings()
 	settings->setDefault("keymap_minimap", "KEY_KEY_V");
 	settings->setDefault("keymap_console", "KEY_F10");
 
+<<<<<<< HEAD
 	settings->setDefault("keymap_toggle_freecam", "KEY_KEY_G");
 	settings->setDefault("keymap_toggle_killaura", "KEY_KEY_X");
 	settings->setDefault("keymap_toggle_autoaim", "KEY_KEY_N");
@@ -322,6 +362,13 @@ void set_default_settings()
 
 	settings->setDefault("keymap_freemove", "KEY_KEY_K");
 	settings->setDefault("keymap_pitchmove", "P");
+=======
+	// See https://github.com/minetest/minetest/issues/12792
+	settings->setDefault("keymap_rangeselect", has_touch ? "KEY_KEY_R" : "");
+
+	settings->setDefault("keymap_freemove", "KEY_KEY_K");
+	settings->setDefault("keymap_pitchmove", "");
+>>>>>>> 5.10.0
 	settings->setDefault("keymap_fastmove", "KEY_KEY_J");
 	settings->setDefault("keymap_noclip", "KEY_KEY_H");
 	settings->setDefault("keymap_hotbar_next", "KEY_KEY_N");
@@ -334,7 +381,10 @@ void set_default_settings()
 	settings->setDefault("keymap_toggle_hud", "KEY_F1");
 	settings->setDefault("keymap_toggle_chat", "KEY_F2");
 	settings->setDefault("keymap_toggle_fog", "KEY_F3");
+<<<<<<< HEAD
 	settings->setDefault("keymap_toggle_cheat_menu", "KEY_F8");
+=======
+>>>>>>> 5.10.0
 #ifndef NDEBUG
 	settings->setDefault("keymap_toggle_update_camera", "KEY_F4");
 #else
@@ -443,6 +493,10 @@ void set_default_settings()
 	settings->setDefault("view_bobbing_amount", "1.0");
 	settings->setDefault("fall_bobbing_amount", "0.03");
 	settings->setDefault("enable_3d_clouds", "true");
+<<<<<<< HEAD
+=======
+	settings->setDefault("soft_clouds", "false");
+>>>>>>> 5.10.0
 	settings->setDefault("cloud_radius", "12");
 	settings->setDefault("menu_clouds", "true");
 	settings->setDefault("translucent_liquids", "true");
@@ -499,10 +553,17 @@ void set_default_settings()
 	settings->setDefault("antialiasing", "none");
 	settings->setDefault("enable_bloom", "false");
 	settings->setDefault("enable_bloom_debug", "false");
+<<<<<<< HEAD
 	settings->setDefault("bloom_strength_factor", "1.0");
 	settings->setDefault("bloom_intensity", "0.05");
 	settings->setDefault("bloom_radius", "1");
 	settings->setDefault("enable_volumetric_lighting", "false");
+=======
+	settings->setDefault("enable_volumetric_lighting", "false");
+	settings->setDefault("enable_water_reflections", "false");
+	settings->setDefault("enable_translucent_foliage", "false");
+	settings->setDefault("enable_node_specular", "false");
+>>>>>>> 5.10.0
 
 	// Effects Shadows
 	settings->setDefault("enable_dynamic_shadows", "false");
@@ -544,7 +605,10 @@ void set_default_settings()
 
 	// General font settings
 	settings->setDefault("font_path", porting::getDataPath("fonts" DIR_DELIM "Arimo-Regular.ttf"));
+<<<<<<< HEAD
 	settings->setDefault("font_path_hd", porting::getDataPath("fonts" DIR_DELIM "hd.ttf"));
+=======
+>>>>>>> 5.10.0
 	settings->setDefault("font_path_italic", porting::getDataPath("fonts" DIR_DELIM "Arimo-Italic.ttf"));
 	settings->setDefault("font_path_bold", porting::getDataPath("fonts" DIR_DELIM "Arimo-Bold.ttf"));
 	settings->setDefault("font_path_bold_italic", porting::getDataPath("fonts" DIR_DELIM "Arimo-BoldItalic.ttf"));
@@ -563,10 +627,17 @@ void set_default_settings()
 	std::string font_size_str = std::to_string(TTF_DEFAULT_FONT_SIZE);
 	settings->setDefault("font_size", font_size_str);
 	settings->setDefault("mono_font_size", font_size_str);
+<<<<<<< HEAD
     settings->setDefault("hd_font_size", font_size_str);
 	settings->setDefault("chat_font_size", "0"); // Default "font_size"
 	// ContentDB
 	settings->setDefault("contentdb_url", "https://content.minetest.net");
+=======
+	settings->setDefault("chat_font_size", "0"); // Default "font_size"
+
+	// ContentDB
+	settings->setDefault("contentdb_url", "https://content.luanti.org");
+>>>>>>> 5.10.0
 	settings->setDefault("contentdb_enable_updates_indicator", "true");
 	settings->setDefault("contentdb_max_concurrent_downloads", "3");
 
@@ -614,7 +685,13 @@ void set_default_settings()
 	settings->setDefault("enable_pvp", "true");
 	settings->setDefault("enable_mod_channels", "false");
 	settings->setDefault("disallow_empty_password", "false");
+<<<<<<< HEAD
 	settings->setDefault("disable_anticheat", "false");
+=======
+	settings->setDefault("anticheat_flags", flagdesc_anticheat,
+		AC_DIGGING | AC_INTERACTION | AC_MOVEMENT);
+	settings->setDefault("anticheat_movement_tolerance", "1.0");
+>>>>>>> 5.10.0
 	settings->setDefault("enable_rollback_recording", "false");
 	settings->setDefault("deprecated_lua_api_handling", "log");
 
@@ -632,7 +709,11 @@ void set_default_settings()
 	settings->setDefault("block_send_optimize_distance", "4");
 	settings->setDefault("block_cull_optimize_distance", "25");
 	settings->setDefault("server_side_occlusion_culling", "true");
+<<<<<<< HEAD
 	settings->setDefault("csm_restriction_flags", "0"); //62
+=======
+	settings->setDefault("csm_restriction_flags", "62");
+>>>>>>> 5.10.0
 	settings->setDefault("csm_restriction_noderange", "0");
 	settings->setDefault("max_clearobjects_extra_loaded_blocks", "4096");
 	settings->setDefault("time_speed", "72");
@@ -670,9 +751,15 @@ void set_default_settings()
 	settings->setDefault("movement_acceleration_air", "2");
 	settings->setDefault("movement_acceleration_fast", "10");
 	settings->setDefault("movement_speed_walk", "4");
+<<<<<<< HEAD
 	settings->setDefault("movement_speed_crouch", "4");
 	settings->setDefault("movement_speed_fast", "20");
 	settings->setDefault("movement_speed_climb", "4");
+=======
+	settings->setDefault("movement_speed_crouch", "1.35");
+	settings->setDefault("movement_speed_fast", "20");
+	settings->setDefault("movement_speed_climb", "3");
+>>>>>>> 5.10.0
 	settings->setDefault("movement_speed_jump", "6.5");
 	settings->setDefault("movement_liquid_fluidity", "1");
 	settings->setDefault("movement_liquid_fluidity_smooth", "0.5");

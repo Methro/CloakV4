@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2015 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,11 +17,20 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2015 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include "../hud.h"
 #include "irrlichttypes_extrabloated.h"
+<<<<<<< HEAD
+=======
+#include "irr_ptr.h"
+>>>>>>> 5.10.0
 #include "util/thread.h"
 #include "voxel.h"
 #include <map>
@@ -148,7 +158,11 @@ public:
 	void blitMinimapPixelsToImageSurface(video::IImage *map_image,
 		video::IImage *heightmap_image);
 
+<<<<<<< HEAD
 	scene::SMeshBuffer *getMinimapMeshBuffer();
+=======
+	irr_ptr<scene::SMeshBuffer> createMinimapMeshBuffer();
+>>>>>>> 5.10.0
 
 	MinimapMarker* addMarker(scene::ISceneNode *parent_node);
 	void removeMarker(MinimapMarker **marker);
@@ -158,20 +172,33 @@ public:
 
 	video::IVideoDriver *driver;
 	Client* client;
+<<<<<<< HEAD
 	MinimapData *data;
+=======
+	std::unique_ptr<MinimapData> data;
+>>>>>>> 5.10.0
 
 private:
 	ITextureSource *m_tsrc;
 	IShaderSource *m_shdrsrc;
 	const NodeDefManager *m_ndef;
+<<<<<<< HEAD
 	MinimapUpdateThread *m_minimap_update_thread = nullptr;
 	scene::SMeshBuffer *m_meshbuffer;
+=======
+	std::unique_ptr<MinimapUpdateThread> m_minimap_update_thread;
+	irr_ptr<scene::SMeshBuffer> m_meshbuffer;
+>>>>>>> 5.10.0
 	bool m_enable_shaders;
 	std::vector<MinimapModeDef> m_modes;
 	size_t m_current_mode_index;
 	u16 m_surface_mode_scan_height;
 	f32 m_angle;
 	std::mutex m_mutex;
+<<<<<<< HEAD
 	std::list<MinimapMarker*> m_markers;
+=======
+	std::list<std::unique_ptr<MinimapMarker>> m_markers;
+>>>>>>> 5.10.0
 	std::list<v2f> m_active_markers;
 };

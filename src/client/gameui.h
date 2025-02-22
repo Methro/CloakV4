@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2018 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -60,7 +67,10 @@ public:
 		bool show_minimal_debug = false;
 		bool show_basic_debug = false;
 		bool show_profiler_graph = false;
+<<<<<<< HEAD
 		bool show_cheat_menu = true;
+=======
+>>>>>>> 5.10.0
 	};
 
 	void init();
@@ -92,7 +102,10 @@ public:
 	void updateProfiler();
 
 	void toggleChat(Client *client);
+<<<<<<< HEAD
 	void toggleCheatMenu();
+=======
+>>>>>>> 5.10.0
 	void toggleHud();
 	void toggleProfiler();
 
@@ -114,7 +127,10 @@ private:
 
 	gui::IGUIStaticText *m_guitext = nullptr;  // First line of debug text
 	gui::IGUIStaticText *m_guitext2 = nullptr; // Second line of debug text
+<<<<<<< HEAD
 	gui::IGUIStaticText *m_guitext_coords = nullptr;
+=======
+>>>>>>> 5.10.0
 
 	gui::IGUIStaticText *m_guitext_info = nullptr; // At the middle of the screen
 	std::wstring m_infotext;

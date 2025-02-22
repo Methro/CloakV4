@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -36,7 +42,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	// the USE_GETTEXT=0 case and can't assume that gettext is installed.
 	#include <locale>
 
+<<<<<<< HEAD
 	#define gettext(String) String
+=======
+	#define gettext(String) (String)
+	#define ngettext(String1, String2, n) ((n) == 1 ? (String1) : (String2))
+>>>>>>> 5.10.0
 #endif
 
 #define _(String) gettext(String)

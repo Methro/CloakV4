@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -27,7 +33,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
  * Applies shading to a color based on the surface's
  * normal vector.
  */
+<<<<<<< HEAD
 void applyFacesShading(video::SColor &color, const v3f &normal);
+=======
+void applyFacesShading(video::SColor &color, const v3f normal);
+>>>>>>> 5.10.0
 
 /*
 	Create a new cube mesh.
@@ -52,11 +62,16 @@ void translateMesh(scene::IMesh *mesh, v3f vec);
 /*!
  * Sets a constant color for all vertices in the mesh buffer.
  */
+<<<<<<< HEAD
 void setMeshBufferColor(scene::IMeshBuffer *buf, const video::SColor &color);
+=======
+void setMeshBufferColor(scene::IMeshBuffer *buf, const video::SColor color);
+>>>>>>> 5.10.0
 
 /*
 	Set a constant color for all vertices in the mesh
 */
+<<<<<<< HEAD
 void setMeshColor(scene::IMesh *mesh, const video::SColor &color);
 
 
@@ -70,6 +85,9 @@ void setMeshBufferTextureCoords(scene::IMeshBuffer *buf, const v2f *uv, u32 coun
 	Set a constant color for an animated mesh
 */
 void setAnimatedMeshColor(scene::IAnimatedMeshSceneNode *node, const video::SColor &color);
+=======
+void setMeshColor(scene::IMesh *mesh, const video::SColor color);
+>>>>>>> 5.10.0
 
 /*!
  * Overwrites the color of a mesh buffer.

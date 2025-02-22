@@ -546,6 +546,7 @@ class SDLHapticHandler {
             if (haptic == null) {
                 InputDevice device = InputDevice.getDevice(deviceIds[i]);
                 Vibrator vib = device.getVibrator();
+<<<<<<< HEAD
                 if (vib.hasVibrator()) {
                     haptic = new SDLHaptic();
                     haptic.device_id = deviceIds[i];
@@ -553,6 +554,17 @@ class SDLHapticHandler {
                     haptic.vib = vib;
                     mHaptics.add(haptic);
                     SDLControllerManager.nativeAddHaptic(haptic.device_id, haptic.name);
+=======
+                if (vib != null) {
+                    if (vib.hasVibrator()) {
+                        haptic = new SDLHaptic();
+                        haptic.device_id = deviceIds[i];
+                        haptic.name = device.getName();
+                        haptic.vib = vib;
+                        mHaptics.add(haptic);
+                        SDLControllerManager.nativeAddHaptic(haptic.device_id, haptic.name);
+                    }
+>>>>>>> 5.10.0
                 }
             }
         }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "scripting_server.h"
 #include "server.h"
@@ -46,6 +52,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "lua_api/l_settings.h"
 #include "lua_api/l_http.h"
 #include "lua_api/l_storage.h"
+<<<<<<< HEAD
+=======
+#include "lua_api/l_ipc.h"
+>>>>>>> 5.10.0
 
 extern "C" {
 #include <lualib.h>
@@ -121,6 +131,10 @@ void ServerScripting::initAsync()
 	asyncEngine.registerStateInitializer(ModApiCraft::InitializeAsync);
 	asyncEngine.registerStateInitializer(ModApiItem::InitializeAsync);
 	asyncEngine.registerStateInitializer(ModApiServer::InitializeAsync);
+<<<<<<< HEAD
+=======
+	asyncEngine.registerStateInitializer(ModApiIPC::Initialize);
+>>>>>>> 5.10.0
 	// not added: ModApiMapgen is a minefield for thread safety
 	// not added: ModApiHttp async api can't really work together with our jobs
 	// not added: ModApiStorage is probably not thread safe(?)
@@ -176,6 +190,10 @@ void ServerScripting::InitializeModApi(lua_State *L, int top)
 	ModApiHttp::Initialize(L, top);
 	ModApiStorage::Initialize(L, top);
 	ModApiChannels::Initialize(L, top);
+<<<<<<< HEAD
+=======
+	ModApiIPC::Initialize(L, top);
+>>>>>>> 5.10.0
 }
 
 void ServerScripting::InitializeAsync(lua_State *L, int top)

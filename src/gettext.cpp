@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include <string>
 #include <cstring>
@@ -184,7 +190,11 @@ void init_gettext(const char *path, const std::string &configured_language,
 		setenv("LANGUAGE", configured_language.c_str(), 1);
 		SetEnvironmentVariableA("LANGUAGE", configured_language.c_str());
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 		// Hack to force gettext to see the right environment
 		if (current_language != configured_language)
 			MSVC_LocaleWorkaround(argc, argv);

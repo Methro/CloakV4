@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -73,6 +79,10 @@ collisionMoveResult collisionMoveSimple(Environment *env,IGameDef *gamedef,
 		v3f *pos_f, v3f *speed_f,
 		v3f accel_f, ActiveObject *self=NULL,
 		bool collide_with_objects=true);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 /// @brief A simpler version of "collisionMoveSimple" that only checks whether
 ///        a collision occurs at the given position.
 /// @param self (optional) ActiveObject to ignore in the collision detection.

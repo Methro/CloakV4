@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 /******************************************************************************/
 /******************************************************************************/
@@ -47,7 +53,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 /* In debug mode ensure no code tries to retrieve the server env when it isn't
  * actually available (in CSM) */
+<<<<<<< HEAD
 #if !defined(SERVER) && !defined(NDEBUG)
+=======
+#if CHECK_CLIENT_BUILD() && !defined(NDEBUG)
+>>>>>>> 5.10.0
 #define DEBUG_ASSERT_NO_CLIENTAPI                    \
 	FATAL_ERROR_IF(getClient(L) != nullptr, "Tried " \
 		"to retrieve ServerEnvironment on client")

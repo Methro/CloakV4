@@ -4,9 +4,13 @@
 
 #pragma once
 
+<<<<<<< HEAD
 #include "matrix4.h"
 #include "S3DVertex.h"
 #include "SColor.h"
+=======
+#include "vector3d.h"
+>>>>>>> 5.10.0
 
 namespace irr
 {

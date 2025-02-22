@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include <fstream>
 #include "environment.h"
@@ -45,8 +51,11 @@ Environment::Environment(IGameDef *gamedef):
 u32 Environment::getDayNightRatio()
 {
 	MutexAutoLock lock(m_time_lock);
+<<<<<<< HEAD
     if (g_settings->getBool("no_night"))
 		return time_to_daynight_ratio(12000, m_cache_enable_shaders);
+=======
+>>>>>>> 5.10.0
 	if (m_enable_day_night_ratio_override)
 		return m_day_night_ratio_override;
 	return time_to_daynight_ratio(m_time_of_day_f * 24000, m_cache_enable_shaders);

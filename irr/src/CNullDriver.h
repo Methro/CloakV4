@@ -118,6 +118,7 @@ public:
 	virtual void draw3DLine(const core::vector3df &start,
 			const core::vector3df &end, SColor color = SColor(255, 255, 255, 255)) override;
 
+<<<<<<< HEAD
 	//! Draws a 3d axis aligned box, only outlines.
 	virtual void draw3DBox(const core::aabbox3d<f32> &box,
 			SColor color = SColor(255, 255, 255, 255),
@@ -125,6 +126,11 @@ public:
 			int edgeAlpha = -1,
 			int faceAlpha = -1,
 			u8 diffNeighbors = 63) override;
+=======
+	//! Draws a 3d axis aligned box.
+	virtual void draw3DBox(const core::aabbox3d<f32> &box,
+			SColor color = SColor(255, 255, 255, 255)) override;
+>>>>>>> 5.10.0
 
 	//! draws an 2d image
 	void draw2DImage(const video::ITexture *texture, const core::position2d<s32> &destPos, bool useAlphaChannelOfTexture) override;
@@ -170,8 +176,11 @@ public:
 			SColor colorLeftUp, SColor colorRightUp, SColor colorLeftDown, SColor colorRightDown,
 			const core::rect<s32> *clip = 0) override;
 
+<<<<<<< HEAD
 	void draw2DRectangleOutline(const core::recti& pos, SColor color=SColor(255,255,255,255), const u32 width = 1) override;
 
+=======
+>>>>>>> 5.10.0
 	//! Draws a 2d line.
 	virtual void draw2DLine(const core::position2d<s32> &start,
 			const core::position2d<s32> &end,
@@ -275,8 +284,23 @@ public:
 			const core::position2d<s32> &pos,
 			const core::dimension2d<u32> &size) override;
 
+<<<<<<< HEAD
 	//! Draws a mesh buffer
 	void drawMeshBuffer(const scene::IMeshBuffer *mb) override;
+=======
+	void drawMeshBuffer(const scene::IMeshBuffer *mb) override
+	{
+		if (!mb)
+			return;
+		drawBuffers(mb->getVertexBuffer(), mb->getIndexBuffer(),
+			mb->getPrimitiveCount(), mb->getPrimitiveType());
+	}
+
+	// Note: this should handle hw buffers
+	virtual void drawBuffers(const scene::IVertexBuffer *vb,
+		const scene::IIndexBuffer *ib, u32 primCount,
+		scene::E_PRIMITIVE_TYPE pType = scene::EPT_TRIANGLES) override;
+>>>>>>> 5.10.0
 
 	//! Draws the normals of a mesh buffer
 	virtual void drawMeshBufferNormals(const scene::IMeshBuffer *mb, f32 length = 10.f,
@@ -289,6 +313,7 @@ public:
 	}
 
 protected:
+<<<<<<< HEAD
 	struct SHWBufferLink
 	{
 		SHWBufferLink(const scene::IMeshBuffer *_MeshBuffer) :
@@ -299,11 +324,31 @@ protected:
 			if (MeshBuffer) {
 				MeshBuffer->grab();
 				MeshBuffer->setHWBuffer(reinterpret_cast<void *>(this));
+=======
+	/// Links a hardware buffer to either a vertex or index buffer
+	struct SHWBufferLink
+	{
+		SHWBufferLink(const scene::IVertexBuffer *vb) :
+				VertexBuffer(vb), ChangedID(0), IsVertex(true)
+		{
+			if (VertexBuffer) {
+				VertexBuffer->grab();
+				VertexBuffer->setHWBuffer(this);
+			}
+		}
+		SHWBufferLink(const scene::IIndexBuffer *ib) :
+				IndexBuffer(ib), ChangedID(0), IsVertex(false)
+		{
+			if (IndexBuffer) {
+				IndexBuffer->grab();
+				IndexBuffer->setHWBuffer(this);
+>>>>>>> 5.10.0
 			}
 		}
 
 		virtual ~SHWBufferLink()
 		{
+<<<<<<< HEAD
 			if (MeshBuffer) {
 				MeshBuffer->setHWBuffer(NULL);
 				MeshBuffer->drop();
@@ -320,10 +365,36 @@ protected:
 
 	//! Gets hardware buffer link from a meshbuffer (may create or update buffer)
 	virtual SHWBufferLink *getBufferLink(const scene::IMeshBuffer *mb);
+=======
+			if (IsVertex && VertexBuffer) {
+				VertexBuffer->setHWBuffer(nullptr);
+				VertexBuffer->drop();
+			} else if (!IsVertex && IndexBuffer) {
+				IndexBuffer->setHWBuffer(nullptr);
+				IndexBuffer->drop();
+			}
+		}
+
+		union {
+			const scene::IVertexBuffer *VertexBuffer;
+			const scene::IIndexBuffer *IndexBuffer;
+		};
+		u32 ChangedID;
+		bool IsVertex;
+		std::list<SHWBufferLink*>::iterator listPosition;
+	};
+
+	//! Gets hardware buffer link from a vertex buffer (may create or update buffer)
+	virtual SHWBufferLink *getBufferLink(const scene::IVertexBuffer *mb);
+
+	//! Gets hardware buffer link from a index buffer (may create or update buffer)
+	virtual SHWBufferLink *getBufferLink(const scene::IIndexBuffer *mb);
+>>>>>>> 5.10.0
 
 	//! updates hardware buffer if needed  (only some drivers can)
 	virtual bool updateHardwareBuffer(SHWBufferLink *HWBuffer) { return false; }
 
+<<<<<<< HEAD
 	//! Draw hardware buffer (only some drivers can)
 	virtual void drawHardwareBuffer(SHWBufferLink *HWBuffer) {}
 
@@ -336,6 +407,23 @@ protected:
 public:
 	//! Remove hardware buffer
 	void removeHardwareBuffer(const scene::IMeshBuffer *mb) override;
+=======
+	//! Delete hardware buffer
+	virtual void deleteHardwareBuffer(SHWBufferLink *HWBuffer);
+
+	//! Create hardware buffer from vertex buffer
+	virtual SHWBufferLink *createHardwareBuffer(const scene::IVertexBuffer *vb) { return 0; }
+
+	//! Create hardware buffer from index buffer
+	virtual SHWBufferLink *createHardwareBuffer(const scene::IIndexBuffer *ib) { return 0; }
+
+public:
+	//! Remove hardware buffer
+	void removeHardwareBuffer(const scene::IVertexBuffer *vb) override;
+
+	//! Remove hardware buffer
+	void removeHardwareBuffer(const scene::IIndexBuffer *ib) override;
+>>>>>>> 5.10.0
 
 	//! Remove all hardware buffers
 	void removeAllHardwareBuffers() override;
@@ -343,8 +431,16 @@ public:
 	//! Update all hardware buffers, remove unused ones
 	virtual void updateAllHardwareBuffers();
 
+<<<<<<< HEAD
 	//! is vbo recommended on this mesh?
 	virtual bool isHardwareBufferRecommend(const scene::IMeshBuffer *mb);
+=======
+	//! is vbo recommended?
+	virtual bool isHardwareBufferRecommend(const scene::IVertexBuffer *mb);
+
+	//! is vbo recommended?
+	virtual bool isHardwareBufferRecommend(const scene::IIndexBuffer *mb);
+>>>>>>> 5.10.0
 
 	//! Create occlusion query.
 	/** Use node for identification and mesh for occlusion test. */

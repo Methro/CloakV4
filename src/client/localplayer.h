@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -25,6 +26,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "environment.h"
 #include "constants.h"
 #include "settings.h"
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+
+#pragma once
+
+#include "player.h"
+#include "environment.h"
+#include "constants.h"
+>>>>>>> 5.10.0
 #include "lighting.h"
 #include <string>
 
@@ -36,6 +48,7 @@ class ClientEnvironment;
 class IGameDef;
 struct collisionMoveResult;
 
+<<<<<<< HEAD
 enum EntityRelationship {
     FRIEND = 0,
     ENEMY = 1,
@@ -44,6 +57,8 @@ enum EntityRelationship {
 	STAFF = 4
 };
 
+=======
+>>>>>>> 5.10.0
 enum class LocalPlayerAnimation
 {
 	NO_ANIM,
@@ -54,7 +69,10 @@ enum class LocalPlayerAnimation
 
 struct PlayerSettings
 {
+<<<<<<< HEAD
 	bool freecam = false;
+=======
+>>>>>>> 5.10.0
 	bool free_move = false;
 	bool pitch_move = false;
 	bool fast_move = false;
@@ -116,6 +134,11 @@ public:
 	u8 last_camera_fov = 0;
 	u8 last_wanted_range = 0;
 	bool last_camera_inverted = false;
+<<<<<<< HEAD
+=======
+	f32 last_movement_speed = 0.0f;
+	f32 last_movement_dir = 0.0f;
+>>>>>>> 5.10.0
 
 	float camera_impact = 0.0f;
 
@@ -149,6 +172,7 @@ public:
 
 	v3s16 getLightPosition() const;
 
+<<<<<<< HEAD
 	inline void setYaw(f32 yaw) {
 		m_yaw = yaw;
 		if (!m_freecam)
@@ -176,12 +200,22 @@ public:
 	}
 	f32 getPitch() const { return m_pitch; }
 	f32 getLegitPitch() const { return m_legit_pitch; }
+=======
+	void setYaw(f32 yaw) { m_yaw = yaw; }
+	f32 getYaw() const { return m_yaw; }
+
+	void setPitch(f32 pitch) { m_pitch = pitch; }
+	f32 getPitch() const { return m_pitch; }
+>>>>>>> 5.10.0
 
 	inline void setPosition(const v3f &position)
 	{
 		m_position = position;
+<<<<<<< HEAD
 		if (!m_freecam)
 			m_legit_position = position;
+=======
+>>>>>>> 5.10.0
 		m_sneak_node_exists = false;
 	}
 	inline void addPosition(const v3f &added_pos)
@@ -192,6 +226,7 @@ public:
 
 	v3f getPosition() const { return m_position; }
 
+<<<<<<< HEAD
 	v3f getLegitPosition() const { return m_legit_position; }
 
 	v3f getLegitSpeed() const { return m_freecam ? m_legit_speed : m_speed; }
@@ -218,6 +253,8 @@ public:
 		setSpeed(m_legit_speed);
 	}
 
+=======
+>>>>>>> 5.10.0
 	// Non-transformed eye offset getters
 	// For accurate positions, use the Camera functions
 	v3f getEyePosition() const { return m_position + getEyeOffset(); }
@@ -242,12 +279,15 @@ public:
 
 	inline Lighting& getLighting() { return m_lighting; }
 
+<<<<<<< HEAD
 	void tryReattach(int id);
 
 	bool isWaitingForReattach() const;
 
 	EntityRelationship getEntityRelationship(GenericCAO *playerObj);
 
+=======
+>>>>>>> 5.10.0
 	inline PlayerSettings &getPlayerSettings() { return m_player_settings; }
 
 private:
@@ -260,10 +300,14 @@ private:
 		const v3f &position_before_move, const v3f &speed_before_move,
 		f32 pos_max_d);
 
+<<<<<<< HEAD
 	bool m_freecam = false;
 	v3f m_position;
 	v3f m_legit_position;
 	v3f m_legit_speed;
+=======
+	v3f m_position;
+>>>>>>> 5.10.0
 	v3s16 m_standing_node;
 
 	v3s16 m_sneak_node = v3s16(32767, 32767, 32767);
@@ -292,8 +336,11 @@ private:
 	u16 m_breath = PLAYER_MAX_BREATH_DEFAULT;
 	f32 m_yaw = 0.0f;
 	f32 m_pitch = 0.0f;
+<<<<<<< HEAD
 	f32 m_legit_yaw = 0.0f;
 	f32 m_legit_pitch = 0.0f;
+=======
+>>>>>>> 5.10.0
 	aabb3f m_collisionbox = aabb3f(-BS * 0.30f, 0.0f, -BS * 0.30f, BS * 0.30f,
 		BS * 1.75f, BS * 0.30f);
 	float m_eye_height = 1.625f;

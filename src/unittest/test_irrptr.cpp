@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2018 numzero, Lobachevskiy Vitaliy <numzer0@yandex.ru>
@@ -16,11 +17,20 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2018 numzero, Lobachevskiy Vitaliy <numzer0@yandex.ru>
+>>>>>>> 5.10.0
 
 #include "test.h"
 
 #include "exceptions.h"
 #include "irr_ptr.h"
+<<<<<<< HEAD
+=======
+#include "IReferenceCounted.h"
+>>>>>>> 5.10.0
 
 class TestIrrPtr : public TestBase
 {

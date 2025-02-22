@@ -6,9 +6,14 @@
 
 #include "IImageLoader.h"
 
+<<<<<<< HEAD
 #include <cstdio>    // required for jpeglib.h
 #include <jpeglib.h> // use system lib
 #include <setjmp.h>
+=======
+#include <cstdio>    // IWYU pragma: keep (required for jpeglib.h)
+#include <jpeglib.h> // use system lib
+>>>>>>> 5.10.0
 
 namespace irr
 {

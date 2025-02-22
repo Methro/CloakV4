@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 sapier
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 sapier
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -203,8 +209,11 @@ private:
 	MainMenuData                         *m_data = nullptr;
 	/** texture source */
 	std::unique_ptr<ISimpleTextureSource> m_texture_source;
+<<<<<<< HEAD
 	/** shader source */
 	std::unique_ptr<IWritableShaderSource> m_shader_source;
+=======
+>>>>>>> 5.10.0
 	/** sound manager */
 	std::unique_ptr<ISoundManager>        m_sound_manager;
 
@@ -279,6 +288,7 @@ private:
 	/** and text that is in it */
 	EnrichedString m_toplefttext;
 
+<<<<<<< HEAD
 	/** initialize cloud subsystem */
 	void cloudInit();
 	/** do preprocessing for cloud subsystem */
@@ -296,6 +306,13 @@ private:
 	bool        m_clouds_enabled = true;
 	/** data used to draw clouds */
 	clouddata   m_cloud;
+=======
+	/** do preprocessing for cloud subsystem */
+	void drawClouds(float dtime);
+
+	/** is drawing of clouds enabled atm */
+	bool m_clouds_enabled = true;
+>>>>>>> 5.10.0
 
 	static void fullscreenChangedCallback(const std::string &name, void *data);
 };

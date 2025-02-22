@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -46,6 +52,10 @@ class DecorationManager;
 class SchematicManager;
 class Server;
 class ModApiMapgen;
+<<<<<<< HEAD
+=======
+struct MapDatabaseAccessor;
+>>>>>>> 5.10.0
 
 // Structure containing inputs/outputs for chunk generation
 struct BlockMakeData {
@@ -173,6 +183,13 @@ public:
 	SchematicManager *getWritableSchematicManager();
 
 	void initMapgens(MapgenParams *mgparams);
+<<<<<<< HEAD
+=======
+	/// @param holder non-owned reference that must stay alive
+	void initMap(MapDatabaseAccessor *holder);
+	/// resets the reference
+	void resetMap();
+>>>>>>> 5.10.0
 
 	void startThreads();
 	void stopThreads();
@@ -191,6 +208,10 @@ public:
 		EmergeCompletionCallback callback,
 		void *callback_param);
 
+<<<<<<< HEAD
+=======
+	size_t getQueueSize();
+>>>>>>> 5.10.0
 	bool isBlockInQueue(v3s16 pos);
 
 	Mapgen *getCurrentMapgen();
@@ -206,6 +227,12 @@ private:
 	std::vector<EmergeThread *> m_threads;
 	bool m_threads_active = false;
 
+<<<<<<< HEAD
+=======
+	// The map database
+	MapDatabaseAccessor *m_db = nullptr;
+
+>>>>>>> 5.10.0
 	std::mutex m_queue_mutex;
 	std::map<v3s16, BlockEmergeData> m_blocks_enqueued;
 	std::unordered_map<u16, u32> m_peer_queue_count;

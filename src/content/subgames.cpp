@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include <common/c_internal.h>
 #include "content/subgames.h"
@@ -28,6 +34,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "map_settings_manager.h"
 #include "util/string.h"
 
+<<<<<<< HEAD
 #ifndef SERVER
 #include "client/texturepaths.h"
 #endif
@@ -35,11 +42,23 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 // The maximum number of identical world names allowed
 #define MAX_WORLD_NAMES 100
 
+=======
+// The maximum number of identical world names allowed
+#define MAX_WORLD_NAMES 100
+
+// gameid to assume for worlds that are missing world.mt
+#define LEGACY_GAMEID "minetest"
+
+>>>>>>> 5.10.0
 namespace
 {
 
 bool getGameMinetestConfig(const std::string &game_path, Settings &conf)
 {
+<<<<<<< HEAD
+=======
+	// TODO: rename this
+>>>>>>> 5.10.0
 	std::string conf_path = game_path + DIR_DELIM + "minetest.conf";
 	return conf.readConfigFile(conf_path.c_str());
 }
@@ -96,8 +115,12 @@ std::string getSubgamePathEnv()
 
 static SubgameSpec getSubgameSpec(const std::string &game_id,
 		const std::string &game_path,
+<<<<<<< HEAD
 		const std::unordered_map<std::string, std::string> &mods_paths,
 		const std::string &menuicon_path)
+=======
+		const std::unordered_map<std::string, std::string> &mods_paths)
+>>>>>>> 5.10.0
 {
 	const auto gamemods_path = game_path + DIR_DELIM + "mods";
 	// Get meta
@@ -130,7 +153,11 @@ static SubgameSpec getSubgameSpec(const std::string &game_id,
 		last_mod = conf.get("last_mod");
 
 	SubgameSpec spec(game_id, game_path, gamemods_path, mods_paths, game_title,
+<<<<<<< HEAD
 			menuicon_path, game_author, game_release, first_mod, last_mod);
+=======
+			game_author, game_release, first_mod, last_mod);
+>>>>>>> 5.10.0
 
 	if (conf.exists("name") && !conf.exists("title"))
 		spec.deprecation_msgs.push_back("\"name\" setting in game.conf is deprecated, please use \"title\" instead");
@@ -191,6 +218,7 @@ SubgameSpec findSubgame(const std::string &id)
 		mods_paths[fs::AbsolutePath(mod_path)] = mod_path;
 	}
 
+<<<<<<< HEAD
 	std::string menuicon_path;
 #ifndef SERVER
 	menuicon_path = getImagePath(
@@ -198,6 +226,9 @@ SubgameSpec findSubgame(const std::string &id)
 #endif
 
 	return getSubgameSpec(id, game_path, mods_paths, menuicon_path);
+=======
+	return getSubgameSpec(id, game_path, mods_paths);
+>>>>>>> 5.10.0
 }
 
 SubgameSpec findWorldSubgame(const std::string &world_path)
@@ -206,7 +237,11 @@ SubgameSpec findWorldSubgame(const std::string &world_path)
 	// See if world contains an embedded game; if so, use it.
 	std::string world_gamepath = world_path + DIR_DELIM + "game";
 	if (fs::PathExists(world_gamepath))
+<<<<<<< HEAD
 		return getSubgameSpec(world_gameid, world_gamepath, {}, "");
+=======
+		return getSubgameSpec(world_gameid, world_gamepath, {});
+>>>>>>> 5.10.0
 	return findSubgame(world_gameid);
 }
 
@@ -257,10 +292,16 @@ std::vector<SubgameSpec> getAvailableGames()
 	return specs;
 }
 
+<<<<<<< HEAD
 #define LEGACY_GAMEID "minetest"
 
 bool getWorldExists(const std::string &world_path)
 {
+=======
+bool getWorldExists(const std::string &world_path)
+{
+	// Note: very old worlds are valid without a world.mt
+>>>>>>> 5.10.0
 	return (fs::PathExists(world_path + DIR_DELIM + "map_meta.txt") ||
 			fs::PathExists(world_path + DIR_DELIM + "world.mt"));
 }
@@ -287,7 +328,11 @@ std::string getWorldGameId(const std::string &world_path, bool can_be_legacy)
 	bool succeeded = conf.readConfigFile(conf_path.c_str());
 	if (!succeeded) {
 		if (can_be_legacy) {
+<<<<<<< HEAD
 			// If map_meta.txt exists, it is probably an old minetest world
+=======
+			// If map_meta.txt exists, it is probably a very old world
+>>>>>>> 5.10.0
 			if (fs::PathExists(world_path + DIR_DELIM + "map_meta.txt"))
 				return LEGACY_GAMEID;
 		}
@@ -295,9 +340,12 @@ std::string getWorldGameId(const std::string &world_path, bool can_be_legacy)
 	}
 	if (!conf.exists("gameid"))
 		return "";
+<<<<<<< HEAD
 	// The "mesetint" gameid has been discarded
 	if (conf.get("gameid") == "mesetint")
 		return "minetest";
+=======
+>>>>>>> 5.10.0
 	return conf.get("gameid");
 }
 
@@ -415,7 +463,11 @@ void loadGameConfAndInitWorld(const std::string &path, const std::string &name,
 			conf.set("blocksize", std::to_string(MAP_BLOCKSIZE));
 
 		if (!conf.updateConfigFile(worldmt_path.c_str())) {
+<<<<<<< HEAD
 			throw BaseException("Failed to update the config file");
+=======
+			throw BaseException("Failed to update world.mt");
+>>>>>>> 5.10.0
 		}
 	}
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2019 EvicenceBKidscode / Pierre-Yves Rollo <dev@pyrollo.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2019 EvicenceBKidscode / Pierre-Yves Rollo <dev@pyrollo.com>
+>>>>>>> 5.10.0
 
 #include "guiHyperText.h"
 #include "guiScrollBar.h"
@@ -24,6 +30,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "IVideoDriver.h"
 #include "client/client.h"
 #include "client/renderingengine.h"
+<<<<<<< HEAD
+=======
+#include "client/texturesource.h"
+>>>>>>> 5.10.0
 #include "hud.h"
 #include "inventory.h"
 #include "util/string.h"
@@ -1146,7 +1156,11 @@ bool GUIHyperText::OnEvent(const SEvent &event)
 							}
 						}
 
+<<<<<<< HEAD
 						break;
+=======
+						return true;
+>>>>>>> 5.10.0
 					}
 				}
 			}

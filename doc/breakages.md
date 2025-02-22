@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Minetest Major Breakages List
+=======
+# Luanti Major Breakages List
+>>>>>>> 5.10.0
 
 This document contains a list of breaking changes to be made in the next major version.
 This list is largely advisory and items may be reevaluated once the time comes.
@@ -8,7 +12,11 @@ This list is largely advisory and items may be reevaluated once the time comes.
 * remove player gravity multiplier (*2)
 * `get_sky()` returns a table (without arg)
 * `game.conf` name/id mess
+<<<<<<< HEAD
 * remove `depends.txt` / `description.txt` (would simplify ContentDB and Minetest code a little)
+=======
+* remove `depends.txt` / `description.txt` (would simplify ContentDB and Luanti code a little)
+>>>>>>> 5.10.0
 * rotate moon texture by 180°, making it coherent with the sun
   * https://github.com/minetest/minetest/pull/11902
 * remove undocumented `set_physics_override(num, num, num)`

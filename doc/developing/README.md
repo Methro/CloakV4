@@ -6,7 +6,11 @@ Some important development docs are found in the wiki: https://dev.minetest.net/
 
 Notable pages:
 
+<<<<<<< HEAD
 - [Releasing Minetest](https://dev.minetest.net/Releasing_Minetest)
+=======
+- [Releasing Luanti](https://dev.minetest.net/Releasing_Minetest)
+>>>>>>> 5.10.0
 - [Engine translations](https://dev.minetest.net/Translation#Maintaining_engine_translations)
 - [Changelog](https://dev.minetest.net/Changelog)
 - [Organisation](https://dev.minetest.net/Organisation)

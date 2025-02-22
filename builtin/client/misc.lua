@@ -6,6 +6,7 @@ function core.setting_get_pos(name)
 	return core.string_to_pos(value)
 end
 
+<<<<<<< HEAD
 core.EntityRelationship = {
     FRIEND = 0,
     ENEMY = 1,
@@ -13,6 +14,8 @@ core.EntityRelationship = {
 	NEUTRAL = 3,
 	STAFF = 4
 };
+=======
+>>>>>>> 5.10.0
 
 -- old non-method sound functions
 

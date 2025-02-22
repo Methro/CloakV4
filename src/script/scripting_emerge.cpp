@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2022 sfan5 <sfan5@live.de>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2022 sfan5 <sfan5@live.de>
+>>>>>>> 5.10.0
 
 #include "scripting_emerge.h"
 #include "emerge_internal.h"
@@ -35,6 +41,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "lua_api/l_util.h"
 #include "lua_api/l_vmanip.h"
 #include "lua_api/l_settings.h"
+<<<<<<< HEAD
+=======
+#include "lua_api/l_ipc.h"
+>>>>>>> 5.10.0
 
 extern "C" {
 #include <lualib.h>
@@ -89,5 +99,9 @@ void EmergeScripting::InitializeModApi(lua_State *L, int top)
 	ModApiMapgen::InitializeEmerge(L, top);
 	ModApiServer::InitializeAsync(L, top);
 	ModApiUtil::InitializeAsync(L, top);
+<<<<<<< HEAD
+=======
+	ModApiIPC::Initialize(L, top);
+>>>>>>> 5.10.0
 	// TODO ^ these should also be renamed to InitializeRO or such
 }

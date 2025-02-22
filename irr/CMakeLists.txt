@@ -11,6 +11,7 @@ if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type: Debug or Release" FORCE)
 endif()
 
+<<<<<<< HEAD
 # FIXME: tests need to be moved to MT if we want to keep them
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -22,3 +23,7 @@ add_subdirectory(src)
 #if(BUILD_EXAMPLES)
 #	add_subdirectory(examples)
 #endif()
+=======
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+add_subdirectory(src)
+>>>>>>> 5.10.0

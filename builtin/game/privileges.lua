@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/privileges.lua
 
+=======
+>>>>>>> 5.10.0
 local S = core.get_translator("__builtin")
 
 --

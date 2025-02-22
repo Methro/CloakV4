@@ -100,9 +100,17 @@ end
 function vector.round(v)
 	return vector.apply(v, math.round)
 end
+<<<<<<< HEAD
 function vector.ceil(v)
 	return vector.apply(v, math.ceil)
 end
+=======
+
+function vector.ceil(v)
+	return vector.apply(v, math.ceil)
+end
+
+>>>>>>> 5.10.0
 function vector.sign(v, tolerance)
 	return vector.apply(v, math.sign, tolerance)
 end
@@ -110,6 +118,10 @@ end
 function vector.abs(v)
 	return vector.apply(v, math.abs)
 end
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 function vector.apply(v, func, ...)
 	return fast_new(
 		func(v.x, ...),

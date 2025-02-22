@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/auth.lua
 
+=======
+>>>>>>> 5.10.0
 --
 -- Builtin authentication handler
 --
@@ -95,11 +98,19 @@ core.builtin_auth_handler = {
 		for priv, value in pairs(privileges) do
 			-- Warnings for improper API usage
 			if value == false then
+<<<<<<< HEAD
 				core.log('deprecated', "`false` value given to `minetest.set_player_privs`, "..
 						"this is almost certainly a bug, "..
 						"granting a privilege rather than revoking it")
 			elseif value ~= true then
 				core.log('deprecated', "non-`true` value given to `minetest.set_player_privs`")
+=======
+				core.log('deprecated', "`false` value given to `core.set_player_privs`, "..
+						"this is almost certainly a bug, "..
+						"granting a privilege rather than revoking it")
+			elseif value ~= true then
+				core.log('deprecated', "non-`true` value given to `core.set_player_privs`")
+>>>>>>> 5.10.0
 			end
 			-- Run grant callbacks
 			if prev_privs[priv] == nil then
@@ -196,7 +207,11 @@ function core.change_player_privs(name, changes)
 		elseif change == false then
 			privs[priv] = nil
 		else
+<<<<<<< HEAD
 			error("non-bool value given to `minetest.change_player_privs`")
+=======
+			error("non-bool value given to `core.change_player_privs`")
+>>>>>>> 5.10.0
 		end
 	end
 	core.set_player_privs(name, privs)

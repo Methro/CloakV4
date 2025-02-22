@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/item.lua
 
+=======
+>>>>>>> 5.10.0
 local builtin_shared = ...
 local SCALE = 0.667
 

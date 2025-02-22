@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2015 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2015 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "minimap.h"
 #include <cmath>
@@ -25,6 +31,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "shader.h"
 #include "mapblock.h"
 #include "client/renderingengine.h"
+<<<<<<< HEAD
+=======
+#include "client/texturesource.h"
+>>>>>>> 5.10.0
 #include "gettext.h"
 
 ////
@@ -201,7 +211,11 @@ Minimap::Minimap(Client *client)
 	addMode(MINIMAP_TYPE_RADAR,   128);
 
 	// Initialize minimap data
+<<<<<<< HEAD
 	data = new MinimapData;
+=======
+	data = std::make_unique<MinimapData>();
+>>>>>>> 5.10.0
 	data->map_invalidated = true;
 
 	data->minimap_shape_round = g_settings->getBool("minimap_shape_round");
@@ -209,11 +223,19 @@ Minimap::Minimap(Client *client)
 	setModeIndex(0);
 
 	// Create mesh buffer for minimap
+<<<<<<< HEAD
 	m_meshbuffer = getMinimapMeshBuffer();
 
 	// Initialize and start thread
 	m_minimap_update_thread = new MinimapUpdateThread();
 	m_minimap_update_thread->data = data;
+=======
+	m_meshbuffer = createMinimapMeshBuffer();
+
+	// Initialize and start thread
+	m_minimap_update_thread = std::make_unique<MinimapUpdateThread>();
+	m_minimap_update_thread->data = data.get();
+>>>>>>> 5.10.0
 	m_minimap_update_thread->start();
 }
 
@@ -222,7 +244,11 @@ Minimap::~Minimap()
 	m_minimap_update_thread->stop();
 	m_minimap_update_thread->wait();
 
+<<<<<<< HEAD
 	m_meshbuffer->drop();
+=======
+	m_meshbuffer.reset();
+>>>>>>> 5.10.0
 
 	if (data->minimap_mask_round)
 		data->minimap_mask_round->drop();
@@ -232,12 +258,19 @@ Minimap::~Minimap()
 	driver->removeTexture(data->texture);
 	driver->removeTexture(data->heightmap_texture);
 
+<<<<<<< HEAD
 	for (MinimapMarker *m : m_markers)
 		delete m;
 	m_markers.clear();
 
 	delete data;
 	delete m_minimap_update_thread;
+=======
+	m_markers.clear();
+
+	data.reset();
+	m_minimap_update_thread.reset();
+>>>>>>> 5.10.0
 }
 
 void Minimap::addBlock(v3s16 pos, MinimapMapblock *data)
@@ -552,6 +585,7 @@ v3f Minimap::getYawVec()
 	return v3f(1.0, 0.0, 1.0);
 }
 
+<<<<<<< HEAD
 scene::SMeshBuffer *Minimap::getMinimapMeshBuffer()
 {
 	scene::SMeshBuffer *buf = new scene::SMeshBuffer();
@@ -570,6 +604,28 @@ scene::SMeshBuffer *Minimap::getMinimapMeshBuffer()
 	buf->Indices[3] = 2;
 	buf->Indices[4] = 3;
 	buf->Indices[5] = 0;
+=======
+irr_ptr<scene::SMeshBuffer> Minimap::createMinimapMeshBuffer()
+{
+	auto buf = make_irr<scene::SMeshBuffer>();
+	auto &vertices = buf->Vertices->Data;
+	auto &indices = buf->Indices->Data;
+	vertices.resize(4);
+	indices.resize(6);
+	static const video::SColor c(255, 255, 255, 255);
+
+	vertices[0] = video::S3DVertex(-1, -1, 0, 0, 0, 1, c, 0, 1);
+	vertices[1] = video::S3DVertex(-1,  1, 0, 0, 0, 1, c, 0, 0);
+	vertices[2] = video::S3DVertex( 1,  1, 0, 0, 0, 1, c, 1, 0);
+	vertices[3] = video::S3DVertex( 1, -1, 0, 0, 0, 1, c, 1, 1);
+
+	indices[0] = 0;
+	indices[1] = 1;
+	indices[2] = 2;
+	indices[3] = 2;
+	indices[4] = 3;
+	indices[5] = 0;
+>>>>>>> 5.10.0
 
 	buf->setHardwareMappingHint(scene::EHM_STATIC);
 	return buf;
@@ -610,7 +666,10 @@ void Minimap::drawMinimap(core::rect<s32> rect)
 		tex.MinFilter = video::ETMINF_LINEAR_MIPMAP_LINEAR;
 		tex.MagFilter = video::ETMAGF_LINEAR;
 	});
+<<<<<<< HEAD
 	material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 	material.TextureLayers[0].Texture = minimap_texture;
 	material.TextureLayers[1].Texture = data->heightmap_texture;
 
@@ -627,7 +686,11 @@ void Minimap::drawMinimap(core::rect<s32> rect)
 	// Draw minimap
 	driver->setTransform(video::ETS_WORLD, matrix);
 	driver->setMaterial(material);
+<<<<<<< HEAD
 	driver->drawMeshBuffer(m_meshbuffer);
+=======
+	driver->drawMeshBuffer(m_meshbuffer.get());
+>>>>>>> 5.10.0
 
 	// Draw overlay
 	video::ITexture *minimap_overlay = data->minimap_shape_round ?
@@ -635,7 +698,11 @@ void Minimap::drawMinimap(core::rect<s32> rect)
 	material.TextureLayers[0].Texture = minimap_overlay;
 	material.MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL;
 	driver->setMaterial(material);
+<<<<<<< HEAD
 	driver->drawMeshBuffer(m_meshbuffer);
+=======
+	driver->drawMeshBuffer(m_meshbuffer.get());
+>>>>>>> 5.10.0
 
 	// Draw player marker on minimap
 	if (data->minimap_shape_round) {
@@ -647,7 +714,11 @@ void Minimap::drawMinimap(core::rect<s32> rect)
 	material.TextureLayers[0].Texture = data->player_marker;
 	driver->setTransform(video::ETS_WORLD, matrix);
 	driver->setMaterial(material);
+<<<<<<< HEAD
 	driver->drawMeshBuffer(m_meshbuffer);
+=======
+	driver->drawMeshBuffer(m_meshbuffer.get());
+>>>>>>> 5.10.0
 
 	// Reset transformations
 	driver->setTransform(video::ETS_VIEW, oldViewMat);
@@ -685,17 +756,30 @@ void Minimap::drawMinimap(core::rect<s32> rect)
 	}
 }
 
+<<<<<<< HEAD
 MinimapMarker* Minimap::addMarker(scene::ISceneNode *parent_node)
 {
 	MinimapMarker *m = new MinimapMarker(parent_node);
 	m_markers.push_back(m);
 	return m;
+=======
+MinimapMarker *Minimap::addMarker(scene::ISceneNode *parent_node)
+{
+	auto m = std::make_unique<MinimapMarker>(parent_node);
+	auto ret = m.get();
+	m_markers.push_back(std::move(m));
+	return ret;
+>>>>>>> 5.10.0
 }
 
 void Minimap::removeMarker(MinimapMarker **m)
 {
+<<<<<<< HEAD
 	m_markers.remove(*m);
 	delete *m;
+=======
+	m_markers.remove_if([ptr = *m](const auto &up) { return up.get() == ptr; });
+>>>>>>> 5.10.0
 	*m = nullptr;
 }
 
@@ -709,7 +793,11 @@ void Minimap::updateActiveMarkers()
 			data->mode.scan_height / 2,
 			data->mode.map_size / 2);
 
+<<<<<<< HEAD
 	for (MinimapMarker *marker : m_markers) {
+=======
+	for (auto &&marker : m_markers) {
+>>>>>>> 5.10.0
 		v3s16 pos = floatToInt(marker->parent_node->getAbsolutePosition() +
 			cam_offset, BS) - pos_offset;
 		if (pos.X < 0 || pos.X > data->mode.map_size ||

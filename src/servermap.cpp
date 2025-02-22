@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2024 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2024 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "map.h"
 #include "mapsector.h"
@@ -52,6 +58,21 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #endif
 
 /*
+<<<<<<< HEAD
+=======
+	Helpers
+*/
+
+void MapDatabaseAccessor::loadBlock(v3s16 blockpos, std::string &ret)
+{
+	ret.clear();
+	dbase->loadBlock(blockpos, &ret);
+	if (ret.empty() && dbase_ro)
+		dbase_ro->loadBlock(blockpos, &ret);
+}
+
+/*
+>>>>>>> 5.10.0
 	ServerMap
 */
 
@@ -67,7 +88,11 @@ ServerMap::ServerMap(const std::string &savedir, IGameDef *gamedef,
 	emerge->map_settings_mgr = &settings_mgr;
 
 	/*
+<<<<<<< HEAD
 		Try to load map; if not found, create a new one.
+=======
+		Try to open map; if not found, create a new one.
+>>>>>>> 5.10.0
 	*/
 
 	// Determine which database backend to use
@@ -79,10 +104,17 @@ ServerMap::ServerMap(const std::string &savedir, IGameDef *gamedef,
 		conf.set("backend", "sqlite3");
 	}
 	std::string backend = conf.get("backend");
+<<<<<<< HEAD
 	dbase = createDatabase(backend, savedir, conf);
 	if (conf.exists("readonly_backend")) {
 		std::string readonly_dir = savedir + DIR_DELIM + "readonly";
 		dbase_ro = createDatabase(conf.get("readonly_backend"), readonly_dir, conf);
+=======
+	m_db.dbase = createDatabase(backend, savedir, conf);
+	if (conf.exists("readonly_backend")) {
+		std::string readonly_dir = savedir + DIR_DELIM + "readonly";
+		m_db.dbase_ro = createDatabase(conf.get("readonly_backend"), readonly_dir, conf);
+>>>>>>> 5.10.0
 	}
 	if (!conf.updateConfigFile(conf_path.c_str()))
 		errorstream << "ServerMap::ServerMap(): Failed to update world.mt!" << std::endl;
@@ -90,6 +122,12 @@ ServerMap::ServerMap(const std::string &savedir, IGameDef *gamedef,
 	m_savedir = savedir;
 	m_map_saving_enabled = false;
 
+<<<<<<< HEAD
+=======
+	// Inform EmergeManager of db handles
+	m_emerge->initMap(&m_db);
+
+>>>>>>> 5.10.0
 	m_save_time_counter = mb->addCounter(
 		"minetest_map_save_time", "Time spent saving blocks (in microseconds)");
 	m_save_count_counter = mb->addCounter(
@@ -159,11 +197,23 @@ ServerMap::~ServerMap()
 				 << ", exception: " << e.what() << std::endl;
 	}
 
+<<<<<<< HEAD
 	/*
 		Close database if it was opened
 	*/
 	delete dbase;
 	delete dbase_ro;
+=======
+	m_emerge->resetMap();
+
+	{
+		MutexAutoLock dblock(m_db.mutex);
+		delete m_db.dbase;
+		m_db.dbase = nullptr;
+		delete m_db.dbase_ro;
+		m_db.dbase_ro = nullptr;
+	}
+>>>>>>> 5.10.0
 
 	deleteDetachedBlocks();
 }
@@ -547,9 +597,16 @@ void ServerMap::save(ModifiedState save_level)
 
 void ServerMap::listAllLoadableBlocks(std::vector<v3s16> &dst)
 {
+<<<<<<< HEAD
 	dbase->listAllLoadableBlocks(dst);
 	if (dbase_ro)
 		dbase_ro->listAllLoadableBlocks(dst);
+=======
+	MutexAutoLock dblock(m_db.mutex);
+	m_db.dbase->listAllLoadableBlocks(dst);
+	if (m_db.dbase_ro)
+		m_db.dbase_ro->listAllLoadableBlocks(dst);
+>>>>>>> 5.10.0
 }
 
 void ServerMap::listAllLoadedBlocks(std::vector<v3s16> &dst)
@@ -597,17 +654,33 @@ MapDatabase *ServerMap::createDatabase(
 
 void ServerMap::beginSave()
 {
+<<<<<<< HEAD
 	dbase->beginSave();
+=======
+	MutexAutoLock dblock(m_db.mutex);
+	m_db.dbase->beginSave();
+>>>>>>> 5.10.0
 }
 
 void ServerMap::endSave()
 {
+<<<<<<< HEAD
 	dbase->endSave();
+=======
+	MutexAutoLock dblock(m_db.mutex);
+	m_db.dbase->endSave();
+>>>>>>> 5.10.0
 }
 
 bool ServerMap::saveBlock(MapBlock *block)
 {
+<<<<<<< HEAD
 	return saveBlock(block, dbase, m_map_compression_level);
+=======
+	// FIXME: serialization happens under mutex
+	MutexAutoLock dblock(m_db.mutex);
+	return saveBlock(block, m_db.dbase, m_map_compression_level);
+>>>>>>> 5.10.0
 }
 
 bool ServerMap::saveBlock(MapBlock *block, MapDatabase *db, int compression_level)
@@ -634,6 +707,7 @@ bool ServerMap::saveBlock(MapBlock *block, MapDatabase *db, int compression_leve
 	return ret;
 }
 
+<<<<<<< HEAD
 void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool save_after_load)
 {
 	try {
@@ -646,6 +720,29 @@ void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool 
 					" to read MapBlock version");
 
 		MapBlock *block = nullptr;
+=======
+void ServerMap::deSerializeBlock(MapBlock *block, std::istream &is)
+{
+	ScopeProfiler sp(g_profiler, "ServerMap: deSer block", SPT_AVG, PRECISION_MICRO);
+
+	u8 version = readU8(is);
+	if (is.fail())
+		throw SerializationError("Failed to read MapBlock version");
+
+	block->deSerialize(is, version, true);
+}
+
+MapBlock *ServerMap::loadBlock(const std::string &blob, v3s16 p3d, bool save_after_load)
+{
+	ScopeProfiler sp(g_profiler, "ServerMap: load block", SPT_AVG, PRECISION_MICRO);
+	MapBlock *block = nullptr;
+	bool created_new = false;
+
+	try {
+		v2s16 p2d(p3d.X, p3d.Z);
+		MapSector *sector = createSector(p2d);
+
+>>>>>>> 5.10.0
 		std::unique_ptr<MapBlock> block_created_new;
 		block = sector->getBlockNoCreateNoEx(p3d.Y);
 		if (!block) {
@@ -654,13 +751,19 @@ void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool 
 		}
 
 		{
+<<<<<<< HEAD
 			ScopeProfiler sp(g_profiler, "ServerMap: deSer block", SPT_AVG, PRECISION_MICRO);
 			block->deSerialize(is, version, true);
+=======
+			std::istringstream iss(blob, std::ios_base::binary);
+			deSerializeBlock(block, iss);
+>>>>>>> 5.10.0
 		}
 
 		// If it's a new block, insert it to the map
 		if (block_created_new) {
 			sector->insertBlock(std::move(block_created_new));
+<<<<<<< HEAD
 			ReflowScan scanner(this, m_emerge->ndef);
 			scanner.scan(block, &m_transforming_liquid);
 		}
@@ -679,6 +782,11 @@ void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool 
 	}
 	catch(SerializationError &e)
 	{
+=======
+			created_new = true;
+		}
+	} catch (SerializationError &e) {
+>>>>>>> 5.10.0
 		errorstream<<"Invalid block data in database"
 				<<" ("<<p3d.X<<","<<p3d.Y<<","<<p3d.Z<<")"
 				<<" (SerializationError): "<<e.what()<<std::endl;
@@ -693,6 +801,7 @@ void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool 
 			throw SerializationError("Invalid block data in database");
 		}
 	}
+<<<<<<< HEAD
 }
 
 MapBlock* ServerMap::loadBlock(v3s16 blockpos)
@@ -717,23 +826,66 @@ MapBlock* ServerMap::loadBlock(v3s16 blockpos)
 
 	MapBlock *block = getBlockNoCreateNoEx(blockpos);
 	if (created_new && (block != NULL)) {
+=======
+
+	assert(block);
+
+	if (created_new) {
+		ReflowScan scanner(this, m_emerge->ndef);
+		scanner.scan(block, &m_transforming_liquid);
+
+>>>>>>> 5.10.0
 		std::map<v3s16, MapBlock*> modified_blocks;
 		// Fix lighting if necessary
 		voxalgo::update_block_border_lighting(this, block, modified_blocks);
 		if (!modified_blocks.empty()) {
+<<<<<<< HEAD
 			//Modified lighting, send event
+=======
+>>>>>>> 5.10.0
 			MapEditEvent event;
 			event.type = MEET_OTHER;
 			event.setModifiedBlocks(modified_blocks);
 			dispatchEvent(event);
 		}
 	}
+<<<<<<< HEAD
 	return block;
 }
 
 bool ServerMap::deleteBlock(v3s16 blockpos)
 {
 	if (!dbase->deleteBlock(blockpos))
+=======
+
+	if (save_after_load)
+		saveBlock(block);
+
+	// We just loaded it, so it's up-to-date.
+	block->resetModified();
+
+	return block;
+}
+
+MapBlock* ServerMap::loadBlock(v3s16 blockpos)
+{
+	std::string data;
+	{
+		ScopeProfiler sp(g_profiler, "ServerMap: load block - sync (sum)");
+		MutexAutoLock dblock(m_db.mutex);
+		m_db.loadBlock(blockpos, data);
+	}
+
+	if (!data.empty())
+		return loadBlock(data, blockpos);
+	return getBlockNoCreateNoEx(blockpos);
+}
+
+bool ServerMap::deleteBlock(v3s16 blockpos)
+{
+	MutexAutoLock dblock(m_db.mutex);
+	if (!m_db.dbase->deleteBlock(blockpos))
+>>>>>>> 5.10.0
 		return false;
 
 	MapBlock *block = getBlockNoCreateNoEx(blockpos);

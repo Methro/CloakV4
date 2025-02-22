@@ -222,7 +222,11 @@ public:
 
 		Driver->irrGlActiveTexture(ActiveTexture);
 
+<<<<<<< HEAD
 #if (defined(IRR_COMPILE_GL_COMMON))
+=======
+#if defined(IRR_COMPILE_GL_COMMON)
+>>>>>>> 5.10.0
 		GL.Disable(GL_TEXTURE_2D);
 #endif
 

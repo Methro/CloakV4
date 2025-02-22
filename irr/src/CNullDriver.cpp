@@ -104,14 +104,21 @@ CNullDriver::CNullDriver(io::IFileSystem *io, const core::dimension2d<u32> &scre
 		FeatureEnabled[i] = true;
 
 	InitMaterial2D.AntiAliasing = video::EAAM_OFF;
+<<<<<<< HEAD
 	InitMaterial2D.Lighting = false;
+=======
+>>>>>>> 5.10.0
 	InitMaterial2D.ZWriteEnable = video::EZW_OFF;
 	InitMaterial2D.ZBuffer = video::ECFN_DISABLED;
 	InitMaterial2D.UseMipMaps = false;
 	InitMaterial2D.forEachTexture([](auto &tex) {
+<<<<<<< HEAD
 		// Using ETMINF_LINEAR_MIPMAP_NEAREST (bilinear) for 2D graphics looks
 		// much better and doesn't have any downsides (e.g. regarding pixel art).
 		tex.MinFilter = video::ETMINF_LINEAR_MIPMAP_NEAREST;
+=======
+		tex.MinFilter = video::ETMINF_NEAREST_MIPMAP_NEAREST;
+>>>>>>> 5.10.0
 		tex.MagFilter = video::ETMAGF_NEAREST;
 		tex.TextureWrapU = video::ETC_REPEAT;
 		tex.TextureWrapV = video::ETC_REPEAT;
@@ -605,6 +612,10 @@ void CNullDriver::drawVertexPrimitiveList(const void *vertices, u32 vertexCount,
 {
 	if ((iType == EIT_16BIT) && (vertexCount > 65536))
 		os::Printer::log("Too many vertices for 16bit index type, render artifacts may occur.");
+<<<<<<< HEAD
+=======
+	FrameStats.Drawcalls++;
+>>>>>>> 5.10.0
 	FrameStats.PrimitivesDrawn += primitiveCount;
 }
 
@@ -613,6 +624,10 @@ void CNullDriver::draw2DVertexPrimitiveList(const void *vertices, u32 vertexCoun
 {
 	if ((iType == EIT_16BIT) && (vertexCount > 65536))
 		os::Printer::log("Too many vertices for 16bit index type, render artifacts may occur.");
+<<<<<<< HEAD
+=======
+	FrameStats.Drawcalls++;
+>>>>>>> 5.10.0
 	FrameStats.PrimitivesDrawn += primitiveCount;
 }
 
@@ -623,7 +638,11 @@ void CNullDriver::draw3DLine(const core::vector3df &start,
 }
 
 //! Draws a 3d axis aligned box.
+<<<<<<< HEAD
 void CNullDriver::draw3DBox(const core::aabbox3d<f32> &box, SColor color, int drawType, int edgeAlpha, int faceAlpha, u8 diffNeighbors)
+=======
+void CNullDriver::draw3DBox(const core::aabbox3d<f32> &box, SColor color)
+>>>>>>> 5.10.0
 {
 	core::vector3df edges[8];
 	box.getEdges(edges);
@@ -692,6 +711,7 @@ void CNullDriver::draw2DImage(const video::ITexture *texture, const core::positi
 {
 }
 
+<<<<<<< HEAD
 //! Draw a 2d rectangle outline
 void CNullDriver::draw2DRectangleOutline(const core::recti& pos, SColor color, const u32 width)
 {
@@ -722,6 +742,8 @@ void CNullDriver::draw2DRectangleOutline(const core::recti& pos, SColor color, c
 	draw2DRectangle(color, rightRect);
 }
 
+=======
+>>>>>>> 5.10.0
 //! Draw a 2d rectangle
 void CNullDriver::draw2DRectangle(SColor color, const core::rect<s32> &pos, const core::rect<s32> *clip)
 {
@@ -1139,6 +1161,7 @@ void CNullDriver::getFog(SColor &color, E_FOG_TYPE &fogType, f32 &start, f32 &en
 	rangeFog = RangeFog;
 }
 
+<<<<<<< HEAD
 //! Draws a mesh buffer
 void CNullDriver::drawMeshBuffer(const scene::IMeshBuffer *mb)
 {
@@ -1152,12 +1175,29 @@ void CNullDriver::drawMeshBuffer(const scene::IMeshBuffer *mb)
 		drawHardwareBuffer(HWBuffer);
 	else
 		drawVertexPrimitiveList(mb->getVertices(), mb->getVertexCount(), mb->getIndices(), mb->getPrimitiveCount(), mb->getVertexType(), mb->getPrimitiveType(), mb->getIndexType());
+=======
+void CNullDriver::drawBuffers(const scene::IVertexBuffer *vb,
+		const scene::IIndexBuffer *ib, u32 primCount,
+		scene::E_PRIMITIVE_TYPE pType)
+{
+	if (!vb || !ib)
+		return;
+
+	if (vb->getHWBuffer() || ib->getHWBuffer()) {
+		// subclass is supposed to override this if it supports hw buffers
+		_IRR_DEBUG_BREAK_IF(1);
+	}
+
+	drawVertexPrimitiveList(vb->getData(), vb->getCount(), ib->getData(),
+		primCount, vb->getType(), pType, ib->getType());
+>>>>>>> 5.10.0
 }
 
 //! Draws the normals of a mesh buffer
 void CNullDriver::drawMeshBufferNormals(const scene::IMeshBuffer *mb, f32 length, SColor color)
 {
 	const u32 count = mb->getVertexCount();
+<<<<<<< HEAD
 	const bool normalize = mb->getMaterial().NormalizeNormals;
 
 	for (u32 i = 0; i < count; ++i) {
@@ -1181,6 +1221,39 @@ CNullDriver::SHWBufferLink *CNullDriver::getBufferLink(const scene::IMeshBuffer 
 		return HWBuffer;
 
 	return createHardwareBuffer(mb); // no hardware links, and mesh wants one, create it
+=======
+	for (u32 i = 0; i < count; ++i) {
+		core::vector3df normal = mb->getNormal(i);
+		const core::vector3df &pos = mb->getPosition(i);
+		draw3DLine(pos, pos + (normal * length), color);
+	}
+}
+
+CNullDriver::SHWBufferLink *CNullDriver::getBufferLink(const scene::IVertexBuffer *vb)
+{
+	if (!vb || !isHardwareBufferRecommend(vb))
+		return 0;
+
+	// search for hardware links
+	SHWBufferLink *HWBuffer = reinterpret_cast<SHWBufferLink *>(vb->getHWBuffer());
+	if (HWBuffer)
+		return HWBuffer;
+
+	return createHardwareBuffer(vb); // no hardware links, and mesh wants one, create it
+}
+
+CNullDriver::SHWBufferLink *CNullDriver::getBufferLink(const scene::IIndexBuffer *ib)
+{
+	if (!ib || !isHardwareBufferRecommend(ib))
+		return 0;
+
+	// search for hardware links
+	SHWBufferLink *HWBuffer = reinterpret_cast<SHWBufferLink *>(ib->getHWBuffer());
+	if (HWBuffer)
+		return HWBuffer;
+
+	return createHardwareBuffer(ib); // no hardware links, and mesh wants one, create it
+>>>>>>> 5.10.0
 }
 
 //! Update all hardware buffers, remove unused ones
@@ -1191,8 +1264,18 @@ void CNullDriver::updateAllHardwareBuffers()
 		SHWBufferLink *Link = *it;
 		++it;
 
+<<<<<<< HEAD
 		if (!Link->MeshBuffer || Link->MeshBuffer->getReferenceCount() == 1)
 			deleteHardwareBuffer(Link);
+=======
+		if (Link->IsVertex) {
+			if (!Link->VertexBuffer || Link->VertexBuffer->getReferenceCount() == 1)
+				deleteHardwareBuffer(Link);
+		} else {
+			if (!Link->IndexBuffer || Link->IndexBuffer->getReferenceCount() == 1)
+				deleteHardwareBuffer(Link);
+		}
+>>>>>>> 5.10.0
 	}
 }
 
@@ -1204,12 +1287,29 @@ void CNullDriver::deleteHardwareBuffer(SHWBufferLink *HWBuffer)
 	delete HWBuffer;
 }
 
+<<<<<<< HEAD
 //! Remove hardware buffer
 void CNullDriver::removeHardwareBuffer(const scene::IMeshBuffer *mb)
 {
 	if (!mb)
 		return;
 	SHWBufferLink *HWBuffer = reinterpret_cast<SHWBufferLink *>(mb->getHWBuffer());
+=======
+void CNullDriver::removeHardwareBuffer(const scene::IVertexBuffer *vb)
+{
+	if (!vb)
+		return;
+	SHWBufferLink *HWBuffer = reinterpret_cast<SHWBufferLink *>(vb->getHWBuffer());
+	if (HWBuffer)
+		deleteHardwareBuffer(HWBuffer);
+}
+
+void CNullDriver::removeHardwareBuffer(const scene::IIndexBuffer *ib)
+{
+	if (!ib)
+		return;
+	SHWBufferLink *HWBuffer = reinterpret_cast<SHWBufferLink *>(ib->getHWBuffer());
+>>>>>>> 5.10.0
 	if (HWBuffer)
 		deleteHardwareBuffer(HWBuffer);
 }
@@ -1221,12 +1321,33 @@ void CNullDriver::removeAllHardwareBuffers()
 		deleteHardwareBuffer(HWBufferList.front());
 }
 
+<<<<<<< HEAD
 bool CNullDriver::isHardwareBufferRecommend(const scene::IMeshBuffer *mb)
 {
 	if (!mb || (mb->getHardwareMappingHint_Index() == scene::EHM_NEVER && mb->getHardwareMappingHint_Vertex() == scene::EHM_NEVER))
 		return false;
 
 	if (mb->getVertexCount() < MinVertexCountForVBO)
+=======
+bool CNullDriver::isHardwareBufferRecommend(const scene::IVertexBuffer *vb)
+{
+	if (!vb || vb->getHardwareMappingHint() == scene::EHM_NEVER)
+		return false;
+
+	if (vb->getCount() < MinVertexCountForVBO)
+		return false;
+
+	return true;
+}
+
+bool CNullDriver::isHardwareBufferRecommend(const scene::IIndexBuffer *ib)
+{
+	if (!ib || ib->getHardwareMappingHint() == scene::EHM_NEVER)
+		return false;
+
+	// This is a bit stupid
+	if (ib->getCount() < MinVertexCountForVBO * 3)
+>>>>>>> 5.10.0
 		return false;
 
 	return true;
@@ -1295,10 +1416,15 @@ void CNullDriver::runOcclusionQuery(scene::ISceneNode *node, bool visible)
 	OcclusionQueries[index].Run = 0;
 	if (!visible) {
 		SMaterial mat;
+<<<<<<< HEAD
 		mat.Lighting = false;
 		mat.AntiAliasing = 0;
 		mat.ColorMask = ECP_NONE;
 		mat.GouraudShading = false;
+=======
+		mat.AntiAliasing = 0;
+		mat.ColorMask = ECP_NONE;
+>>>>>>> 5.10.0
 		mat.ZWriteEnable = EZW_OFF;
 		setMaterial(mat);
 	}

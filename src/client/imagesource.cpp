@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,10 +17,16 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "imagesource.h"
 
 #include <IFileSystem.h>
+<<<<<<< HEAD
 #include "settings.h"
 #include "mesh.h"
 #include "util/strfnd.h"
@@ -29,6 +36,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "imagefilters.h"
 #include "texturepaths.h"
 #include "util/numeric.h"
+=======
+#include "imagefilters.h"
+#include "mesh.h"
+#include "renderingengine.h"
+#include "settings.h"
+#include "texturepaths.h"
+#include "irrlicht_changes/printing.h"
+#include "util/base64.h"
+#include "util/numeric.h"
+#include "util/strfnd.h"
+>>>>>>> 5.10.0
 
 
 ////////////////////////////////
@@ -1832,6 +1850,15 @@ bool ImageSource::generateImagePart(std::string_view part_of_name,
 
 #undef CHECK_DIM
 
+<<<<<<< HEAD
+=======
+ImageSource::ImageSource() :
+		m_setting_mipmap{g_settings->getBool("mip_map")},
+		m_setting_trilinear_filter{g_settings->getBool("trilinear_filter")},
+		m_setting_bilinear_filter{g_settings->getBool("bilinear_filter")},
+		m_setting_anisotropic_filter{g_settings->getBool("anisotropic_filter")}
+{}
+>>>>>>> 5.10.0
 
 video::IImage* ImageSource::generateImage(std::string_view name,
 		std::set<std::string> &source_image_names)

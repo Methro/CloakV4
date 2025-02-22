@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2023 Minetest Authors
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2023 Minetest Authors
+>>>>>>> 5.10.0
 
 #include "catch.h"
 #include "mapblock.h"
@@ -49,7 +55,11 @@ static inline void freeAll(MBContainer &vec) { freeSome(vec, vec.size()); }
 static void workOnMetadata(const MBContainer &vec)
 {
 	for (MapBlock *block : vec) {
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 		bool foo = !!block->mesh;
 #else
 		bool foo = true;

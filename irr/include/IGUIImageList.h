@@ -3,7 +3,11 @@
 
 #pragma once
 
+<<<<<<< HEAD
 #include "IGUIElement.h"
+=======
+#include "IReferenceCounted.h"
+>>>>>>> 5.10.0
 #include "rect.h"
 #include "irrTypes.h"
 

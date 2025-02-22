@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -36,11 +42,19 @@ namespace irr::scene
 }
 
 // Menu clouds
+<<<<<<< HEAD
 class Clouds;
 extern Clouds *g_menuclouds;
 
 // Scene manager used for menu clouds
 extern scene::ISceneManager *g_menucloudsmgr;
+=======
+// The mainmenu and the loading screen use the same Clouds object so that the
+// clouds don't jump when switching between the two.
+class Clouds;
+extern scene::ISceneManager *g_menucloudsmgr;
+extern Clouds *g_menuclouds;
+>>>>>>> 5.10.0
 
 class Clouds : public scene::ISceneNode
 {
@@ -109,6 +123,17 @@ public:
 		m_params.color_ambient = color_ambient;
 	}
 
+<<<<<<< HEAD
+=======
+	void setColorShadow(video::SColor color_shadow)
+	{
+		if (m_params.color_shadow == color_shadow)
+			return;
+		m_params.color_shadow = color_shadow;
+		invalidateMesh();
+	}
+
+>>>>>>> 5.10.0
 	void setHeight(float height)
 	{
 		if (m_params.height == height)

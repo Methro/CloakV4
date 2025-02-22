@@ -6,6 +6,11 @@
 
 #include <vector>
 #include "IMeshBuffer.h"
+<<<<<<< HEAD
+=======
+#include "CVertexBuffer.h"
+#include "CIndexBuffer.h"
+>>>>>>> 5.10.0
 
 namespace irr
 {
@@ -13,16 +18,35 @@ namespace scene
 {
 //! Template implementation of the IMeshBuffer interface
 template <class T>
+<<<<<<< HEAD
 class CMeshBuffer : public IMeshBuffer
+=======
+class CMeshBuffer final : public IMeshBuffer
+>>>>>>> 5.10.0
 {
 public:
 	//! Default constructor for empty meshbuffer
 	CMeshBuffer() :
+<<<<<<< HEAD
 			ChangedID_Vertex(1), ChangedID_Index(1), MappingHint_Vertex(EHM_NEVER), MappingHint_Index(EHM_NEVER), HWBuffer(NULL), PrimitiveType(EPT_TRIANGLES)
+=======
+			PrimitiveType(EPT_TRIANGLES)
+>>>>>>> 5.10.0
 	{
 #ifdef _DEBUG
 		setDebugName("CMeshBuffer");
 #endif
+<<<<<<< HEAD
+=======
+		Vertices = new CVertexBuffer<T>();
+		Indices = new SIndexBuffer();
+	}
+
+	~CMeshBuffer()
+	{
+		Vertices->drop();
+		Indices->drop();
+>>>>>>> 5.10.0
 	}
 
 	//! Get material of this meshbuffer
@@ -39,6 +63,7 @@ public:
 		return Material;
 	}
 
+<<<<<<< HEAD
 	//! Get pointer to vertices
 	/** \return Pointer to vertices. */
 	const void *getVertices() const override
@@ -86,6 +111,26 @@ public:
 	u32 getIndexCount() const override
 	{
 		return static_cast<u32>(Indices.size());
+=======
+	const scene::IVertexBuffer *getVertexBuffer() const override
+	{
+		return Vertices;
+	}
+
+	scene::IVertexBuffer *getVertexBuffer() override
+	{
+		return Vertices;
+	}
+
+	const scene::IIndexBuffer *getIndexBuffer() const override
+	{
+		return Indices;
+	}
+
+	scene::IIndexBuffer *getIndexBuffer() override
+	{
+		return Indices;
+>>>>>>> 5.10.0
 	}
 
 	//! Get the axis aligned bounding box
@@ -107,15 +152,24 @@ public:
 	/** should be called if the mesh changed. */
 	void recalculateBoundingBox() override
 	{
+<<<<<<< HEAD
 		if (!Vertices.empty()) {
 			BoundingBox.reset(Vertices[0].Pos);
 			const irr::u32 vsize = Vertices.size();
 			for (u32 i = 1; i < vsize; ++i)
 				BoundingBox.addInternalPoint(Vertices[i].Pos);
+=======
+		if (Vertices->getCount()) {
+			BoundingBox.reset(Vertices->getPosition(0));
+			const irr::u32 vsize = Vertices->getCount();
+			for (u32 i = 1; i < vsize; ++i)
+				BoundingBox.addInternalPoint(Vertices->getPosition(i));
+>>>>>>> 5.10.0
 		} else
 			BoundingBox.reset(0, 0, 0);
 	}
 
+<<<<<<< HEAD
 	//! Get type of vertex data stored in this buffer.
 	/** \return Type of vertex data. */
 	video::E_VERTEX_TYPE getVertexType() const override
@@ -159,6 +213,8 @@ public:
 		return Vertices[i].TCoords;
 	}
 
+=======
+>>>>>>> 5.10.0
 	//! Append the vertices and indices to the current buffer
 	void append(const void *const vertices, u32 numVertices, const u16 *const indices, u32 numIndices) override
 	{
@@ -169,6 +225,7 @@ public:
 		const u32 indexCount = getIndexCount();
 
 		auto *vt = static_cast<const T *>(vertices);
+<<<<<<< HEAD
 		Vertices.insert(Vertices.end(), vt, vt + numVertices);
 		for (u32 i = vertexCount; i < getVertexCount(); i++)
 			BoundingBox.addInternalPoint(Vertices[i].Pos);
@@ -201,6 +258,19 @@ public:
 			MappingHint_Index = NewMappingHint;
 	}
 
+=======
+		Vertices->Data.insert(Vertices->Data.end(), vt, vt + numVertices);
+		for (u32 i = vertexCount; i < getVertexCount(); i++)
+			BoundingBox.addInternalPoint(Vertices->getPosition(i));
+
+		Indices->Data.insert(Indices->Data.end(), indices, indices + numIndices);
+		if (vertexCount != 0) {
+			for (u32 i = indexCount; i < getIndexCount(); i++)
+				Indices->Data[i] += vertexCount;
+		}
+	}
+
+>>>>>>> 5.10.0
 	//! Describe what kind of primitive geometry is used by the meshbuffer
 	void setPrimitiveType(E_PRIMITIVE_TYPE type) override
 	{
@@ -213,6 +283,7 @@ public:
 		return PrimitiveType;
 	}
 
+<<<<<<< HEAD
 	//! flags the mesh as changed, reloads hardware buffers
 	void setDirty(E_BUFFER_TYPE Buffer = EBT_VERTEX_AND_INDEX) override
 	{
@@ -254,6 +325,14 @@ public:
 	std::vector<T> Vertices;
 	//! Indices into the vertices of this buffer.
 	std::vector<u16> Indices;
+=======
+	//! Material for this meshbuffer.
+	video::SMaterial Material;
+	//! Vertex buffer
+	CVertexBuffer<T> *Vertices;
+	//! Index buffer
+	SIndexBuffer *Indices;
+>>>>>>> 5.10.0
 	//! Bounding box of this meshbuffer.
 	core::aabbox3d<f32> BoundingBox;
 	//! Primitive type used for rendering (triangles, lines, ...)

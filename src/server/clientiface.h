@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2014 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2014 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -33,6 +39,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <list>
 #include <vector>
 #include <set>
+<<<<<<< HEAD
+=======
+#include <unordered_map>
+>>>>>>> 5.10.0
 #include <unordered_set>
 #include <memory>
 #include <mutex>
@@ -126,7 +136,11 @@ class EmergeManager;
 | TOCLIENT_INVENTORY          |                |                 |                     |
 | TOCLIENT_HP (opt)           |                \-----------------/                     |
 | TOCLIENT_BREATH             |                                                        |
+<<<<<<< HEAD
 | TOCLIENT_DEATHSCREEN        |                                                        |
+=======
+| TOCLIENT_DEATHSCREEN_LEGACY |                                                        |
+>>>>>>> 5.10.0
 +-----------------------------+                                                        |
               |                                                                        |
               v                                                                        |
@@ -321,9 +335,12 @@ public:
 	void setPendingSerializationVersion(u8 version)
 		{ m_pending_serialization_version = version; }
 
+<<<<<<< HEAD
 	void setDeployedCompressionMode(u16 byteFlag)
 		{ m_deployed_compression = byteFlag; }
 
+=======
+>>>>>>> 5.10.0
 	void confirmSerializationVersion()
 		{ serialization_version = m_pending_serialization_version; }
 
@@ -449,8 +466,11 @@ private:
 
 	std::string m_full_version = "unknown";
 
+<<<<<<< HEAD
 	u16 m_deployed_compression = 0;
 
+=======
+>>>>>>> 5.10.0
 	/*
 		time this client was created
 	 */

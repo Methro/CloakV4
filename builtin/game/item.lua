@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/item.lua
 
+=======
+>>>>>>> 5.10.0
 local builtin_shared = ...
 
 local function copy_pointed_thing(pointed_thing)
@@ -15,6 +18,22 @@ end
 -- Item definition helpers
 --
 
+<<<<<<< HEAD
+=======
+function core.get_pointed_thing_position(pointed_thing, above)
+	if pointed_thing.type == "node" then
+		if above then
+			-- The position where a node would be placed
+			return pointed_thing.above
+		end
+		-- The position where a node would be dug
+		return pointed_thing.under
+	elseif pointed_thing.type == "object" then
+		return pointed_thing.ref and pointed_thing.ref:get_pos()
+	end
+end
+
+>>>>>>> 5.10.0
 local function has_all_groups(tbl, required_groups)
 	if type(required_groups) == "string" then
 		return (tbl[required_groups] or 0) ~= 0

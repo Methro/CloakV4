@@ -9,6 +9,7 @@
 #include "ECullingTypes.h"
 #include "EDebugSceneTypes.h"
 #include "SMaterial.h"
+<<<<<<< HEAD
 #include "irrString.h"
 #include "irrArray.h"
 #include "aabbox3d.h"
@@ -17,6 +18,15 @@
 
 #include <list>
 #include <optional>
+=======
+#include "irrArray.h"
+#include "aabbox3d.h"
+#include "matrix4.h"
+
+#include <list>
+#include <optional>
+#include <string>
+>>>>>>> 5.10.0
 
 namespace irr
 {

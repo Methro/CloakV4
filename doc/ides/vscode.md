@@ -9,7 +9,11 @@ extension pack manually by downloading the VSIX files and going to `Extensions >
 
 CMake support for VSCode uses CMake presets provided by the project by default.
 
+<<<<<<< HEAD
 When you open the Minetest folder with VSCode, you should get a quick pick asking you for the default preset.
+=======
+When you open the Luanti folder with VSCode, you should get a quick pick asking you for the default preset.
+>>>>>>> 5.10.0
 
 ![VSCode CMake Preset Selection](images/vscode_cmake_preset_selection.png)
 
@@ -34,9 +38,15 @@ Under Windows, the recommended compiler is the [Visual Studio](https://visualstu
 
 From the Visual Studio installer, you need to install the `Desktop development with C++` Workload.
 
+<<<<<<< HEAD
 [Vcpkg](https://vcpkg.io) is the recommended way of installing Minetest dependencies.
 
 Follow the official documentation to install it and install Minetest dependencies as explained in [Windows compilation process](../compiling/windows.md).
+=======
+[Vcpkg](https://vcpkg.io) is the recommended way of installing Luanti dependencies.
+
+Follow the official documentation to install it and install Luanti dependencies as explained in [Windows compilation process](../compiling/windows.md).
+>>>>>>> 5.10.0
 
 You need to let CMake know about the `vcpkg` installation in VSCode.
 

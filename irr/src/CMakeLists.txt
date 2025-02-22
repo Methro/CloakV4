@@ -1,6 +1,10 @@
 # When enabling SDL2 by default on macOS, don't forget to change
 # "NSHighResolutionCapable" to true in "Info.plist".
+<<<<<<< HEAD
 if(NOT APPLE)
+=======
+if(ANDROID)
+>>>>>>> 5.10.0
 	set(DEFAULT_SDL2 ON)
 endif()
 
@@ -170,7 +174,10 @@ if(ENABLE_OPENGL3)
 	endif()
 endif()
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5.10.0
 if(ENABLE_GLES2)
 	add_definitions(-D_IRR_COMPILE_WITH_OGLES2_)
 	if(DEVICE MATCHES "^(WINDOWS|X11)$" OR EMSCRIPTEN)
@@ -220,7 +227,11 @@ if(USE_SDL2)
 	if(NOT ANDROID)
 		find_package(SDL2 REQUIRED)
 	else()
+<<<<<<< HEAD
 		# provided by MinetestAndroidLibs.cmake
+=======
+		# provided by AndroidLibs.cmake
+>>>>>>> 5.10.0
 	endif()
 	message(STATUS "Found SDL2: ${SDL2_LIBRARIES}")
 
@@ -314,6 +325,7 @@ add_library(IRRMESHOBJ OBJECT
 
 target_link_libraries(IRRMESHOBJ PUBLIC tiniergltf::tiniergltf)
 
+<<<<<<< HEAD
 add_library(IRROBJ OBJECT
 	CBillboardSceneNode.cpp
 	CCameraSceneNode.cpp
@@ -329,6 +341,8 @@ add_library(IRROBJ OBJECT
 # tiniergltf from IRRMESHOBJ.
 target_link_libraries(IRROBJ PRIVATE IRRMESHOBJ)
 
+=======
+>>>>>>> 5.10.0
 set(IRRDRVROBJ
 	CNullDriver.cpp
 	CGLXManager.cpp
@@ -461,6 +475,7 @@ add_library(IRRGUIOBJ OBJECT
 
 # Library
 
+<<<<<<< HEAD
 add_library(IrrlichtMt STATIC)
 foreach(object_lib
 	IRRMESHOBJ IRROBJ IRRVIDEOOBJ
@@ -469,6 +484,35 @@ foreach(object_lib
 	target_include_directories(${object_lib} PRIVATE ${link_includes})
 	# Add objects from object library to main library
 	target_sources(IrrlichtMt PRIVATE $<TARGET_OBJECTS:${object_lib}>)
+=======
+# There have to be some sources in IrrlichtMt to workaround Cmake Xcode generator bug
+add_library(IrrlichtMt STATIC
+	CBillboardSceneNode.cpp
+	CCameraSceneNode.cpp
+	CDummyTransformationSceneNode.cpp
+	CEmptySceneNode.cpp
+	CMeshManipulator.cpp
+	CSceneCollisionManager.cpp
+	CSceneManager.cpp
+	CMeshCache.cpp
+)
+foreach(object_lib
+	IRRMESHOBJ IRRVIDEOOBJ
+	IRRIOOBJ IRROTHEROBJ IRRGUIOBJ)
+	# Set include directories for object library compilation
+	target_include_directories(${object_lib} PRIVATE ${link_includes})
+	if(CMAKE_GENERATOR STREQUAL "Xcode")
+		# Workaround for Cmake Xcode project generator
+		target_link_libraries(IrrlichtMt PRIVATE ${object_lib})
+	else()
+		# Add objects from object library to main library
+		target_sources(IrrlichtMt PRIVATE $<TARGET_OBJECTS:${object_lib}>)
+	endif()
+
+	if(BUILD_WITH_TRACY)
+		target_link_libraries(${object_lib} PRIVATE Tracy::TracyClient)
+	endif()
+>>>>>>> 5.10.0
 endforeach()
 
 # Alias target provides add_submodule compatibility
@@ -477,8 +521,13 @@ add_library(IrrlichtMt::IrrlichtMt ALIAS IrrlichtMt)
 target_include_directories(IrrlichtMt
 	PUBLIC
 		"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/>"
+<<<<<<< HEAD
 		"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
 	PRIVATE
+=======
+	PRIVATE
+		"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+>>>>>>> 5.10.0
 		${link_includes}
 )
 
@@ -507,6 +556,12 @@ target_link_libraries(IrrlichtMt PRIVATE
 if(WIN32)
 	target_compile_definitions(IrrlichtMt INTERFACE _IRR_WINDOWS_API_) # used in _IRR_DEBUG_BREAK_IF definition in a public header
 endif()
+<<<<<<< HEAD
+=======
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	target_compile_definitions(IrrlichtMt INTERFACE _DEBUG) # same
+endif()
+>>>>>>> 5.10.0
 if(APPLE OR ANDROID OR EMSCRIPTEN)
 	target_compile_definitions(IrrlichtMt PUBLIC IRR_MOBILE_PATHS)
 endif()

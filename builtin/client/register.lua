@@ -81,6 +81,7 @@ core.registered_on_item_use, core.register_on_item_use = make_registration()
 core.registered_on_modchannel_message, core.register_on_modchannel_message = make_registration()
 core.registered_on_modchannel_signal, core.register_on_modchannel_signal = make_registration()
 core.registered_on_inventory_open, core.register_on_inventory_open = make_registration()
+<<<<<<< HEAD
 
 -- OtterClient
 core.registered_on_block_data, core.register_on_block_data = make_registration()
@@ -97,3 +98,5 @@ core.registered_on_object_hp_change, core.register_on_object_hp_change = make_re
 core.registered_on_object_add, core.register_on_object_add = make_registration()
 
 core.object_refs = {}
+=======
+>>>>>>> 5.10.0

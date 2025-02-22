@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2014 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2014 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #ifndef __ANDROID__
 #error This file may only be compiled for android!
@@ -90,7 +96,11 @@ void osSpecificInit()
 #ifdef GPROF
 	// in the start-up code
 	warningstream << "Initializing GPROF profiler" << std::endl;
+<<<<<<< HEAD
 	monstartup("libMinetest.so");
+=======
+	monstartup("libluanti.so");
+>>>>>>> 5.10.0
 #endif
 }
 
@@ -157,7 +167,11 @@ void showTextInputDialog(const std::string &hint, const std::string &current, in
 			jhint, jcurrent, jeditType);
 }
 
+<<<<<<< HEAD
 void showComboBoxDialog(const std::string optionList[], s32 listSize, s32 selectedIdx)
+=======
+void showComboBoxDialog(const std::string *optionList, s32 listSize, s32 selectedIdx)
+>>>>>>> 5.10.0
 {
 	jmethodID showdialog = jnienv->GetMethodID(activityClass, "showSelectionInputDialog",
 			"([Ljava/lang/String;I)V");
@@ -249,7 +263,10 @@ int getInputDialogSelection()
 	return jnienv->CallIntMethod(activity, dialogvalue);
 }
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+>>>>>>> 5.10.0
 float getDisplayDensity()
 {
 	static bool firstrun = true;
@@ -325,5 +342,8 @@ bool hasPhysicalKeyboardAndroid()
 	return result;
 }
 
+<<<<<<< HEAD
 #endif // ndef SERVER
+=======
+>>>>>>> 5.10.0
 }

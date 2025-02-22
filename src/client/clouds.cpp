@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "client/renderingengine.h"
 #include "client/shader.h"
@@ -28,11 +34,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "settings.h"
 #include <cmath>
 
+<<<<<<< HEAD
 
 // Menu clouds are created later
 class Clouds;
 Clouds *g_menuclouds = NULL;
 scene::ISceneManager *g_menucloudsmgr = NULL;
+=======
+class Clouds;
+scene::ISceneManager *g_menucloudsmgr = nullptr;
+Clouds *g_menuclouds = nullptr;
+>>>>>>> 5.10.0
 
 // Constant for now
 static constexpr const float cloud_size = BS * 64.0f;
@@ -49,11 +61,17 @@ Clouds::Clouds(scene::ISceneManager* mgr, IShaderSource *ssrc,
 	scene::ISceneNode(mgr->getRootSceneNode(), mgr, id),
 	m_seed(seed)
 {
+<<<<<<< HEAD
 	m_enable_shaders = g_settings->getBool("enable_shaders");
 	// menu clouds use shader-less clouds for simplicity (ssrc == NULL)
 	m_enable_shaders = m_enable_shaders && ssrc;
 
 	m_material.Lighting = false;
+=======
+	assert(ssrc);
+	m_enable_shaders = g_settings->getBool("enable_shaders");
+
+>>>>>>> 5.10.0
 	m_material.BackfaceCulling = true;
 	m_material.FogEnable = true;
 	m_material.AntiAliasing = video::EAAM_SIMPLE;
@@ -69,6 +87,11 @@ Clouds::Clouds(scene::ISceneManager* mgr, IShaderSource *ssrc,
 	readSettings();
 	g_settings->registerChangedCallback("enable_3d_clouds",
 		&cloud_3d_setting_changed, this);
+<<<<<<< HEAD
+=======
+	g_settings->registerChangedCallback("soft_clouds",
+		&cloud_3d_setting_changed, this);
+>>>>>>> 5.10.0
 
 	updateBox();
 
@@ -78,8 +101,12 @@ Clouds::Clouds(scene::ISceneManager* mgr, IShaderSource *ssrc,
 
 Clouds::~Clouds()
 {
+<<<<<<< HEAD
 	g_settings->deregisterChangedCallback("enable_3d_clouds",
 		&cloud_3d_setting_changed, this);
+=======
+	g_settings->deregisterAllChangedCallbacks(this);
+>>>>>>> 5.10.0
 }
 
 void Clouds::OnRegisterSceneNode()
@@ -142,6 +169,7 @@ void Clouds::updateMesh()
 	video::SColorf c_side_2_f(m_color);
 	video::SColorf c_bottom_f(m_color);
 	if (m_enable_shaders) {
+<<<<<<< HEAD
 		// shader mixes the base color, set via EmissiveColor
 		c_top_f = c_side_1_f = c_side_2_f = c_bottom_f = video::SColorf(1.0f, 1.0f, 1.0f, 1.0f);
 	}
@@ -154,6 +182,23 @@ void Clouds::updateMesh()
 	c_bottom_f.r *= 0.80f;
 	c_bottom_f.g *= 0.80f;
 	c_bottom_f.b *= 0.80f;
+=======
+		// shader mixes the base color, set via ColorParam
+		c_top_f = c_side_1_f = c_side_2_f = c_bottom_f = video::SColorf(1.0f, 1.0f, 1.0f, 1.0f);
+	}
+	video::SColorf shadow = m_params.color_shadow;
+
+	c_side_1_f.r *= shadow.r * 0.25f + 0.75f;
+	c_side_1_f.g *= shadow.g * 0.25f + 0.75f;
+	c_side_1_f.b *= shadow.b * 0.25f + 0.75f;
+	c_side_2_f.r *= shadow.r * 0.5f + 0.5f;
+	c_side_2_f.g *= shadow.g * 0.5f + 0.5f;
+	c_side_2_f.b *= shadow.b * 0.5f + 0.5f;
+	c_bottom_f.r *= shadow.r;
+	c_bottom_f.g *= shadow.g;
+	c_bottom_f.b *= shadow.b;
+
+>>>>>>> 5.10.0
 	video::SColor c_top = c_top_f.toSColor();
 	video::SColor c_side_1 = c_side_1_f.toSColor();
 	video::SColor c_side_2 = c_side_2_f.toSColor();
@@ -178,21 +223,35 @@ void Clouds::updateMesh()
 
 
 	auto *mb = m_meshbuffer.get();
+<<<<<<< HEAD
+=======
+	auto &vertices = mb->Vertices->Data;
+	auto &indices = mb->Indices->Data;
+>>>>>>> 5.10.0
 	{
 		const u32 vertex_count = num_faces_to_draw * 16 * m_cloud_radius_i * m_cloud_radius_i;
 		const u32 quad_count = vertex_count / 4;
 		const u32 index_count = quad_count * 6;
 
 		// reserve memory
+<<<<<<< HEAD
 		mb->Vertices.reserve(vertex_count);
 		mb->Indices.reserve(index_count);
+=======
+		vertices.reserve(vertex_count);
+		indices.reserve(index_count);
+>>>>>>> 5.10.0
 	}
 
 #define GETINDEX(x, z, radius) (((z)+(radius))*(radius)*2 + (x)+(radius))
 #define INAREA(x, z, radius) \
 	((x) >= -(radius) && (x) < (radius) && (z) >= -(radius) && (z) < (radius))
 
+<<<<<<< HEAD
 	mb->Vertices.clear();
+=======
+	vertices.clear();
+>>>>>>> 5.10.0
 	for (s16 zi0= -m_cloud_radius_i; zi0 < m_cloud_radius_i; zi0++)
 	for (s16 xi0= -m_cloud_radius_i; xi0 < m_cloud_radius_i; xi0++)
 	{
@@ -223,6 +282,7 @@ void Clouds::updateMesh()
 		const f32 ry = is3D() ? m_params.thickness * BS : 0.0f;
 		const f32 rz = cloud_size / 2;
 
+<<<<<<< HEAD
 		for(u32 i = 0; i < num_faces_to_draw; i++)
 		{
 			switch(i)
@@ -230,6 +290,16 @@ void Clouds::updateMesh()
 			case 0:	// top
 				for (video::S3DVertex &vertex : v) {
 					vertex.Normal.set(0,1,0);
+=======
+		bool soft_clouds_enabled = g_settings->getBool("soft_clouds");
+		for (u32 i = 0; i < num_faces_to_draw; i++)
+		{
+			switch (i)
+			{
+			case 0:	// top
+				for (video::S3DVertex& vertex : v) {
+					vertex.Normal.set(0, 1, 0);
+>>>>>>> 5.10.0
 				}
 				v[0].Pos.set(-rx, ry,-rz);
 				v[1].Pos.set(-rx, ry, rz);
@@ -239,12 +309,29 @@ void Clouds::updateMesh()
 			case 1: // back
 				if (INAREA(xi, zi - 1, m_cloud_radius_i)) {
 					u32 j = GETINDEX(xi, zi - 1, m_cloud_radius_i);
+<<<<<<< HEAD
 					if(grid[j])
 						continue;
 				}
 				for (video::S3DVertex &vertex : v) {
 					vertex.Color = c_side_1;
 					vertex.Normal.set(0,0,-1);
+=======
+					if (grid[j])
+						continue;
+				}
+				if (soft_clouds_enabled) {
+					for (video::S3DVertex& vertex : v) {
+						vertex.Normal.set(0, 0, -1);
+					}
+					v[2].Color = c_bottom;
+					v[3].Color = c_bottom;
+				} else {
+					for (video::S3DVertex& vertex : v) {
+						vertex.Color = c_side_1;
+						vertex.Normal.set(0, 0, -1);
+					}
+>>>>>>> 5.10.0
 				}
 				v[0].Pos.set(-rx, ry,-rz);
 				v[1].Pos.set( rx, ry,-rz);
@@ -253,6 +340,7 @@ void Clouds::updateMesh()
 				break;
 			case 2: //right
 				if (INAREA(xi + 1, zi, m_cloud_radius_i)) {
+<<<<<<< HEAD
 					u32 j = GETINDEX(xi+1, zi, m_cloud_radius_i);
 					if(grid[j])
 						continue;
@@ -265,16 +353,56 @@ void Clouds::updateMesh()
 				v[1].Pos.set( rx, ry, rz);
 				v[2].Pos.set( rx,  0, rz);
 				v[3].Pos.set( rx,  0,-rz);
+=======
+					u32 j = GETINDEX(xi + 1, zi, m_cloud_radius_i);
+					if (grid[j])
+						continue;
+				}
+				if (soft_clouds_enabled) {
+					for (video::S3DVertex& vertex : v) {
+						vertex.Normal.set(1, 0, 0);
+					}
+					v[2].Color = c_bottom;
+					v[3].Color = c_bottom;
+				}
+				else {
+					for (video::S3DVertex& vertex : v) {
+						vertex.Color = c_side_2;
+						vertex.Normal.set(1, 0, 0);
+					}
+				}
+				v[0].Pos.set(rx, ry,-rz);
+				v[1].Pos.set(rx, ry, rz);
+				v[2].Pos.set(rx,  0, rz);
+				v[3].Pos.set(rx,  0,-rz);
+>>>>>>> 5.10.0
 				break;
 			case 3: // front
 				if (INAREA(xi, zi + 1, m_cloud_radius_i)) {
 					u32 j = GETINDEX(xi, zi + 1, m_cloud_radius_i);
+<<<<<<< HEAD
 					if(grid[j])
 						continue;
 				}
 				for (video::S3DVertex &vertex : v) {
 					vertex.Color = c_side_1;
 					vertex.Normal.set(0,0,-1);
+=======
+					if (grid[j])
+						continue;
+				}
+				if (soft_clouds_enabled) {
+					for (video::S3DVertex& vertex : v) {
+						vertex.Normal.set(0, 0, -1);
+					}
+					v[2].Color = c_bottom;
+					v[3].Color = c_bottom;
+				} else {
+					for (video::S3DVertex& vertex : v) {
+						vertex.Color = c_side_1;
+						vertex.Normal.set(0, 0, -1);
+					}
+>>>>>>> 5.10.0
 				}
 				v[0].Pos.set( rx, ry, rz);
 				v[1].Pos.set(-rx, ry, rz);
@@ -282,6 +410,7 @@ void Clouds::updateMesh()
 				v[3].Pos.set( rx,  0, rz);
 				break;
 			case 4: // left
+<<<<<<< HEAD
 				if (INAREA(xi-1, zi, m_cloud_radius_i)) {
 					u32 j = GETINDEX(xi-1, zi, m_cloud_radius_i);
 					if(grid[j])
@@ -290,6 +419,24 @@ void Clouds::updateMesh()
 				for (video::S3DVertex &vertex : v) {
 					vertex.Color = c_side_2;
 					vertex.Normal.set(-1,0,0);
+=======
+				if (INAREA(xi - 1, zi, m_cloud_radius_i)) {
+					u32 j = GETINDEX(xi - 1, zi, m_cloud_radius_i);
+					if (grid[j])
+						continue;
+				}
+				if (soft_clouds_enabled) {
+					for (video::S3DVertex& vertex : v) {
+						vertex.Normal.set(-1, 0, 0);
+					}
+					v[2].Color = c_bottom;
+					v[3].Color = c_bottom;
+				} else {
+					for (video::S3DVertex& vertex : v) {
+						vertex.Color = c_side_2;
+						vertex.Normal.set(-1, 0, 0);
+					}
+>>>>>>> 5.10.0
 				}
 				v[0].Pos.set(-rx, ry, rz);
 				v[1].Pos.set(-rx, ry,-rz);
@@ -297,9 +444,15 @@ void Clouds::updateMesh()
 				v[3].Pos.set(-rx,  0, rz);
 				break;
 			case 5: // bottom
+<<<<<<< HEAD
 				for (video::S3DVertex &vertex : v) {
 					vertex.Color = c_bottom;
 					vertex.Normal.set(0,-1,0);
+=======
+				for (video::S3DVertex& vertex : v) {
+					vertex.Color = c_bottom;
+					vertex.Normal.set(0, -1, 0);
+>>>>>>> 5.10.0
 				}
 				v[0].Pos.set( rx,  0, rz);
 				v[1].Pos.set(-rx,  0, rz);
@@ -312,7 +465,11 @@ void Clouds::updateMesh()
 
 			for (video::S3DVertex &vertex : v) {
 				vertex.Pos += pos;
+<<<<<<< HEAD
 				mb->Vertices.push_back(vertex);
+=======
+				vertices.push_back(vertex);
+>>>>>>> 5.10.0
 			}
 		}
 	}
@@ -322,18 +479,31 @@ void Clouds::updateMesh()
 	const u32 index_count = quad_count * 6;
 	// rewrite index array as needed
 	if (mb->getIndexCount() > index_count) {
+<<<<<<< HEAD
 		mb->Indices.resize(index_count);
+=======
+		indices.resize(index_count);
+>>>>>>> 5.10.0
 		mb->setDirty(scene::EBT_INDEX);
 	} else if (mb->getIndexCount() < index_count) {
 		const u32 start = mb->getIndexCount() / 6;
 		assert(start * 6 == mb->getIndexCount());
 		for (u32 k = start; k < quad_count; k++) {
+<<<<<<< HEAD
 			mb->Indices.push_back(4 * k + 0);
 			mb->Indices.push_back(4 * k + 1);
 			mb->Indices.push_back(4 * k + 2);
 			mb->Indices.push_back(4 * k + 2);
 			mb->Indices.push_back(4 * k + 3);
 			mb->Indices.push_back(4 * k + 0);
+=======
+			indices.push_back(4 * k + 0);
+			indices.push_back(4 * k + 1);
+			indices.push_back(4 * k + 2);
+			indices.push_back(4 * k + 2);
+			indices.push_back(4 * k + 3);
+			indices.push_back(4 * k + 0);
+>>>>>>> 5.10.0
 		}
 		mb->setDirty(scene::EBT_INDEX);
 	}
@@ -365,7 +535,11 @@ void Clouds::render()
 
 	m_material.BackfaceCulling = is3D();
 	if (m_enable_shaders)
+<<<<<<< HEAD
 		m_material.EmissiveColor = m_color.toSColor();
+=======
+		m_material.ColorParam = m_color.toSColor();
+>>>>>>> 5.10.0
 
 	driver->setTransform(video::ETS_WORLD, AbsoluteTransformation);
 	driver->setMaterial(m_material);

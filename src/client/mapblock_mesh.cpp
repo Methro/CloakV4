@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "mapblock_mesh.h"
 #include "client.h"
@@ -28,6 +34,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "minimap.h"
 #include "content_mapblock.h"
 #include "util/directiontables.h"
+<<<<<<< HEAD
+=======
+#include "util/tracy_wrapper.h"
+>>>>>>> 5.10.0
 #include "client/meshgen/collector.h"
 #include "client/renderingengine.h"
 #include <array>
@@ -74,7 +84,11 @@ void MeshMakeData::setCrack(int crack_level, v3s16 crack_pos)
 
 void MeshMakeData::setSmoothLighting(bool smooth_lighting)
 {
+<<<<<<< HEAD
 	m_smooth_lighting = smooth_lighting && !g_settings->getBool("fullbright");
+=======
+	m_smooth_lighting = smooth_lighting;
+>>>>>>> 5.10.0
 }
 
 /*
@@ -88,9 +102,12 @@ void MeshMakeData::setSmoothLighting(bool smooth_lighting)
 static u8 getInteriorLight(enum LightBank bank, MapNode n, s32 increment,
 	const NodeDefManager *ndef)
 {
+<<<<<<< HEAD
 	if (g_settings->getBool("fullbright"))
 		return 255;
 
+=======
+>>>>>>> 5.10.0
 	u8 light = n.getLight(bank, ndef->getLightingFlags(n));
 	light = rangelim(light + increment, 0, LIGHT_SUN);
 	return decode_light(light);
@@ -113,9 +130,12 @@ u16 getInteriorLight(MapNode n, s32 increment, const NodeDefManager *ndef)
 */
 static u8 getFaceLight(enum LightBank bank, MapNode n, MapNode n2, const NodeDefManager *ndef)
 {
+<<<<<<< HEAD
 	if (g_settings->getBool("fullbright"))
 		return 255;
 
+=======
+>>>>>>> 5.10.0
 	ContentLightingFlags f1 = ndef->getLightingFlags(n);
 	ContentLightingFlags f2 = ndef->getLightingFlags(n2);
 
@@ -424,6 +444,7 @@ void getNodeTile(MapNode mn, const v3s16 &p, const v3s16 &dir, MeshMakeData *dat
 	tile.rotation = tile.world_aligned ? TileRotation::None : dir_to_tile[facedir][dir_i].rotation;
 }
 
+<<<<<<< HEAD
 std::set<content_t> splitToContentT(std::string str, const NodeDefManager *ndef)
 {
 	str += "\n";
@@ -442,6 +463,8 @@ std::set<content_t> splitToContentT(std::string str, const NodeDefManager *ndef)
 	return dat;
 }
 
+=======
+>>>>>>> 5.10.0
 static void applyTileColor(PreMeshBuffer &pmb)
 {
 	video::SColor tc = pmb.layer.color;
@@ -616,6 +639,7 @@ void MapBlockBspTree::traverse(s32 node, v3f viewpoint, std::vector<s32> &output
 	PartialMeshBuffer
 */
 
+<<<<<<< HEAD
 void PartialMeshBuffer::beforeDraw() const
 {
 	// Patch the indexes in the mesh buffer before draw
@@ -627,11 +651,19 @@ void PartialMeshBuffer::afterDraw() const
 {
 	// Take the data back
 	m_vertex_indexes = std::move(m_buffer->Indices);
+=======
+void PartialMeshBuffer::draw(video::IVideoDriver *driver) const
+{
+	const auto pType = m_buffer->getPrimitiveType();
+	driver->drawBuffers(m_buffer->getVertexBuffer(), m_indices.get(),
+		m_indices->getPrimitiveCount(pType), pType);
+>>>>>>> 5.10.0
 }
 
 /*
 	MapBlockMesh
 */
+<<<<<<< HEAD
 bool canWalkThrough(v3s16 pos, MeshMakeData *data) {
 	const MapNode &node = data->m_vmanip.getNodeRefUnsafeCheckFlags(pos);
 	const ContentFeatures &f = data->nodedef->get(node);
@@ -749,6 +781,8 @@ bool isTunnelNode(v3s16 pos, int height, int width, MeshMakeData *data) {
     }
     return false;
 }
+=======
+>>>>>>> 5.10.0
 
 MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offset):
 	m_tsrc(client->getTextureSource()),
@@ -758,10 +792,17 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 	m_last_crack(-1),
 	m_last_daynight_ratio((u32) -1)
 {
+<<<<<<< HEAD
 	std::set<content_t> nodeESPSet = splitToContentT(g_settings->get("node_esp_nodes"), data->nodedef);
 
 	for (auto &m : m_mesh)
 		m = new scene::SMesh();
+=======
+	ZoneScoped;
+
+	for (auto &m : m_mesh)
+		m = make_irr<scene::SMesh>();
+>>>>>>> 5.10.0
 	m_enable_shaders = data->m_use_shaders;
 
 	auto mesh_grid = client->getMeshGrid();
@@ -784,6 +825,7 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 		}
 	}
 
+<<<<<<< HEAD
 	/*
 	  X-Ray settings
 	*/
@@ -792,6 +834,8 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 		xraySet = splitToContentT(
 			g_settings->get("xray.nodes"), data->nodedef);
 
+=======
+>>>>>>> 5.10.0
 	v3f offset = intToFloat((data->m_blockpos - mesh_grid.getMeshPos(data->m_blockpos)) * MAP_BLOCKSIZE, BS);
 	MeshCollector collector(m_bounding_sphere_center, offset);
 	/*
@@ -804,7 +848,11 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 
 	{
 		MapblockMeshGenerator(data, &collector,
+<<<<<<< HEAD
 			client->getSceneManager()->getMeshManipulator()).generate(xraySet);
+=======
+			client->getSceneManager()->getMeshManipulator()).generate();
+>>>>>>> 5.10.0
 	}
 
 	/*
@@ -817,7 +865,11 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 	m_bounding_radius = std::sqrt(collector.m_bounding_radius_sq);
 
 	for (int layer = 0; layer < MAX_TILE_LAYERS; layer++) {
+<<<<<<< HEAD
 		scene::SMesh *mesh = (scene::SMesh *)m_mesh[layer];
+=======
+		scene::SMesh *mesh = static_cast<scene::SMesh *>(m_mesh[layer].get());
+>>>>>>> 5.10.0
 
 		for(u32 i = 0; i < collector.prebuffers[layer].size(); i++)
 		{
@@ -890,7 +942,10 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 
 			// Create material
 			video::SMaterial material;
+<<<<<<< HEAD
 			material.Lighting = false;
+=======
+>>>>>>> 5.10.0
 			material.BackfaceCulling = true;
 			material.FogEnable = true;
 			material.setTexture(0, p.layer.texture);
@@ -903,9 +958,12 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 				material.MaterialType = m_shdrsrc->getShaderInfo(
 						p.layer.shader_id).material;
 				p.layer.applyMaterialOptionsWithShaders(material);
+<<<<<<< HEAD
 				if (p.layer.normal_texture)
 					material.setTexture(1, p.layer.normal_texture);
 				material.setTexture(2, p.layer.flags_texture);
+=======
+>>>>>>> 5.10.0
 			} else {
 				p.layer.applyMaterialOptions(material);
 			}
@@ -939,10 +997,13 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 		}
 	}
 
+<<<<<<< HEAD
 	// Transparent parts have changing indices
 	for (auto &it : m_transparent_triangles)
 		it.buffer->setHardwareMappingHint(scene::EHM_STREAM, scene::EBT_INDEX);
 
+=======
+>>>>>>> 5.10.0
 	m_bsp_tree.buildTree(&m_transparent_triangles, data->side_length);
 
 	// Check if animation is required for this mesh
@@ -950,6 +1011,7 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 		!m_crack_materials.empty() ||
 		!m_daynight_diffs.empty() ||
 		!m_animation_info.empty();
+<<<<<<< HEAD
 
 	/*
 		NodeESP
@@ -995,15 +1057,24 @@ MapBlockMesh::MapBlockMesh(Client *client, MeshMakeData *data, v3s16 camera_offs
 			}
 		}
 	}
+=======
+>>>>>>> 5.10.0
 }
 
 MapBlockMesh::~MapBlockMesh()
 {
 	size_t sz = 0;
+<<<<<<< HEAD
 	for (scene::IMesh *m : m_mesh) {
 		for (u32 i = 0; i < m->getMeshBufferCount(); i++)
 			sz += m->getMeshBuffer(i)->getSize();
 		m->drop();
+=======
+	for (auto &&m : m_mesh) {
+		for (u32 i = 0; i < m->getMeshBufferCount(); i++)
+			sz += m->getMeshBuffer(i)->getSize();
+		m.reset();
+>>>>>>> 5.10.0
 	}
 	for (MinimapMapblock *block : m_minimap_mapblocks)
 		delete block;
@@ -1064,11 +1135,14 @@ bool MapBlockMesh::animate(bool faraway, float time, int crack,
 
 		const FrameSpec &frame = (*tile.frames)[frameno];
 		buf->getMaterial().setTexture(0, frame.texture);
+<<<<<<< HEAD
 		if (m_enable_shaders) {
 			if (frame.normal_texture)
 				buf->getMaterial().setTexture(1, frame.normal_texture);
 			buf->getMaterial().setTexture(2, frame.flags_texture);
 		}
+=======
+>>>>>>> 5.10.0
 	}
 
 	// Day-night transition
@@ -1077,7 +1151,11 @@ bool MapBlockMesh::animate(bool faraway, float time, int crack,
 		get_sunlight_color(&day_color, daynight_ratio);
 
 		for (auto &daynight_diff : m_daynight_diffs) {
+<<<<<<< HEAD
 			auto *mesh = m_mesh[daynight_diff.first.first];
+=======
+			auto *mesh = m_mesh[daynight_diff.first.first].get();
+>>>>>>> 5.10.0
 			mesh->setDirty(scene::EBT_VERTEX); // force reload to VBO
 			scene::IMeshBuffer *buf = mesh->
 				getMeshBuffer(daynight_diff.first.second);

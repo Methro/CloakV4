@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,15 +17,26 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include <optional>
+<<<<<<< HEAD
 #include <tuple>
 #include <string>
 #include "irrlichttypes_bloated.h"
 #include <iostream>
 #include <map>
+=======
+#include <string>
+#include "irrlichttypes_bloated.h"
+#include <iostream>
+>>>>>>> 5.10.0
 #include <vector>
 #include "util/pointabilities.h"
 
@@ -77,6 +89,7 @@ struct ObjectProperties
 
 	std::string dump() const;
 
+<<<<<<< HEAD
 private:
 	auto tie() const {
 		// Make sure to add new members to this list!
@@ -99,6 +112,12 @@ public:
 	bool operator!=(const ObjectProperties &other) const {
 		return tie() != other.tie();
 	};
+=======
+	bool operator==(const ObjectProperties &other) const;
+	bool operator!=(const ObjectProperties &other) const {
+		return !(*this == other);
+	}
+>>>>>>> 5.10.0
 
 	/**
 	 * Check limits of some important properties that'd cause exceptions later on.

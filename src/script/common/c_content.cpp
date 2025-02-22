@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 #include "common/c_content.h"
 #include "common/c_converter.h"
 #include "common/c_types.h"
@@ -23,7 +29,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "object_properties.h"
 #include "collision.h"
 #include "cpp_api/s_node.h"
+<<<<<<< HEAD
 #include "lua_api/l_clientobject.h"
+=======
+>>>>>>> 5.10.0
 #include "lua_api/l_object.h"
 #include "lua_api/l_item.h"
 #include "common/c_internal.h"
@@ -313,14 +322,22 @@ void read_object_properties(lua_State *L, int index,
 		if (prop->hp_max == 0 && sao->getType() != ACTIVEOBJECT_TYPE_PLAYER)
 			throw LuaError("The hp_max property may not be 0 for entities!");
 
+<<<<<<< HEAD
 		if (sao && prop->hp_max < sao->getHP()) {
+=======
+		if (prop->hp_max < sao->getHP()) {
+>>>>>>> 5.10.0
 			PlayerHPChangeReason reason(PlayerHPChangeReason::SET_HP_MAX);
 			sao->setHP(prop->hp_max, reason);
 		}
 	}
 
 	if (getintfield(L, -1, "breath_max", prop->breath_max)) {
+<<<<<<< HEAD
 		if (sao && sao->getType() == ACTIVEOBJECT_TYPE_PLAYER) {
+=======
+		if (sao->getType() == ACTIVEOBJECT_TYPE_PLAYER) {
+>>>>>>> 5.10.0
 			PlayerSAO *player = (PlayerSAO *)sao;
 			if (prop->breath_max < player->getBreath())
 				player->setBreath(prop->breath_max);
@@ -570,6 +587,7 @@ void push_object_properties(lua_State *L, const ObjectProperties *prop)
 }
 
 /******************************************************************************/
+<<<<<<< HEAD
 void push_punch_damage_result(lua_State *L, PunchDamageResult *result)
 {
 	lua_newtable(L);
@@ -594,6 +612,8 @@ void push_dig_result(lua_State *L, DigParams *result)
 }
 
 /******************************************************************************/
+=======
+>>>>>>> 5.10.0
 TileDef read_tiledef(lua_State *L, int index, u8 drawtype, bool special)
 {
 	if(index < 0)
@@ -667,6 +687,7 @@ TileDef read_tiledef(lua_State *L, int index, u8 drawtype, bool special)
 }
 
 /******************************************************************************/
+<<<<<<< HEAD
 void push_tiledef(lua_State *L, TileDef tiledef)
 {
 	lua_newtable(L);
@@ -696,6 +717,8 @@ void push_tiledef(lua_State *L, TileDef tiledef)
 }
 
 /******************************************************************************/
+=======
+>>>>>>> 5.10.0
 void read_content_features(lua_State *L, ContentFeatures &f, int index)
 {
 	if(index < 0)
@@ -1029,6 +1052,7 @@ void push_content_features(lua_State *L, const ContentFeatures &c)
 	std::string drawtype(ScriptApiNode::es_DrawType[(int)c.drawtype].str);
 	std::string liquid_type(ScriptApiNode::es_LiquidType[(int)c.liquid_type].str);
 
+<<<<<<< HEAD
     lua_newtable(L);
 
     // tiles
@@ -1053,6 +1077,11 @@ void push_content_features(lua_State *L, const ContentFeatures &c)
 	}
 	lua_setfield(L, -2, "special_tiles");
 
+=======
+	/* Missing "tiles" because I don't see a usecase (at least not yet). */
+
+	lua_newtable(L);
+>>>>>>> 5.10.0
 	lua_pushboolean(L, c.has_on_construct);
 	lua_setfield(L, -2, "has_on_construct");
 	lua_pushboolean(L, c.has_on_destruct);
@@ -1073,7 +1102,11 @@ void push_content_features(lua_State *L, const ContentFeatures &c)
 		lua_pushstring(L, c.mesh.c_str());
 		lua_setfield(L, -2, "mesh");
 	}
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	push_ARGB8(L, c.minimap_color);       // I know this is not set-able w/ register_node,
 	lua_setfield(L, -2, "minimap_color"); // but the people need to know!
 #endif
@@ -1642,6 +1675,7 @@ struct TileAnimationParams read_animation_definition(lua_State *L, int index)
 	return anim;
 }
 
+<<<<<<< HEAD
 void push_animation_definition(lua_State *L, struct TileAnimationParams anim)
 {
 	switch (anim.type) {
@@ -1666,6 +1700,8 @@ void push_animation_definition(lua_State *L, struct TileAnimationParams anim)
 }
 
 
+=======
+>>>>>>> 5.10.0
 /******************************************************************************/
 ToolCapabilities read_tool_capabilities(
 		lua_State *L, int table)
@@ -2162,6 +2198,10 @@ bool read_tree_def(lua_State *L, int idx, const NodeDefManager *ndef,
 }
 
 /******************************************************************************/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 // Returns depth of json value tree
 static int push_json_value_getdepth(const Json::Value &value)
 {
@@ -2169,11 +2209,16 @@ static int push_json_value_getdepth(const Json::Value &value)
 		return 1;
 
 	int maxdepth = 0;
+<<<<<<< HEAD
 	for (const auto &it : value) {
 		int elemdepth = push_json_value_getdepth(it);
 		if (elemdepth > maxdepth)
 			maxdepth = elemdepth;
 	}
+=======
+	for (const auto &it : value)
+		maxdepth = std::max(push_json_value_getdepth(it), maxdepth);
+>>>>>>> 5.10.0
 	return maxdepth + 1;
 }
 // Recursive function to convert JSON --> Lua table
@@ -2186,6 +2231,7 @@ static bool push_json_value_helper(lua_State *L, const Json::Value &value,
 			lua_pushvalue(L, nullindex);
 			break;
 		case Json::intValue:
+<<<<<<< HEAD
 			lua_pushinteger(L, value.asLargestInt());
 			break;
 		case Json::uintValue:
@@ -2200,19 +2246,36 @@ static bool push_json_value_helper(lua_State *L, const Json::Value &value,
 				lua_pushstring(L, str ? str : "");
 			}
 			break;
+=======
+		case Json::uintValue:
+		case Json::realValue:
+			// push everything as a double since Lua integers may be too small
+			lua_pushnumber(L, value.asDouble());
+			break;
+		case Json::stringValue: {
+			const auto &str = value.asString();
+			lua_pushlstring(L, str.c_str(), str.size());
+			break;
+		}
+>>>>>>> 5.10.0
 		case Json::booleanValue:
 			lua_pushboolean(L, value.asInt());
 			break;
 		case Json::arrayValue:
 			lua_createtable(L, value.size(), 0);
+<<<<<<< HEAD
 			for (Json::Value::const_iterator it = value.begin();
 					it != value.end(); ++it) {
+=======
+			for (auto it = value.begin(); it != value.end(); ++it) {
+>>>>>>> 5.10.0
 				push_json_value_helper(L, *it, nullindex);
 				lua_rawseti(L, -2, it.index() + 1);
 			}
 			break;
 		case Json::objectValue:
 			lua_createtable(L, 0, value.size());
+<<<<<<< HEAD
 			for (Json::Value::const_iterator it = value.begin();
 					it != value.end(); ++it) {
 #if !defined(JSONCPP_STRING) && (JSONCPP_VERSION_MAJOR < 1 || JSONCPP_VERSION_MINOR < 9)
@@ -2221,6 +2284,15 @@ static bool push_json_value_helper(lua_State *L, const Json::Value &value,
 #else
 				std::string str = it.name();
 				lua_pushstring(L, str.c_str());
+=======
+			for (auto it = value.begin(); it != value.end(); ++it) {
+#if JSONCPP_VERSION_HEXA >= 0x01060000 /* 1.6.0 */
+				const auto &str = it.name();
+				lua_pushlstring(L, str.c_str(), str.size());
+#else
+				const char *str = it.memberName();
+				lua_pushstring(L, str ? str : "");
+>>>>>>> 5.10.0
 #endif
 				push_json_value_helper(L, *it, nullindex);
 				lua_rawset(L, -3);
@@ -2229,6 +2301,10 @@ static bool push_json_value_helper(lua_State *L, const Json::Value &value,
 	}
 	return true;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 // converts JSON --> Lua table; returns false if lua stack limit exceeded
 // nullindex: Lua stack index of value to use in place of JSON null
 bool push_json_value(lua_State *L, const Json::Value &value, int nullindex)
@@ -2247,11 +2323,19 @@ bool push_json_value(lua_State *L, const Json::Value &value, int nullindex)
 }
 
 // Converts Lua table --> JSON
+<<<<<<< HEAD
 void read_json_value(lua_State *L, Json::Value &root, int index, u8 recursion)
 {
 	if (recursion > 16) {
 		throw SerializationError("Maximum recursion depth exceeded");
 	}
+=======
+void read_json_value(lua_State *L, Json::Value &root, int index, u16 max_depth)
+{
+	if (max_depth == 0)
+		throw SerializationError("depth exceeds MAX_JSON_DEPTH");
+
+>>>>>>> 5.10.0
 	int type = lua_type(L, index);
 	if (type == LUA_TBOOLEAN) {
 		root = (bool) lua_toboolean(L, index);
@@ -2262,11 +2346,20 @@ void read_json_value(lua_State *L, Json::Value &root, int index, u8 recursion)
 		const char *str = lua_tolstring(L, index, &len);
 		root = std::string(str, len);
 	} else if (type == LUA_TTABLE) {
+<<<<<<< HEAD
+=======
+		// Reserve two slots for key and value.
+		lua_checkstack(L, 2);
+>>>>>>> 5.10.0
 		lua_pushnil(L);
 		while (lua_next(L, index)) {
 			// Key is at -2 and value is at -1
 			Json::Value value;
+<<<<<<< HEAD
 			read_json_value(L, value, lua_gettop(L), recursion + 1);
+=======
+			read_json_value(L, value, lua_gettop(L), max_depth - 1);
+>>>>>>> 5.10.0
 
 			Json::ValueType roottype = root.type();
 			int keytype = lua_type(L, -1);
@@ -2313,12 +2406,21 @@ void push_pointed_thing(lua_State *L, const PointedThing &pointed, bool csm,
 		lua_setfield(L, -2, "type");
 
 		if (csm) {
+<<<<<<< HEAD
 			ClientObjectRef::create(L, pointed.object_id);
 		} else {
 			push_objectRef(L, pointed.object_id);
 		}
 
 		lua_setfield(L, -2, "ref");
+=======
+			lua_pushinteger(L, pointed.object_id);
+			lua_setfield(L, -2, "id");
+		} else {
+			push_objectRef(L, pointed.object_id);
+			lua_setfield(L, -2, "ref");
+		}
+>>>>>>> 5.10.0
 	} else {
 		lua_pushstring(L, "nothing");
 		lua_setfield(L, -2, "type");
@@ -2335,12 +2437,20 @@ void push_pointed_thing(lua_State *L, const PointedThing &pointed, bool csm,
 
 void push_objectRef(lua_State *L, const u16 id)
 {
+<<<<<<< HEAD
+=======
+	assert(id != 0);
+>>>>>>> 5.10.0
 	// Get core.object_refs[i]
 	lua_getglobal(L, "core");
 	lua_getfield(L, -1, "object_refs");
 	luaL_checktype(L, -1, LUA_TTABLE);
 	lua_pushinteger(L, id);
 	lua_gettable(L, -2);
+<<<<<<< HEAD
+=======
+	assert(!lua_isnoneornil(L, -1));
+>>>>>>> 5.10.0
 	lua_remove(L, -2); // object_refs
 	lua_remove(L, -2); // core
 }
@@ -2649,6 +2759,7 @@ void push_collision_move_result(lua_State *L, const collisionMoveResult &res)
 }
 
 
+<<<<<<< HEAD
 void push_physics_override(lua_State *L, float speed, float jump, float gravity, bool sneak, bool sneak_glitch, bool new_move, float speed_climb, float speed_crouch, float liquid_fluiditiy, 
 							float liquid_fluidity_smooth, float liquid_sink, float acceleration_default, float acceleration_air)
 {
@@ -2683,6 +2794,8 @@ void push_physics_override(lua_State *L, float speed, float jump, float gravity,
 }
 
 
+=======
+>>>>>>> 5.10.0
 void push_mod_spec(lua_State *L, const ModSpec &spec, bool include_unsatisfied)
 {
 	lua_newtable(L);

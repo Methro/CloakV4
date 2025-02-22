@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/features.lua
 
+=======
+>>>>>>> 5.10.0
 core.features = {
 	glasslike_framed = true,
 	nodebox_as_selectionbox = true,
@@ -43,6 +46,11 @@ core.features = {
 	moveresult_new_pos = true,
 	override_item_remove_fields = true,
 	hotbar_hud_element = true,
+<<<<<<< HEAD
+=======
+	bulk_lbms = true,
+	abm_without_neighbors = true,
+>>>>>>> 5.10.0
 }
 
 function core.has_feature(arg)

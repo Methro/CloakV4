@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,13 +17,22 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "cpp_api/s_security.h"
 #include "lua_api/l_base.h"
 #include "filesys.h"
 #include "porting.h"
 #include "server.h"
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 #include "client/client.h"
 #endif
 #include "settings.h"
@@ -109,7 +119,16 @@ void ScriptApiSecurity::initializeSecurity()
 		"string",
 		"table",
 		"math",
+<<<<<<< HEAD
 		"bit"
+=======
+		"bit",
+		// Not sure if completely safe. But if someone enables tracy, they'll
+		// know what they do.
+#if BUILD_WITH_TRACY
+		"tracy",
+#endif
+>>>>>>> 5.10.0
 	};
 	static const char *io_whitelist[] = {
 		"close",
@@ -303,6 +322,14 @@ void ScriptApiSecurity::initializeSecurityClient()
 		"table",
 		"math",
 		"bit",
+<<<<<<< HEAD
+=======
+		// Not sure if completely safe. But if someone enables tracy, they'll
+		// know what they do.
+#if BUILD_WITH_TRACY
+		"tracy",
+#endif
+>>>>>>> 5.10.0
 	};
 	static const char *os_whitelist[] = {
 		"clock",
@@ -413,7 +440,11 @@ void ScriptApiSecurity::setLuaEnv(lua_State *L, int thread)
 
 bool ScriptApiSecurity::isSecure(lua_State *L)
 {
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	auto script = ModApiBase::getScriptApiBase(L);
 	// CSM keeps no globals backup but is always secure
 	if (script->getType() == ScriptingType::Client)
@@ -560,7 +591,11 @@ bool ScriptApiSecurity::checkPath(lua_State *L, const char *path,
 			// by the operating system anyways.
 			return false;
 		}
+<<<<<<< HEAD
 		removed.append(component).append(removed.empty() ? "" : DIR_DELIM + removed);
+=======
+		removed = component + (removed.empty() ? "" : DIR_DELIM + removed);
+>>>>>>> 5.10.0
 		abs_path = fs::AbsolutePath(cur_path);
 	}
 	if (abs_path.empty())
@@ -733,7 +768,11 @@ int ScriptApiSecurity::sl_g_load(lua_State *L)
 
 int ScriptApiSecurity::sl_g_loadfile(lua_State *L)
 {
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	ScriptApiBase *script = ModApiBase::getScriptApiBase(L);
 
 	// Client implementation

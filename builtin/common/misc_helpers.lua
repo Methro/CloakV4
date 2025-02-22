@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/misc_helpers.lua
 
+=======
+>>>>>>> 5.10.0
 --------------------------------------------------------------------------------
 -- Localize functions to avoid table lookups (better performance).
 local string_sub, string_find = string.sub, string.find
@@ -221,8 +224,11 @@ function string:trim()
 	return self:match("^%s*(.-)%s*$")
 end
 
+<<<<<<< HEAD
 --------------------------------------------------------------------------------
 
+=======
+>>>>>>> 5.10.0
 local formspec_escapes = {
 	["\\"] = "\\\\",
 	["["] = "\\[",
@@ -237,6 +243,19 @@ function core.formspec_escape(text)
 end
 
 
+<<<<<<< HEAD
+=======
+local hypertext_escapes = {
+	["\\"] = "\\\\",
+	["<"] = "\\<",
+	[">"] = "\\>",
+}
+function core.hypertext_escape(text)
+	return text and text:gsub("[\\<>]", hypertext_escapes)
+end
+
+
+>>>>>>> 5.10.0
 function core.wrap_text(text, max_length, as_table)
 	local result = {}
 	local line = {}
@@ -566,12 +585,23 @@ function core.strip_colors(str)
 	return (str:gsub(ESCAPE_CHAR .. "%([bc]@[^)]+%)", ""))
 end
 
+<<<<<<< HEAD
 function core.translate(textdomain, str, ...)
 	local start_seq
 	if textdomain == "" then
 		start_seq = ESCAPE_CHAR .. "T"
 	else
 		start_seq = ESCAPE_CHAR .. "(T@" .. textdomain .. ")"
+=======
+local function translate(textdomain, str, num, ...)
+	local start_seq
+	if textdomain == "" and num == "" then
+		start_seq = ESCAPE_CHAR .. "T"
+	elseif num == "" then
+		start_seq = ESCAPE_CHAR .. "(T@" .. textdomain .. ")"
+	else
+		start_seq = ESCAPE_CHAR .. "(T@" .. textdomain .. "@" .. num .. ")"
+>>>>>>> 5.10.0
 	end
 	local arg = {n=select('#', ...), ...}
 	local end_seq = ESCAPE_CHAR .. "E"
@@ -602,8 +632,36 @@ function core.translate(textdomain, str, ...)
 	return start_seq .. translated .. end_seq
 end
 
+<<<<<<< HEAD
 function core.get_translator(textdomain)
 	return function(str, ...) return core.translate(textdomain or "", str, ...) end
+=======
+function core.translate(textdomain, str, ...)
+	return translate(textdomain, str, "", ...)
+end
+
+function core.translate_n(textdomain, str, str_plural, n, ...)
+	assert (type(n) == "number")
+	assert (n >= 0)
+	assert (math.floor(n) == n)
+
+	-- Truncate n if too large
+	local max = 1000000
+	if n >= 2 * max then
+		n = n % max + max
+	end
+	if n == 1 then
+		return translate(textdomain, str, "1", ...)
+	else
+		return translate(textdomain, str_plural, tostring(n), ...)
+	end
+end
+
+function core.get_translator(textdomain)
+	return
+		(function(str, ...) return core.translate(textdomain or "", str, ...) end),
+		(function(str, str_plural, n, ...) return core.translate_n(textdomain or "", str, str_plural, n, ...) end)
+>>>>>>> 5.10.0
 end
 
 --------------------------------------------------------------------------------
@@ -739,6 +797,7 @@ function core.parse_coordinates(x, y, z, relative_to)
 	local rz = core.parse_relative_number(z, relative_to.z)
 	return rx and ry and rz and { x = rx, y = ry, z = rz }
 end
+<<<<<<< HEAD
 
 function core.get_pointed_thing_position(pointed_thing, above)
 	if pointed_thing.type == "node" then
@@ -761,3 +820,5 @@ function core.inventorycube(img1, img2, img3)
 			.. "{" .. img2:gsub("%^", "&")
 			.. "{" .. img3:gsub("%^", "&")
 end
+=======
+>>>>>>> 5.10.0

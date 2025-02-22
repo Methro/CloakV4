@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,11 +17,20 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "guiInventoryList.h"
 #include "guiFormSpecMenu.h"
 #include "client/hud.h"
 #include "client/client.h"
+<<<<<<< HEAD
+=======
+#include "client/renderingengine.h"
+>>>>>>> 5.10.0
 #include <IVideoDriver.h>
 
 GUIInventoryList::GUIInventoryList(gui::IGUIEnvironment *env,
@@ -154,7 +164,11 @@ void GUIInventoryList::draw()
 		// Add hovering tooltip
 		bool show_tooltip = !item.empty() && hovering && !selected_item;
 		// Make it possible to see item tooltips on touchscreens
+<<<<<<< HEAD
 		if (m_fs_menu->getPointerType() == PointerType::Touch) {
+=======
+		if (RenderingEngine::getLastPointerType() == PointerType::Touch) {
+>>>>>>> 5.10.0
 			show_tooltip |= hovering && selected && m_fs_menu->getSelectedAmount() != 0;
 		}
 		if (show_tooltip) {

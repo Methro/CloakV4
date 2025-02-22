@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -64,7 +70,10 @@ public:
 	MMVManip *vm = nullptr;
 
 	LuaVoxelManip(MMVManip *mmvm, bool is_mapgen_vm);
+<<<<<<< HEAD
 	LuaVoxelManip(Map *map, v3s16 p1, v3s16 p2);
+=======
+>>>>>>> 5.10.0
 	LuaVoxelManip(Map *map);
 	~LuaVoxelManip();
 

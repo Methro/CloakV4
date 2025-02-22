@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 #! /bin/bash -eu
 
 cd /tmp
 git clone --recursive https://github.com/jupp0r/prometheus-cpp
+=======
+#!/bin/bash -eu
+cd /tmp
+git clone --recursive --depth 1 --shallow-submodules \
+	https://github.com/jupp0r/prometheus-cpp
+>>>>>>> 5.10.0
 mkdir prometheus-cpp/build
 cd prometheus-cpp/build
 cmake .. \

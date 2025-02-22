@@ -1,6 +1,10 @@
 # Docker Server
 
+<<<<<<< HEAD
 We provide Minetest server Docker images using the GitHub container registry.
+=======
+We provide Luanti server Docker images using the GitHub container registry.
+>>>>>>> 5.10.0
 
 Images are built on each commit and available using the following tag scheme:
 

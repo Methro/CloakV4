@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,12 +17,25 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include <IImage.h>
+<<<<<<< HEAD
 #include <string>
 #include "settings.h"
+=======
+#include <map>
+#include <set>
+#include <string>
+
+using namespace irr;
+>>>>>>> 5.10.0
 
 // This file is only used for internal generation of images.
 // Use texturesource.h to handle textures.
@@ -45,6 +59,11 @@ private:
 
 // Generates images using texture modifiers, and caches source images.
 struct ImageSource {
+<<<<<<< HEAD
+=======
+	ImageSource();
+
+>>>>>>> 5.10.0
 	/*! Generates an image from a full string like
 	 * "stone.png^mineral_coal.png^[crack:1:0".
 	 * The returned Image should be dropped.
@@ -58,6 +77,7 @@ struct ImageSource {
 	// TODO should probably be moved elsewhere
 	static video::SColor getImageAverageColor(const video::IImage &image);
 
+<<<<<<< HEAD
 	ImageSource() :
 		m_setting_mipmap{g_settings->getBool("mip_map")},
 		m_setting_trilinear_filter{g_settings->getBool("trilinear_filter")},
@@ -65,6 +85,8 @@ struct ImageSource {
 		m_setting_anisotropic_filter{g_settings->getBool("anisotropic_filter")}
 	{};
 
+=======
+>>>>>>> 5.10.0
 private:
 
 	// Generate image based on a string like "stone.png" or "[crack:1:0".

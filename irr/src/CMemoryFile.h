@@ -17,7 +17,11 @@ namespace io
 /*!
 	Class for reading from memory.
 */
+<<<<<<< HEAD
 class CMemoryReadFile : public IMemoryReadFile
+=======
+class CMemoryReadFile final : public IMemoryReadFile
+>>>>>>> 5.10.0
 {
 public:
 	//! Constructor

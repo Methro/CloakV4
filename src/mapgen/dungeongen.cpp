@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2018 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -17,6 +18,12 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2018 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2015-2018 paramat
+>>>>>>> 5.10.0
 
 #include "dungeongen.h"
 #include <cmath>
@@ -91,7 +98,11 @@ void DungeonGen::generate(MMVManip *vm, u32 bseed, v3s16 nmin, v3s16 nmax)
 	random.seed(bseed + 2);
 
 	// Dungeon generator doesn't modify places which have this set
+<<<<<<< HEAD
 	vm->clearFlag(VMANIP_FLAG_DUNGEON_INSIDE | VMANIP_FLAG_DUNGEON_PRESERVE);
+=======
+	vm->clearFlags(vm->m_area, VMANIP_FLAG_DUNGEON_INSIDE | VMANIP_FLAG_DUNGEON_PRESERVE);
+>>>>>>> 5.10.0
 
 	if (dp.only_in_ground) {
 		// Set all air and liquid drawtypes to be untouchable to make dungeons generate

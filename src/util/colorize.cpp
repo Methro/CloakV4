@@ -23,6 +23,10 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "log.h"
 #include "string.h"
 #include <sstream>
+<<<<<<< HEAD
+=======
+#include <memory>
+>>>>>>> 5.10.0
 
 std::string colorize_url(const std::string &url)
 {

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -19,6 +20,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #pragma once
 #include <cassert>
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+
+#pragma once
+#include <cassert>
+#include "config.h"
+>>>>>>> 5.10.0
 #include "irrlichttypes.h"
 
 /*
@@ -35,7 +45,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 // This brightness is reserved for sunlight
 #define LIGHT_SUN 15
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if IS_CLIENT_BUILD
+>>>>>>> 5.10.0
 
 /**
  * \internal
@@ -67,7 +81,11 @@ float decode_light_f(float light_f);
 
 void set_light_table(float gamma);
 
+<<<<<<< HEAD
 #endif // ifndef SERVER
+=======
+#endif
+>>>>>>> 5.10.0
 
 // 0 <= daylight_factor <= 1000
 // 0 <= lightday, lightnight <= LIGHT_SUN

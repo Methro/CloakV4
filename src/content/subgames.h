@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -41,7 +47,10 @@ struct SubgameSpec
 	 * Map from virtual path to mods path
 	 */
 	std::unordered_map<std::string, std::string> addon_mods_paths;
+<<<<<<< HEAD
 	std::string menuicon_path;
+=======
+>>>>>>> 5.10.0
 
 	// For logging purposes
 	std::vector<const char *> deprecation_msgs;
@@ -50,7 +59,10 @@ struct SubgameSpec
 			const std::string &gamemods_path = "",
 			const std::unordered_map<std::string, std::string> &addon_mods_paths = {},
 			const std::string &title = "",
+<<<<<<< HEAD
 			const std::string &menuicon_path = "",
+=======
+>>>>>>> 5.10.0
 			const std::string &author = "", int release = 0,
 			const std::string &first_mod = "",
 			const std::string &last_mod = "") :
@@ -60,8 +72,12 @@ struct SubgameSpec
 			last_mod(last_mod),
 			path(path),
 			gamemods_path(gamemods_path),
+<<<<<<< HEAD
 			addon_mods_paths(addon_mods_paths),
 			menuicon_path(menuicon_path)
+=======
+			addon_mods_paths(addon_mods_paths)
+>>>>>>> 5.10.0
 	{
 	}
 

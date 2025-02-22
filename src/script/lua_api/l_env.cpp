@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include <algorithm>
 #include "lua_api/l_env.h"
@@ -43,7 +49,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "server/player_sao.h"
 #include "util/string.h"
 #include "translation.h"
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 #include "client/client.h"
 #endif
 
@@ -65,6 +75,7 @@ const EnumString ModApiEnvBase::es_BlockStatusType[] =
 
 ///////////////////////////////////////////////////////////////////////////////
 
+<<<<<<< HEAD
 
 void LuaABM::trigger(ServerEnvironment *env, v3s16 p, MapNode n,
 		u32 active_object_count, u32 active_object_count_wider)
@@ -152,13 +163,19 @@ void LuaLBM::trigger(ServerEnvironment *env, v3s16 p,
 	lua_pop(L, 1); // Pop error handler
 }
 
+=======
+>>>>>>> 5.10.0
 int LuaRaycast::l_next(lua_State *L)
 {
 	GET_PLAIN_ENV_PTR;
 	ServerEnvironment *senv = dynamic_cast<ServerEnvironment*>(env);
 
 	bool csm = false;
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	csm = getClient(L) != nullptr;
 #endif
 
@@ -247,7 +264,11 @@ void LuaEmergeAreaCallback(v3s16 blockpos, EmergeAction action, void *param)
 
 	// state must be protected by envlock
 	Server *server = state->script->getServer();
+<<<<<<< HEAD
 	MutexAutoLock envlock(server->m_env_mutex);
+=======
+	Server::EnvAutoLock envlock(server);
+>>>>>>> 5.10.0
 
 	state->refcount--;
 
@@ -340,6 +361,34 @@ int ModApiEnv::l_swap_node(lua_State *L)
 	return 1;
 }
 
+<<<<<<< HEAD
+=======
+// bulk_swap_node([pos1, pos2, ...], node)
+// pos = {x=num, y=num, z=num}
+int ModApiEnv::l_bulk_swap_node(lua_State *L)
+{
+	GET_ENV_PTR;
+
+	luaL_checktype(L, 1, LUA_TTABLE);
+
+	s32 len = lua_objlen(L, 1);
+
+	MapNode n = readnode(L, 2);
+
+	// Do it
+	bool succeeded = true;
+	for (s32 i = 1; i <= len; i++) {
+		lua_rawgeti(L, 1, i);
+		if (!env->swapNode(read_v3s16(L, -1), n))
+			succeeded = false;
+		lua_pop(L, 1);
+	}
+
+	lua_pushboolean(L, succeeded);
+	return 1;
+}
+
+>>>>>>> 5.10.0
 // get_node_raw(x, y, z) -> content, param1, param2, pos_ok
 int ModApiEnv::l_get_node_raw(lua_State *L)
 {
@@ -836,10 +885,14 @@ int ModApiEnv::l_get_timeofday(lua_State *L)
 {
 	GET_PLAIN_ENV_PTR;
 
+<<<<<<< HEAD
 	// Do it
 	int timeofday_mh = env->getTimeOfDay();
 	float timeofday_f = (float)timeofday_mh / 24000.0f;
 	lua_pushnumber(L, timeofday_f);
+=======
+	lua_pushnumber(L, env->getTimeOfDayF());
+>>>>>>> 5.10.0
 	return 1;
 }
 
@@ -857,8 +910,12 @@ int ModApiEnv::l_get_gametime(lua_State *L)
 {
 	GET_ENV_PTR;
 
+<<<<<<< HEAD
 	int game_time = env->getGameTime();
 	lua_pushnumber(L, game_time);
+=======
+	lua_pushnumber(L, env->getGameTime());
+>>>>>>> 5.10.0
 	return 1;
 }
 
@@ -889,7 +946,10 @@ int ModApiEnvBase::findNodeNear(lua_State *L, v3s16 pos, int radius,
 			v3s16 p = pos + i;
 			content_t c = getNode(p).getContent();
 			if (CONTAINS(filter, c)) {
+<<<<<<< HEAD
                 std::cout << p.X << " " << p.Y << " " << p.Z << std::endl;
+=======
+>>>>>>> 5.10.0
 				push_v3s16(L, p);
 				return 1;
 			}
@@ -914,7 +974,11 @@ int ModApiEnv::l_find_node_near(lua_State *L)
 
 	int start_radius = (lua_isboolean(L, 4) && readParam<bool>(L, 4)) ? 0 : 1;
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	// Client API limitations
 	if (Client *client = getClient(L))
 		radius = client->CSMClampRadius(pos, radius);
@@ -1014,6 +1078,7 @@ int ModApiEnvBase::findNodesInArea(lua_State *L, const NodeDefManager *ndef,
 	}
 }
 
+<<<<<<< HEAD
 // find_nodes_near(pos, radius, nodenames, [search_center])
 // nodenames: eg. {"ignore", "group:tree"} or "default:dirt"
 int ModApiEnv::l_find_nodes_near(lua_State *L)
@@ -1170,6 +1235,8 @@ int ModApiEnv::l_find_nodes_near_under_air_except(lua_State *L)
 }
 
 
+=======
+>>>>>>> 5.10.0
 // find_nodes_in_area(minp, maxp, nodenames, [grouped])
 int ModApiEnv::l_find_nodes_in_area(lua_State *L)
 {
@@ -1182,7 +1249,11 @@ int ModApiEnv::l_find_nodes_in_area(lua_State *L)
 	const NodeDefManager *ndef = env->getGameDef()->ndef();
 	Map &map = env->getMap();
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	if (Client *client = getClient(L)) {
 		minp = client->CSMClampPos(minp);
 		maxp = client->CSMClampPos(maxp);
@@ -1244,7 +1315,11 @@ int ModApiEnv::l_find_nodes_in_area_under_air(lua_State *L)
 	const NodeDefManager *ndef = env->getGameDef()->ndef();
 	Map &map = env->getMap();
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	if (Client *client = getClient(L)) {
 		minp = client->CSMClampPos(minp);
 		maxp = client->CSMClampPos(maxp);
@@ -1625,6 +1700,10 @@ void ModApiEnv::Initialize(lua_State *L, int top)
 	API_FCT(bulk_set_node);
 	API_FCT(add_node);
 	API_FCT(swap_node);
+<<<<<<< HEAD
+=======
+	API_FCT(bulk_swap_node);
+>>>>>>> 5.10.0
 	API_FCT(add_item);
 	API_FCT(remove_node);
 	API_FCT(get_node_raw);
@@ -1650,8 +1729,11 @@ void ModApiEnv::Initialize(lua_State *L, int top)
 	API_FCT(get_timeofday);
 	API_FCT(get_gametime);
 	API_FCT(get_day_count);
+<<<<<<< HEAD
     API_FCT(find_nodes_near);
     API_FCT(find_nodes_near_under_air);
+=======
+>>>>>>> 5.10.0
 	API_FCT(find_node_near);
 	API_FCT(find_nodes_in_area);
 	API_FCT(find_nodes_in_area_under_air);
@@ -1682,9 +1764,12 @@ void ModApiEnv::InitializeClient(lua_State *L, int top)
 	API_FCT(get_node_level);
 	API_FCT(find_nodes_with_meta);
 	API_FCT(find_node_near);
+<<<<<<< HEAD
     API_FCT(find_nodes_near);
     API_FCT(find_nodes_near_under_air);
     API_FCT(find_nodes_near_under_air_except);
+=======
+>>>>>>> 5.10.0
 	API_FCT(find_nodes_in_area);
 	API_FCT(find_nodes_in_area_under_air);
 	API_FCT(line_of_sight);

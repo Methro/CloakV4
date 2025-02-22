@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 set(UTIL_SRCS
+=======
+set(util_SRCS
+>>>>>>> 5.10.0
 	${CMAKE_CURRENT_SOURCE_DIR}/areastore.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/auth.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/colorize.cpp

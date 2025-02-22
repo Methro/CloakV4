@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2021 Liso <anlismon@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2021 Liso <anlismon@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 #include "irrlichttypes_extrabloated.h"
@@ -31,6 +37,10 @@ class ShadowConstantSetter : public IShaderConstantSetter
 	CachedPixelShaderSetting<f32, 3> m_light_direction{"v_LightDirection"};
 	CachedPixelShaderSetting<f32> m_texture_res{"f_textureresolution"};
 	CachedPixelShaderSetting<f32> m_shadow_strength{"f_shadow_strength"};
+<<<<<<< HEAD
+=======
+	CachedPixelShaderSetting<f32, 3> m_shadow_tint{ "shadow_tint" };
+>>>>>>> 5.10.0
 	CachedPixelShaderSetting<f32> m_time_of_day{"f_timeofday"};
 	CachedPixelShaderSetting<f32> m_shadowfar{"f_shadowfar"};
 	CachedPixelShaderSetting<f32, 4> m_camera_pos{"CameraPos"};

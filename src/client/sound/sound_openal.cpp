@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -20,6 +21,14 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2011 Sebastian 'Bahamada' Rühl
+// Copyright (C) 2011 Cyriaque 'Cisoun' Skrapits <cysoun@gmail.com>
+// Copyright (C) 2011 Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+>>>>>>> 5.10.0
 
 #include "sound_openal.h"
 

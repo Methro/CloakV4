@@ -63,7 +63,11 @@ public:
 	virtual void setCurrentFrame(f32 frame) = 0;
 
 	//! Sets the frame numbers between the animation is looped.
+<<<<<<< HEAD
 	/** The default is 0 to getFrameCount()-1 of the mesh.
+=======
+	/** The default is 0 to getMaxFrameNumber() of the mesh.
+>>>>>>> 5.10.0
 	Number of played frames is end-start.
 	It interpolates toward the last frame but stops when it is reached.
 	It does not interpolate back to start even when looping.
@@ -71,7 +75,11 @@ public:
 	\param begin: Start frame number of the loop.
 	\param end: End frame number of the loop.
 	\return True if successful, false if not. */
+<<<<<<< HEAD
 	virtual bool setFrameLoop(s32 begin, s32 end) = 0;
+=======
+	virtual bool setFrameLoop(f32 begin, f32 end) = 0;
+>>>>>>> 5.10.0
 
 	//! Sets the speed with which the animation is played.
 	/** \param framesPerSecond: Frames per second played. */
@@ -108,9 +116,15 @@ public:
 	//! Returns the currently displayed frame number.
 	virtual f32 getFrameNr() const = 0;
 	//! Returns the current start frame number.
+<<<<<<< HEAD
 	virtual s32 getStartFrame() const = 0;
 	//! Returns the current end frame number.
 	virtual s32 getEndFrame() const = 0;
+=======
+	virtual f32 getStartFrame() const = 0;
+	//! Returns the current end frame number.
+	virtual f32 getEndFrame() const = 0;
+>>>>>>> 5.10.0
 
 	//! Sets looping mode which is on by default.
 	/** If set to false, animations will not be played looped. */

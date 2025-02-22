@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -23,8 +29,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "irrlichttypes.h"
 #include "client/hud.h" // HudElementStat
 
+<<<<<<< HEAD
 #include "hud.h"
 
+=======
+>>>>>>> 5.10.0
 struct ParticleParameters;
 struct ParticleSpawnerParameters;
 struct SkyboxParams;
@@ -37,7 +46,11 @@ enum ClientEventType : u8
 	CE_NONE,
 	CE_PLAYER_DAMAGE,
 	CE_PLAYER_FORCE_MOVE,
+<<<<<<< HEAD
 	CE_DEATHSCREEN,
+=======
+	CE_DEATHSCREEN_LEGACY,
+>>>>>>> 5.10.0
 	CE_SHOW_FORMSPEC,
 	CE_SHOW_LOCAL_FORMSPEC,
 	CE_SPAWN_PARTICLE,
@@ -99,6 +112,7 @@ struct ClientEvent
 		} player_force_move;
 		struct
 		{
+<<<<<<< HEAD
 			bool set_camera_point_target;
 			f32 camera_point_target_x;
 			f32 camera_point_target_y;
@@ -106,6 +120,8 @@ struct ClientEvent
 		} deathscreen;
 		struct
 		{
+=======
+>>>>>>> 5.10.0
 			std::string *formspec;
 			std::string *formname;
 		} show_formspec;
@@ -139,6 +155,10 @@ struct ClientEvent
 			f32 density;
 			u32 color_bright;
 			u32 color_ambient;
+<<<<<<< HEAD
+=======
+			u32 color_shadow;
+>>>>>>> 5.10.0
 			f32 height;
 			f32 thickness;
 			f32 speed_x;

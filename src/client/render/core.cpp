@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -19,10 +20,18 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include <iostream>
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2017 numzero, Lobachevskiy Vitaliy <numzer0@yandex.ru>
+
+>>>>>>> 5.10.0
 #include "core.h"
 #include "plain.h"
 #include "client/shadows/dynamicshadowsrender.h"
 #include "settings.h"
+<<<<<<< HEAD
 #include "client/camera.h"
 #include "client/client.h"
 #include "client/content_cao.h"
@@ -57,6 +66,8 @@ u8 getDifferentNeighborFlags(v3s16 p, Map &map, const MapNode &node) {
 	}
 	return flags;
 }
+=======
+>>>>>>> 5.10.0
 
 RenderingCore::RenderingCore(IrrlichtDevice *_device, Client *_client, Hud *_hud,
 		ShadowRenderer *_shadow_renderer, RenderPipeline *_pipeline, v2f _virtual_size_scale)
@@ -83,6 +94,7 @@ void RenderingCore::draw(video::SColor _skycolor, bool _show_hud,
 	context.show_hud = _show_hud;
 
 	pipeline->reset(context);
+<<<<<<< HEAD
 	//pipeline->run(context);
 	Draw3D(context);
 	drawTracersAndESP();
@@ -104,12 +116,16 @@ void RenderingCore::draw_HUD(video::SColor _skycolor, bool _show_hud,
 
 	DrawHUD(context);
 	MapPostFxStep(context);
+=======
+	pipeline->run(context);
+>>>>>>> 5.10.0
 }
 
 v2u32 RenderingCore::getVirtualSize() const
 {
 	return virtual_size;
 }
+<<<<<<< HEAD
 
 /*std::string getEspInfoText(bool enabled, int drawType, int count) {
     if (!enabled)
@@ -496,3 +512,5 @@ void RenderingCore::RenderShadowMapStep(PipelineContext &context)
 	context.device->getSceneManager()->getRootSceneNode()->OnAnimate(context.device->getTimer()->getTime());
 	context.shadow_renderer->update();
 }
+=======
+>>>>>>> 5.10.0

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2019 Jordach, Jordan Snelling <jordach.snelling@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2019 Jordach, Jordan Snelling <jordach.snelling@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -81,6 +87,10 @@ struct CloudParams
 	float density;
 	video::SColor color_bright;
 	video::SColor color_ambient;
+<<<<<<< HEAD
+=======
+	video::SColor color_shadow;
+>>>>>>> 5.10.0
 	float thickness;
 	float height;
 	v2f speed;
@@ -160,6 +170,10 @@ public:
 		clouds.density = 0.4f;
 		clouds.color_bright = video::SColor(229, 240, 240, 255);
 		clouds.color_ambient = video::SColor(255, 0, 0, 0);
+<<<<<<< HEAD
+=======
+		clouds.color_shadow = video::SColor(255, 204, 204, 204);
+>>>>>>> 5.10.0
 		clouds.thickness = 16.0f;
 		clouds.height = 120;
 		clouds.speed = v2f(0.0f, -2.0f);

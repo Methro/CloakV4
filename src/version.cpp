@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "version.h"
 #include "config.h"
@@ -37,7 +43,11 @@ const char *g_build_info =
 	"BUILD_TYPE=" BUILD_TYPE "\n"
 	"RUN_IN_PLACE=" STR(RUN_IN_PLACE) "\n"
 	"USE_CURL=" STR(USE_CURL) "\n"
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 	"USE_GETTEXT=" STR(USE_GETTEXT) "\n"
 	"USE_SOUND=" STR(USE_SOUND) "\n"
 #endif

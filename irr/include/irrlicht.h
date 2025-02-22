@@ -28,6 +28,7 @@
 
 #pragma once
 
+<<<<<<< HEAD
 #include "aabbox3d.h"
 #include "CMeshBuffer.h"
 #include "coreutil.h"
@@ -128,6 +129,14 @@
 #include "SViewFrustum.h"
 #include "vector2d.h"
 #include "vector3d.h"
+=======
+#include "IrrlichtDevice.h"
+#include "dimension2d.h"
+#include "EDriverTypes.h"
+#include "IEventReceiver.h"
+#include "irrTypes.h"
+#include "SIrrCreationParameters.h"
+>>>>>>> 5.10.0
 #include "IrrCompileConfig.h" // for IRRLICHT_API and IRRCALLCONV
 
 /*! \mainpage Irrlicht Engine 1.9 API documentation
@@ -166,6 +175,11 @@
  *
  * \code
  * #include <irrlicht.h>
+<<<<<<< HEAD
+=======
+ * // include a bunch of other stuff...
+ *
+>>>>>>> 5.10.0
  * using namespace irr;
  *
  * int main()
@@ -241,8 +255,11 @@
  * a look into the examples directory of the SDK.
  */
 
+<<<<<<< HEAD
 #include "SIrrCreationParameters.h"
 
+=======
+>>>>>>> 5.10.0
 //! Everything in the Irrlicht Engine can be found in this namespace.
 namespace irr
 {
@@ -314,5 +331,9 @@ namespace video
 }
 
 /*! \file irrlicht.h
+<<<<<<< HEAD
 	\brief Main header file of the irrlicht, the only file needed to include.
+=======
+	\brief Main header file of the irrlicht, needed to create a device.
+>>>>>>> 5.10.0
 */

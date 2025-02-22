@@ -43,10 +43,13 @@ private:
 				RecalculateNormals(false)
 		{
 			Meshbuffer = new SMeshBuffer();
+<<<<<<< HEAD
 			Meshbuffer->Material.Shininess = 0.0f;
 			Meshbuffer->Material.AmbientColor = video::SColorf(0.2f, 0.2f, 0.2f, 1.0f).toSColor();
 			Meshbuffer->Material.DiffuseColor = video::SColorf(0.8f, 0.8f, 0.8f, 1.0f).toSColor();
 			Meshbuffer->Material.SpecularColor = video::SColorf(1.0f, 1.0f, 1.0f, 1.0f).toSColor();
+=======
+>>>>>>> 5.10.0
 		}
 
 		SObjMtl(const SObjMtl &o) :

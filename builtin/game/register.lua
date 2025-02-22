@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/register.lua
 
+=======
+>>>>>>> 5.10.0
 local builtin_shared = ...
 local S = core.get_translator("__builtin")
 
@@ -105,7 +108,16 @@ function core.register_lbm(spec)
 	-- Add to core.registered_lbms
 	check_modname_prefix(spec.name)
 	check_node_list(spec.nodenames, "nodenames")
+<<<<<<< HEAD
 	assert(type(spec.action) == "function", "Required field 'action' of type function")
+=======
+	local have = spec.action ~= nil
+	local have_bulk = spec.bulk_action ~= nil
+	assert(not have or type(spec.action) == "function", "Field 'action' must be a function")
+	assert(not have_bulk or type(spec.bulk_action) == "function", "Field 'bulk_action' must be a function")
+	assert(have ~= have_bulk, "Either 'action' or 'bulk_action' must be present")
+
+>>>>>>> 5.10.0
 	core.registered_lbms[#core.registered_lbms + 1] = spec
 	spec.mod_origin = core.get_current_modname() or "??"
 end

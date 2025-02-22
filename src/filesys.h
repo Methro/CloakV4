@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -19,6 +20,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #pragma once
 
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+
+#pragma once
+
+#include "config.h"
+>>>>>>> 5.10.0
 #include <set>
 #include <string>
 #include <string_view>
@@ -153,9 +163,14 @@ const char *GetFilenameFromPath(const char *path);
 // corruption/truncation on a crash.
 // logs and returns false on error
 bool safeWriteToFile(const std::string &path, std::string_view content);
+<<<<<<< HEAD
 bool safeAppendToFile(const std::string &path, std::string_view content);
 
 #ifndef SERVER
+=======
+
+#if IS_CLIENT_BUILD
+>>>>>>> 5.10.0
 bool extractZipFile(irr::io::IFileSystem *fs, const char *filename, const std::string &destination);
 #endif
 

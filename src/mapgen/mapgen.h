@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2020 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -18,6 +19,13 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2020 celeron55, Perttu Ahola <celeron55@gmail.com>
+// Copyright (C) 2015-2020 paramat
+// Copyright (C) 2013-2016 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
+>>>>>>> 5.10.0
 
 #pragma once
 

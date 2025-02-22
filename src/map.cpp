@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "map.h"
 #include "mapsector.h"
@@ -114,6 +120,7 @@ MapBlock *Map::getBlockNoCreate(v3s16 p3d)
 	return block;
 }
 
+<<<<<<< HEAD
 void Map::listAllLoadedBlocks(std::vector<v3s16> &dst)
 {
 	for (auto &sector_it : m_sectors) {
@@ -129,6 +136,8 @@ void Map::listAllLoadedBlocks(std::vector<v3s16> &dst)
 	}
 }
 
+=======
+>>>>>>> 5.10.0
 bool Map::isValidPosition(v3s16 p)
 {
 	v3s16 blockpos = getNodeBlockPos(p);
@@ -837,6 +846,7 @@ void MMVManip::initialEmerge(v3s16 blockpos_min, v3s16 blockpos_max,
 			} else {
 				flags |= VMANIP_BLOCK_DATA_INEXIST;
 
+<<<<<<< HEAD
 				/*
 					Mark area inexistent
 				*/
@@ -848,6 +858,11 @@ void MMVManip::initialEmerge(v3s16 blockpos_min, v3s16 blockpos_max,
 					s32 i = m_area.index(a.MinEdge.X,y,z);
 					memset(&m_flags[i], VOXELFLAG_NO_DATA, MAP_BLOCKSIZE);
 				}
+=======
+				// Mark area inexistent
+				VoxelArea a(p*MAP_BLOCKSIZE, (p+1)*MAP_BLOCKSIZE-v3s16(1,1,1));
+				setFlags(a, VOXELFLAG_NO_DATA);
+>>>>>>> 5.10.0
 			}
 		}
 		/*else if (block->getNode(0, 0, 0).getContent() == CONTENT_IGNORE)
@@ -863,9 +878,15 @@ void MMVManip::initialEmerge(v3s16 blockpos_min, v3s16 blockpos_max,
 }
 
 void MMVManip::blitBackAll(std::map<v3s16, MapBlock*> *modified_blocks,
+<<<<<<< HEAD
 	bool overwrite_generated)
 {
 	if(m_area.getExtent() == v3s16(0,0,0))
+=======
+	bool overwrite_generated) const
+{
+	if (m_area.hasEmptyExtent())
+>>>>>>> 5.10.0
 		return;
 	assert(m_map);
 

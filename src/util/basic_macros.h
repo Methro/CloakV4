@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -28,6 +34,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 // Requires <algorithm>
 #define CONTAINS(c, v) (std::find((c).begin(), (c).end(), (v)) != (c).end())
 
+<<<<<<< HEAD
+=======
+// Requires <algorithm>
+#define SORT_AND_UNIQUE(c) do { \
+	std::sort((c).begin(), (c).end()); \
+	(c).erase(std::unique((c).begin(), (c).end()), (c).end()); \
+	} while (0)
+
+>>>>>>> 5.10.0
 // To disable copy constructors and assignment operations for some class
 // 'Foobar', add the macro DISABLE_CLASS_COPY(Foobar) in the class definition.
 // Note this also disables copying for any classes derived from 'Foobar' as well

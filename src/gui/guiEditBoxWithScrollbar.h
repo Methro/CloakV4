@@ -40,8 +40,11 @@ public:
 	virtual void setCursorBlinkTime(irr::u32 timeMs);
 	virtual irr::u32 getCursorBlinkTime() const;
 
+<<<<<<< HEAD
 	virtual void setMarkColor(video::SColor color, bool flag);
 
+=======
+>>>>>>> 5.10.0
 protected:
 	//! Breaks the single text line.
 	virtual void breakText();

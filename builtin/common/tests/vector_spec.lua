@@ -119,6 +119,10 @@ describe("vector", function()
 		assert.equal(vector.new(1, 1, 0), vector.ceil(a))
 		assert.equal(vector.new(1, 1, 0), a:ceil())
 	end)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 	it("sign()", function()
 		local a = vector.new(-120.3, 0, 231.5)
 		assert.equal(vector.new(-1, 0, 1), vector.sign(a))
@@ -126,13 +130,20 @@ describe("vector", function()
 		assert.equal(vector.new(0, 0, 1), vector.sign(a, 200))
 		assert.equal(vector.new(0, 0, 1), a:sign(200))
 	end)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 	it("abs()", function()
 		local a = vector.new(-123.456, 0, 13)
 		assert.equal(vector.new(123.456, 0, 13), vector.abs(a))
 		assert.equal(vector.new(123.456, 0, 13), a:abs())
 	end)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5.10.0
 	it("apply()", function()
 		local i = 0
 		local f = function(x)
@@ -495,6 +506,10 @@ describe("vector", function()
 		assert.True(vector.in_area(vector.new(-10, -10, -10), vector.new(-10, -10, -10), vector.new(10, 10, 10)))
 		assert.False(vector.in_area(vector.new(-10, -10, -10), vector.new(10, 10, 10), vector.new(-11, -10, -10)))
 	end)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 	it("random_in_area()", function()
 		local min = vector.new(-100, -100, -100)
 		local max = vector.new(100, 100, 100)

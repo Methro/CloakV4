@@ -1,9 +1,17 @@
 --[[
     Math utils.
 --]]
+<<<<<<< HEAD
 function math.hypot(x, y)
 	return math.sqrt(x * x + y * y)
 end
+=======
+
+function math.hypot(x, y)
+	return math.sqrt(x * x + y * y)
+end
+
+>>>>>>> 5.10.0
 function math.sign(x, tolerance)
 	tolerance = tolerance or 0
 	if x > tolerance then
@@ -13,6 +21,10 @@ function math.sign(x, tolerance)
 	end
 	return 0
 end
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 function math.factorial(x)
 	assert(x % 1 == 0 and x >= 0, "factorial expects a non-negative integer")
 	if x >= 171 then
@@ -25,6 +37,10 @@ function math.factorial(x)
 	end
 	return v
 end
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5.10.0
 function math.round(x)
 	if x < 0 then
 		local int = math.ceil(x)
@@ -34,4 +50,8 @@ function math.round(x)
 	local int = math.floor(x)
 	local frac = x - int
 	return int + ((frac >= 0.5) and 1 or 0)
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> 5.10.0

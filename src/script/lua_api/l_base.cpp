@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #include "lua_api/l_base.h"
 #include "lua_api/l_internal.h"
@@ -51,7 +57,11 @@ ServerInventoryManager *ModApiBase::getServerInventoryMgr(lua_State *L)
 	return getScriptApiBase(L)->getServer()->getInventoryMgr();
 }
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 Client *ModApiBase::getClient(lua_State *L)
 {
 	return getScriptApiBase(L)->getClient();
@@ -68,7 +78,11 @@ Environment *ModApiBase::getEnv(lua_State *L)
 	return getScriptApiBase(L)->getEnv();
 }
 
+<<<<<<< HEAD
 #ifndef SERVER
+=======
+#if CHECK_CLIENT_BUILD()
+>>>>>>> 5.10.0
 GUIEngine *ModApiBase::getGuiEngine(lua_State *L)
 {
 	return getScriptApiBase(L)->getGuiEngine();

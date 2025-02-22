@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 -- Minetest: builtin/common/chatcommands.lua
 
+=======
+>>>>>>> 5.10.0
 -- For server-side translations (if INIT == "game")
 -- Otherwise, use core.gettext
 local S = core.get_translator("__builtin")
@@ -69,6 +72,7 @@ function core.override_chatcommand(name, redefinition)
 	core.registered_chatcommands[name] = chatcommand
 end
 
+<<<<<<< HEAD
 local function get_pt_name(object_type)
 	local player = core.localplayer
 	if not player then return end
@@ -85,6 +89,8 @@ local function get_pt_name(object_type)
 	return item.name
 end
 
+=======
+>>>>>>> 5.10.0
 local function format_help_line(cmd, def)
 	local cmd_marker = INIT == "client" and "." or "/"
 	local msg = core.colorize("#00ffff", cmd_marker .. cmd)
@@ -178,6 +184,7 @@ local function do_help_cmd(name, param)
 end
 
 if INIT == "client" then
+<<<<<<< HEAD
 	function core.register_list_command(command, desc, setting)
 		local def = {}
 		def.description = desc
@@ -406,6 +413,8 @@ if INIT == "client" then
 		core.register_chatcommand(command, def)
 	end
 
+=======
+>>>>>>> 5.10.0
 	core.register_chatcommand("help", {
 		params = core.gettext("[all | <cmd>] [-t]"),
 		description = core.gettext("Get help for commands (-t: output in chat)"),
@@ -419,4 +428,8 @@ else
 		description = S("Get help for commands or list privileges (-t: output in chat)"),
 		func = do_help_cmd,
 	})
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> 5.10.0

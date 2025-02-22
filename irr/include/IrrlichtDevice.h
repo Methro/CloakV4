@@ -193,6 +193,14 @@ public:
 	/** If this returns false, you should not do any rendering. */
 	virtual bool isWindowVisible() const { return true; };
 
+<<<<<<< HEAD
+=======
+	//! Checks if the Irrlicht device supports touch events.
+	/** Intentionally doesn't check whether a touch input device is available
+	or similar. */
+	virtual bool supportsTouchEvents() const { return false; }
+
+>>>>>>> 5.10.0
 	//! Get the current color format of the window
 	/** \return Color format of the window. */
 	virtual video::ECOLOR_FORMAT getColorFormat() const = 0;

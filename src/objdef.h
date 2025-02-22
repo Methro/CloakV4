@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2015 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
@@ -16,11 +17,20 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2015 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
+>>>>>>> 5.10.0
 
 #pragma once
 
 #include "util/basic_macros.h"
 #include "porting.h"
+<<<<<<< HEAD
+=======
+#include <vector>
+>>>>>>> 5.10.0
 
 class IGameDef;
 class NodeDefManager;

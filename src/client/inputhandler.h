@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
@@ -16,6 +17,11 @@ You should have received a copy of the GNU Lesser General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+=======
+// Luanti
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+>>>>>>> 5.10.0
 
 #pragma once
 
@@ -23,10 +29,21 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "joystick_controller.h"
 #include <list>
 #include "keycode.h"
+<<<<<<< HEAD
 #include "renderingengine.h"
 
 class InputHandler;
 
+=======
+
+class InputHandler;
+
+enum class PointerType {
+	Mouse,
+	Touch,
+};
+
+>>>>>>> 5.10.0
 /****************************************************************************
  Fast key cache for main game loop
  ****************************************************************************/
@@ -199,7 +216,13 @@ public:
 
 	JoystickController *joystick = nullptr;
 
+<<<<<<< HEAD
 //private:
+=======
+	PointerType getLastPointerType() { return last_pointer_type; }
+
+private:
+>>>>>>> 5.10.0
 	s32 mouse_wheel = 0;
 
 	// The current state of keys
@@ -223,6 +246,11 @@ public:
 
 	// Intentionally not reset by clearInput/releaseAllKeys.
 	bool fullscreen_is_down = false;
+<<<<<<< HEAD
+=======
+
+	PointerType last_pointer_type = PointerType::Mouse;
+>>>>>>> 5.10.0
 };
 
 class InputHandler
@@ -247,11 +275,16 @@ public:
 	virtual bool wasKeyReleased(GameKeyType k) = 0;
 	virtual bool cancelPressed() = 0;
 
+<<<<<<< HEAD
 	virtual void setKeypress(const KeyPress &keyCode) = 0;
 	virtual void unsetKeypress(const KeyPress &keyCode) = 0;
 
 	virtual float getMovementSpeed() = 0;
 	virtual float getMovementDirection() = 0;
+=======
+	virtual float getJoystickSpeed() = 0;
+	virtual float getJoystickDirection() = 0;
+>>>>>>> 5.10.0
 
 	virtual void clearWasKeyPressed() {}
 	virtual void clearWasKeyReleased() {}
@@ -272,11 +305,20 @@ public:
 	JoystickController joystick;
 	KeyCache keycache;
 };
+<<<<<<< HEAD
 /*
 	Separated input handler
 */
 
 class RealInputHandler : public InputHandler
+=======
+
+/*
+	Separated input handler implementations
+*/
+
+class RealInputHandler final : public InputHandler
+>>>>>>> 5.10.0
 {
 public:
 	RealInputHandler(MyEventReceiver *receiver) : m_receiver(receiver)
@@ -306,6 +348,7 @@ public:
 		return m_receiver->WasKeyReleased(keycache.key[k]) || joystick.wasKeyReleased(k);
 	}
 
+<<<<<<< HEAD
 	virtual void setKeypress(const KeyPress &keyCode)
 	{
 		m_receiver->keyIsDown.set(keyCode);
@@ -319,6 +362,11 @@ public:
 	virtual float getMovementSpeed();
 
 	virtual float getMovementDirection();
+=======
+	virtual float getJoystickSpeed();
+
+	virtual float getJoystickDirection();
+>>>>>>> 5.10.0
 
 	virtual bool cancelPressed()
 	{
@@ -343,6 +391,7 @@ public:
 		m_receiver->dontListenForKeys();
 	}
 
+<<<<<<< HEAD
 	virtual v2s32 getMousePos()
 	{
 		auto control = RenderingEngine::get_raw_device()->getCursorControl();
@@ -362,6 +411,10 @@ public:
 			m_mousepos = v2s32(x, y);
 		}
 	}
+=======
+	virtual v2s32 getMousePos();
+	virtual void setMousePos(s32 x, s32 y);
+>>>>>>> 5.10.0
 
 	virtual s32 getMouseWheel()
 	{
@@ -385,7 +438,11 @@ private:
 	v2s32 m_mousepos;
 };
 
+<<<<<<< HEAD
 class RandomInputHandler : public InputHandler
+=======
+class RandomInputHandler final : public InputHandler
+>>>>>>> 5.10.0
 {
 public:
 	RandomInputHandler() = default;
@@ -400,6 +457,7 @@ public:
 	virtual bool wasKeyPressed(GameKeyType k) { return false; }
 	virtual bool wasKeyReleased(GameKeyType k) { return false; }
 	virtual bool cancelPressed() { return false; }
+<<<<<<< HEAD
 	virtual float getMovementSpeed() { return movementSpeed; }
 	virtual float getMovementDirection() { return movementDirection; }
 	virtual v2s32 getMousePos() { return mousepos; }
@@ -414,6 +472,13 @@ public:
 		keydown.unset(keyCode);
 	}
 
+=======
+	virtual float getJoystickSpeed() { return joystickSpeed; }
+	virtual float getJoystickDirection() { return joystickDirection; }
+	virtual v2s32 getMousePos() { return mousepos; }
+	virtual void setMousePos(s32 x, s32 y) { mousepos = v2s32(x, y); }
+
+>>>>>>> 5.10.0
 	virtual s32 getMouseWheel() { return 0; }
 
 	virtual void step(float dtime);
@@ -424,6 +489,11 @@ private:
 	KeyList keydown;
 	v2s32 mousepos;
 	v2s32 mousespeed;
+<<<<<<< HEAD
 	float movementSpeed;
 	float movementDirection;
+=======
+	float joystickSpeed;
+	float joystickDirection;
+>>>>>>> 5.10.0
 };

@@ -79,6 +79,7 @@ typedef enum {
 	SRP_OK,
 } SRP_Result;
 
+<<<<<<< HEAD
 /* Sets the memory functions used by srp.
  * Note: this doesn't set the memory functions used by gmp,
  * but it is supported to have different functions for srp and gmp.
@@ -88,6 +89,8 @@ void srp_set_memory_functions(
 	void *(*new_srp_alloc) (size_t),
 	void *(*new_srp_realloc) (void *, size_t),
 	void (*new_srp_free) (void *));
+=======
+>>>>>>> 5.10.0
 
 /* Out: bytes_v, len_v
  *
