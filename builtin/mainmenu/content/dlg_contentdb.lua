@@ -1,8 +1,4 @@
-<<<<<<< HEAD
---Minetest
-=======
 --Luanti
->>>>>>> 5.10.0
 --Copyright (C) 2018-20 rubenwardy
 --
 --This program is free software; you can redistribute it and/or modify
@@ -22,11 +18,7 @@
 if not core.get_http_api then
 	function create_contentdb_dlg()
 		return messagebox("contentdb",
-<<<<<<< HEAD
-				fgettext("ContentDB is not available when Minetest was compiled without cURL"))
-=======
 				fgettext("ContentDB is not available when Luanti was compiled without cURL"))
->>>>>>> 5.10.0
 	end
 	return
 end
@@ -34,72 +26,11 @@ end
 -- Filter
 local search_string = ""
 local cur_page = 1
-<<<<<<< HEAD
-local num_per_page = 5
-local filter_type = 1
-local filter_types_titles = {
-	fgettext("All packages"),
-	fgettext("Games"),
-	fgettext("Mods"),
-	fgettext("Texture packs"),
-}
-=======
 local filter_type
->>>>>>> 5.10.0
 
 -- Automatic package installation
 local auto_install_spec = nil
 
-<<<<<<< HEAD
-local filter_types_type = {
-	nil,
-	"game",
-	"mod",
-	"txp",
-}
-
-
-local function install_or_update_package(this, package)
-	local install_parent
-	if package.type == "mod" then
-		install_parent = core.get_modpath()
-	elseif package.type == "game" then
-		install_parent = core.get_gamepath()
-	elseif package.type == "txp" then
-		install_parent = core.get_texturepath()
-	else
-		error("Unknown package type: " .. package.type)
-	end
-
-	if package.queued or package.downloading then
-		return
-	end
-
-	local function on_confirm()
-		local dlg = create_install_dialog(package)
-		dlg:set_parent(this)
-		this:hide()
-		dlg:show()
-
-		dlg:load_deps()
-	end
-
-	if package.type == "mod" and #pkgmgr.games == 0 then
-		local dlg = messagebox("install_game",
-			fgettext("You need to install a game before you can install a mod"))
-		dlg:set_parent(this)
-		this:hide()
-		dlg:show()
-	elseif not package.path and core.is_dir(install_parent .. DIR_DELIM .. package.name) then
-		local dlg = create_confirm_overwrite(package, on_confirm)
-		dlg:set_parent(this)
-		this:hide()
-		dlg:show()
-	else
-		on_confirm()
-	end
-end
-=======
 
 local filter_type_names = {
 	{ "type_all", nil },
@@ -107,7 +38,6 @@ local filter_type_names = {
 	{ "type_mod", "mod" },
 	{ "type_txp", "txp" },
 }
->>>>>>> 5.10.0
 
 
 -- Resolves the package specification stored in auto_install_spec into an actual package.
@@ -167,11 +97,7 @@ end
 local function sort_and_filter_pkgs()
 	contentdb.update_paths()
 	contentdb.sort_packages()
-<<<<<<< HEAD
-	contentdb.filter_packages(search_string, filter_types_type[filter_type])
-=======
 	contentdb.filter_packages(search_string, filter_type)
->>>>>>> 5.10.0
 
 	local auto_install_pkg = resolve_auto_install_spec()
 	if auto_install_pkg then
@@ -202,18 +128,6 @@ local function load()
 end
 
 
-<<<<<<< HEAD
-local function get_info_formspec(text)
-	local H = 9.5
-	return table.concat({
-		"formspec_version[6]",
-		"size[15.75,9.5]",
-		core.settings:get_bool("enable_touch") and "padding[0.01,0.01]" or "position[0.5,0.55]",
-
-		"label[4,4.35;", text, "]",
-		"container[0,", H - 0.8 - 0.375, "]",
-		"button[0.375,0;3,0.8;back;", fgettext("Back"), "]",
-=======
 local function get_info_formspec(size, padding, text)
 	return table.concat({
 		"formspec_version[6]",
@@ -224,20 +138,11 @@ local function get_info_formspec(size, padding, text)
 		"label[", padding.x + 3.625, ",4.35;", text, "]",
 		"container[", padding.x, ",", size.y - 0.8 - padding.y, "]",
 		"button[0,0;2,0.8;back;", fgettext("Back"), "]",
->>>>>>> 5.10.0
 		"container_end[]",
 	})
 end
 
 
-<<<<<<< HEAD
-local function get_formspec(dlgdata)
-	if contentdb.loading then
-		return get_info_formspec(fgettext("Loading..."))
-	end
-	if contentdb.load_error then
-		return get_info_formspec(fgettext("No packages could be retrieved"))
-=======
 -- Determines how to fit `num_per_page` into `size` space
 local function fit_cells(num_per_page, size)
 	local cell_spacing = 0.5
@@ -293,58 +198,17 @@ local function get_formspec(dlgdata)
 	end
 	if contentdb.load_error then
 		return get_info_formspec(size, window_padding, fgettext("No packages could be retrieved"))
->>>>>>> 5.10.0
 	end
 	assert(contentdb.load_ok)
 
 	contentdb.update_paths()
 
-<<<<<<< HEAD
-=======
 	local num_per_page = dlgdata.num_per_page
->>>>>>> 5.10.0
 	dlgdata.pagemax = math.max(math.ceil(#contentdb.packages / num_per_page), 1)
 	if cur_page > dlgdata.pagemax then
 		cur_page = 1
 	end
 
-<<<<<<< HEAD
-	local W = 15.75
-	local H = 9.5
-	local formspec = {
-		"formspec_version[6]",
-		"size[15.75,9.5]",
-		core.settings:get_bool("enable_touch") and "padding[0.01,0.01]" or "position[0.5,0.55]",
-
-		"style[status,downloading,queued;border=false]",
-
-		"container[0.375,0.375]",
-		"field[0,0;7.225,0.8;search_string;;", core.formspec_escape(search_string), "]",
-		"field_enter_after_edit[search_string;true]",
-		"image_button[7.3,0;0.8,0.8;", core.formspec_escape(defaulttexturedir .. "search.png"), ";search;]",
-		"image_button[8.125,0;0.8,0.8;", core.formspec_escape(defaulttexturedir .. "clear.png"), ";clear;]",
-		"dropdown[9.175,0;2.7875,0.8;type;", table.concat(filter_types_titles, ","), ";", filter_type, "]",
-		"container_end[]",
-
-		-- Page nav buttons
-		"container[0,", H - 0.8 - 0.375, "]",
-		"button[0.375,0;3,0.8;back;", fgettext("Back"), "]",
-
-		"container[", W - 0.375 - 0.8*4 - 2,  ",0]",
-		"image_button[0,0;0.8,0.8;", core.formspec_escape(defaulttexturedir), "start_icon.png;pstart;]",
-		"image_button[0.8,0;0.8,0.8;", core.formspec_escape(defaulttexturedir), "prev_icon.png;pback;]",
-		"style[pagenum;border=false]",
-		"button[1.6,0;2,0.8;pagenum;", tonumber(cur_page), " / ", tonumber(dlgdata.pagemax), "]",
-		"image_button[3.6,0;0.8,0.8;", core.formspec_escape(defaulttexturedir), "next_icon.png;pnext;]",
-		"image_button[4.4,0;0.8,0.8;", core.formspec_escape(defaulttexturedir), "end_icon.png;pend;]",
-		"container_end[]",
-
-		"container_end[]",
-	}
-
-	if contentdb.number_downloading > 0 then
-		formspec[#formspec + 1] = "button[12.5875,0.375;2.7875,0.8;downloading;"
-=======
 	local W = size.x - window_padding.x * 2
 	local H = size.y - window_padding.y * 2
 
@@ -409,7 +273,6 @@ local function get_formspec(dlgdata)
 
 	if contentdb.number_downloading > 0 then
 		formspec[#formspec + 1] = "button[0,0;3,0.8;downloading;"
->>>>>>> 5.10.0
 		if #contentdb.download_queue > 0 then
 			formspec[#formspec + 1] = fgettext("$1 downloading,\n$2 queued",
 					contentdb.number_downloading, #contentdb.download_queue)
@@ -428,30 +291,19 @@ local function get_formspec(dlgdata)
 		end
 
 		if num_avail_updates == 0 then
-<<<<<<< HEAD
-			formspec[#formspec + 1] = "button[12.5875,0.375;2.7875,0.8;status;"
-			formspec[#formspec + 1] = fgettext("No updates")
-			formspec[#formspec + 1] = "]"
-		else
-			formspec[#formspec + 1] = "button[12.5875,0.375;2.7875,0.8;update_all;"
-=======
 			formspec[#formspec + 1] = "button[0,0;3,0.8;status;"
 			formspec[#formspec + 1] = fgettext("No updates")
 			formspec[#formspec + 1] = "]"
 		else
 			formspec[#formspec + 1] = "button[0,0;3,0.8;update_all;"
->>>>>>> 5.10.0
 			formspec[#formspec + 1] = fgettext("Update All [$1]", num_avail_updates)
 			formspec[#formspec + 1] = "]"
 		end
 	end
 
-<<<<<<< HEAD
-=======
 	formspec[#formspec + 1] = "container_end[]" -- updating end
 	formspec[#formspec + 1] = "container_end[]" -- bottom strip end
 
->>>>>>> 5.10.0
 	if #contentdb.packages == 0 then
 		formspec[#formspec + 1] = "label[4,4.75;"
 		formspec[#formspec + 1] = fgettext("No results")
@@ -463,83 +315,6 @@ local function get_formspec(dlgdata)
 	formspec[#formspec + 1] = "tooltip[downloading;" .. fgettext("Downloading...") .. tooltip_colors
 	formspec[#formspec + 1] = "tooltip[queued;" .. fgettext("Queued") .. tooltip_colors
 
-<<<<<<< HEAD
-	local start_idx = (cur_page - 1) * num_per_page + 1
-	for i=start_idx, math.min(#contentdb.packages, start_idx+num_per_page-1) do
-		local package = contentdb.packages[i]
-		local container_y = (i - start_idx) * 1.375 + (2*0.375 + 0.8)
-		formspec[#formspec + 1] = "container[0.375,"
-		formspec[#formspec + 1] = container_y
-		formspec[#formspec + 1] = "]"
-
-		-- image
-		formspec[#formspec + 1] = "image[0,0;1.5,1;"
-		formspec[#formspec + 1] = core.formspec_escape(get_screenshot(package))
-		formspec[#formspec + 1] = "]"
-
-		-- title
-		formspec[#formspec + 1] = "label[1.875,0.1;"
-		formspec[#formspec + 1] = core.formspec_escape(
-				core.colorize(mt_color_green, package.title) ..
-				core.colorize("#BFBFBF", " by " .. package.author))
-		formspec[#formspec + 1] = "]"
-
-		-- buttons
-		local description_width = W - 2.625 - 2 * 0.7 - 2 * 0.15
-
-		local second_base = "image_button[-1.55,0;0.7,0.7;" .. core.formspec_escape(defaulttexturedir)
-		local third_base = "image_button[-2.4,0;0.7,0.7;" .. core.formspec_escape(defaulttexturedir)
-		formspec[#formspec + 1] = "container["
-		formspec[#formspec + 1] = W - 0.375*2
-		formspec[#formspec + 1] = ",0.1]"
-
-		if package.downloading then
-			formspec[#formspec + 1] = "animated_image[-1.7,-0.15;1,1;downloading;"
-			formspec[#formspec + 1] = core.formspec_escape(defaulttexturedir)
-			formspec[#formspec + 1] = "cdb_downloading.png;3;400;]"
-		elseif package.queued then
-			formspec[#formspec + 1] = second_base
-			formspec[#formspec + 1] = "cdb_queued.png;queued;]"
-		elseif not package.path then
-			local elem_name = "install_" .. i .. ";"
-			formspec[#formspec + 1] = "style[" .. elem_name .. "bgcolor=#71aa34]"
-			formspec[#formspec + 1] = second_base .. "cdb_add.png;" .. elem_name .. "]"
-			formspec[#formspec + 1] = "tooltip[" .. elem_name .. fgettext("Install") .. tooltip_colors
-		else
-			if package.installed_release < package.release then
-				-- The install_ action also handles updating
-				local elem_name = "install_" .. i .. ";"
-				formspec[#formspec + 1] = "style[" .. elem_name .. "bgcolor=#28ccdf]"
-				formspec[#formspec + 1] = third_base .. "cdb_update.png;" .. elem_name .. "]"
-				formspec[#formspec + 1] = "tooltip[" .. elem_name .. fgettext("Update") .. tooltip_colors
-
-				description_width = description_width - 0.7 - 0.15
-			end
-
-			local elem_name = "uninstall_" .. i .. ";"
-			formspec[#formspec + 1] = "style[" .. elem_name .. "bgcolor=#a93b3b]"
-			formspec[#formspec + 1] = second_base .. "cdb_clear.png;" .. elem_name .. "]"
-			formspec[#formspec + 1] = "tooltip[" .. elem_name .. fgettext("Uninstall") .. tooltip_colors
-		end
-
-		local web_elem_name = "view_" .. i .. ";"
-		formspec[#formspec + 1] = "image_button[-0.7,0;0.7,0.7;" ..
-			core.formspec_escape(defaulttexturedir) .. "cdb_viewonline.png;" .. web_elem_name .. "]"
-		formspec[#formspec + 1] = "tooltip[" .. web_elem_name ..
-			fgettext("View more information in a web browser") .. tooltip_colors
-		formspec[#formspec + 1] = "container_end[]"
-
-		-- description
-		formspec[#formspec + 1] = "textarea[1.855,0.3;"
-		formspec[#formspec + 1] = tostring(description_width)
-		formspec[#formspec + 1] = ",0.8;;;"
-		formspec[#formspec + 1] = core.formspec_escape(package.short_description)
-		formspec[#formspec + 1] = "]"
-
-		formspec[#formspec + 1] = "container_end[]"
-	end
-
-=======
 	formspec[#formspec + 1] = "container[0,1.425]"
 
 	local cell_spacing, columns, cell_w, cell_h = fit_cells(num_per_page, {
@@ -620,7 +395,6 @@ local function get_formspec(dlgdata)
 	formspec[#formspec + 1] = "container_end[]"
 	formspec[#formspec + 1] = "container_end[]"
 
->>>>>>> 5.10.0
 	return table.concat(formspec)
 end
 
@@ -629,22 +403,14 @@ local function handle_submit(this, fields)
 	if fields.search or fields.key_enter_field == "search_string" then
 		search_string = fields.search_string:trim()
 		cur_page = 1
-<<<<<<< HEAD
-		contentdb.filter_packages(search_string, filter_types_type[filter_type])
-=======
 		contentdb.filter_packages(search_string, filter_type)
->>>>>>> 5.10.0
 		return true
 	end
 
 	if fields.clear then
 		search_string = ""
 		cur_page = 1
-<<<<<<< HEAD
-		contentdb.filter_packages("", filter_types_type[filter_type])
-=======
 		contentdb.filter_packages("", filter_type)
->>>>>>> 5.10.0
 		return true
 	end
 
@@ -680,20 +446,11 @@ local function handle_submit(this, fields)
 		return true
 	end
 
-<<<<<<< HEAD
-	if fields.type then
-		local new_type = table.indexof(filter_types_titles, fields.type)
-		if new_type ~= filter_type then
-			filter_type = new_type
-			cur_page = 1
-			contentdb.filter_packages(search_string, filter_types_type[filter_type])
-=======
 	for _, pair in ipairs(filter_type_names) do
 		if fields[pair[1]] then
 			filter_type = pair[2]
 			cur_page = 1
 			contentdb.filter_packages(search_string, filter_type)
->>>>>>> 5.10.0
 			return true
 		end
 	end
@@ -709,44 +466,20 @@ local function handle_submit(this, fields)
 		return true
 	end
 
-<<<<<<< HEAD
-=======
 	local num_per_page = this.data.num_per_page
->>>>>>> 5.10.0
 	local start_idx = (cur_page - 1) * num_per_page + 1
 	assert(start_idx ~= nil)
 	for i=start_idx, math.min(#contentdb.packages, start_idx+num_per_page-1) do
 		local package = contentdb.packages[i]
 		assert(package)
 
-<<<<<<< HEAD
-		if fields["install_" .. i] then
-			install_or_update_package(this, package)
-			return true
-		end
-
-		if fields["uninstall_" .. i] then
-			local dlg = create_delete_content_dlg(package)
-=======
 		if fields["view_" .. i] or fields["title_" .. i] or fields["author_" .. i] then
 			local dlg = create_package_dialog(package)
->>>>>>> 5.10.0
 			dlg:set_parent(this)
 			this:hide()
 			dlg:show()
 			return true
 		end
-<<<<<<< HEAD
-
-		if fields["view_" .. i] then
-			local url = ("%s/packages/%s?protocol_version=%d"):format(
-					core.settings:get("contentdb_url"), package.url_part,
-					core.get_max_supp_proto())
-			core.open_url(url)
-			return true
-		end
-=======
->>>>>>> 5.10.0
 	end
 
 	return false
@@ -755,13 +488,8 @@ end
 
 local function handle_events(event)
 	if event == "DialogShow" then
-<<<<<<< HEAD
-		-- On touchscreen, don't show the "MINETEST" header behind the dialog.
-		mm_game_theme.set_engine(core.settings:get_bool("enable_touch"))
-=======
 		-- Don't show the header image behind the dialog.
 		mm_game_theme.set_engine(true)
->>>>>>> 5.10.0
 
 		-- If ContentDB is already loaded, auto-install packages here.
 		do_auto_install()
@@ -769,14 +497,11 @@ local function handle_events(event)
 		return true
 	end
 
-<<<<<<< HEAD
-=======
 	if event == "WindowInfoChange" then
 		ui.update()
 		return true
 	end
 
->>>>>>> 5.10.0
 	return false
 end
 
@@ -791,21 +516,7 @@ end
 function create_contentdb_dlg(type, install_spec)
 	search_string = ""
 	cur_page = 1
-<<<<<<< HEAD
-	if type then
-		-- table.indexof does not work on tables that contain `nil`
-		for i, v in pairs(filter_types_type) do
-			if v == type then
-				filter_type = i
-				break
-			end
-		end
-	else
-		filter_type = 1
-	end
-=======
 	filter_type = type
->>>>>>> 5.10.0
 
 	-- Keep the old auto_install_spec if the caller doesn't specify one.
 	if install_spec then
@@ -814,17 +525,10 @@ function create_contentdb_dlg(type, install_spec)
 
 	load()
 
-<<<<<<< HEAD
-	return dialog_create("contentdb",
-			get_formspec,
-			handle_submit,
-			handle_events)
-=======
 	local dlg = dialog_create("contentdb",
 			get_formspec,
 			handle_submit,
 			handle_events)
 	dlg.data.num_per_page = calculate_num_per_page()
 	return dlg
->>>>>>> 5.10.0
 end

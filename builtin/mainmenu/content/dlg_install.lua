@@ -1,8 +1,4 @@
-<<<<<<< HEAD
---Minetest
-=======
 --Luanti
->>>>>>> 5.10.0
 --Copyright (C) 2018-24 rubenwardy
 --
 --This program is free software; you can redistribute it and/or modify
@@ -26,22 +22,13 @@ end
 
 
 local function get_loading_formspec()
-<<<<<<< HEAD
-	local ENABLE_TOUCH = core.settings:get_bool("enable_touch")
-	local w = ENABLE_TOUCH and 14 or 7
-=======
 	local TOUCH_GUI = core.settings:get_bool("touch_gui")
 	local w = TOUCH_GUI and 14 or 7
->>>>>>> 5.10.0
 
 	local formspec = {
 		"formspec_version[3]",
 		"size[", w, ",9.05]",
-<<<<<<< HEAD
-		ENABLE_TOUCH and "padding[0.01,0.01]" or "position[0.5,0.55]",
-=======
 		TOUCH_GUI and "padding[0.01,0.01]" or "position[0.5,0.55]",
->>>>>>> 5.10.0
 		"label[3,4.525;", fgettext("Loading..."), "]",
 	}
 	return table.concat(formspec)
@@ -123,30 +110,18 @@ local function get_formspec(data)
 		message_bg = mt_color_orange
 	end
 
-<<<<<<< HEAD
-	local ENABLE_TOUCH = core.settings:get_bool("enable_touch")
-
-	local w = ENABLE_TOUCH and 14 or 7
-	local padded_w = w - 2*0.375
-	local dropdown_w = ENABLE_TOUCH and 10.2 or 4.25
-=======
 	local TOUCH_GUI = core.settings:get_bool("touch_gui")
 
 	local w = TOUCH_GUI and 14 or 7
 	local padded_w = w - 2*0.375
 	local dropdown_w = TOUCH_GUI and 10.2 or 4.25
->>>>>>> 5.10.0
 	local button_w = (padded_w - 0.25) / 3
 	local button_pad = button_w / 2
 
 	local formspec = {
 		"formspec_version[3]",
 		"size[", w, ",9.05]",
-<<<<<<< HEAD
-		ENABLE_TOUCH and "padding[0.01,0.01]" or "position[0.5,0.55]",
-=======
 		TOUCH_GUI and "padding[0.01,0.01]" or "position[0.5,0.55]",
->>>>>>> 5.10.0
 		"style[title;border=false]",
 		"box[0,0;", w, ",0.8;#3333]",
 		"button[0,0;", w, ",0.8;title;", fgettext("Install $1", package.title) , "]",
@@ -269,8 +244,6 @@ function create_install_dialog(package)
 
 	return dlg
 end
-<<<<<<< HEAD
-=======
 
 
 function install_or_update_package(parent, package)
@@ -313,4 +286,3 @@ function install_or_update_package(parent, package)
 		on_confirm()
 	end
 end
->>>>>>> 5.10.0

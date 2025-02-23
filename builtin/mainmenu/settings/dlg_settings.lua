@@ -1,8 +1,4 @@
-<<<<<<< HEAD
---Minetest
-=======
 --Luanti
->>>>>>> 5.10.0
 --Copyright (C) 2022 rubenwardy
 --
 --This program is free software; you can redistribute it and/or modify
@@ -23,11 +19,8 @@
 local component_funcs =  dofile(core.get_mainmenu_path() .. DIR_DELIM ..
 		"settings" .. DIR_DELIM .. "components.lua")
 
-<<<<<<< HEAD
-=======
 local shader_warning_component =  dofile(core.get_mainmenu_path() .. DIR_DELIM ..
 		"settings" .. DIR_DELIM .. "shader_warning_component.lua")
->>>>>>> 5.10.0
 local shadows_component =  dofile(core.get_mainmenu_path() .. DIR_DELIM ..
 		"settings" .. DIR_DELIM .. "shadows_component.lua")
 
@@ -119,11 +112,7 @@ local function load()
 	local change_keys = {
 		query_text = "Controls",
 		requires = {
-<<<<<<< HEAD
-			keyboard_mouse = true,
-=======
 			touch_controls = false,
->>>>>>> 5.10.0
 		},
 		get_formspec = function(self, avail_w)
 			local btn_w = math.min(avail_w, 3)
@@ -165,11 +154,6 @@ local function load()
 
 	table.insert(page_by_id.controls_keyboard_and_mouse.content, 1, change_keys)
 	do
-<<<<<<< HEAD
-		local content = page_by_id.graphics_and_audio_shaders.content
-		local idx = table.indexof(content, "enable_dynamic_shadows")
-		table.insert(content, idx, shadows_component)
-=======
 		local content = page_by_id.graphics_and_audio_graphics.content
 		table.insert(content, 1, shader_warning_component)
 
@@ -193,7 +177,6 @@ local function load()
 		note = component_funcs.note(fgettext_ne("(The game will need to enable volumetric lighting as well)"))
 		note.requires = get_setting_info("enable_volumetric_lighting").requires
 		table.insert(content, idx, note)
->>>>>>> 5.10.0
 	end
 
 	-- These must not be translated, as they need to show in the local
@@ -261,15 +244,12 @@ local function load()
 		zh_CN = "中文 (简体) [zh_CN]",
 		zh_TW = "正體中文 (繁體) [zh_TW]",
 	}
-<<<<<<< HEAD
-=======
 
 	get_setting_info("touch_controls").option_labels = {
 		["auto"] = fgettext_ne("Auto"),
 		["true"] = fgettext_ne("Enabled"),
 		["false"] = fgettext_ne("Disabled"),
 	}
->>>>>>> 5.10.0
 end
 
 
@@ -369,13 +349,6 @@ local function check_requirements(name, requires)
 
 	local video_driver = core.get_active_driver()
 	local shaders_support = video_driver == "opengl" or video_driver == "opengl3" or video_driver == "ogles2"
-<<<<<<< HEAD
-	local special = {
-		android = PLATFORM == "Android",
-		desktop = PLATFORM ~= "Android",
-		touchscreen_gui = core.settings:get_bool("enable_touch"),
-		keyboard_mouse = not core.settings:get_bool("enable_touch"),
-=======
 	local touch_support = core.irrlicht_device_supports_touch()
 	local touch_controls = core.settings:get("touch_controls")
 	local special = {
@@ -386,7 +359,6 @@ local function check_requirements(name, requires)
 		-- be used, so we show settings for both.
 		touchscreen = touch_support and (touch_controls == "auto" or core.is_yes(touch_controls)),
 		keyboard_mouse = not touch_support or (touch_controls == "auto" or not core.is_yes(touch_controls)),
->>>>>>> 5.10.0
 		shaders_support = shaders_support,
 		shaders = core.settings:get_bool("enable_shaders") and shaders_support,
 		opengl = video_driver == "opengl",
@@ -496,22 +468,6 @@ local function build_page_components(page)
 end
 
 
-<<<<<<< HEAD
---- Creates a scrollbaroptions for a scroll_container
---
--- @param visible_l the length of the scroll_container and scrollbar
--- @param total_l length of the scrollable area
--- @param scroll_factor as passed to scroll_container
-local function make_scrollbaroptions_for_scroll_container(visible_l, total_l, scroll_factor)
-	assert(total_l >= visible_l)
-	local max = total_l - visible_l
-	local thumb_size = (visible_l / total_l) * max
-	return ("scrollbaroptions[min=0;max=%f;thumbsize=%f]"):format(max / scroll_factor, thumb_size / scroll_factor)
-end
-
-
-=======
->>>>>>> 5.10.0
 local formspec_show_hack = false
 
 
@@ -521,15 +477,6 @@ local function get_formspec(dialogdata)
 
 	local extra_h = 1 -- not included in tabsize.height
 	local tabsize = {
-<<<<<<< HEAD
-		width = core.settings:get_bool("enable_touch") and 16.5 or 15.5,
-		height = core.settings:get_bool("enable_touch") and (10 - extra_h) or 12,
-	}
-
-	local scrollbar_w = core.settings:get_bool("enable_touch") and 0.6 or 0.4
-
-	local left_pane_width = core.settings:get_bool("enable_touch") and 4.5 or 4.25
-=======
 		width = core.settings:get_bool("touch_gui") and 16.5 or 15.5,
 		height = core.settings:get_bool("touch_gui") and (10 - extra_h) or 12,
 	}
@@ -537,7 +484,6 @@ local function get_formspec(dialogdata)
 	local scrollbar_w = core.settings:get_bool("touch_gui") and 0.6 or 0.4
 
 	local left_pane_width = core.settings:get_bool("touch_gui") and 4.5 or 4.25
->>>>>>> 5.10.0
 	local left_pane_padding = 0.25
 	local search_width = left_pane_width + scrollbar_w - (0.75 * 2)
 
@@ -551,11 +497,7 @@ local function get_formspec(dialogdata)
 	local fs = {
 		"formspec_version[6]",
 		"size[", tostring(tabsize.width), ",", tostring(tabsize.height + extra_h), "]",
-<<<<<<< HEAD
-		core.settings:get_bool("enable_touch") and "padding[0.01,0.01]" or "",
-=======
 		core.settings:get_bool("touch_gui") and "padding[0.01,0.01]" or "",
->>>>>>> 5.10.0
 		"bgcolor[#0000]",
 
 		-- HACK: this is needed to allow resubmitting the same formspec
@@ -587,13 +529,8 @@ local function get_formspec(dialogdata)
 			"tooltip[search;", fgettext("Search"), "]",
 			"tooltip[search_clear;", fgettext("Clear"), "]",
 		"container_end[]",
-<<<<<<< HEAD
-		"scroll_container[0.25,1.25;", tostring(left_pane_width), ",",
-				tostring(tabsize.height - 1.5), ";leftscroll;vertical;0.1]",
-=======
 		("scroll_container[0.25,1.25;%f,%f;leftscroll;vertical;0.1;0]"):format(
 			left_pane_width, tabsize.height - 1.5),
->>>>>>> 5.10.0
 		"style_type[button;border=false;bgcolor=#3333]",
 		"style_type[button:hover;border=false;bgcolor=#6663]",
 	}
@@ -623,10 +560,6 @@ local function get_formspec(dialogdata)
 	fs[#fs + 1] = "scroll_container_end[]"
 
 	if y >= tabsize.height - 1.25 then
-<<<<<<< HEAD
-		fs[#fs + 1] = make_scrollbaroptions_for_scroll_container(tabsize.height - 1.5, y, 0.1)
-=======
->>>>>>> 5.10.0
 		fs[#fs + 1] = ("scrollbar[%f,1.25;%f,%f;vertical;leftscroll;%f]"):format(
 				left_pane_width + 0.25, scrollbar_w, tabsize.height - 1.5, dialogdata.leftscroll or 0)
 	end
@@ -638,11 +571,7 @@ local function get_formspec(dialogdata)
 	end
 
 	local right_pane_width = tabsize.width - left_pane_width - 0.375 - 2*scrollbar_w - 0.25
-<<<<<<< HEAD
-	fs[#fs + 1] = ("scroll_container[%f,0;%f,%f;rightscroll;vertical;0.1]"):format(
-=======
 	fs[#fs + 1] = ("scroll_container[%f,0;%f,%f;rightscroll;vertical;0.1;0.25]"):format(
->>>>>>> 5.10.0
 			tabsize.width - right_pane_width - scrollbar_w, right_pane_width, tabsize.height)
 
 	y = 0.25
@@ -698,10 +627,6 @@ local function get_formspec(dialogdata)
 	fs[#fs + 1] = "scroll_container_end[]"
 
 	if y >= tabsize.height then
-<<<<<<< HEAD
-		fs[#fs + 1] = make_scrollbaroptions_for_scroll_container(tabsize.height, y + 0.375, 0.1)
-=======
->>>>>>> 5.10.0
 		fs[#fs + 1] = ("scrollbar[%f,0;%f,%f;vertical;rightscroll;%f]"):format(
 				tabsize.width - scrollbar_w, scrollbar_w, tabsize.height, dialogdata.rightscroll or 0)
 	end
@@ -719,8 +644,6 @@ function write_settings_early()
 	end
 end
 
-<<<<<<< HEAD
-=======
 local function regenerate_page_list(dialogdata)
 	local suggested_page_id = update_filtered_pages(dialogdata.query)
 
@@ -733,7 +656,6 @@ local function regenerate_page_list(dialogdata)
 		dialogdata.page_id = suggested_page_id
 	end
 end
->>>>>>> 5.10.0
 
 local function buttonhandler(this, fields)
 	local dialogdata = this.data
@@ -758,31 +680,7 @@ local function buttonhandler(this, fields)
 		local value = core.is_yes(fields.show_advanced)
 		core.settings:set_bool("show_advanced", value)
 		write_settings_early()
-<<<<<<< HEAD
-	end
-
-	-- enable_touch is a checkbox in a setting component. We handle this
-	-- setting differently so we can hide/show pages using the next if-statement
-	if fields.enable_touch ~= nil then
-		local value = core.is_yes(fields.enable_touch)
-		core.settings:set_bool("enable_touch", value)
-		write_settings_early()
-	end
-
-	if fields.show_advanced ~= nil or fields.enable_touch ~= nil then
-		local suggested_page_id = update_filtered_pages(dialogdata.query)
-
-		dialogdata.components = nil
-
-		if not filtered_page_by_id[dialogdata.page_id] then
-			dialogdata.leftscroll = 0
-			dialogdata.rightscroll = 0
-
-			dialogdata.page_id = suggested_page_id
-		end
-=======
 		regenerate_page_list(dialogdata)
->>>>>>> 5.10.0
 
 		return true
 	end
@@ -815,14 +713,6 @@ local function buttonhandler(this, fields)
 		end
 	end
 
-<<<<<<< HEAD
-	for i, comp in ipairs(dialogdata.components) do
-		if comp.on_submit and comp:on_submit(fields, this) then
-			write_settings_early()
-
-			-- Clear components so they regenerate
-			dialogdata.components = nil
-=======
 	local function after_setting_change(comp)
 		write_settings_early()
 		if comp.setting and comp.setting.name == "touch_controls" then
@@ -838,19 +728,11 @@ local function buttonhandler(this, fields)
 	for i, comp in ipairs(dialogdata.components) do
 		if comp.on_submit and comp:on_submit(fields, this) then
 			after_setting_change(comp)
->>>>>>> 5.10.0
 			return true
 		end
 		if comp.setting and fields["reset_" .. i] then
 			core.settings:remove(comp.setting.name)
-<<<<<<< HEAD
-			write_settings_early()
-
-			-- Clear components so they regenerate
-			dialogdata.components = nil
-=======
 			after_setting_change(comp)
->>>>>>> 5.10.0
 			return true
 		end
 	end
@@ -861,11 +743,7 @@ end
 
 local function eventhandler(event)
 	if event == "DialogShow" then
-<<<<<<< HEAD
-		-- Don't show the "MINETEST" header behind the dialog.
-=======
 		-- Don't show the header image behind the dialog.
->>>>>>> 5.10.0
 		mm_game_theme.set_engine(true)
 		return true
 	end
